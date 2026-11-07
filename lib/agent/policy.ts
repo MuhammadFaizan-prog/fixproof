@@ -81,6 +81,43 @@ export interface OutcomeDecision {
   headline: string;
 }
 
+/**
+ * What a failed call means for the ticket, by ClockedError kind. A busy
+ * service is worth retrying later; a refused key or exhausted credits is an
+ * operator problem; an invalid request or response is a FixProof bug. Each
+ * reads differently in the outcome and sets the handoff priority.
+ */
+export interface FailureMeaning {
+  detail: string;
+  /** Employee-facing next step. */
+  next: string;
+  priority: "P2" | "P3";
+  retryable: boolean;
+}
+
+export function failureMeaning(kind: string): FailureMeaning {
+  switch (kind) {
+    case "rate_limited":
+    case "server":
+    case "timeout":
+    case "network":
+    case "ended":
+      return { detail: "Clocked was busy or unreachable after retries", next: "A person picks it up now; FixProof can be re-run once Clocked answers.", priority: "P3", retryable: true };
+    case "auth":
+    case "credits":
+    case "no_key":
+      return { detail: "FixProof's Clocked access was refused (key or credits)", next: "A person picks it up; the help-desk owner is alerted to restore Clocked access.", priority: "P2", retryable: false };
+    case "no_fixture":
+      return { detail: "no recorded response exists for this step", next: "Run it live, or pick a preset that has a recording.", priority: "P3", retryable: false };
+    case "invalid":
+    case "too_large":
+    case "invalid_response":
+      return { detail: "Clocked could not read the request or FixProof could not read the answer", next: "A person picks it up; nothing was guessed.", priority: "P3", retryable: false };
+    default:
+      return { detail: "an internal error stopped the run", next: "A person picks it up; nothing was guessed.", priority: "P3", retryable: false };
+  }
+}
+
 const two = (n: number) => `${Math.round(n * 100)}%`;
 
 /** Combine every check into one outcome. Any escalate-level failure escalates; any confirm-level failure confirms. */
@@ -88,7 +125,7 @@ export function decideOutcome(i: OutcomeInput): OutcomeDecision {
   const checks: Check[] = [];
   const add = (c: Check) => checks.push(c);
 
-  add({ id: "clocked", label: "Every check returned", severity: "escalate", pass: i.failure ? false : true, detail: i.failure ? `${i.failure.step} did not return (${i.failure.kind})` : "all Clocked calls answered" });
+  add({ id: "clocked", label: "Every check returned", severity: "escalate", pass: i.failure ? false : true, detail: i.failure ? `${failureMeaning(i.failure.kind).detail} at ${i.failure.step}` : "all Clocked calls answered" });
 
   if (i.screen) {
     add({

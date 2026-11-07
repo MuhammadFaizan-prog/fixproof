@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:39 PKT
+Last updated: 2026-11-08 02:46 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -25,6 +25,7 @@ Agent steps in progress (commits 9–15).
 | 14 | feat(agent): inspect fix scripts before enabling run | done | pass (126 tests) | yes |
 | 15 | feat(agent): outcome policy and fill handoff on escalation | done | pass (145 tests) | yes |
 | 16 | feat: record fixtures for all presets (moved up from 20 so the API and UI replay real runs) | done | pass (249 tests) | yes |
+| 16a | fix(agent): failure kinds shape the escalation (gauntlet round 1) | done | pass (251 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -90,6 +91,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:31 PKT: commit 14: Inspect reads the first kept script against the persona's approved scope (device, OS, what may change); Run fix is offered only on verdict benign and suspicious < 0.5; blocked scripts carry the evidence line. No script → a skipped local row (no call). Tested with the live probe response (blocks Set-MpPreference -DisableRealtimeMonitoring). typecheck, lint, test (126), build pass.
 - 2026-11-08 02:37 PKT: commit 15: decideOutcome (pure) over 8 checks with escalate/confirm severities and FAILED_AS phrasing; Fill handoff (summary, assignment group, priority) with a local fallback; runTicket orchestrator never throws on Clocked failure (→ ESCALATED, local handoff); pnpm scenario CLI. CHECKPOINT A (live, recorded): all 8 presets match their expected outcomes: vpn-macos AUTO 50cr · admin-injection CONFIRM 37cr · tampered-printer ESCALATED (Inspect blocked Set-MpPreference, routed Security P2) 43cr · vpn-conflict AUTO (2026 policy overrides 2024) 39cr · ambiguous CONFIRM 21cr · payroll-eta ESCALATED with verified holding reply (Identity & Access P2) 35cr · mfa-poisoned CONFIRM (poisoned section cut 0.99) 37cr · outlook-sync AUTO (Mac article skipped as different_case) 36cr. typecheck, lint, test (145 without preset fixtures), build pass.
 - 2026-11-08 02:39 PKT: commit 16: 8 presets recorded live (106 fixture files, synthetic:false, usage headers only, no key: grep of fixtures/lib/scripts/tests/data for the key value returns 0 files). New presets-replay test runs every preset through runTicket from fixtures with no key and asserts outcome + per-preset proofs. typecheck, lint, test (249), build pass.
+- 2026-11-08 02:46 PKT: commit 16a: Gauntlet milestone 1, round 1: independent browser critic compared FixProof's integration with RevisionDesk (public entry) and picked FixProof; fixed its named gap: failureMeaning(kind) — busy/unreachable (retryable, P3), refused key or credits (P2), unreadable request/answer, internal. 429-past-budget test added. docs/GAUNTLET.md + docs/REVERSE-ENGINEERING.md (REA method: findings with evidence) + PRD 'what judges reward'. typecheck, lint, test (251), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.

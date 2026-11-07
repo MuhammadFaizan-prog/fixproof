@@ -102,3 +102,30 @@ describe("runTicket", () => {
     expect(rows.get("outcome")).toMatchObject({ verdict: "ESCALATED" });
   });
 });
+
+describe("failure kinds", () => {
+  it("separates a busy Clocked from refused access and from bugs", async () => {
+    const { failureMeaning } = await import("@/lib/agent/policy");
+    expect(failureMeaning("rate_limited")).toMatchObject({ retryable: true, priority: "P3" });
+    expect(failureMeaning("ended")).toMatchObject({ retryable: true });
+    expect(failureMeaning("credits")).toMatchObject({ retryable: false, priority: "P2" });
+    expect(failureMeaning("auth").detail).toMatch(/refused/);
+    expect(failureMeaning("invalid_response").detail).toMatch(/could not read/);
+    expect(failureMeaning("whatever").detail).toMatch(/internal/);
+  });
+
+  it("a 429 that outlasts the retry budget escalates as 'busy', with a P3 local handoff", async () => {
+    const { createClockedClient } = await import("@/lib/clocked/client");
+    const client = createClockedClient({
+      transport: { kind: "http", send: async () => ({ status: 429, headers: {}, json: { error: "busy" } }) },
+      sleep: async () => {},
+      maxAttempts: 2,
+    });
+    const events: import("@/lib/agent/types").StepEvent[] = [];
+    const r = await runTicket({ client, persona: PERSONAS[0], emit: (e) => events.push(e) }, { text: "VPN down", index: getKbIndex() });
+    expect(r.failure).toMatchObject({ kind: "rate_limited" });
+    expect(r.outcome.deciding?.detail).toMatch(/busy or unreachable/);
+    expect(r.handoff).toMatchObject({ source: "local", priority: "P3" });
+    expect(finalEvents(events).get("handoff")!.effect).toMatch(/re-run once Clocked answers/);
+  });
+});

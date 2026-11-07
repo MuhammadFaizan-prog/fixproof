@@ -67,3 +67,6 @@ Stretch (P1): duplicate-incident Compare against recent tickets; screenshot inta
 ## Open product questions
 - Exact Decide middle band (0.45 to 0.8 planned) to be tuned on recorded preset results.
 - Whether duplicate-incident detection ships (P1, only after Checkpoint B).
+
+## What the judges reward (evidence, 2026-11-08)
+From the rubric and Clocked's own comments on other entries (docs/REVERSE-ENGINEERING.md): output that changes the workflow, evidence marked on the original, a human-review band for close calls, category breakdowns that explain a verdict, short-circuiting before spending credits, and an honest overall-uncertainty signal. Acceptance for the UI therefore adds: probability bars with band thresholds drawn; Guard/Inspect category distribution in the inspector; per-row "Recorded live, <date>" or "Live" labels; credits per row and per run.

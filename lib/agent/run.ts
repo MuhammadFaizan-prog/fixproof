@@ -1,6 +1,6 @@
 import { ClockedError } from "@/lib/clocked/errors";
 import type { KbIndex } from "@/lib/kb/index";
-import { decideOutcome, type OutcomeDecision } from "./policy";
+import { decideOutcome, failureMeaning, type OutcomeDecision } from "./policy";
 import { draft, type DraftResult } from "./steps/draft";
 import { fixGate, type FixGateResult } from "./steps/fixGate";
 import { handoff, localHandoff, type HandoffRecord } from "./steps/handoff";
@@ -89,15 +89,16 @@ export async function runTicket(ctx: RunContext, input: RunInput): Promise<RunRe
   if (r.outcome.outcome === "ESCALATED") {
     const h = { maskedTicket: r.screen?.safeText ?? "", failed: r.outcome.deciding, attempted, reply: r.prove?.reply || null };
     if (r.failure) {
-      r.handoff = localHandoff(h, c.persona);
-      emit({ id: "handoff", stage: "outcome", endpoint: "local", title: "Handoff record", status: "ok", verdict: "Service Desk · P3", effect: "Clocked did not answer, so FixProof built the handoff itself and queued the ticket for a person. Nothing was guessed." });
+      r.handoff = localHandoff(h, c.persona, r.failure.kind);
+      const meaning = failureMeaning(r.failure.kind);
+      emit({ id: "handoff", stage: "outcome", endpoint: "local", title: "Handoff record", status: "ok", verdict: `Service Desk · ${meaning.priority}`, effect: `${meaning.detail[0].toUpperCase()}${meaning.detail.slice(1)}, so FixProof built the handoff itself. ${meaning.next}` });
     } else {
       try {
         r.handoff = await handoff(c, h);
       } catch (err) {
         const e = err instanceof ClockedError ? err : null;
         r.failure = { step: "handoff", kind: e?.kind ?? "invalid_response", message: e?.message ?? "handoff failed" };
-        r.handoff = localHandoff(h, c.persona);
+        r.handoff = localHandoff(h, c.persona, r.failure.kind);
       }
     }
   }

@@ -1,5 +1,5 @@
 import type { FillRequest } from "@/lib/clocked/types";
-import { FAILED_AS, type Check } from "../policy";
+import { FAILED_AS, failureMeaning, type Check } from "../policy";
 import { tracedCall } from "../trace";
 import type { RunContext } from "../types";
 
@@ -67,14 +67,15 @@ function base(i: HandoffInput, persona: RunContext["persona"]): Omit<HandoffReco
 }
 
 /** The record built without Clocked, used when Clocked is the thing that failed. */
-export function localHandoff(i: HandoffInput, persona: RunContext["persona"]): HandoffRecord {
+export function localHandoff(i: HandoffInput, persona: RunContext["persona"], failureKind?: string): HandoffRecord {
+  const meaning = failureKind ? failureMeaning(failureKind) : null;
   return {
     ...base(i, persona),
     source: "local",
-    summary: `Automated triage stopped${i.failed ? `: ${FAILED_AS[i.failed.id]} (${i.failed.detail})` : ""}. The ticket is queued for the Service Desk with everything FixProof had done so far.`,
+    summary: `Automated triage stopped${i.failed ? `: ${FAILED_AS[i.failed.id]} (${i.failed.detail})` : ""}. ${meaning ? meaning.next : "The ticket is queued for the Service Desk with everything FixProof had done so far."}`,
     assignmentGroup: "Service Desk",
     assignmentConfidence: null,
-    priority: "P3",
+    priority: meaning?.priority ?? "P3",
   };
 }
 
