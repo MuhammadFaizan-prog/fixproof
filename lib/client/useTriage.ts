@@ -4,6 +4,7 @@ import { useCallback, useReducer, useRef } from "react";
 import type { PublicResult } from "@/lib/agent/triage";
 import type { StepEvent } from "@/lib/agent/types";
 import { createSseParser } from "@/lib/sse";
+import { paceDelays, prefersReducedMotion } from "./pace";
 
 /**
  * Client state for one triage run. Rows are keyed by step id, so a row's
@@ -86,20 +87,49 @@ export function useTriage() {
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let gotResult = false;
+      let gotError = false;
+      // Replay streams in ~100 ms; buffer it and re-time it on the client (lib/client/pace.ts).
+      // Live runs dispatch each frame as it arrives.
+      let replay = false;
+      const buffered: StepEvent[] = [];
+      let finalResult: PublicResult | null = null;
+      let finalError: { code: string; message: string } | null = null;
       for (;;) {
         const { value, done } = await reader.read();
         if (done) break;
         for (const e of parse(decoder.decode(value, { stream: true }))) {
           const at = Date.now();
-          if (e.event === "start") dispatch({ type: "start", data: e.data as RunStart });
-          else if (e.event === "step") dispatch({ type: "step", data: e.data as StepEvent, at });
-          else if (e.event === "result") {
+          if (e.event === "start") {
+            replay = (e.data as RunStart).mode === "replay";
+            dispatch({ type: "start", data: e.data as RunStart });
+          } else if (e.event === "step") {
+            if (replay) buffered.push(e.data as StepEvent);
+            else dispatch({ type: "step", data: e.data as StepEvent, at });
+          } else if (e.event === "result") {
             gotResult = true;
-            dispatch({ type: "result", data: e.data as PublicResult, at });
-          } else if (e.event === "error") dispatch({ type: "error", data: e.data as { code: string; message: string }, at });
+            if (replay) finalResult = e.data as PublicResult;
+            else dispatch({ type: "result", data: e.data as PublicResult, at });
+          } else if (e.event === "error") {
+            gotError = true;
+            if (replay) finalError = e.data as { code: string; message: string };
+            else dispatch({ type: "error", data: e.data as { code: string; message: string }, at });
+          }
         }
       }
-      if (!gotResult) dispatch({ type: "error", data: { code: "cut", message: "The connection closed before the run finished. Nothing was sent to the employee." }, at: Date.now() });
+      if (replay) {
+        const still = prefersReducedMotion();
+        const delays = still ? buffered.map(() => 0) : paceDelays(buffered);
+        for (let i = 0; i < buffered.length; i++) {
+          if (delays[i]) await sleep(delays[i]);
+          if (controller.signal.aborted) return;
+          dispatch({ type: "step", data: buffered[i], at: Date.now() });
+        }
+        if (!still) await sleep(120);
+        if (controller.signal.aborted) return;
+        if (finalResult) dispatch({ type: "result", data: finalResult, at: Date.now() });
+        else if (finalError) dispatch({ type: "error", data: finalError, at: Date.now() });
+      }
+      if (!gotResult && !gotError) dispatch({ type: "error", data: { code: "cut", message: "The connection closed before the run finished. Nothing was sent to the employee." }, at: Date.now() });
     } catch (err) {
       if ((err as Error).name === "AbortError") return;
       dispatch({ type: "error", data: { code: "network", message: "Could not reach FixProof. Check your connection and run it again." }, at: Date.now() });
@@ -113,3 +143,5 @@ export function useTriage() {
 
   return { state, run, reset };
 }
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
