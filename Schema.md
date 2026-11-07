@@ -19,14 +19,14 @@ Frontmatter:
 
 Body: markdown sections (`##`). A section is the chunk unit; a fenced script belongs to its section.
 
-## KB chunk (in memory)
-`{ id: "<article>#<n>", articleId, index, title, section, text, os, region, updated, hasScript }`. Neighbors: `index - 1` and `index + 1` in the same article.
+## KB chunk (in memory, lib/kb/types.ts)
+`{ id: "<article>#<n>", articleId, index, title, section, text, os, region, category, updated, script: { lang, code } | null }`. Parsed by lib/kb/parse.ts (flat frontmatter, no YAML dependency); `has_script` must match a fenced powershell/bash/zsh block. Neighbors: `index - 1` and `index + 1` in the same article.
 
 ## Persona (`data/personas.ts`)
-`{ id, name, role, os, device, region, department, approvedScope }`. Names are fictional.
+`{ id, name, role, department, os, osLabel, device, assetTag, region, office, approvedScope }`. Names, emails and asset tags are fictional. `approvedScope` is the Inspect instruction for that device.
 
 ## Scenario (`data/scenarios.ts`)
-`{ id, title, personaId, text, expects: { outcome, proves } }`.
+`{ id, title, personaId, text, expectedArticles, expects: { outcome | outcome[], proves } }`. Eight presets: vpn-macos, admin-injection, tampered-printer, vpn-conflict, ambiguous, payroll-eta, mfa-poisoned, outlook-sync.
 
 ## Fixture (`fixtures/<scenario>/<step>.json`)
 ```
@@ -46,7 +46,7 @@ Validated by `FixtureSchema` (lib/clocked/fixtures.ts). `synthetic: true` means 
 History belongs to the browser and is cleared from the History drawer. Server keeps no ticket data; logs exclude ticket text.
 
 ## Seed data
-~30 KB articles including: a VPN v1/v2 conflict pair, a tampered printer script (`Set-MpPreference -DisableRealtimeMonitoring $true`), a poisoned passage for content Guard, Windows/macOS/Linux variants of the same fix for `different_case`.
+30 KB articles (data/kb) including: a VPN v1/v2 conflict pair, a tampered printer script (`Set-MpPreference -DisableRealtimeMonitoring $true`), a poisoned passage for content Guard, Windows/macOS/Linux variants of the same fix for `different_case`.
 
 ## Migrations
 None. Fixture format is versioned by its keys; a breaking change bumps the history key (`.v2`).

@@ -3,7 +3,7 @@
 Last updated: 2026-11-08 01:45 PKT
 
 ## Current active work
-Commit 7 (KB + personas). Next: BM25 (8).
+Commit 8 (BM25 index). Then stop for review (assignment ends at commit 8).
 
 ## Commits
 | # | Message | Status | Build | Pushed |
@@ -14,7 +14,7 @@ Commit 7 (KB + personas). Next: BM25 (8).
 | 4 | chore: add shadcn/ui, design tokens and base layout | done | pass | yes |
 | 5 | feat(clocked): typed client wrapper with idempotency, backoff and credit headers | done | pass (19 tests) | yes |
 | 6 | feat(clocked): replay mode backed by recorded fixtures | done | pass (50 tests) | yes |
-| 7 | feat(kb): add synthetic Northwind Labs knowledge base and personas | not started | | |
+| 7 | feat(kb): add synthetic Northwind Labs knowledge base and personas | done | pass (61 tests) | yes |
 | 8 | feat(kb): minisearch BM25 index with chunk neighbors | not started | | |
 | 9–25 | see ImplementationPlan.md | not started | | |
 
@@ -62,6 +62,8 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:35 PKT: `pnpm probe` (live, 37 credits total, all HTTP 200, cost basis `reference`): decide 1 · extract 3 · fill 4 · pii 5 · injection 4 · script 3 · grounding 4 · compare 5 · rerank 2 · pipeline(pii+injection) 6. Observed behavior that the agent relies on: rerank skipped the Windows article as `different_case` for a macOS user; grounding marked "restored by 2pm" `not_stated`; compare found 2 conflicts between VPN policy v1/v2; script flagged `Set-MpPreference -DisableRealtimeMonitoring $true` as malicious; pipeline stopped at injection (flagged). Saved as live fixtures in fixtures/probe/.
 - Credits used so far: 39 of 20,000 (2 smoke calls + probe).
 - 2026-11-08 02:40 PKT: commit 6 typecheck, lint, test (50 passed), build pass.
+- 2026-11-08 02:55 PKT: commit 7: 30 synthetic articles (VPN per OS, VPN policy 2024 vs 2026 conflict, tampered printer script, poisoned MFA passage, payroll outage with no ETA), 3 personas, 8 presets; KB validation tests pass; build pass.
+- Note: scenarios (data/scenarios.ts) landed with the KB in commit 7 because the BM25 recall test in commit 8 needs them; the intake UI for them is still commit 17.
 
 ## Next actions
 1. Design references → docs/DESIGN.md → commit 4.
