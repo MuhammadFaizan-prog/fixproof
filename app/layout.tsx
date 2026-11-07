@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import "@fontsource-variable/newsreader";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f3ee",
+  themeColor: "#f4f7f7",
 };
 
 export default function RootLayout({
