@@ -14,7 +14,7 @@ React 19, Tailwind CSS v4, shadcn/ui primitives, lucide-react icons, framer-moti
 
 ## Backend
 Next.js route handlers on the Node runtime (not Edge), `maxDuration = 60`.
-- `POST /api/triage` body `{ text, personaId, scenarioId?, mode: "replay" | "live" }` → `text/event-stream` of `StepEvent` then one `OutcomeEvent`.
+- `POST /api/triage` body `{ text (≤ 4,000 chars), personaId, scenarioId?, mode: "replay" | "live" }` (zod) → `text/event-stream` with `event: start` `{mode, reason, scenarioId, persona}`, `event: step` (StepEvent, `running` then `ok`/`error`/`skipped` per row id), `event: result` (PublicResult: outcome + checks, screen marks, record, passages, conflicts, verified claims, script gate, handoff, credits) or `event: error`. Bad input is a 400 JSON before the stream. A preset always runs its own text and persona and always replays. Free text runs live only when a key exists. Parser and encoder share `lib/sse.ts`.
 - `GET /api/health` → `{ ok, mode, keyConfigured }` (never the key).
 
 ## Orchestrator steps

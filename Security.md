@@ -52,3 +52,8 @@ Vercel Node runtime, env vars encrypted, preview deployments without the key run
 
 ## Incident / key rotation
 Revoke key → new key in Vercel → redeploy → verify `/api/health` → re-run probe.
+
+## Verified 2026-11-08 (API route commit)
+- `.next/static` contains no `CLOCKED` string and no copy of the key value (grep after a clean build).
+- `/api/health` returns only `{ ok, keyConfigured, liveAvailable }`.
+- The route logs only an error name and scenario id, never ticket text or headers. Presets ignore client-sent text, so a preset run can never be steered by the client.
