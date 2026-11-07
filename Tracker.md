@@ -1,9 +1,9 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 04:40 PKT
+Last updated: 2026-11-08 04:38 PKT
 
 ## Current active work
-UI redesign, direction D (OrchestrateIQ), on local branch `redesign-d`; Faizi approved a fast-forward merge to main + push once every check passes. Deploy is his (Vercel). Previously: STOPPED after commit 22 at Faizi's request (2026-11-08 03:42 PKT): full UI redesign coming from new Dribbble/Behance/Pinterest references. Skipped for now: loading/error/mobile states (23), README + CLOCKED.md (24), gauntlet UI critic round. Credits this run: 14 (two handoff re-records); total ≈654 of 20,000.
+UI redesign, direction D (OrchestrateIQ): done on `redesign-d`, fast-forwarded into main and pushed with Faizi's approval (main 72d787c for the UI). Deploy is his (Vercel), not done here. Previously: STOPPED after commit 22 at Faizi's request (2026-11-08 03:42 PKT): full UI redesign coming from new Dribbble/Behance/Pinterest references. Skipped for now: loading/error/mobile states (23), README + CLOCKED.md (24), gauntlet UI critic round. Credits this run: 14 (two handoff re-records); total ≈654 of 20,000.
 
 ## Commits
 | # | Message | Status | Build | Pushed |
@@ -32,10 +32,11 @@ UI redesign, direction D (OrchestrateIQ), on local branch `redesign-d`; Faizi ap
 | 20 | feat(ui): conflict card, script gate, handoff card and outcome banner | done | pass (268 tests) | yes |
 | 21 | feat(api): live-mode rate limiting and daily credit cap | done | pass (276 tests) | yes |
 | 22 | test(e2e): Playwright smoke clicks all 8 presets in replay mode | done | pass (276 tests) | yes |
-| R1 | feat(ui): pace replay on the client (80–150 ms per step, ≤2 s, reduced-motion aware) | done | pass (279 tests) | after merge |
-| R2 | feat(ui): direction D tokens (cool-grey canvas, electric blue, mint/gold/red verdicts), Geist only, no blur | done | pass (279 tests) | after merge |
-| R3 | feat(ui): direction D layout: ticket queue, run header with ticket path, outcome receipt, collapsible proof-trail timeline, evidence rail tabs, recent runs | done | pass (279 unit, 12 e2e) | after merge |
-| R4 | feat(ui): header actions, docs: DESIGN.md for direction D, tracker | done | pass | after merge |
+| R1 | feat(ui): pace replay on the client (80–150 ms per step, ≤2 s, reduced-motion aware) | done | pass (279 tests) | yes |
+| R2 | feat(ui): direction D tokens (cool-grey canvas, electric blue, mint/gold/red verdicts), Geist only, no blur | done | pass (279 tests) | yes |
+| R3 | feat(ui): direction D layout: ticket queue, run header with ticket path, outcome receipt, collapsible proof-trail timeline, evidence rail tabs, recent runs | done | pass (279 unit, 12 e2e) | yes |
+| R4 | feat(ui): run header actions; docs: DESIGN.md for direction D, tracker | done | pass (279 unit, 12 e2e) | yes |
+| R5 | fix(ui): inspector label column fits 390 px | done | pass (279 unit, 12 e2e) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -112,7 +113,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 03:32 PKT: commit 21: lib/server/live-guard.ts: per-visitor sliding-hour limit (LIVE_PER_IP_RUNS_PER_HOUR=5), one live run in flight (LIVE_MAX_INFLIGHT=1, Trial concurrency), daily credit cap per UTC day (LIVE_DAILY_CREDIT_CAP=2000) reserving 60 per run and settling to summed X-Clocked-Credits; 429 + Retry-After + code (rate_limited/busy/daily_cap) before any Clocked call; health adds dailyCapReached; intake shows a replay-only note on cap. Presets never limited. In-memory = per warm instance (documented in Security.md). Tests with a fake key and caps forced to 0 (no credits spent). Clean build: static CLOCKED 0, key 0. typecheck, lint, test (276), build pass.
 - 2026-11-08 03:44 PKT: commit 22: playwright.config.ts + e2e/presets.spec.ts (@playwright/test 1.65.0): server started with a blank CLOCKED_API_KEY (replay only); health says replay only; each of the 8 presets is clicked and replayed, outcome card + final Proof Trail row asserted against Scenario.recorded, ESCALATED shows the handoff record; one step opens the inspector with 'Recorded live'. pnpm e2e: 10 passed (15.7 s) after pnpm build. Sandbox: needs NO_PROXY=127.0.0.1,localhost and system Chromium (/usr/bin/chromium, reinstalled via apt after a sandbox reset; Playwright CDN download is blocked here). Clean build: static CLOCKED 0, key 0. typecheck, lint, test (276 unit), build pass.
 
-- 2026-11-08 04:40 PKT: redesign (R1–R4): typecheck, lint, test (279 incl. new pace tests), clean build, e2e 12 passed (8 presets with all stages resolved + expand, paced-replay check, mobile outcome-first + no horizontal overflow, inspector via collapsed stage). Clean build: .next/static CLOCKED 0 files, key value 0 files. Screens /workspace/clocked/screens/redesign/ (idle, vpn, conflict, printer, payroll at 1440 and 390, inspector), compare-d.png, walkthrough.mp4.
+- 2026-11-08 04:40 PKT: redesign (R1–R4): typecheck, lint, test (279 incl. new pace tests), clean build, e2e 12 passed (8 presets with all stages resolved + expand, paced-replay check, mobile outcome-first + no horizontal overflow, inspector via collapsed stage). Clean build: .next/static CLOCKED 0 files, key value 0 files. Screens recorded from merged main 72d787c: /workspace/clocked/screens/redesign/ (idle, vpn, conflict, printer, payroll at 1440 and 390, inspector), compare-d.png (D left, FixProof right), walkthrough.mp4 (H.264, 1440×900, 94.7 s; tools/walk-d.mjs).
 
 ## Next actions
 -1. (redesign) Faizi reviews the merged UI; Vercel deploy is his. Then resume 23 (states/mobile pass is mostly covered by the redesign: confirm loading/error states), 24 (README + CLOCKED.md, refresh screenshots), gauntlet UI critic against D.
