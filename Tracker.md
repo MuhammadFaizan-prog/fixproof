@@ -1,9 +1,9 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 03:05 PKT
+Last updated: 2026-11-08 02:13 PKT
 
 ## Current active work
-Commits 1–8 done and pushed. Paused for review before commit 9 (screening step).
+Agent steps in progress (commits 9–15).
 
 ## Commits
 | # | Message | Status | Build | Pushed |
@@ -16,13 +16,14 @@ Commits 1–8 done and pushed. Paused for review before commit 9 (screening step
 | 6 | feat(clocked): replay mode backed by recorded fixtures | done | pass (50 tests) | yes |
 | 7 | feat(kb): add synthetic Northwind Labs knowledge base and personas | done | pass (61 tests) | yes |
 | 8 | feat(kb): minisearch BM25 index with chunk neighbors | done | pass (79 tests) | yes |
-| 9–25 | see ImplementationPlan.md | not started | | |
+| 9 | feat(agent): screening step via pipeline (pii + injection stop) | done | pass (91 tests) | yes |
+| next | see ImplementationPlan.md | not started | | |
 
 ## Stories
 | ID | Title | Priority | Status | Pass/fail | Evidence |
 |---|---|---|---|---|---|
 | S1 | Intake, personas, presets | P0 | not started | | |
-| S2 | Screening via pipeline | P0 | not started | | |
+| S2 | Screening via pipeline | P0 | done (lib) | pass (unit) | tests/agent-screen.test.ts |
 | S3 | Understand: extract, fill, decide | P0 | not started | | |
 | S4 | Rerank retrieval + content guard | P0 | not started | | |
 | S5 | Compare conflicts | P0 | not started | | |
@@ -65,6 +66,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:55 PKT: commit 7: 30 synthetic articles (VPN per OS, VPN policy 2024 vs 2026 conflict, tampered printer script, poisoned MFA passage, payroll outage with no ETA), 3 personas, 8 presets; KB validation tests pass; build pass.
 - Note: scenarios (data/scenarios.ts) landed with the KB in commit 7 because the BM25 recall test in commit 8 needs them; the intake UI for them is still commit 17.
 - 2026-11-08 03:05 PKT: commit 8: MiniSearch 7.2 BM25 over 30 articles' `##` chunks (title×2, section×1.5, prefix ≥4 chars, fuzzy ≥6 chars, help-desk stopwords); all 8 presets have their expected articles in the top 20; neighbors for expand. typecheck, lint, test (79 passed), build pass.
+- 2026-11-08 02:13 PKT: commit 9: screen step: one Pipeline call (Protect replace + Guard stop), FixProof rebuilds the safe text from the shared original offsets (PII → <TYPE>, injected spans cut, code-point safe via lib/text/offsets.ts), Guard re-checks the remainder; flagged-without-span holds the whole ticket. Tested on the live probe pipeline fixture + doc-shaped cases. typecheck, lint, test (91), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.
