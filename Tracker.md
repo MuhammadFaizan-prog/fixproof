@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 03:00 PKT
+Last updated: 2026-11-08 03:07 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -28,6 +28,7 @@ Agent steps in progress (commits 9–15).
 | 16a | fix(agent): failure kinds shape the escalation (gauntlet round 1) | done | pass (251 tests) | yes |
 | 17 | feat(api): stream triage steps over SSE | done | pass (260 tests) | yes |
 | 18 | feat(ui): intake form, personas and preset scenarios | done | pass (264 tests) | yes |
+| 19 | feat(ui): proof trail with evidence highlights, step inspector and credit meter | done | pass (264 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -41,7 +42,7 @@ Agent steps in progress (commits 9–15).
 | S6 | Draft + Verify | P0 | done (lib) | pass (unit + live spot check) | tests/agent-draft-prove.test.ts |
 | S7 | Inspect fix gate | P0 | done (lib) | pass (unit, live probe fixture) | tests/agent-fix-gate.test.ts |
 | S8 | Handoff on escalation | P0 | done (lib) | pass (unit + live tampered-printer, payroll-eta) | tests/agent-policy-run.test.ts |
-| S9 | Proof Trail | P0 | not started | | |
+| S9 | Proof Trail | P0 | done | pass (screens c19 1440/390) | components/console/ProofTrail.tsx |
 | S10 | Replay + live caps | P0 | not started | | |
 | S11 | Docs, video, deploy | P0 | not started | | |
 
@@ -96,6 +97,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:46 PKT: commit 16a: Gauntlet milestone 1, round 1: independent browser critic compared FixProof's integration with RevisionDesk (public entry) and picked FixProof; fixed its named gap: failureMeaning(kind) — busy/unreachable (retryable, P3), refused key or credits (P2), unreadable request/answer, internal. 429-past-budget test added. docs/GAUNTLET.md + docs/REVERSE-ENGINEERING.md (REA method: findings with evidence) + PRD 'what judges reward'. typecheck, lint, test (251), build pass.
 - 2026-11-08 02:49 PKT: commit 17: POST /api/triage (Node runtime, maxDuration 60) streams start/step/result over SSE; zod-validated input (≤4,000 chars), presets always replay their own text+persona, free text live only with a key; GET /api/health; outputFileTracingIncludes for data/kb + fixtures. Verified through next start + curl (tampered-printer: 1 start, 24 step frames, 1 result ESCALATED). Security: clean build, grep .next/static for CLOCKED = 0 files, key value in .next = 0 files. typecheck, lint, test (260), build pass.
 - 2026-11-08 03:00 PKT: commit 18: Console client: presets as R2 help-desk rows (4px status bar, title + one-line preview, outcome pill from the committed recording), employee picker (radio cards, 44px targets), ticket textarea (4,000 cap, counter), Replay/Run, health-gated free text with a 'no key' note; useTriage streams SSE into rows keyed by step id; masked-only localStorage history (fixproof.history.v1, cap 50). Scenario.recorded added and asserted by presets-replay. Screenshot via Playwright + system Chromium at 1440/390 (/workspace/clocked/screens/c17-*). typecheck, lint, test (264), build pass.
+- 2026-11-08 03:07 PKT: commit 19: Proof Trail rebuilt from R1 Merit (serif summary + meta line + one card of numbered stage rows: count column, 17px title, effect line, 4px bar, credits·model-time pill); Decide shown as its full distribution with the 80%/70% band thresholds drawn; every Clocked call is a row that opens a Sentry-style inspector (R3: big credits number, label/value grid incl. idempotency prefix, transport, 'Recorded live <date>', Effect/Request/Response tabs, Guard/Inspect category breakdown); ticket evidence pane (as typed: PII underline + injected strike by offset; what every step read: placeholders + extracted values). Mobile: trail scrolls into view on run; call rows fold the endpoint into the title. Screens c18/c19 at 1440 and 390. typecheck, lint, test (264), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.

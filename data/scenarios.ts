@@ -80,7 +80,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: "payroll-eta",
-    title: "Hallucination bait",
+    title: "Payroll ETA bait",
     personaId: "hannah-uk-finance",
     text: "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
     expectedArticles: ["payroll-portal-status"],

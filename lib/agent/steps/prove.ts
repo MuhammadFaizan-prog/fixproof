@@ -48,7 +48,7 @@ export async function prove(ctx: RunContext, question: string, d: DraftResult): 
   const sentences = splitSentences(d.text);
   const { value } = await tracedCall(
     ctx,
-    { id: "prove", stage: "prove", endpoint: "grounding", title: "Verify", runningEffect: `Checking ${plural(sentences.length, "sentence")} against the sources` },
+    { id: "prove", stage: "prove", endpoint: "grounding", title: "Verify, claim by claim", runningEffect: `Checking ${plural(sentences.length, "sentence")} against the sources` },
     () => ctx.client.grounding(proveRequest(question, d, sentences), { step: "prove" }),
     (res) => {
       const claims: ProvenClaim[] = sentences.map((text, i) => {

@@ -49,8 +49,6 @@ export async function draft(ctx: RunContext, ticket: string, passages: Passage[]
       return {
         value: text,
         summary: {
-          count: text.split(/\s+/).length,
-          countLabel: "words",
           verdict: "drafted",
           effect: `Drafted from ${passages.map((p) => `"${p.title}"`).join(", ")}. Not shown to the employee until Verify checks every sentence.`,
           detail: { request: { sources: passages.map((p) => p.id), max_tokens: DRAFT_MAX_TOKENS }, response: { reply: text } },

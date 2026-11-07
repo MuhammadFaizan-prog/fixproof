@@ -100,7 +100,7 @@ export async function screen(ctx: RunContext, text: string): Promise<ScreenResul
           evidence: marks,
           detail: {
             request: { steps: ["pii (anonymize: replace)", "injection (source: user, stop: true)"], text: "[the ticket as typed; not echoed]" },
-            response: { pii: { counts: pii.counts, anonymized_text: pii.anonymized_text }, injection: { verdict: inj.verdict, injection: inj.injection, category: inj.category, severity: inj.severity, evidence: evidence.map((e) => ({ quote: e.quote, start: e.start, end: e.end })), residual: inj.residual } },
+            response: { pii: { counts: pii.counts, anonymized_text: pii.anonymized_text }, injection: { verdict: inj.verdict, injection: inj.injection, category: inj.category, categories: inj.categories, severity: inj.severity, evidence: evidence.map((e) => ({ quote: e.quote, start: e.start, end: e.end })), residual: inj.residual } },
           },
         },
       };
@@ -157,7 +157,7 @@ export async function screen(ctx: RunContext, text: string): Promise<ScreenResul
           effect: ok
             ? `The remainder is clean (${pct(res.data.injection)} injection), so FixProof continues with it: "${kept}${safeText.length > 80 ? "…" : ""}"`
             : `The remainder is still flagged (${res.data.category}), so the ticket goes to a person.`,
-          detail: { request: { text: safeText, source: "user" }, response: { verdict: res.data.verdict, injection: res.data.injection, category: res.data.category } },
+          detail: { request: { text: safeText, source: "user" }, response: { verdict: res.data.verdict, injection: res.data.injection, category: res.data.category, categories: res.data.categories } },
         },
       };
     },

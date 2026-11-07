@@ -57,7 +57,7 @@ export async function reconcile(ctx: RunContext, passages: Passage[]): Promise<R
 
   const { value } = await tracedCall(
     ctx,
-    { id: "reconcile:compare", stage: "reconcile", endpoint: "compare", title: "Compare", runningEffect: `Checking ${passages.length} passages against each other` },
+    { id: "reconcile:compare", stage: "reconcile", endpoint: "compare", title: "Compare, kept passages", runningEffect: `Checking ${passages.length} passages against each other` },
     () => ctx.client.compare(compareRequest(passages), { step: "reconcile:compare" }),
     (res) => {
       const conflicts: Conflict[] = [];

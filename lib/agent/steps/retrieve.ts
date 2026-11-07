@@ -135,7 +135,7 @@ export async function retrieve(ctx: RunContext, index: KbIndex, text: string, u:
 
   const { value: first } = await tracedCall(
     ctx,
-    { id: "retrieve:rerank", stage: "retrieve", endpoint: "rerank", title: "Rerank", runningEffect: `Reading ${candidates.length} passages for ${ctx.persona.osLabel}` },
+    { id: "retrieve:rerank", stage: "retrieve", endpoint: "rerank", title: "Rerank, for this employee", runningEffect: `Reading ${candidates.length} passages for ${ctx.persona.osLabel}` },
     () => ctx.client.rerank(rerankRequest(rerankQuery, candidates, ctx.persona), { step: "retrieve:rerank" }),
     (res) => {
       const classified = classify(res.data.results, candidates);
@@ -215,7 +215,7 @@ export async function retrieve(ctx: RunContext, index: KbIndex, text: string, u:
               ? `Cut "${chunk.title} · ${chunk.section}" before drafting: ${res.data.category}${quote ? `, "${clip(quote, 90)}"` : ""}.`
               : `"${chunk.title} · ${chunk.section}" is clean and may be quoted.`,
             evidence: (res.data.evidence ?? []).map((e) => ({ target: "chunk" as const, ref: chunkId, start: e.start, end: e.end, kind: "injection" as const, label: res.data.category })),
-            detail: { request: { chunk: chunkId, source: "content" }, response: { verdict: res.data.verdict, injection: res.data.injection, category: res.data.category, evidence: res.data.evidence } },
+            detail: { request: { chunk: chunkId, source: "content" }, response: { verdict: res.data.verdict, injection: res.data.injection, category: res.data.category, categories: res.data.categories, evidence: res.data.evidence } },
           },
         };
       },

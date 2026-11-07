@@ -1,28 +1,30 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import type { Persona } from "@/data/personas";
 import type { TriageState } from "@/lib/client/useTriage";
+import { ProofTrail } from "./ProofTrail";
+import { StepInspector } from "./StepInspector";
 
-/** Interim run view: one line per Proof Trail row as it streams in. Replaced by the full trail. */
-export function RunView({ state }: { state: TriageState; persona: Persona }) {
-  if (state.status === "error" && state.error) {
-    return (
-      <div role="alert" className="rounded-xl border border-risk/30 bg-risk-soft p-5 text-sm text-risk">
-        {state.error.message}
-      </div>
-    );
-  }
+/** Right column once a run starts: error banner (if any), the Proof Trail, and the step inspector. */
+export function RunView({ state, persona }: { state: TriageState; persona: Persona }) {
+  const [inspecting, setInspecting] = useState<string | null>(null);
+  const row = inspecting ? (state.rows[inspecting] ?? null) : null;
+  const top = useRef<HTMLDivElement>(null);
+  // On narrow screens the trail sits below the form: bring it into view when a run starts.
+  useEffect(() => {
+    if (state.status === "running" && window.matchMedia("(max-width: 1023px)").matches) top.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [state.status, state.startedAt]);
   return (
-    <ol className="divide-y divide-border rounded-xl border border-border bg-card px-5" aria-live="polite">
-      {state.order.map((id) => {
-        const row = state.rows[id];
-        return (
-          <li key={id} className="py-3">
-            <p className="text-[15px] font-semibold">{row.title}</p>
-            <p className="text-sm text-muted-foreground">{row.effect}</p>
-          </li>
-        );
-      })}
-    </ol>
+    <div ref={top} className="flex scroll-mt-20 flex-col gap-6">
+      {state.status === "error" && state.error ? (
+        <div role="alert" className="rounded-xl border border-risk/30 bg-risk-soft px-5 py-4">
+          <p className="text-[15px] font-semibold text-risk">The run stopped</p>
+          <p className="mt-1 text-sm text-risk">{state.error.message}</p>
+        </div>
+      ) : null}
+      {state.order.length || state.status === "running" ? <ProofTrail state={state} persona={persona} onInspect={setInspecting} /> : null}
+      <StepInspector row={row} open={row !== null} onOpenChange={(o) => !o && setInspecting(null)} />
+    </div>
   );
 }

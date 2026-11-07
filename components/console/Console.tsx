@@ -9,6 +9,7 @@ import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import { IntakePanel } from "./IntakePanel";
 import { RunView } from "./RunView";
+import { TicketEvidence } from "./TicketEvidence";
 
 interface ConsoleProps {
   personas: Persona[];
@@ -82,6 +83,11 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             }}
             onRun={start}
           />
+          {state.result?.screen ? (
+            <div className="mt-6">
+              <TicketEvidence key={state.startedAt ?? 0} result={state.result} extractMarks={state.rows["understand:extract"]?.evidence ?? []} />
+            </div>
+          ) : null}
           {history.length ? (
             <p className="mt-3 px-1 text-xs text-muted-foreground">
               {history.length} ticket{history.length === 1 ? "" : "s"} in this browser&apos;s history (masked text only).

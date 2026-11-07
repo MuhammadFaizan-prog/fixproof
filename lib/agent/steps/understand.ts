@@ -114,7 +114,7 @@ const spans = (f: ExtractedField | undefined): SpanValue[] => {
 export async function understand(ctx: RunContext, text: string): Promise<UnderstandResult> {
   const extractCall = tracedCall(
     ctx,
-    { id: "understand:extract", stage: "understand", endpoint: "extract", title: "Extract", runningEffect: "Pulling error codes, asset tags and deadlines" },
+    { id: "understand:extract", stage: "understand", endpoint: "extract", title: "Extract, exact values", runningEffect: "Pulling error codes, asset tags and deadlines" },
     () => ctx.client.extract(extractRequest(text), { step: "understand:extract" }),
     (res) => {
       const f = res.data.fields;

@@ -48,7 +48,7 @@ export async function fixGate(ctx: RunContext, passages: Passage[]): Promise<Fix
   const script = withScript.script;
   const { value } = await tracedCall(
     ctx,
-    { id: "fixGate", stage: "fixGate", endpoint: "script", title: "Inspect", runningEffect: `Reading the ${script.lang} script from "${withScript.title}"` },
+    { id: "fixGate", stage: "fixGate", endpoint: "script", title: "Inspect, fix script", runningEffect: `Reading the ${script.lang} script from "${withScript.title}"` },
     () => ctx.client.script(scriptRequest(script, ctx.persona), { step: "fixGate" }),
     (res) => {
       const d = res.data;
@@ -58,6 +58,8 @@ export async function fixGate(ctx: RunContext, passages: Passage[]): Promise<Fix
       return {
         value: { ran: true, passageId: withScript.id, articleTitle: withScript.title, script, verdict: d.verdict, malicious: d.malicious, suspicious: d.suspicious, category: d.category, severity: d.severity ?? null, evidence, runAllowed },
         summary: {
+          count: evidence.length,
+          countLabel: evidence.length === 1 ? "line flagged" : "lines flagged",
           verdict: d.verdict,
           probability: d.malicious,
           probabilityLabel: "malicious",
@@ -65,7 +67,7 @@ export async function fixGate(ctx: RunContext, passages: Passage[]): Promise<Fix
             ? `The ${script.lang} script stays inside ${ctx.persona.name.split(" ")[0]}'s approved scope (${pct(d.malicious)} malicious), so Run fix is offered.`
             : `Blocked: ${d.category}${evidence[0] ? ` at \`${evidence[0].line.trim()}\`` : ""} (${d.severity ?? "unrated"}). No Run fix button; a technician reviews the script.`,
           evidence: marks,
-          detail: { request: { script: script.code, instructions: scriptRequest(script, ctx.persona).instructions }, response: { verdict: d.verdict, malicious: d.malicious, suspicious: d.suspicious, category: d.category, severity: d.severity, evidence } },
+          detail: { request: { script: script.code, instructions: scriptRequest(script, ctx.persona).instructions }, response: { verdict: d.verdict, malicious: d.malicious, suspicious: d.suspicious, category: d.category, categories: d.categories, severity: d.severity, evidence } },
         },
       };
     },
