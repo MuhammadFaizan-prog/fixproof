@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "payroll-eta",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nWhen will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy FixProof stopped: Decide did not clear it for self-service (escalate is 91% likely).\n\nWhat FixProof already did: screened the ticket and masked personal data; classified it as identity, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded).\n\nVerified holding reply sent to the employee:\nNo restoration time has been published.\n1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "The employee is unable to access the payroll portal due to an SSO authentication failure and is asking for a confirmed restoration time. FixProof stopped because the issue was not cleared for self-service",
+        "confidence": 0.992393097431923,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "Identity & Access",
+        "confidence": 0.985,
+        "probabilities": {
+          "Service Desk": 0.00263016188342102,
+          "Network Operations": 0.002488714569350984,
+          "Identity & Access": 0.9883665305266472,
+          "Security": 0.004080149359515631,
+          "End-user Computing": 0.0024344436610651186
+        }
+      },
+      "priority": {
+        "value": "P2",
+        "confidence": 0.635,
+        "expected": 3.073,
+        "probabilities": {
+          "P4": 0.03872542608437428,
+          "P3": 0.04237281617237013,
+          "P2": 0.7263290970216257,
+          "P1": 0.1925726607216299
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 47,
+      "generate_ms": 143,
+      "total_ms": 163,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 240,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "155.410238",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.1, admit_db;dur=0.9, upstream;dur=172.6, discovery;dur=0.0, model;dur=155.4, settle;dur=5.6, gateway;dur=184.3"
+  }
+}

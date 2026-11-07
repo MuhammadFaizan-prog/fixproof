@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "ambiguous",
+  "step": "retrieve:guard:laptop-slow-performance#1",
+  "status": 200,
+  "request": {
+    "text": "## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0018041650668775278,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9908898895906363,
+      "instruction override": 0.002185040869791455,
+      "role-play or persona jailbreak": 0.00114592155534334,
+      "system prompt or secret extraction": 0.0015620740099881018,
+      "obfuscated or encoded payload": 0.0011527487489197007,
+      "tool misuse or data exfiltration": 0.0014498578938789972,
+      "social engineering": 0.00161446733144212
+    },
+    "severity": "none",
+    "severity_expected": 1.011,
+    "severities": {
+      "none": 0.9953717665250279,
+      "low": 0.0015320574380445677,
+      "medium": 0.0007311843822861455,
+      "high": 0.0010773170257087602,
+      "critical": 0.0012876746289326253
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 30,
+      "total_ms": 31
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "26.598848",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.8, upstream;dur=40.2, discovery;dur=0.0, model;dur=26.6, settle;dur=5.3, gateway;dur=51.2"
+  }
+}

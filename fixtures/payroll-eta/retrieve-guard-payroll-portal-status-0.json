@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "payroll-eta",
+  "step": "retrieve:guard:payroll-portal-status#0",
+  "status": 200,
+  "request": {
+    "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.002261684872686076,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9945001367340841,
+      "instruction override": 0.0014000850404980172,
+      "role-play or persona jailbreak": 0.0007160368725994474,
+      "system prompt or secret extraction": 0.0008605035875981548,
+      "obfuscated or encoded payload": 0.0007707059912762676,
+      "tool misuse or data exfiltration": 0.0008030756978599049,
+      "social engineering": 0.0009494560760841024
+    },
+    "severity": "none",
+    "severity_expected": 1.012,
+    "severities": {
+      "none": 0.9952686510047651,
+      "low": 0.0015213139844663906,
+      "medium": 0.0009085205105233214,
+      "high": 0.0008207230017770186,
+      "critical": 0.0014807914984681326
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 27,
+      "total_ms": 28
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.744385",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.1, admit_db;dur=2.2, upstream;dur=37.3, discovery;dur=0.0, model;dur=24.7, settle;dur=5.1, gateway;dur=49.5"
+  }
+}

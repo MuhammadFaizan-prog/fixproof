@@ -1,0 +1,77 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "decide",
+  "scenario": "ambiguous",
+  "step": "understand:decide",
+  "status": 200,
+  "request": {
+    "state": {
+      "ticket": "my computer is weird today",
+      "record": {
+        "category": null,
+        "severity": "low",
+        "needs_admin": false
+      },
+      "employee": {
+        "os": "Ubuntu 24.04",
+        "role": "Backend Engineer"
+      }
+    },
+    "instructions": "You set the resolution policy for Northwind Labs' Tier-0 IT help desk. It has a knowledge base of documented self-service fixes for common problems (VPN drops, print queues, mail and Outlook sync, MFA on a new phone, laptops not charging, Wi-Fi certificates, slow laptops, password resets) and can run pre-approved scripts. It cannot grant access or admin rights, change security controls, or repair physical damage. Urgency or a deadline alone is not a reason to escalate; it is a reason to resolve quickly.",
+    "questions": {
+      "policy": {
+        "type": "choice",
+        "instructions": "How should the help desk handle this ticket?",
+        "criteria": {
+          "auto_resolve": "A specific, common problem is described clearly enough that a documented self-service fix can be sent straight away.",
+          "suggest": "A documented fix may apply, but the description is vague or incomplete, so the employee should confirm before the ticket closes.",
+          "escalate": "Only a person can do it: granting access or admin rights, a security exception, a service outage affecting many people, visible physical damage such as a cracked screen or liquid spill, or a problem self-service cannot touch."
+        }
+      },
+      "self_service_safe": {
+        "type": "noul",
+        "instructions": "Is it safe for the employee to apply a documented fix without a technician?",
+        "criteria": {
+          "true": "Following documented steps cannot harm the device, data or security posture.",
+          "false": "The request touches access, security controls or data, or could cause harm if done wrong."
+        },
+        "threshold": 0.5
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "answers": {
+      "policy": {
+        "type": "choice",
+        "choice": "suggest",
+        "probabilities": {
+          "auto_resolve": 0.0115,
+          "suggest": 0.9708,
+          "escalate": 0.0177
+        },
+        "confidence": 0.9562
+      },
+      "self_service_safe": {
+        "type": "noul",
+        "noul": 0.2463,
+        "decision": false,
+        "threshold": 0.5
+      }
+    },
+    "usage": {
+      "input_tokens": 253,
+      "output_tokens": 5
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "23.447359",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.3, admit_db;dur=1.5, upstream;dur=39.0, discovery;dur=0.0, model;dur=23.4, settle;dur=5.2, gateway;dur=50.6"
+  }
+}

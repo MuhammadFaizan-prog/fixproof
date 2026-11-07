@@ -13,6 +13,9 @@ Every commit must pass `pnpm build`; from commit 5 on, `pnpm test` too. Push to 
 | M5 Hardening | 20–23 | forced-429 test, missing-key replay test, **Checkpoint B** (Mon Nov 9 night): live URL works |
 | M6 Ship | 24–25 | live URL in incognito, repo public, form saved |
 
+## Order change (2026-11-08)
+Preset fixtures were recorded right after the agent loop (Checkpoint A ran live with `--record`), so `feat: record fixtures for all presets` landed before the SSE route. The API and UI commits then replay real runs from the start. Remaining order: SSE route → intake UI → Proof Trail → cards/banner → live caps → tests/e2e → states/mobile → docs.
+
 ## Phases and task order
 1. **Scaffold + docs** (1–3). Verify: `pnpm build`.
 2. **Design system** (4): shadcn/ui, tokens from docs/DESIGN.md references, base layout. Design checkpoint: screenshot reviewed against the references.

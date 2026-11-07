@@ -1,0 +1,86 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "rerank",
+  "scenario": "ambiguous",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "my computer is weird today",
+    "documents": [
+      {
+        "id": "laptop-slow-performance#1",
+        "title": "Laptop is slow or behaving strangely · Tell us what you see",
+        "text": "## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Backend Engineer",
+        "os": "Ubuntu 24.04",
+        "device": "Dell Precision 3581",
+        "office": "Lahore",
+        "region": "PK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "laptop-slow-performance#1",
+        "action": "use",
+        "relevance_score": 0.5389,
+        "document_score": 0.7938,
+        "levels": {
+          "answers": 0.5389,
+          "elsewhere": 0.255,
+          "different_case": 0.0197,
+          "unrelated": 0.1865
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 216
+    },
+    "timing": {
+      "total_ms": 32,
+      "rerank_ms": 32,
+      "questions_ms": 0,
+      "model_ms": 27,
+      "engine": {
+        "rows": 207,
+        "branches": 1,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 256,
+        "long": 0,
+        "total_ms": 27,
+        "build_ms": 0,
+        "doc_ms": 2,
+        "forward_ms": 24,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 256
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "28.962175",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.0, admit_db;dur=2.1, upstream;dur=42.3, discovery;dur=0.0, model;dur=29.0, settle;dur=5.1, gateway;dur=54.3"
+  }
+}

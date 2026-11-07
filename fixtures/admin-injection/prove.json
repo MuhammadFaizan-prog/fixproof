@@ -1,0 +1,161 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "grounding",
+  "scenario": "admin-injection",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "Also my laptop won't charge when it's plugged into the dock.",
+    "answer": "Please try these troubleshooting steps for your laptop not charging on the dock. 1. Plug the charger straight into the laptop instead of the dock. 2. Try a different USB-C port on the laptop. 3. Look at the charger wattage. 4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop",
+    "claims": [
+      "Please try these troubleshooting steps for your laptop not charging on the dock.",
+      "1. Plug the charger straight into the laptop instead of the dock.",
+      "2. Try a different USB-C port on the laptop.",
+      "3. Look at the charger wattage.",
+      "4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop"
+    ],
+    "documents": [
+      {
+        "id": "laptop-not-charging#0,1,2",
+        "text": "## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\n\n## Reset the dock\nUnplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.\n\n## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9715,
+    "ungrounded": 0.0285,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-not-charging#0,1,2",
+        "share": 1,
+        "share_of_answer": 0.9715,
+        "claims": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Please try these troubleshooting steps for your laptop not charging on the dock.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.014243062262384858,
+          "offer_or_question": 0.89771569512311,
+          "pointer": 0.07190173874028799,
+          "meta": 0.016139503874217153
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0025,
+        "contradicted": 0.0037,
+        "not_stated": 0.012,
+        "not_a_claim": 0.9817,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Plug the charger straight into the laptop instead of the dock.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2889,
+        "supported": 0.9894,
+        "contradicted": 0.0037,
+        "not_stated": 0.0026,
+        "not_a_claim": 0.0043,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "2. Try a different USB-C port on the laptop.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1956,
+        "supported": 0.9175,
+        "contradicted": 0.0156,
+        "not_stated": 0.0151,
+        "not_a_claim": 0.0519,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "3. Look at the charger wattage.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1378,
+        "supported": 0.957,
+        "contradicted": 0.0114,
+        "not_stated": 0.0183,
+        "not_a_claim": 0.0133,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3778,
+        "supported": 0.9909,
+        "contradicted": 0.0023,
+        "not_stated": 0.0022,
+        "not_a_claim": 0.0045,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2",
+        "evidence": {
+          "document": "laptop-not-charging#0,1,2",
+          "quote": "Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.",
+          "start": 354,
+          "end": 437,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.9175
+    },
+    "answers_question": 0.9941527983217047,
+    "timing": {
+      "read_ms": 244,
+      "total_ms": 165
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "151.507519",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.0, admit_db;dur=0.9, upstream;dur=175.9, discovery;dur=0.0, model;dur=151.5, settle;dur=5.4, gateway;dur=187.4"
+  }
+}

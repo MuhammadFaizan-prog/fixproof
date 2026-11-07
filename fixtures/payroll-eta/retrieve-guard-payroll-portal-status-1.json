@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "payroll-eta",
+  "step": "retrieve:guard:payroll-portal-status#1",
+  "status": 200,
+  "request": {
+    "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0024995345358114207,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9929010050683859,
+      "instruction override": 0.0015580102248844694,
+      "role-play or persona jailbreak": 0.0009851672883438246,
+      "system prompt or secret extraction": 0.0010859892108516646,
+      "obfuscated or encoded payload": 0.0010150491581933947,
+      "tool misuse or data exfiltration": 0.001183905757100423,
+      "social engineering": 0.001270873292240368
+    },
+    "severity": "none",
+    "severity_expected": 1.02,
+    "severities": {
+      "none": 0.9916916387434039,
+      "low": 0.0032339833550890876,
+      "medium": 0.0012412622581929242,
+      "high": 0.0014338649328750018,
+      "critical": 0.002399250710439051
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 22,
+      "total_ms": 23
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "19.879393",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.8, upstream;dur=32.1, discovery;dur=0.0, model;dur=19.9, settle;dur=5.4, gateway;dur=43.5"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "outlook-sync",
+  "step": "retrieve:guard:outlook-not-syncing#0",
+  "status": 200,
+  "request": {
+    "text": "## Symptoms\nNew mail stops arriving, the status bar says \"Disconnected\" or \"Trying to connect\", and Outlook on the web shows mail that the desktop app does not.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.003390400439457597,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9904570585643213,
+      "instruction override": 0.0017977815709529228,
+      "role-play or persona jailbreak": 0.0011677225616046779,
+      "system prompt or secret extraction": 0.0014451624941326216,
+      "obfuscated or encoded payload": 0.0012656782632588434,
+      "tool misuse or data exfiltration": 0.0019606140555785525,
+      "social engineering": 0.0019059824901510678
+    },
+    "severity": "none",
+    "severity_expected": 1.021,
+    "severities": {
+      "none": 0.9917634535470586,
+      "low": 0.002386887878921935,
+      "medium": 0.0015793843992988853,
+      "high": 0.0014601590159677707,
+      "critical": 0.002810115158752771
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 31,
+      "total_ms": 32
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "27.171072",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=42.6, discovery;dur=0.0, model;dur=27.2, settle;dur=4.5, gateway;dur=51.7"
+  }
+}

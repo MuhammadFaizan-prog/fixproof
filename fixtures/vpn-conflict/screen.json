@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "pipeline",
+  "scenario": "vpn-conflict",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "My VPN has been dropping all week. Should I just uninstall and reinstall the VPN client?",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 19,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "My VPN has been dropping all week. Should I just uninstall and reinstall the VPN client?",
+          "timing": {
+            "read_ms": 19,
+            "total_ms": 19
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 23,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.001730816345650532,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9952021686075918,
+            "instruction override": 0.0010470390660091292,
+            "role-play or persona jailbreak": 0.0006786456291446872,
+            "system prompt or secret extraction": 0.0006613783220849559,
+            "obfuscated or encoded payload": 0.0006718478383209261,
+            "tool misuse or data exfiltration": 0.000791802812434675,
+            "social engineering": 0.0009471177244138181
+          },
+          "severity": "none",
+          "severity_expected": 1.015,
+          "severities": {
+            "none": 0.9930925869074059,
+            "low": 0.002822924573839168,
+            "medium": 0.0012123183957439918,
+            "high": 0.0013574827354654326,
+            "critical": 0.0015146873875455352
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 23,
+            "total_ms": 23
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 44,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "35.709728",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=13.9, admit_db;dur=3.7, upstream;dur=53.0, discovery;dur=0.0, model;dur=35.7, settle;dur=6.5, gateway;dur=73.5"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "vpn-conflict",
+  "step": "retrieve:guard:vpn-windows-drops#1",
+  "status": 200,
+  "request": {
+    "text": "## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.003270033945482198,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9931615069706106,
+      "instruction override": 0.0016497855976638242,
+      "role-play or persona jailbreak": 0.0009443256791797156,
+      "system prompt or secret extraction": 0.0009787270823047461,
+      "obfuscated or encoded payload": 0.0009591529299650545,
+      "tool misuse or data exfiltration": 0.0011034223501370781,
+      "social engineering": 0.0012030793901390182
+    },
+    "severity": "none",
+    "severity_expected": 1.026,
+    "severities": {
+      "none": 0.9878901047941098,
+      "low": 0.005860274228567317,
+      "medium": 0.0017015316736780008,
+      "high": 0.0018649200248996287,
+      "critical": 0.0026831692787452847
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 22,
+      "total_ms": 22
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "19.898336",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=8.9, admit_db;dur=3.4, upstream;dur=33.0, discovery;dur=0.0, model;dur=19.9, settle;dur=6.1, gateway;dur=48.0"
+  }
+}

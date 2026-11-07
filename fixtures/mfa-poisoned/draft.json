@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "mfa-poisoned",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nI got a new phone and my authenticator app codes don't work anymore. How do I move MFA over?\n\nKnowledge base sources:\n[1] Move MFA to a new phone · Before you start + Steps + Lost your old phone (updated 2026-10-21)\n## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.\n\n## Steps\n1. On your laptop, open the self-service portal and choose **Security > Authenticator app > Replace device**.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts.\n\n## Lost your old phone\nIf you no longer have the old phone and are signed out everywhere, the help desk can issue a one-time code after verifying you on a video call.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (macOS 15, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "To move your MFA to a new phone, follow these steps:\n1. On your laptop, open the self-service portal and choose Security > Authenticator app > Replace device.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone",
+        "confidence": 0.975250316705669,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 191,
+      "total_ms": 213,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 288,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "203.856735",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.6, admit_db;dur=0.8, upstream;dur=223.7, discovery;dur=0.0, model;dur=203.9, settle;dur=4.3, gateway;dur=232.6"
+  }
+}

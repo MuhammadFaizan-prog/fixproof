@@ -1,0 +1,110 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "grounding",
+  "scenario": "payroll-eta",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
+    "answer": "No restoration time has been published. 1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+    "claims": [
+      "No restoration time has been published.",
+      "1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back"
+    ],
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.\n\n## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9944,
+    "ungrounded": 0.0056,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "share": 1,
+        "share_of_answer": 0.9944,
+        "claims": [
+          0,
+          1
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "No restoration time has been published.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2437,
+        "supported": 0.9957,
+        "contradicted": 0.0017,
+        "not_stated": 0.0014,
+        "not_a_claim": 0.0012,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "No restoration time has been published.",
+          "start": 190,
+          "end": 229,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.7562,
+        "supported": 0.994,
+        "contradicted": 0.0023,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0019,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back.",
+          "start": 245,
+          "end": 364,
+          "confidence": 0.967
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.994
+    },
+    "answers_question": 0.9414073985613011,
+    "timing": {
+      "read_ms": 108,
+      "total_ms": 78
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "70.202016",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.0, admit_db;dur=1.0, upstream;dur=88.2, discovery;dur=0.0, model;dur=70.2, settle;dur=6.2, gateway;dur=100.4"
+  }
+}

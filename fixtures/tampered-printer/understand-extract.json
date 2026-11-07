@@ -1,0 +1,192 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "extract",
+  "scenario": "tampered-printer",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "The print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": null,
+        "confidence": 0.853,
+        "p_blank": 0.853
+      },
+      "asset_tag": {
+        "value": "NW-LT-2207",
+        "start": 61,
+        "end": 71,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.5,
+        "p_verify": 1,
+        "confidence": 1
+      },
+      "app_names": {
+        "value": [
+          "print queue",
+          "NW-LT-2207",
+          "laptop"
+        ],
+        "items": [
+          {
+            "value": "print queue",
+            "start": 4,
+            "end": 15,
+            "p_start": 0.88,
+            "p_close": 1,
+            "p_point": 0.253,
+            "p_verify": 0.999,
+            "alternatives": [
+              {
+                "value": "print",
+                "start": 105,
+                "p_verify": 0.244
+              },
+              {
+                "value": "printed",
+                "start": 38,
+                "p_verify": 0
+              }
+            ],
+            "p_more": 1,
+            "confidence": 0.88
+          },
+          {
+            "value": "NW-LT-2207",
+            "start": 61,
+            "end": 71,
+            "p_start": 0.987,
+            "p_close": 1,
+            "p_point": 0.421,
+            "p_verify": 0.998,
+            "p_more": 1,
+            "confidence": 0.987
+          },
+          {
+            "value": "laptop",
+            "start": 54,
+            "end": 60,
+            "p_start": 0.996,
+            "p_close": 1,
+            "p_point": 0.774,
+            "p_verify": 0.873,
+            "p_more": 1,
+            "confidence": 0.873
+          }
+        ],
+        "confidence": 0.873,
+        "rejected": [
+          "board papers",
+          "print"
+        ],
+        "rejected_items": [
+          {
+            "value": "board papers",
+            "start": 111,
+            "end": 123,
+            "p_start": 0.886,
+            "p_close": 1,
+            "p_point": 0.249,
+            "p_verify": 0,
+            "confidence": 0
+          },
+          {
+            "value": "print",
+            "start": 105,
+            "end": 110,
+            "p_start": 0.077,
+            "p_close": 0.997,
+            "p_point": 0.23,
+            "p_verify": 0.244,
+            "alternatives": [
+              {
+                "value": "printed",
+                "start": 38,
+                "p_verify": 0
+              }
+            ],
+            "confidence": 0.077
+          }
+        ],
+        "finish": "budget"
+      },
+      "deadline": {
+        "value": "2pm",
+        "start": 131,
+        "end": 134,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 1,
+        "p_verify": 1,
+        "confidence": 1
+      },
+      "device": {
+        "value": null,
+        "confidence": 1,
+        "p_blank": 0,
+        "rejected_value": "NW-LT-2207",
+        "rejected_p_verify": 0,
+        "reason": "verification_rejected"
+      }
+    },
+    "timing": {
+      "read_ms": 157,
+      "forwards": {
+        "fields": [
+          23,
+          0
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 0,
+          "point": 16,
+          "resolve": 14,
+          "extend": 0,
+          "contest": 21,
+          "lists": 106,
+          "verify": 0
+        }
+      },
+      "total_ms": 157,
+      "server_ms": 162
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "157.976639",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.3, admit_db;dur=0.7, upstream;dur=171.3, discovery;dur=0.0, model;dur=158.0, settle;dur=5.2, gateway;dur=181.8"
+  }
+}

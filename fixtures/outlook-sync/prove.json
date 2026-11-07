@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "grounding",
+  "scenario": "outlook-sync",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "Outlook on my laptop stopped getting new mail around lunchtime. It says Disconnected at the bottom, but webmail works fine.",
+    "answer": "1. Check File > Office Account shows your Northwind account and sign out and back in if it shows an error.\n2. Turn off Work Offline on the Send/Receive tab.\n3. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.\n4. If nothing helps, use Account settings > Repair",
+    "claims": [
+      "1. Check File > Office Account shows your Northwind account and sign out and back in if it shows an error.",
+      "2. Turn off Work Offline on the Send/Receive tab.",
+      "3. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.",
+      "4. If nothing helps, use Account settings > Repair"
+    ],
+    "documents": [
+      {
+        "id": "outlook-not-syncing#0,1",
+        "text": "## Symptoms\nNew mail stops arriving, the status bar says \"Disconnected\" or \"Trying to connect\", and Outlook on the web shows mail that the desktop app does not.\n\n## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9941,
+    "ungrounded": 0.0059,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "outlook-not-syncing#0,1",
+        "share": 1,
+        "share_of_answer": 0.9941,
+        "claims": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "1. Check File > Office Account shows your Northwind account and sign out and back in if it shows an error.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.363,
+        "supported": 0.9932,
+        "contradicted": 0.0023,
+        "not_stated": 0.0019,
+        "not_a_claim": 0.0027,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": "outlook-not-syncing#0,1"
+      },
+      {
+        "claim": "2. Turn off Work Offline on the Send/Receive tab.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1678,
+        "supported": 0.9945,
+        "contradicted": 0.0021,
+        "not_stated": 0.0017,
+        "not_a_claim": 0.0017,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": "outlook-not-syncing#0,1"
+      },
+      {
+        "claim": "3. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2979,
+        "supported": 0.995,
+        "contradicted": 0.0018,
+        "not_stated": 0.0016,
+        "not_a_claim": 0.0017,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": "outlook-not-syncing#0,1"
+      },
+      {
+        "claim": "4. If nothing helps, use Account settings > Repair",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1712,
+        "supported": 0.9943,
+        "contradicted": 0.0021,
+        "not_stated": 0.0017,
+        "not_a_claim": 0.0018,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": "outlook-not-syncing#0,1"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.9932
+    },
+    "answers_question": 0.9939574347270047,
+    "timing": {
+      "read_ms": 203,
+      "total_ms": 137
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "127.21277",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=148.0, discovery;dur=0.0, model;dur=127.2, settle;dur=4.5, gateway;dur=157.4"
+  }
+}

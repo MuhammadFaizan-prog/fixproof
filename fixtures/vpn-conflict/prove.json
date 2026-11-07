@@ -1,0 +1,159 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "grounding",
+  "scenario": "vpn-conflict",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My VPN has been dropping all week. Should I just uninstall and reinstall the VPN client?",
+    "answer": "Never uninstall or reinstall the VPN client yourself.\n1. Right-click the Northwind VPN icon in the system tray and choose Disconnect.\n2. Open Settings > Reset profile in the VPN client.\n3. Reconnect and approve the MFA prompt",
+    "claims": [
+      "Never uninstall or reinstall the VPN client yourself.",
+      "1. Right-click the Northwind VPN icon in the system tray and choose Disconnect.",
+      "2. Open Settings > Reset profile in the VPN client.",
+      "3. Reconnect and approve the MFA prompt"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      },
+      {
+        "id": "vpn-windows-drops#1",
+        "text": "## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9969,
+    "ungrounded": 0.0031,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-windows-drops#1",
+        "share": 0.7609,
+        "share_of_answer": 0.7585,
+        "claims": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.2391,
+        "share_of_answer": 0.2384,
+        "claims": [
+          0
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Never uninstall or reinstall the VPN client yourself.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2387,
+        "supported": 0.9971,
+        "contradicted": 0.0009,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.0013,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.9987,
+          "vpn-windows-drops#1": 0.0013
+        },
+        "source": "vpn-policy-2026#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document vpn-policy-2026#0:",
+          "start": 0,
+          "end": 27,
+          "confidence": 0.922
+        }
+      },
+      {
+        "claim": "1. Right-click the Northwind VPN icon in the system tray and choose Disconnect.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3559,
+        "supported": 0.9969,
+        "contradicted": 0.0013,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.001,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0008,
+          "vpn-windows-drops#1": 0.9992
+        },
+        "source": "vpn-windows-drops#1"
+      },
+      {
+        "claim": "2. Open Settings > Reset profile in the VPN client.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2297,
+        "supported": 0.9966,
+        "contradicted": 0.0015,
+        "not_stated": 0.0009,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0009,
+          "vpn-windows-drops#1": 0.9991
+        },
+        "source": "vpn-windows-drops#1",
+        "evidence": {
+          "document": null,
+          "quote": "Document vpn-windows-drops#1:",
+          "start": 342,
+          "end": 371,
+          "confidence": 0.619
+        }
+      },
+      {
+        "claim": "3. Reconnect and approve the MFA prompt",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1757,
+        "supported": 0.9972,
+        "contradicted": 0.0011,
+        "not_stated": 0.0007,
+        "not_a_claim": 0.0009,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0008,
+          "vpn-windows-drops#1": 0.9992
+        },
+        "source": "vpn-windows-drops#1"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.9966
+    },
+    "answers_question": 0.963433235472224,
+    "timing": {
+      "read_ms": 214,
+      "total_ms": 145
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "134.943743",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.2, admit_db;dur=2.2, upstream;dur=154.3, discovery;dur=0.0, model;dur=134.9, settle;dur=7.8, gateway;dur=169.4"
+  }
+}

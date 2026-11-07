@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:37 PKT
+Last updated: 2026-11-08 02:39 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -24,6 +24,7 @@ Agent steps in progress (commits 9–15).
 | 13 | feat(agent): fill-generated draft verified claim by claim with grounding | done | pass (121 tests) | yes |
 | 14 | feat(agent): inspect fix scripts before enabling run | done | pass (126 tests) | yes |
 | 15 | feat(agent): outcome policy and fill handoff on escalation | done | pass (145 tests) | yes |
+| 16 | feat: record fixtures for all presets (moved up from 20 so the API and UI replay real runs) | done | pass (249 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -47,7 +48,7 @@ None.
 ## Fixtures status
 - fixtures/docs/: 10 doc-example fixtures, `synthetic: true` (Clocked's published examples, not our key).
 - fixtures/probe/: 10 live fixtures, `synthetic: false`, recorded 2026-11-08.
-- Preset scenario fixtures: not recorded yet (commit 20).
+- fixtures/<preset>/: all 8 presets recorded live 2026-11-08 (`pnpm scenario all --record`), ~300 credits; `tests/presets-replay.test.ts` replays each with no key and asserts the expected outcome.
 
 ## Decisions
 - 2026-11-08: Fonts from the `geist` npm package instead of `next/font/google`, because the build sandbox cannot reach Google Fonts and builds must be reproducible offline.
@@ -88,6 +89,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:29 PKT: commit 13: Fill generate (220 tokens) drafts only from kept passages (scripts omitted); FixProof splits the draft into its own sentences and sends them to Verify as explicit claims (evidence all), so each unsupported sentence is cut exactly and each kept one carries its source quote. Live spot check: vpn-macos 4/4 supported (grounded 1.00, answers 0.98); payroll-eta draft stated no ETA, 3/3 supported (0.93). typecheck, lint, test (121), build pass.
 - 2026-11-08 02:31 PKT: commit 14: Inspect reads the first kept script against the persona's approved scope (device, OS, what may change); Run fix is offered only on verdict benign and suspicious < 0.5; blocked scripts carry the evidence line. No script → a skipped local row (no call). Tested with the live probe response (blocks Set-MpPreference -DisableRealtimeMonitoring). typecheck, lint, test (126), build pass.
 - 2026-11-08 02:37 PKT: commit 15: decideOutcome (pure) over 8 checks with escalate/confirm severities and FAILED_AS phrasing; Fill handoff (summary, assignment group, priority) with a local fallback; runTicket orchestrator never throws on Clocked failure (→ ESCALATED, local handoff); pnpm scenario CLI. CHECKPOINT A (live, recorded): all 8 presets match their expected outcomes: vpn-macos AUTO 50cr · admin-injection CONFIRM 37cr · tampered-printer ESCALATED (Inspect blocked Set-MpPreference, routed Security P2) 43cr · vpn-conflict AUTO (2026 policy overrides 2024) 39cr · ambiguous CONFIRM 21cr · payroll-eta ESCALATED with verified holding reply (Identity & Access P2) 35cr · mfa-poisoned CONFIRM (poisoned section cut 0.99) 37cr · outlook-sync AUTO (Mac article skipped as different_case) 36cr. typecheck, lint, test (145 without preset fixtures), build pass.
+- 2026-11-08 02:39 PKT: commit 16: 8 presets recorded live (106 fixture files, synthetic:false, usage headers only, no key: grep of fixtures/lib/scripts/tests/data for the key value returns 0 files). New presets-replay test runs every preset through runTicket from fixtures with no key and asserts outcome + per-preset proofs. typecheck, lint, test (249), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.

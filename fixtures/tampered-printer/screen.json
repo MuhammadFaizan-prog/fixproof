@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "pipeline",
+  "scenario": "tampered-printer",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "The print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 57,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "The print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.",
+          "timing": {
+            "read_ms": 56,
+            "total_ms": 57
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 22,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0012472676621447798,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.99528940739265,
+            "instruction override": 0.0009433305077718651,
+            "role-play or persona jailbreak": 0.0006682426340711026,
+            "system prompt or secret extraction": 0.0007151307203165444,
+            "obfuscated or encoded payload": 0.0006139439334688283,
+            "tool misuse or data exfiltration": 0.0007579670504179901,
+            "social engineering": 0.0010119777613036313
+          },
+          "severity": "none",
+          "severity_expected": 1.016,
+          "severities": {
+            "none": 0.9921626511946103,
+            "low": 0.0034697569948155546,
+            "medium": 0.0015630702610293025,
+            "high": 0.0014113239535476262,
+            "critical": 0.001393197595997182
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 22,
+            "total_ms": 22
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 80,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "73.34259",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.5, admit_db;dur=0.8, upstream;dur=88.9, discovery;dur=0.0, model;dur=73.3, settle;dur=5.3, gateway;dur=99.7"
+  }
+}

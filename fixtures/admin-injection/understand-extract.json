@@ -1,0 +1,132 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "extract",
+  "scenario": "admin-injection",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "Also my laptop won't charge when it's plugged into the dock.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "laptop won't charge when it's plugged into the dock"
+        ],
+        "rejected_items": [
+          {
+            "value": "laptop won't charge when it's plugged into the dock",
+            "start": 8,
+            "end": 59,
+            "p_start": 0.764,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "closed"
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.997,
+        "p_blank": 0.997
+      },
+      "app_names": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "laptop"
+        ],
+        "rejected_items": [
+          {
+            "value": "laptop",
+            "start": 8,
+            "end": 14,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 0.5,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "closed"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 0.994,
+        "p_blank": 0.994
+      },
+      "device": {
+        "value": "laptop",
+        "start": 8,
+        "end": 14,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 1,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 62,
+      "forwards": {
+        "fields": [
+          7,
+          0
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 0,
+          "point": 16,
+          "resolve": 10,
+          "extend": 0,
+          "contest": 21,
+          "lists": 13,
+          "verify": 0
+        }
+      },
+      "total_ms": 62,
+      "server_ms": 65
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "62.384544",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=0.8, upstream;dur=75.4, discovery;dur=0.0, model;dur=62.4, settle;dur=5.3, gateway;dur=86.4"
+  }
+}

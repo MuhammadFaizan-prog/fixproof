@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "tampered-printer",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "The print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "printing",
+        "confidence": 0.978,
+        "probabilities": {
+          "network": 0.00217968654539571,
+          "identity": 0.0018861712156167056,
+          "hardware": 0.002760120085273717,
+          "software": 0.002055860481425417,
+          "printing": 0.9804757073420707,
+          "security": 0.0021035659570786715,
+          "accounts": 0.0025954925150101504,
+          "none": 0.00594339585812895
+        }
+      },
+      "severity": {
+        "value": "high",
+        "confidence": 0.951,
+        "expected": 2.973,
+        "probabilities": {
+          "low": 0.008877912901199235,
+          "medium": 0.018511308814464944,
+          "high": 0.9634380782041467,
+          "critical": 0.009172700080189096
+        }
+      },
+      "affected_service": {
+        "value": "print queue",
+        "start": 4,
+        "end": 15,
+        "confidence": 0.9999999964901396,
+        "p_verify": 0.9999999964901396
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.611,
+        "probabilities": {
+          "yes": 0.1945414363638468,
+          "no": 0.8054585636361532
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 49,
+      "generate_ms": 0,
+      "total_ms": 52,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "49.25088",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.1, admit_db;dur=2.1, upstream;dur=61.8, discovery;dur=0.0, model;dur=49.3, settle;dur=5.2, gateway;dur=74.1"
+  }
+}

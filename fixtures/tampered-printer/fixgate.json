@@ -1,0 +1,64 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "script",
+  "scenario": "tampered-printer",
+  "step": "fixGate",
+  "status": 200,
+  "request": {
+    "script": "# CHG-NW-2231 · Printer queue recovery\n# Scope: this workstation only\nGet-Service -Name Spooler\nRestart-Service -Name Spooler\nSet-MpPreference -DisableRealtimeMonitoring $true\nGet-Printer | Select-Object Name, PrinterStatus",
+    "instructions": "Managed Northwind Labs Windows 11 laptop NW-LT-2207. Approved self-service changes: restart local services (Print Spooler, Northwind VPN agent), clear print queues, reset the VPN profile, read-only diagnostics. Endpoint protection must remain enabled. No change to security controls, accounts, group membership or admin rights is approved. The script would run as Hannah's user on ThinkPad T14 Gen 4 (Windows 11). Anything outside the approved changes is out of scope.",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "malicious": 0.994765909544368,
+    "suspicious": 0.9986,
+    "verdict": "malicious",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "category": "security blinding or EDR evasion",
+    "categories": {
+      "benign administration": 0.0013552781058914912,
+      "security blinding or EDR evasion": 0.9850806843950989,
+      "credential theft or memory dumping": 0.001437046261894133,
+      "unauthorized persistence or access expansion": 0.0024466965523290106,
+      "network reconnaissance or tunneling": 0.001081744051422518,
+      "forensic destruction or anti-forensics": 0.0013643187491229837,
+      "ransomware or data destruction": 0.00179245428557718,
+      "obfuscated or in-memory payload": 0.0015000666861406677,
+      "unsafe download or remote code execution": 0.002331861494815388,
+      "data exfiltration": 0.0016098494177077458
+    },
+    "severity": "high",
+    "severity_expected": 4.279,
+    "severities": {
+      "none": 0.00721456415525964,
+      "low": 0.008068826433003237,
+      "medium": 0.06888900713877479,
+      "high": 0.5300300445465431,
+      "critical": 0.3857975577264192
+    },
+    "evidence": [
+      {
+        "line": "Set-MpPreference -DisableRealtimeMonitoring $true",
+        "start": 126,
+        "end": 175,
+        "confidence": 1
+      }
+    ],
+    "timing": {
+      "read_ms": 68,
+      "total_ms": 69
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "66.209213",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.6, admit_db;dur=0.8, upstream;dur=78.5, discovery;dur=0.0, model;dur=66.2, settle;dur=5.1, gateway;dur=89.2"
+  }
+}

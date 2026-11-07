@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "payroll-eta",
+  "step": "retrieve:guard:payroll-portal-status#2",
+  "status": 200,
+  "request": {
+    "text": "## Updates\nUpdates are posted on the IT status page every two hours.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.002419666625992023,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9947936296844566,
+      "instruction override": 0.0011673524447050694,
+      "role-play or persona jailbreak": 0.0007539080475312292,
+      "system prompt or secret extraction": 0.0009357039197949128,
+      "obfuscated or encoded payload": 0.0006619313517878556,
+      "tool misuse or data exfiltration": 0.0008145187909759609,
+      "social engineering": 0.0008729557607483569
+    },
+    "severity": "none",
+    "severity_expected": 1.013,
+    "severities": {
+      "none": 0.9943014966549713,
+      "low": 0.0023479446064125914,
+      "medium": 0.0010283006951311204,
+      "high": 0.0010907463518083334,
+      "critical": 0.001231511691676704
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 28,
+      "total_ms": 28
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.868032",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.8, upstream;dur=37.8, discovery;dur=0.0, model;dur=24.9, settle;dur=5.1, gateway;dur=48.7"
+  }
+}

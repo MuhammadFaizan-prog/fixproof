@@ -1,0 +1,129 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "extract",
+  "scenario": "ambiguous",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "my computer is weird today",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "my computer is weird today"
+        ],
+        "rejected_items": [
+          {
+            "value": "my computer is weird today",
+            "start": 0,
+            "end": 26,
+            "p_start": 0.997,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 0.48,
+            "confidence": 0.48
+          }
+        ],
+        "finish": "closed"
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.999,
+        "p_blank": 0.999
+      },
+      "app_names": {
+        "value": [
+          "my computer"
+        ],
+        "items": [
+          {
+            "value": "my computer",
+            "start": 0,
+            "end": 11,
+            "p_start": 0.924,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 0.999,
+            "p_more": 0.075,
+            "confidence": 0.924
+          }
+        ],
+        "confidence": 0.924,
+        "finish": "closed"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 1,
+        "p_blank": 0,
+        "rejected_value": "today",
+        "rejected_p_verify": 0,
+        "reason": "verification_rejected"
+      },
+      "device": {
+        "value": null,
+        "confidence": 0.98,
+        "p_blank": 0.98
+      }
+    },
+    "timing": {
+      "read_ms": 60,
+      "forwards": {
+        "fields": [
+          7,
+          0
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 0,
+          "point": 15,
+          "resolve": 10,
+          "extend": 0,
+          "contest": 21,
+          "lists": 11,
+          "verify": 0
+        }
+      },
+      "total_ms": 60,
+      "server_ms": 64
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "60.228928",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.5, admit_db;dur=2.3, upstream;dur=74.2, discovery;dur=0.0, model;dur=60.2, settle;dur=5.5, gateway;dur=87.2"
+  }
+}

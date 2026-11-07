@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "tampered-printer",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nThe print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy FixProof stopped: Fix script is in scope: malicious: security blinding or EDR evasion.\n\nWhat FixProof already did: screened the ticket and masked personal data; classified it as printing, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded); inspected the powershell script: malicious.\n\nVerified holding reply sent to the employee:\nTo resolve the stuck print queue, please follow these steps:\n1. Open Settings > Bluetooth & devices > Printers & scanners, select the printer and choose Open print queue.\n2. Cancel all documents, then try printing a test page",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "The print queue is stuck on laptop NW-LT-2207 and nothing has printed since this morning. The automated desk stopped because the FixProof script was inspected and found to be malicious",
+        "confidence": 0.9513635547170189,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "Security",
+        "confidence": 0.48,
+        "probabilities": {
+          "Service Desk": 0.20966629456211197,
+          "Network Operations": 0.016701133962516348,
+          "Identity & Access": 0.01669695805901822,
+          "Security": 0.5841305293399406,
+          "End-user Computing": 0.17280508407641287
+        }
+      },
+      "priority": {
+        "value": "P2",
+        "confidence": 0.916,
+        "expected": 2.935,
+        "probabilities": {
+          "P4": 0.0354239027347138,
+          "P3": 0.010898119179508989,
+          "P2": 0.9369332733801209,
+          "P1": 0.016744704705656324
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 47,
+      "generate_ms": 159,
+      "total_ms": 179,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 256,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "171.293248",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=0.9, upstream;dur=188.8, discovery;dur=0.0, model;dur=171.3, settle;dur=5.3, gateway;dur=199.8"
+  }
+}

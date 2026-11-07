@@ -1,0 +1,109 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "rerank",
+  "scenario": "payroll-eta",
+  "step": "retrieve:expand",
+  "status": 200,
+  "request": {
+    "query": "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "title": "Payroll portal outage: current status · Status + Workaround + Updates",
+        "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.\n\n## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      },
+      {
+        "id": "payroll-portal-status#1-2",
+        "title": "Payroll portal outage: current status · Workaround + Updates",
+        "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Financial Analyst",
+        "os": "Windows 11",
+        "device": "ThinkPad T14 Gen 4",
+        "office": "London",
+        "region": "UK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "payroll-portal-status#0-2",
+        "action": "use",
+        "relevance_score": 0.9651,
+        "document_score": 0.9834,
+        "levels": {
+          "answers": 0.9651,
+          "elsewhere": 0.0183,
+          "different_case": 0.0096,
+          "unrelated": 0.0069
+        }
+      },
+      {
+        "index": 1,
+        "id": "payroll-portal-status#1-2",
+        "action": "expand",
+        "relevance_score": 0.1307,
+        "document_score": 0.8544,
+        "levels": {
+          "answers": 0.1307,
+          "elsewhere": 0.7237,
+          "different_case": 0.0266,
+          "unrelated": 0.119
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 542
+    },
+    "timing": {
+      "total_ms": 25,
+      "rerank_ms": 24,
+      "questions_ms": 0,
+      "model_ms": 21,
+      "engine": {
+        "rows": 620,
+        "branches": 2,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 1024,
+        "long": 0,
+        "total_ms": 21,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 21,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 208
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "21.949793",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.8, upstream;dur=34.5, discovery;dur=0.0, model;dur=21.9, settle;dur=5.4, gateway;dur=45.9"
+  }
+}

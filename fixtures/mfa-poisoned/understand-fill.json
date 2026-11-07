@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "mfa-poisoned",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "I got a new phone and my authenticator app codes don't work anymore. How do I move MFA over?",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "identity",
+        "confidence": 0.598,
+        "probabilities": {
+          "network": 0.00955551389161987,
+          "identity": 0.6486583662595983,
+          "hardware": 0.011791257060589935,
+          "software": 0.015288123059666456,
+          "printing": 0.013010999807127692,
+          "security": 0.07039445155011681,
+          "accounts": 0.18293157281814273,
+          "none": 0.0483697155531382
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.422,
+        "expected": 2.353,
+        "probabilities": {
+          "low": 0.07455314804937725,
+          "medium": 0.566719520408868,
+          "high": 0.29008072899235937,
+          "critical": 0.06864660254939543
+        }
+      },
+      "affected_service": {
+        "value": "authenticator app",
+        "start": 25,
+        "end": 42,
+        "confidence": 0.9999999186442974,
+        "p_verify": 0.9999999186442974
+      },
+      "needs_admin": {
+        "value": true,
+        "confidence": 0.653,
+        "probabilities": {
+          "yes": 0.8264436607307255,
+          "no": 0.1735563392692745
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 51,
+      "generate_ms": 0,
+      "total_ms": 54,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "51.210334",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=1.5, upstream;dur=63.9, discovery;dur=0.0, model;dur=51.2, settle;dur=4.4, gateway;dur=73.4"
+  }
+}

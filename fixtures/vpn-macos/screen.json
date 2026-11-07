@@ -1,0 +1,152 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "pipeline",
+  "scenario": "vpn-macos",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "Hi, it's Priya Natarajan. My VPN keeps dropping every five minutes since yesterday's update, error 809. I have a client demo at 3pm today. I'm on my MacBook, NW-MBP-0193. You can reach me at priya.n@northwind.example.",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 104,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [
+            {
+              "type": "person",
+              "value": "Priya Natarajan",
+              "start": 9,
+              "end": 24,
+              "confidence": 1,
+              "source": "model",
+              "mentions": 1
+            },
+            {
+              "type": "email",
+              "value": "priya.n@northwind.example",
+              "start": 191,
+              "end": 216,
+              "confidence": 1,
+              "source": "model",
+              "mentions": 1
+            }
+          ],
+          "counts": {
+            "person": 1,
+            "email": 1
+          },
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "Hi, it's <PERSON>. My VPN keeps dropping every five minutes since yesterday's update, error 809. I have a client demo at 3pm today. I'm on my MacBook, NW-MBP-0193. You can reach me at <EMAIL>.",
+          "timing": {
+            "read_ms": 103,
+            "total_ms": 104
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 28,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0015761739998482183,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9947285045384227,
+            "instruction override": 0.0010559309819830399,
+            "role-play or persona jailbreak": 0.0007320896574650488,
+            "system prompt or secret extraction": 0.0007550410601349441,
+            "obfuscated or encoded payload": 0.0007328137530388971,
+            "tool misuse or data exfiltration": 0.0008621619479461496,
+            "social engineering": 0.0011334580610092677
+          },
+          "severity": "none",
+          "severity_expected": 1.013,
+          "severities": {
+            "none": 0.994797061711343,
+            "low": 0.00167385695739967,
+            "medium": 0.0010084002862967034,
+            "high": 0.0010465433044070296,
+            "critical": 0.0014741377405536305
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 27,
+            "total_ms": 28
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 133,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "125.101732",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=72.0, admit_db;dur=6.6, upstream;dur=171.9, discovery;dur=0.0, model;dur=125.1, settle;dur=7.6, gateway;dur=251.6"
+  }
+}

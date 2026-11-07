@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "payroll-eta",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nWhen will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.\n\nKnowledge base sources:\n[1] Payroll portal outage: current status · Status + Workaround + Updates (updated 2026-11-07)\n## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.\n\n## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Windows 11, London) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "No restoration time has been published. 1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+        "confidence": 0.4928107035193843,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 12,
+      "generate_ms": 98,
+      "total_ms": 113,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 272,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "106.925951",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.1, admit_db;dur=2.1, upstream;dur=122.9, discovery;dur=0.0, model;dur=106.9, settle;dur=5.3, gateway;dur=135.3"
+  }
+}

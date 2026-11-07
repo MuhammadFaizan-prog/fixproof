@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "pipeline",
+  "scenario": "mfa-poisoned",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "I got a new phone and my authenticator app codes don't work anymore. How do I move MFA over?",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 19,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "I got a new phone and my authenticator app codes don't work anymore. How do I move MFA over?",
+          "timing": {
+            "read_ms": 18,
+            "total_ms": 18
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 28,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0018352202080447186,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9950828586491887,
+            "instruction override": 0.0010723013413348609,
+            "role-play or persona jailbreak": 0.0007591214952471722,
+            "system prompt or secret extraction": 0.0006890748443040231,
+            "obfuscated or encoded payload": 0.0006373236516058895,
+            "tool misuse or data exfiltration": 0.0007686133004712986,
+            "social engineering": 0.0009907067178480944
+          },
+          "severity": "none",
+          "severity_expected": 1.024,
+          "severities": {
+            "none": 0.9882802371664401,
+            "low": 0.005624649560661459,
+            "medium": 0.002076021138684191,
+            "high": 0.0017589686902980295,
+            "critical": 0.0022601234439162308
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 28,
+            "total_ms": 28
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 48,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "39.228577",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=23.1, admit_db;dur=0.8, upstream;dur=59.1, discovery;dur=0.0, model;dur=39.2, settle;dur=4.1, gateway;dur=86.4"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "ambiguous",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nmy computer is weird today\n\nKnowledge base sources:\n[1] Laptop is slow or behaving strangely · Tell us what you see (updated 2026-08-30)\n## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Please tell us what you see. 1. Tell us what you were doing, what happened, and when it started",
+        "confidence": 0.8072431289451847,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 95,
+      "total_ms": 114,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 192,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "107.687872",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.2, admit_db;dur=2.1, upstream;dur=123.8, discovery;dur=0.0, model;dur=107.7, settle;dur=5.5, gateway;dur=136.5"
+  }
+}

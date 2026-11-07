@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "outlook-sync",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "Outlook on my laptop stopped getting new mail around lunchtime. It says Disconnected at the bottom, but webmail works fine.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": null,
+        "confidence": 0.468,
+        "probabilities": {
+          "network": 0.019821191904749146,
+          "identity": 0.011855555647170002,
+          "hardware": 0.013710603579195424,
+          "software": 0.38136472040166847,
+          "printing": 0.00965597133111022,
+          "security": 0.012548203668430933,
+          "accounts": 0.016619150504698844,
+          "none": 0.5344246029629769
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.802,
+        "expected": 2.094,
+        "probabilities": {
+          "low": 0.042209078296807076,
+          "medium": 0.8514608756636554,
+          "high": 0.07603814989981952,
+          "critical": 0.030291896139718062
+        }
+      },
+      "affected_service": {
+        "value": "Outlook",
+        "start": 0,
+        "end": 7,
+        "confidence": 0.9999999995436495,
+        "p_verify": 0.9999999995436495
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.913,
+        "probabilities": {
+          "yes": 0.0435357465989632,
+          "no": 0.9564642534010368
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 59,
+      "generate_ms": 0,
+      "total_ms": 67,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "64.201629",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=0.9, upstream;dur=76.6, discovery;dur=0.0, model;dur=64.2, settle;dur=4.6, gateway;dur=86.4"
+  }
+}

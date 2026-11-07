@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "payroll-eta",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "identity",
+        "confidence": 0.556,
+        "probabilities": {
+          "network": 0.010488780277335427,
+          "identity": 0.6116819214099194,
+          "hardware": 0.0117384664898242,
+          "software": 0.03135096751441311,
+          "printing": 0.012424618104397501,
+          "security": 0.028418424829553368,
+          "accounts": 0.10453076664268157,
+          "none": 0.18936605473187546
+        }
+      },
+      "severity": {
+        "value": "high",
+        "confidence": 0.582,
+        "expected": 2.689,
+        "probabilities": {
+          "low": 0.05104544887419002,
+          "medium": 0.23536900248093767,
+          "high": 0.6867931217122214,
+          "critical": 0.026792426932650937
+        }
+      },
+      "affected_service": {
+        "value": "payroll portal",
+        "start": 14,
+        "end": 28,
+        "confidence": 0.9999999916071595,
+        "p_verify": 0.9999999916071595
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.845,
+        "probabilities": {
+          "yes": 0.07759613175339031,
+          "no": 0.9224038682466097
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 49,
+      "generate_ms": 0,
+      "total_ms": 53,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 192,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "49.63731",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=62.6, discovery;dur=0.0, model;dur=49.6, settle;dur=8.1, gateway;dur=76.5"
+  }
+}

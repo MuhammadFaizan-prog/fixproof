@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "vpn-conflict",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "My VPN has been dropping all week. Should I just uninstall and reinstall the VPN client?",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "network",
+        "confidence": 0.762,
+        "probabilities": {
+          "network": 0.7915249392319222,
+          "identity": 0.0136609265245985,
+          "hardware": 0.01212666366073487,
+          "software": 0.08903447312322077,
+          "printing": 0.010194403443639217,
+          "security": 0.02323852516699168,
+          "accounts": 0.014623688448658984,
+          "none": 0.04559638040023375
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.381,
+        "expected": 1.686,
+        "probabilities": {
+          "low": 0.39913084159012113,
+          "medium": 0.535979346057693,
+          "high": 0.044707645407364514,
+          "critical": 0.02018216694482137
+        }
+      },
+      "affected_service": {
+        "value": "VPN",
+        "start": 3,
+        "end": 6,
+        "confidence": 0.9999999985621333,
+        "p_verify": 0.9999999985621333
+      },
+      "needs_admin": {
+        "value": true,
+        "confidence": 0.044,
+        "probabilities": {
+          "yes": 0.5220549015466461,
+          "no": 0.47794509845335387
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 48,
+      "generate_ms": 0,
+      "total_ms": 52,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "48.75443",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=0.8, upstream;dur=61.4, discovery;dur=0.0, model;dur=48.8, settle;dur=5.6, gateway;dur=72.7"
+  }
+}

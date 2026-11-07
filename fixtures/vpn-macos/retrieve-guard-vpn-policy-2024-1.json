@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "vpn-macos",
+  "step": "retrieve:guard:vpn-policy-2024#1",
+  "status": 200,
+  "request": {
+    "text": "## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0033939588235731843,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9928636894281919,
+      "instruction override": 0.0018154161074327218,
+      "role-play or persona jailbreak": 0.001025195499167843,
+      "system prompt or secret extraction": 0.0011113497324865915,
+      "obfuscated or encoded payload": 0.0008980106728595997,
+      "tool misuse or data exfiltration": 0.001061405915784627,
+      "social engineering": 0.001224932644076697
+    },
+    "severity": "none",
+    "severity_expected": 1.017,
+    "severities": {
+      "none": 0.9928437427481378,
+      "low": 0.00266323259567188,
+      "medium": 0.0013030788972840275,
+      "high": 0.001114317113272122,
+      "critical": 0.0020756286456341667
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 27,
+      "total_ms": 27
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.265247",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.2, admit_db;dur=0.8, upstream;dur=36.6, discovery;dur=0.0, model;dur=24.3, settle;dur=5.2, gateway;dur=48.0"
+  }
+}

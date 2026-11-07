@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "outlook-sync",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nOutlook on my laptop stopped getting new mail around lunchtime. It says Disconnected at the bottom, but webmail works fine.\n\nKnowledge base sources:\n[1] Outlook not syncing on Windows · Symptoms + Fix (updated 2026-09-09)\n## Symptoms\nNew mail stops arriving, the status bar says \"Disconnected\" or \"Trying to connect\", and Outlook on the web shows mail that the desktop app does not.\n\n## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Windows 11, London) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "1. Check File > Office Account shows your Northwind account and sign out and back in if it shows an error.\n2. Turn off Work Offline on the Send/Receive tab.\n3. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.\n4. If nothing helps, use Account settings > Repair",
+        "confidence": 0.8895532344021702,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 204,
+      "total_ms": 226,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 288,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "215.578272",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.6, admit_db;dur=1.5, upstream;dur=235.0, discovery;dur=0.0, model;dur=215.6, settle;dur=4.2, gateway;dur=244.8"
+  }
+}

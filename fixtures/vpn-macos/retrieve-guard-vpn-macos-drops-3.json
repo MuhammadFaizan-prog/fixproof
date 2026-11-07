@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "vpn-macos",
+  "step": "retrieve:guard:vpn-macos-drops#3",
+  "status": 200,
+  "request": {
+    "text": "## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0017856614471262189,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9950034816747634,
+      "instruction override": 0.0011286281191400104,
+      "role-play or persona jailbreak": 0.0006780498753609292,
+      "system prompt or secret extraction": 0.0008257170030390479,
+      "obfuscated or encoded payload": 0.0007745684211341697,
+      "tool misuse or data exfiltration": 0.0008151409276986451,
+      "social engineering": 0.0007744139788638186
+    },
+    "severity": "none",
+    "severity_expected": 1.011,
+    "severities": {
+      "none": 0.9947499507520092,
+      "low": 0.00206777840588592,
+      "medium": 0.0012528949061177286,
+      "high": 0.0009524509374449881,
+      "critical": 0.000976924998542136
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 27,
+      "total_ms": 28
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.847744",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.0, admit_db;dur=0.9, upstream;dur=37.9, discovery;dur=0.0, model;dur=24.8, settle;dur=5.1, gateway;dur=49.0"
+  }
+}

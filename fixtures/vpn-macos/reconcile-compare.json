@@ -1,0 +1,248 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "compare",
+  "scenario": "vpn-macos",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "vpn-macos-drops#0,1,2,3",
+        "text": "## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.\n\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account."
+      },
+      {
+        "id": "vpn-policy-2024#0,1",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.\n\n## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA."
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "conflicts",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "vpn-macos-drops#0,1,2,3",
+        "duplicates": [],
+        "overlaps": [
+          "vpn-policy-2026#0"
+        ],
+        "conflicts": [
+          "vpn-policy-2026#0"
+        ]
+      },
+      {
+        "id": "vpn-policy-2024#0,1",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": [
+          "vpn-policy-2026#0"
+        ]
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "duplicates": [],
+        "overlaps": [
+          "vpn-macos-drops#0,1,2,3"
+        ],
+        "conflicts": [
+          "vpn-macos-drops#0,1,2,3",
+          "vpn-policy-2024#0,1"
+        ]
+      }
+    ],
+    "pairs": [
+      {
+        "a": "vpn-macos-drops#0,1,2,3",
+        "b": "vpn-policy-2024#0,1",
+        "relation": "overlapping",
+        "related": 0.9832,
+        "probabilities": {
+          "same": 0.0144,
+          "overlapping": 0.8129,
+          "conflicting": 0.1559,
+          "unrelated": 0.0168
+        },
+        "duplicates": [],
+        "conflicts": []
+      },
+      {
+        "a": "vpn-macos-drops#0,1,2,3",
+        "b": "vpn-policy-2026#0",
+        "relation": "conflicting",
+        "related": 0.993,
+        "probabilities": {
+          "same": 0.008,
+          "overlapping": 0.0362,
+          "conflicting": 0.9489,
+          "unrelated": 0.007
+        },
+        "duplicates": [
+          {
+            "kind": "restated",
+            "kinds": {
+              "verbatim": 0.0221,
+              "restated": 0.8681,
+              "elaborated": 0.0865,
+              "different": 0.0232
+            },
+            "confidence": 0.9768,
+            "a": {
+              "document": "vpn-macos-drops#0,1,2,3",
+              "quote": "Choose **Settings > Reset profile**.",
+              "start": 353,
+              "end": 389,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+              "start": 216,
+              "end": 312,
+              "confidence": 1
+            }
+          }
+        ],
+        "conflicts": []
+      },
+      {
+        "a": "vpn-policy-2024#0,1",
+        "b": "vpn-policy-2026#0",
+        "relation": "conflicting",
+        "related": 0.9972,
+        "probabilities": {
+          "same": 0.0032,
+          "overlapping": 0.0076,
+          "conflicting": 0.9865,
+          "unrelated": 0.0028
+        },
+        "duplicates": [],
+        "conflicts": [
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0029,
+              "date_or_version": 0.0046,
+              "rule_or_condition": 0.9671,
+              "scope": 0.0168,
+              "name": 0.0035,
+              "no_conflict": 0.0051
+            },
+            "confidence": 0.9949,
+            "a": {
+              "document": "vpn-policy-2024#0,1",
+              "quote": "If the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal.",
+              "start": 10,
+              "end": 138,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "## Policy\nNever uninstall or reinstall the VPN client yourself.",
+              "start": 0,
+              "end": 63,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0022,
+              "date_or_version": 0.0035,
+              "rule_or_condition": 0.9823,
+              "scope": 0.0058,
+              "name": 0.003,
+              "no_conflict": 0.0032
+            },
+            "confidence": 0.9968,
+            "a": {
+              "document": "vpn-policy-2024#0,1",
+              "quote": "If the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal.",
+              "start": 10,
+              "end": 138,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it.",
+              "start": 64,
+              "end": 215,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0021,
+              "date_or_version": 0.0026,
+              "rule_or_condition": 0.9852,
+              "scope": 0.0046,
+              "name": 0.0028,
+              "no_conflict": 0.0027
+            },
+            "confidence": 0.9973,
+            "a": {
+              "document": "vpn-policy-2024#0,1",
+              "quote": "If the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal.",
+              "start": 10,
+              "end": 138,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+              "start": 216,
+              "end": 312,
+              "confidence": 1
+            }
+          }
+        ]
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [
+      1
+    ],
+    "conflicts": [
+      1,
+      2
+    ],
+    "related_pairs": [
+      0,
+      1,
+      2
+    ],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 15,
+      "passage_reads": 1,
+      "passages_ms": 58,
+      "passages": 5,
+      "counterparts_ms": 75,
+      "kinds_ms": 28
+    },
+    "timing": {
+      "read_ms": 175,
+      "total_ms": 178
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "167.343357",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=0.8, upstream;dur=189.2, discovery;dur=0.0, model;dur=167.3, settle;dur=5.7, gateway;dur=200.7"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "vpn-macos",
+  "step": "retrieve:guard:vpn-macos-drops#2",
+  "status": 200,
+  "request": {
+    "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.003861886835135331,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9924570010459794,
+      "instruction override": 0.0016004239721038793,
+      "role-play or persona jailbreak": 0.0010604612408866444,
+      "system prompt or secret extraction": 0.0010486304255676595,
+      "obfuscated or encoded payload": 0.001037405404230346,
+      "tool misuse or data exfiltration": 0.0013539456833761199,
+      "social engineering": 0.0014421322278559037
+    },
+    "severity": "none",
+    "severity_expected": 1.027,
+    "severities": {
+      "none": 0.9888889883250972,
+      "low": 0.004311235909473589,
+      "medium": 0.0012897308656385786,
+      "high": 0.002281747975608276,
+      "critical": 0.0032282969241823603
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 28,
+      "total_ms": 28
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "25.126368",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.2, admit_db;dur=2.3, upstream;dur=38.7, discovery;dur=0.0, model;dur=25.1, settle;dur=5.5, gateway;dur=51.4"
+  }
+}

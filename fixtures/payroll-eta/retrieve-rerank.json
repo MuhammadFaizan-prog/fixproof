@@ -1,0 +1,540 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "rerank",
+  "scenario": "payroll-eta",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
+    "documents": [
+      {
+        "id": "payroll-portal-status#0",
+        "title": "Payroll portal outage: current status · Status",
+        "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      },
+      {
+        "id": "payroll-portal-status#1",
+        "title": "Payroll portal outage: current status · Workaround",
+        "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      },
+      {
+        "id": "payroll-portal-status#2",
+        "title": "Payroll portal outage: current status · Updates",
+        "text": "## Updates\nUpdates are posted on the IT status page every two hours.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      },
+      {
+        "id": "account-lockout#1",
+        "title": "Account locked after failed sign-ins · Fix",
+        "text": "## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "mfa-new-phone#1",
+        "title": "Move MFA to a new phone · Steps",
+        "text": "## Steps\n1. On your laptop, open the self-service portal and choose **Security > Authenticator app > Replace device**.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "account-lockout#0",
+        "title": "Account locked after failed sign-ins · Why it happens",
+        "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "software-install-request#0",
+        "title": "Install software that is not in the portal · Steps",
+        "text": "## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-08"
+        }
+      },
+      {
+        "id": "admin-rights-policy#1",
+        "title": "Local administrator rights · What to do instead",
+        "text": "## What to do instead\nMost software can be installed from the software portal without admin rights. If you need something that is not in the portal, raise a software request.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-07-01"
+        }
+      },
+      {
+        "id": "admin-rights-policy#0",
+        "title": "Local administrator rights · Policy",
+        "text": "## Policy\nThe help desk does not grant local administrator or Domain Admin rights. Requests for elevated access go through the access portal with manager approval and a security review. Approved access is time-limited.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-07-01"
+        }
+      },
+      {
+        "id": "password-reset-self-service#0",
+        "title": "Reset your password · Steps",
+        "text": "## Steps\n1. Go to the self-service portal and choose **Forgot password**.\n2. Approve the MFA prompt, then choose a new password of at least 14 characters.\n3. On a Mac, update the password in **Keychain Access** when prompted.\nThe help desk never asks for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "disk-full-macos#0",
+        "title": "Mac says the disk is almost full · Fix",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-19"
+        }
+      },
+      {
+        "id": "mfa-new-phone#0",
+        "title": "Move MFA to a new phone · Before you start",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "pk-office-network#0",
+        "title": "Lahore office network and power backup · Notes",
+        "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-10-10"
+        }
+      },
+      {
+        "id": "linux-sudo-access#0",
+        "title": "Request sudo on an engineering workstation · Policy",
+        "text": "## Policy\nEngineers get time-limited sudo through the access portal with team lead approval. The help desk cannot grant sudo directly.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-06-05"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#0",
+        "title": "VPN client troubleshooting policy (2024) · Policy",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#1",
+        "title": "VPN drops on Linux workstations · Fix",
+        "text": "## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "phishing-report#0",
+        "title": "Report a suspicious email · Steps",
+        "text": "## Steps\nUse the **Report phishing** button in Outlook. Do not forward the email or click links in it. If you already entered your password, reset it at once from the self-service portal and tell the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-02"
+        }
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "title": "VPN client troubleshooting policy (2026) · Policy",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-01"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "title": "Laptop is slow or behaving strangely · First steps",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "browser-certificate-error#0",
+        "title": "Certificate error on internal sites · Symptoms",
+        "text": "## Symptoms\nThe browser says \"Your connection is not private\" on an internal Northwind site.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-25"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Financial Analyst",
+        "os": "Windows 11",
+        "device": "ThinkPad T14 Gen 4",
+        "office": "London",
+        "region": "UK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "payroll-portal-status#0",
+        "action": "use",
+        "relevance_score": 0.9838,
+        "document_score": 0.9917,
+        "levels": {
+          "answers": 0.9838,
+          "elsewhere": 0.0079,
+          "different_case": 0.0033,
+          "unrelated": 0.005
+        }
+      },
+      {
+        "index": 1,
+        "id": "payroll-portal-status#1",
+        "action": "expand",
+        "relevance_score": 0.3018,
+        "document_score": 0.8046,
+        "levels": {
+          "answers": 0.3018,
+          "elsewhere": 0.5029,
+          "different_case": 0.0339,
+          "unrelated": 0.1615
+        }
+      },
+      {
+        "index": 2,
+        "id": "payroll-portal-status#2",
+        "action": "expand",
+        "relevance_score": 0.0238,
+        "document_score": 0.8414,
+        "levels": {
+          "answers": 0.0238,
+          "elsewhere": 0.8175,
+          "different_case": 0.0172,
+          "unrelated": 0.1415
+        }
+      },
+      {
+        "index": 3,
+        "id": "account-lockout#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0091,
+        "document_score": 0.0302,
+        "levels": {
+          "answers": 0.0091,
+          "elsewhere": 0.0211,
+          "different_case": 0.0205,
+          "unrelated": 0.9494
+        }
+      },
+      {
+        "index": 5,
+        "id": "account-lockout#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0046,
+        "document_score": 0.0306,
+        "levels": {
+          "answers": 0.0046,
+          "elsewhere": 0.026,
+          "different_case": 0.0153,
+          "unrelated": 0.9541
+        }
+      },
+      {
+        "index": 19,
+        "id": "browser-certificate-error#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0044,
+        "document_score": 0.0124,
+        "levels": {
+          "answers": 0.0044,
+          "elsewhere": 0.008,
+          "different_case": 0.0165,
+          "unrelated": 0.9711
+        }
+      },
+      {
+        "index": 9,
+        "id": "password-reset-self-service#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0027,
+        "document_score": 0.0075,
+        "levels": {
+          "answers": 0.0027,
+          "elsewhere": 0.0048,
+          "different_case": 0.0117,
+          "unrelated": 0.9807
+        }
+      },
+      {
+        "index": 4,
+        "id": "mfa-new-phone#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0025,
+        "document_score": 0.0061,
+        "levels": {
+          "answers": 0.0025,
+          "elsewhere": 0.0036,
+          "different_case": 0.0085,
+          "unrelated": 0.9854
+        }
+      },
+      {
+        "index": 10,
+        "id": "disk-full-macos#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0019,
+        "document_score": 0.0045,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0026,
+          "different_case": 0.2182,
+          "unrelated": 0.7773
+        }
+      },
+      {
+        "index": 11,
+        "id": "mfa-new-phone#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0019,
+        "document_score": 0.0068,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0049,
+          "different_case": 0.0076,
+          "unrelated": 0.9856
+        }
+      },
+      {
+        "index": 12,
+        "id": "pk-office-network#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0019,
+        "document_score": 0.0039,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0019,
+          "different_case": 0.9724,
+          "unrelated": 0.0237
+        }
+      },
+      {
+        "index": 13,
+        "id": "linux-sudo-access#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.0036,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0018,
+          "different_case": 0.0139,
+          "unrelated": 0.9826
+        }
+      },
+      {
+        "index": 16,
+        "id": "phishing-report#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0033,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0017,
+          "different_case": 0.0037,
+          "unrelated": 0.993
+        }
+      },
+      {
+        "index": 15,
+        "id": "vpn-linux-drops#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0015,
+        "document_score": 0.0035,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.002,
+          "different_case": 0.9149,
+          "unrelated": 0.0816
+        }
+      },
+      {
+        "index": 6,
+        "id": "software-install-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0022,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0011,
+          "different_case": 0.002,
+          "unrelated": 0.9958
+        }
+      },
+      {
+        "index": 8,
+        "id": "admin-rights-policy#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0021,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0009,
+          "different_case": 0.002,
+          "unrelated": 0.9959
+        }
+      },
+      {
+        "index": 17,
+        "id": "vpn-policy-2026#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0021,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0009,
+          "different_case": 0.0019,
+          "unrelated": 0.996
+        }
+      },
+      {
+        "index": 7,
+        "id": "admin-rights-policy#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0022,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0011,
+          "different_case": 0.0022,
+          "unrelated": 0.9956
+        }
+      },
+      {
+        "index": 14,
+        "id": "vpn-policy-2024#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0014,
+          "different_case": 0.0026,
+          "unrelated": 0.9948
+        }
+      },
+      {
+        "index": 18,
+        "id": "laptop-slow-performance#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0031,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.002,
+          "different_case": 0.0033,
+          "unrelated": 0.9936
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 4653
+    },
+    "timing": {
+      "total_ms": 82,
+      "rerank_ms": 80,
+      "questions_ms": 0,
+      "model_ms": 76,
+      "engine": {
+        "rows": 5753,
+        "branches": 20,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 6144,
+        "long": 0,
+        "total_ms": 76,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 75,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 192
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "77.483772",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=9.7, admit_db;dur=3.5, upstream;dur=92.9, discovery;dur=0.0, model;dur=77.5, settle;dur=7.3, gateway;dur=109.9"
+  }
+}

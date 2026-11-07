@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "vpn-macos",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nHi, it's <PERSON>. My VPN keeps dropping every five minutes since yesterday's update, error 809. I have a client demo at 3pm today. I'm on my MacBook, NW-MBP-0193. You can reach me at <EMAIL>.\n\nKnowledge base sources:\n[1] VPN drops every few minutes on macOS · Symptoms + Fix: reset the VPN profile + Script: restart the VPN agent + If it still drops (updated 2026-10-02)\n## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.\n\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n[script omitted]\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.\n\n[2] VPN client troubleshooting policy (2026) · Policy (updated 2026-09-01)\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (macOS 15, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "1. Click the Northwind VPN icon in the menu bar and choose Disconnect.\n2. Choose Settings > Reset profile.\n3. Reconnect and sign in with your work account and MFA.\nIf it still drops, try a phone hotspot for five minutes",
+        "confidence": 0.9435307669794089,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 163,
+      "total_ms": 180,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 560,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "173.240607",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.1, admit_db;dur=0.9, upstream;dur=190.5, discovery;dur=0.0, model;dur=173.2, settle;dur=5.4, gateway;dur=202.0"
+  }
+}

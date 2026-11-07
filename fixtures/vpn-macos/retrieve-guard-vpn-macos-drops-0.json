@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "injection",
+  "scenario": "vpn-macos",
+  "step": "retrieve:guard:vpn-macos-drops#0",
+  "status": 200,
+  "request": {
+    "text": "## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0023567869004611497,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9949820850401634,
+      "instruction override": 0.0010334971710991609,
+      "role-play or persona jailbreak": 0.0007528110911154163,
+      "system prompt or secret extraction": 0.0007863074340710616,
+      "obfuscated or encoded payload": 0.0007503841150017311,
+      "tool misuse or data exfiltration": 0.0008494465959737501,
+      "social engineering": 0.0008454685525754912
+    },
+    "severity": "none",
+    "severity_expected": 1.014,
+    "severities": {
+      "none": 0.9938291194145534,
+      "low": 0.0023628854356621443,
+      "medium": 0.0013130147291210426,
+      "high": 0.0011835059124825646,
+      "critical": 0.0013114745081808184
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 23,
+      "total_ms": 23
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "19.750879",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.3, admit_db;dur=1.5, upstream;dur=32.8, discovery;dur=0.0, model;dur=19.8, settle;dur=5.5, gateway;dur=44.6"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "grounding",
+  "scenario": "ambiguous",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "my computer is weird today",
+    "answer": "Please tell us what you see. 1. Tell us what you were doing, what happened, and when it started",
+    "claims": [
+      "Please tell us what you see.",
+      "1. Tell us what you were doing, what happened, and when it started"
+    ],
+    "documents": [
+      {
+        "id": "laptop-slow-performance#1",
+        "text": "## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\"."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.5436,
+    "ungrounded": 0.4564,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-slow-performance#1",
+        "share": 1,
+        "share_of_answer": 0.5436,
+        "claims": [
+          1
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Please tell us what you see.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.003077735158080728,
+          "offer_or_question": 0.9905666321926163,
+          "pointer": 0.0032502805180925523,
+          "meta": 0.003105352131210405
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0258,
+        "contradicted": 0.0089,
+        "not_stated": 0.0195,
+        "not_a_claim": 0.9458,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Tell us what you were doing, what happened, and when it started",
+        "kind": "claim",
+        "counted": true,
+        "weight": 1,
+        "supported": 0.5436,
+        "contradicted": 0.0087,
+        "not_stated": 0.023,
+        "not_a_claim": 0.4248,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": "laptop-slow-performance#1",
+        "evidence": {
+          "document": "laptop-slow-performance#1",
+          "quote": "A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+          "start": 64,
+          "end": 224,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.5436
+    },
+    "answers_question": 0.9526575994210658,
+    "timing": {
+      "read_ms": 137,
+      "total_ms": 96
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "83.904256",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=105.8, discovery;dur=0.0, model;dur=83.9, settle;dur=5.4, gateway;dur=117.0"
+  }
+}
