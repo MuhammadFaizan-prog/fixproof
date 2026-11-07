@@ -7,6 +7,7 @@ export interface Limiter {
   run<T>(task: () => Promise<T>): Promise<T>;
   readonly active: number;
   readonly pending: number;
+  readonly concurrency: number;
 }
 
 export function createLimiter(concurrency: number): Limiter {
@@ -23,6 +24,7 @@ export function createLimiter(concurrency: number): Limiter {
   };
 
   return {
+    concurrency,
     get active() {
       return active;
     },

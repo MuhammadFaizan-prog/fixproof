@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:13 PKT
+Last updated: 2026-11-08 02:14 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -17,6 +17,7 @@ Agent steps in progress (commits 9–15).
 | 7 | feat(kb): add synthetic Northwind Labs knowledge base and personas | done | pass (61 tests) | yes |
 | 8 | feat(kb): minisearch BM25 index with chunk neighbors | done | pass (79 tests) | yes |
 | 9 | feat(agent): screening step via pipeline (pii + injection stop) | done | pass (91 tests) | yes |
+| 9a | fix(clocked): default concurrency to 1 for the Trial plan | done | pass (92 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -67,9 +68,10 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - Note: scenarios (data/scenarios.ts) landed with the KB in commit 7 because the BM25 recall test in commit 8 needs them; the intake UI for them is still commit 17.
 - 2026-11-08 03:05 PKT: commit 8: MiniSearch 7.2 BM25 over 30 articles' `##` chunks (title×2, section×1.5, prefix ≥4 chars, fuzzy ≥6 chars, help-desk stopwords); all 8 presets have their expected articles in the top 20; neighbors for expand. typecheck, lint, test (79 passed), build pass.
 - 2026-11-08 02:13 PKT: commit 9: screen step: one Pipeline call (Protect replace + Guard stop), FixProof rebuilds the safe text from the shared original offsets (PII → <TYPE>, injected spans cut, code-point safe via lib/text/offsets.ts), Guard re-checks the remainder; flagged-without-span holds the whole ticket. Tested on the live probe pipeline fixture + doc-shaped cases. typecheck, lint, test (91), build pass.
+- 2026-11-08 02:14 PKT: commit 9a: CLOCKED_CONCURRENCY now defaults to 1 (Trial), invalid values fall back to 1; .env.example and Techspec updated; test added. typecheck, lint, test (92), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.
 2. Commit 10–15: understand, retrieve (rerank + expand + content guard), compare, draft + verify, inspect, policy + handoff.
 3. Vercel: make sure data/kb and fixtures are traced into the serverless bundle (`outputFileTracingIncludes`) before the first deploy.
-4. Concurrency: cost basis is `reference` (trial pricing); confirm the account's real concurrency (Trial = 1, Build = 4) and set CLOCKED_CONCURRENCY.
+4. Concurrency: defaults to 1 (Trial). Set CLOCKED_CONCURRENCY=4 only after upgrading to Build.

@@ -31,7 +31,7 @@ Next.js route handlers on the Node runtime (not Edge), `maxDuration = 60`.
 - Transport: raw `fetch` to `https://clocked.rezolve.ai/clocked/<endpoint>` with `Authorization: Bearer`, `Content-Type: application/json`, `Idempotency-Key` (docs: authentication). Chosen over `clocked-sdk` 0.7.0 so the app owns the idempotency key per logical step, reads every `X-Clocked-*` header, and replays fixtures through the same code path; the SDK's own retries would stack on ours. The SDK remains a documented option.
 - Idempotency: one UUID per logical step, reused on every retry of that step with the identical payload (docs: errors).
 - Retries: bounded exponential backoff with full jitter on 429 and 5xx and on network errors; stop when the body has `retryAsNew: true`; never retry 400/401/402/403/413/422; 409 retried only while recovering an unknown outcome.
-- Concurrency: one shared limiter of 4 (Build plan concurrency).
+- Concurrency: one shared limiter sized by `CLOCKED_CONCURRENCY`, default 1 (Trial plan allows 1 concurrent request; Build allows 4).
 - Usage: parse `X-Clocked-Credits`, `X-Clocked-Model-Ms`, `X-Clocked-Cost-Usd`, `X-Clocked-Cost-Basis`, `X-Clocked-Transport` into a `ClockedMeta` returned beside the data.
 - Offsets: Unicode code points (`Array.from`), never `String.slice` (docs: responses).
 - Timeouts: 110 s gateway; client per-attempt timeout 115 s; the route streams progress so the UI never looks frozen.

@@ -188,3 +188,14 @@ describe("limiter and helpers", () => {
     expect(() => createLiveClientFromEnv({} as NodeJS.ProcessEnv)).toThrow(ClockedError);
   });
 });
+
+describe("live client concurrency", () => {
+  it("defaults to the Trial plan's single slot and honours CLOCKED_CONCURRENCY", () => {
+    const one = createLiveClientFromEnv({ CLOCKED_API_KEY: "test-key" } as unknown as NodeJS.ProcessEnv);
+    const four = createLiveClientFromEnv({ CLOCKED_API_KEY: "test-key", CLOCKED_CONCURRENCY: "4" } as unknown as NodeJS.ProcessEnv);
+    const bad = createLiveClientFromEnv({ CLOCKED_API_KEY: "test-key", CLOCKED_CONCURRENCY: "zero" } as unknown as NodeJS.ProcessEnv);
+    expect(one.limiter.concurrency).toBe(1);
+    expect(four.limiter.concurrency).toBe(4);
+    expect(bad.limiter.concurrency).toBe(1);
+  });
+});

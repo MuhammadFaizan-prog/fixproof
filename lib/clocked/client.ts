@@ -217,10 +217,11 @@ export function createLiveClientFromEnv(env: NodeJS.ProcessEnv = process.env, ov
   if (!hasApiKey(env)) {
     throw new ClockedError("CLOCKED_API_KEY is not set", { kind: "no_key", endpoint: "pipeline", step: "init", attempts: 0 });
   }
-  const concurrency = Number(env.CLOCKED_CONCURRENCY ?? 4);
+  // Trial accounts get one concurrent request; raise CLOCKED_CONCURRENCY on a Build plan (4).
+  const concurrency = Number(env.CLOCKED_CONCURRENCY ?? 1);
   return createClockedClient({
     transport: createHttpTransport({ apiKey: env.CLOCKED_API_KEY as string, baseUrl: env.CLOCKED_BASE_URL || undefined }),
-    concurrency: Number.isInteger(concurrency) && concurrency > 0 ? concurrency : 4,
+    concurrency: Number.isInteger(concurrency) && concurrency > 0 ? concurrency : 1,
     ...overrides,
   });
 }
