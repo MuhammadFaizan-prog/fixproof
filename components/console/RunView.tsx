@@ -13,12 +13,12 @@ import { RunHeader } from "./RunHeader";
 import { StepInspector } from "./StepInspector";
 
 /** Main column: run header, the outcome receipt (top, in view), the Proof Trail, recent runs, and the step inspector. */
-export function RunView({ state, persona, scenario, history, scenarios }: { state: TriageState; persona: Persona; scenario: Scenario | null; history: HistoryEntry[]; scenarios: Scenario[] }) {
+export function RunView({ state, persona, scenario, history, scenarios, onReplay }: { state: TriageState; persona: Persona; scenario: Scenario | null; history: HistoryEntry[]; scenarios: Scenario[]; onReplay?: () => void }) {
   const [inspecting, setInspecting] = useState<string | null>(null);
   const row = inspecting ? (state.rows[inspecting] ?? null) : null;
   return (
     <div className="flex flex-col gap-4 xl:gap-5">
-      <RunHeader state={state} persona={persona} scenario={scenario} />
+      <RunHeader state={state} persona={persona} scenario={scenario} onReplay={onReplay} onInspect={setInspecting} />
       {state.status === "error" && state.error ? (
         <div role="alert" className="rounded-[28px] border border-risk-soft bg-risk-wash px-6 py-4">
           <p className="text-[15px] font-medium text-risk">The run stopped</p>

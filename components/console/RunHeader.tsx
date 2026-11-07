@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, CircleCheck, CircleHelp, Hourglass, Laptop, TriangleAlert } from "lucide-react";
+import { ArrowUpRight, ChevronRight, CircleCheck, RotateCcw, CircleHelp, Hourglass, Laptop, TriangleAlert } from "lucide-react";
 import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import type { TriageState } from "@/lib/client/useTriage";
@@ -15,11 +15,12 @@ import { isCall } from "./StageRows";
  * outcome chip, one muted meta line, then the path row: the employee node,
  * a connector carrying the run's metrics, and the outcome node.
  */
-export function RunHeader({ state, persona, scenario }: { state: TriageState; persona: Persona; scenario: Scenario | null }) {
+export function RunHeader({ state, persona, scenario, onReplay, onInspect }: { state: TriageState; persona: Persona; scenario: Scenario | null; onReplay?: () => void; onInspect?: (id: string) => void }) {
   const calls = state.order.map((id) => state.rows[id]).filter((r) => isCall(r) && r.status !== "running");
   const credits = calls.reduce((n, r) => n + (r.meta?.credits ?? 0), 0);
   const modelMs = calls.reduce((n, r) => n + (r.meta?.modelMs ?? 0), 0);
   const first = calls[0]?.meta;
+  const firstCall = calls.find((c) => c.endpoint === "grounding")?.id ?? calls[0]?.id ?? null;
   const r = state.result;
   const outcome = r?.outcome.outcome ?? null;
   const style = outcome ? OUTCOME_STYLE[outcome] : null;
@@ -37,20 +38,36 @@ export function RunHeader({ state, persona, scenario }: { state: TriageState; pe
       : outcome === "CONFIRM_WITH_USER"
         ? "asks first"
         : outcome === "ESCALATED"
-          ? `to ${r?.handoff?.assignmentGroup ?? "a person"}`
+          ? (r?.handoff?.assignmentGroup ?? "a person")
           : idle
             ? "replay a ticket"
             : "in progress";
 
   return (
     <Panel className="px-5 pb-5 pt-5 sm:px-7 sm:pb-6 sm:pt-6">
-      <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-[14px] text-muted-foreground">
-        <span>Service desk</span>
-        <ChevronRight aria-hidden className="size-3.5" />
-        <span className="truncate font-mono text-[13px]">{ticketId}</span>
-        <ChevronRight aria-hidden className="size-3.5" />
-        <span className="text-foreground">Proof trail</span>
-      </nav>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-[14px] text-muted-foreground">
+          <span>Service desk</span>
+          <ChevronRight aria-hidden className="size-3.5" />
+          <span className="truncate font-mono text-[13px]">{ticketId}</span>
+          <ChevronRight aria-hidden className="size-3.5" />
+          <span className="text-foreground">Proof trail</span>
+        </nav>
+        {state.status === "done" || state.status === "error" ? (
+          <div className="flex items-center gap-2">
+            {onReplay && scenario ? (
+              <button type="button" onClick={onReplay} className="inline-flex h-10 items-center gap-2 rounded-full border border-hairline bg-card px-4 text-[14px] font-medium transition-colors duration-150 hover:bg-secondary">
+                <RotateCcw aria-hidden className="size-4" /> Replay again
+              </button>
+            ) : null}
+            {onInspect && firstCall ? (
+              <button type="button" onClick={() => onInspect(firstCall)} className="inline-flex h-10 items-center gap-2 rounded-full bg-primary px-4 text-[14px] font-medium text-primary-foreground transition-colors duration-150 hover:bg-primary/90">
+                <ArrowUpRight aria-hidden className="size-4" /> Inspect a call
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
         <h1 className="text-[30px] font-medium leading-[38px] tracking-[-0.02em] sm:text-[36px] sm:leading-[44px]">{title}</h1>
         {style ? (

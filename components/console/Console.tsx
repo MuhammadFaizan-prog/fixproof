@@ -103,7 +103,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
           />
         </aside>
         <main ref={mainRef} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", active ? "order-1 lg:order-none" : "order-2 lg:order-none")}>
-          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} />
+          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => run({ text: runScenario.text, personaId: runScenario.personaId, scenarioId: runScenario.id, mode: "replay" }) : undefined} />
         </main>
         <aside aria-label="Evidence and scope" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", active ? "order-2 lg:order-none" : "order-3 lg:order-none", "lg:col-start-2 xl:col-start-auto")}>
           <EvidenceRail state={state} persona={runPersona} />
