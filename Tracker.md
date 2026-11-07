@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:49 PKT
+Last updated: 2026-11-08 03:00 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -27,12 +27,13 @@ Agent steps in progress (commits 9–15).
 | 16 | feat: record fixtures for all presets (moved up from 20 so the API and UI replay real runs) | done | pass (249 tests) | yes |
 | 16a | fix(agent): failure kinds shape the escalation (gauntlet round 1) | done | pass (251 tests) | yes |
 | 17 | feat(api): stream triage steps over SSE | done | pass (260 tests) | yes |
+| 18 | feat(ui): intake form, personas and preset scenarios | done | pass (264 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
 | ID | Title | Priority | Status | Pass/fail | Evidence |
 |---|---|---|---|---|---|
-| S1 | Intake, personas, presets | P0 | not started | | |
+| S1 | Intake, personas, presets | P0 | done | pass (screenshot 1440/390) | components/console/IntakePanel.tsx |
 | S2 | Screening via pipeline | P0 | done (lib) | pass (unit) | tests/agent-screen.test.ts |
 | S3 | Understand: extract, fill, decide | P0 | done (lib) | pass (unit + live spot check) | tests/agent-understand.test.ts |
 | S4 | Rerank retrieval + content guard | P0 | done (lib) | pass (unit + live spot check) | tests/agent-retrieve.test.ts |
@@ -94,6 +95,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:39 PKT: commit 16: 8 presets recorded live (106 fixture files, synthetic:false, usage headers only, no key: grep of fixtures/lib/scripts/tests/data for the key value returns 0 files). New presets-replay test runs every preset through runTicket from fixtures with no key and asserts outcome + per-preset proofs. typecheck, lint, test (249), build pass.
 - 2026-11-08 02:46 PKT: commit 16a: Gauntlet milestone 1, round 1: independent browser critic compared FixProof's integration with RevisionDesk (public entry) and picked FixProof; fixed its named gap: failureMeaning(kind) — busy/unreachable (retryable, P3), refused key or credits (P2), unreadable request/answer, internal. 429-past-budget test added. docs/GAUNTLET.md + docs/REVERSE-ENGINEERING.md (REA method: findings with evidence) + PRD 'what judges reward'. typecheck, lint, test (251), build pass.
 - 2026-11-08 02:49 PKT: commit 17: POST /api/triage (Node runtime, maxDuration 60) streams start/step/result over SSE; zod-validated input (≤4,000 chars), presets always replay their own text+persona, free text live only with a key; GET /api/health; outputFileTracingIncludes for data/kb + fixtures. Verified through next start + curl (tampered-printer: 1 start, 24 step frames, 1 result ESCALATED). Security: clean build, grep .next/static for CLOCKED = 0 files, key value in .next = 0 files. typecheck, lint, test (260), build pass.
+- 2026-11-08 03:00 PKT: commit 18: Console client: presets as R2 help-desk rows (4px status bar, title + one-line preview, outcome pill from the committed recording), employee picker (radio cards, 44px targets), ticket textarea (4,000 cap, counter), Replay/Run, health-gated free text with a 'no key' note; useTriage streams SSE into rows keyed by step id; masked-only localStorage history (fixproof.history.v1, cap 50). Scenario.recorded added and asserted by presets-replay. Screenshot via Playwright + system Chromium at 1440/390 (/workspace/clocked/screens/c17-*). typecheck, lint, test (264), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.

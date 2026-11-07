@@ -24,6 +24,7 @@ describe("preset replay", () => {
     const expected = Array.isArray(s.expects.outcome) ? s.expects.outcome : [s.expects.outcome];
     expect(r.failure).toBeNull();
     expect(expected).toContain(r.outcome.outcome);
+    expect(r.outcome.outcome).toBe(s.recorded);
     const calls = events.filter((e) => e.status === "ok" && e.endpoint !== "local");
     expect(calls.length).toBeGreaterThan(3);
     for (const e of calls) {
