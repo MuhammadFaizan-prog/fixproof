@@ -4,10 +4,11 @@ import { pct } from "./format";
 const BAD_WHEN_HIGH = new Set(["injection", "malicious", "conflict", "escalate"]);
 
 /** Merit's 4 px progress bar, used for a Clocked probability. Colour follows what the number means. */
-export function ProbabilityBar({ value, label, className }: { value: number; label?: string; className?: string }) {
+/** `handled`: a bad-when-high signal that the run already dealt with (a resolved conflict) reads amber, not red. */
+export function ProbabilityBar({ value, label, className, handled = false }: { value: number; label?: string; className?: string; handled?: boolean }) {
   const v = Math.max(0, Math.min(1, value));
   const bad = label ? BAD_WHEN_HIGH.has(label) : false;
-  const tone = bad ? (v >= 0.5 ? "bg-risk" : "bg-muted-foreground/40") : v >= 0.7 ? "bg-ok" : v >= 0.45 ? "bg-warn" : "bg-risk";
+  const tone = bad ? (v >= 0.5 ? (handled ? "bg-warn" : "bg-risk") : "bg-muted-foreground/40") : v >= 0.7 ? "bg-ok" : v >= 0.45 ? "bg-warn" : "bg-risk";
   return (
     <div className={cn("flex items-center gap-3", className)}>
       <div

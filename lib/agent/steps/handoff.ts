@@ -39,8 +39,8 @@ export function handoffSource(i: HandoffInput, persona: RunContext["persona"]): 
   return [
     `Ticket (personal data masked):\n${i.maskedTicket || "[nothing safe to show]"}`,
     `Employee: ${persona.role}, ${persona.department}, ${persona.office}; ${persona.device} (${persona.osLabel}).`,
-    `Why FixProof stopped: ${i.failed ? `${FAILED_AS[i.failed.id]} (${i.failed.detail})` : "not stated"}.`,
-    `What FixProof already did: ${i.attempted.join("; ") || "nothing"}.`,
+    `Why the automated desk stopped: ${i.failed ? `${FAILED_AS[i.failed.id]} (${i.failed.detail})` : "not stated"}.`,
+    `What the automated desk already did: ${i.attempted.join("; ") || "nothing"}.`,
     i.reply ? `Verified holding reply sent to the employee:\n${i.reply}` : "No reply was sent to the employee.",
   ].join("\n\n");
 }

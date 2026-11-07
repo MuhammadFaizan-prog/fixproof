@@ -276,7 +276,8 @@ export interface GroundingRequest {
 }
 
 export interface DocPassage extends Span {
-  document: string;
+  /** null observed live when the quote is a "Document <id>:" header. */
+  document: string | null;
   quote: string;
   confidence: number;
 }

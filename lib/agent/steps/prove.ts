@@ -18,7 +18,8 @@ export interface ProvenClaim {
   verdict: ClaimVerdict | string;
   supported: number;
   kept: boolean;
-  source: { passageId: string; quote: string; start: number; end: number } | null;
+  /** Where the sentence is backed. Verify names the passage per claim (`source`); the quote and offsets come only when it returns evidence. */
+  source: { passageId: string; quote: string | null; start: number | null; end: number | null } | null;
 }
 
 export interface ProveResult {
@@ -61,7 +62,13 @@ export async function prove(ctx: RunContext, question: string, d: DraftResult): 
           verdict: c.verdict,
           supported: c.supported,
           kept,
-          source: ev ? { passageId: ev.document, quote: ev.quote, start: ev.start, end: ev.end } : null,
+          // Evidence with no document (seen live: a quote of the "Document <id>:" header) has offsets
+          // that map to no passage, so only the claim's named source is kept.
+          source: ev?.document
+            ? { passageId: ev.document, quote: ev.quote, start: ev.start, end: ev.end }
+            : c.source
+              ? { passageId: c.source, quote: null, start: null, end: null }
+              : null,
         };
       });
       const removed = claims.filter((c) => !c.kept);
@@ -69,8 +76,8 @@ export async function prove(ctx: RunContext, question: string, d: DraftResult): 
       const keptShare = factual.length ? factual.filter((c) => c.kept).length / factual.length : 0;
       const reply = claims.filter((c) => c.kept).map((c) => c.text).join("\n");
       const marks: EvidenceMark[] = claims
-        .filter((c) => c.source && c.kept)
-        .map((c) => ({ target: "chunk", ref: c.source!.passageId, start: c.source!.start, end: c.source!.end, kind: "support", label: "supports a sentence" }));
+        .filter((c) => c.kept && c.source?.start != null && c.source.end != null)
+        .map((c) => ({ target: "chunk", ref: c.source!.passageId, start: c.source!.start as number, end: c.source!.end as number, kind: "support", label: "supports a sentence" }));
       const supportedCount = factual.filter((c) => c.kept).length;
       const removedText = removed.length
         ? ` Removed ${plural(removed.length, "sentence")} (${removed.map((r) => r.verdict).join(", ")}): "${removed[0].text.slice(0, 80)}${removed[0].text.length > 80 ? "…" : ""}".`

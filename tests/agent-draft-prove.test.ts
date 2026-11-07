@@ -87,6 +87,27 @@ describe("prove step", () => {
     expect(row.effect).toMatch(/Removed 1 sentence \(not_stated\): "The portal will be restored by 2pm today\."/);
   });
 
+  it("falls back to the claim's named source when Verify returns no evidence span", async () => {
+    const noEvidence = structuredClone(grounding);
+    const claims = (noEvidence.response as { claims: Record<string, unknown>[] }).claims;
+    delete claims[1].evidence;
+    claims[1].source = passage.id;
+    const { ctx, events } = fakeContext([noEvidence]);
+    const r = await prove(ctx, QUESTION, { text: DRAFT, sources: [passage] });
+    expect(r.claims[1].source).toEqual({ passageId: passage.id, quote: null, start: null, end: null });
+    expect(finalEvents(events).get("prove")!.evidence ?? []).toHaveLength(0);
+  });
+
+  it("ignores evidence that names no document and keeps the claim's source", async () => {
+    const headerOnly = structuredClone(grounding);
+    const claims = (headerOnly.response as { claims: Record<string, unknown>[] }).claims;
+    claims[1].evidence = { document: null, quote: `Document ${passage.id}:`, start: 0, end: 30, confidence: 0.9 };
+    claims[1].source = passage.id;
+    const { ctx } = fakeContext([headerOnly]);
+    const r = await prove(ctx, QUESTION, { text: DRAFT, sources: [passage] });
+    expect(r.claims[1].source).toEqual({ passageId: passage.id, quote: null, start: null, end: null });
+  });
+
   it("treats a claim Verify did not return as not stated", async () => {
     const partial = structuredClone(grounding);
     (partial.response as { claims: unknown[] }).claims = [];

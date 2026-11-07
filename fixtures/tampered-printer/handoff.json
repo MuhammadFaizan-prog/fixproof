@@ -7,7 +7,7 @@
   "step": "handoff",
   "status": 200,
   "request": {
-    "text": "Ticket (personal data masked):\nThe print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy FixProof stopped: Fix script is in scope: malicious: security blinding or EDR evasion.\n\nWhat FixProof already did: screened the ticket and masked personal data; classified it as printing, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded); inspected the powershell script: malicious.\n\nVerified holding reply sent to the employee:\nTo resolve the stuck print queue, please follow these steps:\n1. Open Settings > Bluetooth & devices > Printers & scanners, select the printer and choose Open print queue.\n2. Cancel all documents, then try printing a test page",
+    "text": "Ticket (personal data masked):\nThe print queue is stuck. Nothing has printed from my laptop NW-LT-2207 since this morning and I need to print board papers before 2pm.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy the automated desk stopped: the knowledge-base fix script is outside the approved scope (script in \"Print queue stuck on a Windows laptop\" is malicious: security blinding or EDR evasion).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as printing, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded); inspected the powershell script: malicious.\n\nVerified holding reply sent to the employee:\nTo resolve the stuck print queue, please follow these steps:\n1. Open Settings > Bluetooth & devices > Printers & scanners, select the printer and choose Open print queue.\n2. Cancel all documents, then try printing a test page",
     "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
     "fields": {
       "summary": {
@@ -43,50 +43,50 @@
     "model": "clocked-1.0",
     "fields": {
       "summary": {
-        "value": "The print queue is stuck on laptop NW-LT-2207 and nothing has printed since this morning. The automated desk stopped because the FixProof script was inspected and found to be malicious",
-        "confidence": 0.9513635547170189,
+        "value": "The print queue is stuck on laptop NW-LT-2207 and nothing has printed since this morning. The automated desk stopped because the knowledge-base fix script is outside the approved scope and is malicious",
+        "confidence": 0.9835964751736079,
         "source": "generated"
       },
       "assignment_group": {
         "value": "Security",
-        "confidence": 0.48,
+        "confidence": 0.4,
         "probabilities": {
-          "Service Desk": 0.20966629456211197,
-          "Network Operations": 0.016701133962516348,
-          "Identity & Access": 0.01669695805901822,
-          "Security": 0.5841305293399406,
-          "End-user Computing": 0.17280508407641287
+          "Service Desk": 0.029687414337364344,
+          "Network Operations": 0.02207530827923344,
+          "Identity & Access": 0.01946181681676401,
+          "Security": 0.5201058045802748,
+          "End-user Computing": 0.4086696559863634
         }
       },
       "priority": {
         "value": "P2",
-        "confidence": 0.916,
-        "expected": 2.935,
+        "confidence": 0.938,
+        "expected": 2.958,
         "probabilities": {
-          "P4": 0.0354239027347138,
-          "P3": 0.010898119179508989,
-          "P2": 0.9369332733801209,
-          "P1": 0.016744704705656324
+          "P4": 0.021042265665922218,
+          "P3": 0.012542686027068907,
+          "P2": 0.9534736036632547,
+          "P1": 0.012941444643754145
         }
       }
     },
     "timing": {
-      "read_ms": 47,
-      "generate_ms": 159,
-      "total_ms": 179,
+      "read_ms": 55,
+      "generate_ms": 153,
+      "total_ms": 175,
       "source_states": 1,
       "source_prefills": 1,
-      "shared_source_tokens": 256,
+      "shared_source_tokens": 288,
       "shared_read_generate_forwards": 1,
       "engine": "unified"
     }
   },
   "headers": {
     "x-clocked-credits": "7",
-    "x-clocked-model-ms": "171.293248",
+    "x-clocked-model-ms": "166.383139",
     "x-clocked-cost-usd": "0.001394",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=5.7, admit_db;dur=0.9, upstream;dur=188.8, discovery;dur=0.0, model;dur=171.3, settle;dur=5.3, gateway;dur=199.8"
+    "server-timing": "admit;dur=45.1, admit_db;dur=8.1, upstream;dur=201.1, discovery;dur=0.0, model;dur=166.4, settle;dur=6.9, gateway;dur=253.1"
   }
 }

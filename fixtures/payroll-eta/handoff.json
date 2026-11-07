@@ -7,7 +7,7 @@
   "step": "handoff",
   "status": 200,
   "request": {
-    "text": "Ticket (personal data masked):\nWhen will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy FixProof stopped: Decide did not clear it for self-service (escalate is 91% likely).\n\nWhat FixProof already did: screened the ticket and masked personal data; classified it as identity, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded).\n\nVerified holding reply sent to the employee:\nNo restoration time has been published.\n1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+    "text": "Ticket (personal data masked):\nWhen will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy the automated desk stopped: Decide did not clear it for self-service (escalate is 91% likely).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as identity, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded).\n\nVerified holding reply sent to the employee:\nNo restoration time has been published.\n1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
     "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
     "fields": {
       "summary": {
@@ -43,50 +43,50 @@
     "model": "clocked-1.0",
     "fields": {
       "summary": {
-        "value": "The employee is unable to access the payroll portal due to an SSO authentication failure and is asking for a confirmed restoration time. FixProof stopped because the issue was not cleared for self-service",
-        "confidence": 0.992393097431923,
+        "value": "The employee is unable to access the payroll portal due to an SSO authentication failure and is asking for a restoration time. The automated desk stopped because it did not clear the ticket for self-service",
+        "confidence": 0.9931686915195632,
         "source": "generated"
       },
       "assignment_group": {
         "value": "Identity & Access",
         "confidence": 0.985,
         "probabilities": {
-          "Service Desk": 0.00263016188342102,
-          "Network Operations": 0.002488714569350984,
-          "Identity & Access": 0.9883665305266472,
-          "Security": 0.004080149359515631,
-          "End-user Computing": 0.0024344436610651186
+          "Service Desk": 0.0024598696327270794,
+          "Network Operations": 0.0024439668076592135,
+          "Identity & Access": 0.9881520369342183,
+          "Security": 0.0042095723610618375,
+          "End-user Computing": 0.0027345542643335986
         }
       },
       "priority": {
-        "value": "P2",
-        "confidence": 0.635,
-        "expected": 3.073,
+        "value": "P1",
+        "confidence": 0.446,
+        "expected": 3.33,
         "probabilities": {
-          "P4": 0.03872542608437428,
-          "P3": 0.04237281617237013,
-          "P2": 0.7263290970216257,
-          "P1": 0.1925726607216299
+          "P4": 0.10262590902943887,
+          "P3": 0.0495442456643361,
+          "P2": 0.26328976911306584,
+          "P1": 0.5845400761931592
         }
       }
     },
     "timing": {
       "read_ms": 47,
-      "generate_ms": 143,
-      "total_ms": 163,
+      "generate_ms": 158,
+      "total_ms": 179,
       "source_states": 1,
       "source_prefills": 1,
-      "shared_source_tokens": 240,
+      "shared_source_tokens": 256,
       "shared_read_generate_forwards": 1,
       "engine": "unified"
     }
   },
   "headers": {
     "x-clocked-credits": "7",
-    "x-clocked-model-ms": "155.410238",
+    "x-clocked-model-ms": "170.700066",
     "x-clocked-cost-usd": "0.001394",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=6.1, admit_db;dur=0.9, upstream;dur=172.6, discovery;dur=0.0, model;dur=155.4, settle;dur=5.6, gateway;dur=184.3"
+    "server-timing": "admit;dur=7.1, admit_db;dur=1.6, upstream;dur=188.8, discovery;dur=0.0, model;dur=170.7, settle;dur=6.2, gateway;dur=202.1"
   }
 }

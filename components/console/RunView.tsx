@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { Persona } from "@/data/personas";
 import type { TriageState } from "@/lib/client/useTriage";
+import { ConflictCard, HandoffCard, ScriptGateCard } from "./EvidenceCards";
+import { OutcomeCard } from "./OutcomeCard";
 import { ProofTrail } from "./ProofTrail";
 import { StepInspector } from "./StepInspector";
 
@@ -23,7 +25,16 @@ export function RunView({ state, persona }: { state: TriageState; persona: Perso
           <p className="mt-1 text-sm text-risk">{state.error.message}</p>
         </div>
       ) : null}
-      {state.order.length || state.status === "running" ? <ProofTrail state={state} persona={persona} onInspect={setInspecting} /> : null}
+      {state.order.length || state.status === "running" ? (
+        <ProofTrail state={state} persona={persona} onInspect={setInspecting} between={state.result ? <OutcomeCard key={state.startedAt ?? 0} result={state.result} persona={persona} /> : null} />
+      ) : null}
+      {state.result ? (
+        <>
+          <ConflictCard result={state.result} />
+          <ScriptGateCard result={state.result} />
+          <HandoffCard result={state.result} />
+        </>
+      ) : null}
       <StepInspector row={row} open={row !== null} onOpenChange={(o) => !o && setInspecting(null)} />
     </div>
   );

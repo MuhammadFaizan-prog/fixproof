@@ -56,7 +56,7 @@ export const FAILED_AS: Record<CheckId, string> = {
   sources: "knowledge-base articles conflict",
   grounding: "the reply is not grounded in the sources",
   answers: "the reply may not answer the question",
-  script: "the fix script is outside the approved scope",
+  script: "the knowledge-base fix script is outside the approved scope",
 };
 
 export interface OutcomeInput {

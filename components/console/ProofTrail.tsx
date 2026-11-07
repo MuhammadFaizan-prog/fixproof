@@ -16,7 +16,7 @@ import { isCall, stageViews, type Row, type StageView } from "./StageRows";
  * duration pill and a 4 px bar. Each Clocked call under a stage opens the
  * inspector (R3).
  */
-export function ProofTrail({ state, persona, onInspect }: { state: TriageState; persona: Persona; onInspect: (id: string) => void }) {
+export function ProofTrail({ state, persona, onInspect, between }: { state: TriageState; persona: Persona; onInspect: (id: string) => void; between?: React.ReactNode }) {
   const stages = stageViews(state);
   const calls = state.order.map((id) => state.rows[id]).filter((r) => isCall(r) && r.status !== "running");
   const credits = calls.reduce((n, r) => n + (r.meta?.credits ?? 0), 0);
@@ -34,7 +34,9 @@ export function ProofTrail({ state, persona, onInspect }: { state: TriageState; 
         {persona.name} · {persona.osLabel} · {source} · <span className="tabular">{credits}</span> credits · {calls.length} Clocked calls
         {modelMs ? ` · ${seconds(modelMs)} of model time` : ""}
       </p>
-      <ol className="mt-5 divide-y divide-border rounded-xl border border-border bg-card px-5" aria-live="polite" aria-busy={state.status === "running"}>
+      {between ? <div className="mt-5">{between}</div> : null}
+      <h2 className="mt-8 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Proof Trail · {stages.filter((x) => x.status !== "pending").length} of 8 stages</h2>
+      <ol className="mt-3 divide-y divide-border rounded-xl border border-border bg-card px-5" aria-live="polite" aria-busy={state.status === "running"}>
         {stages.map((s) => (
           <StageRow key={s.id} stage={s} final={s.id === "outcome" ? outcome : null} onInspect={onInspect} />
         ))}
@@ -82,15 +84,21 @@ function StageRow({ stage, final, onInspect }: { stage: StageView; final: string
 
   return (
     <li className={cn("grid grid-cols-[44px_1fr] gap-x-4 py-4 sm:grid-cols-[56px_1fr]", pending && "opacity-55")} data-stage={stage.id} data-outcome={final ?? undefined}>
-      <span
-        className={cn(
-          "tabular pt-0.5 text-right text-[26px] font-semibold leading-none sm:text-[28px]",
-          finalStyle ? finalStyle.text : pending || count === undefined ? "text-muted-foreground/45" : stage.status === "error" ? "text-risk" : "text-foreground",
-        )}
-        title={stage.count ? `${stage.count.value} ${stage.count.label}` : undefined}
-      >
-        {count ?? stage.index + 1}
-      </span>
+      <div className="flex flex-col items-end pt-0.5">
+        <span
+          className={cn(
+            "tabular text-right text-[26px] font-semibold leading-none sm:text-[28px]",
+            finalStyle ? finalStyle.text : pending || count === undefined ? "text-muted-foreground/45" : stage.status === "error" ? "text-risk" : "text-foreground",
+          )}
+        >
+          {count ?? stage.index + 1}
+        </span>
+        {stage.count?.label ? (
+          <span aria-hidden className="mt-1 text-right text-[10.5px] leading-[13px] text-muted-foreground">
+            {stage.count.label}
+          </span>
+        ) : null}
+      </div>
       <div className="min-w-0">
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-[16px] font-semibold leading-[22px] sm:text-[17px]">
@@ -119,7 +127,7 @@ function StageRow({ stage, final, onInspect }: { stage: StageView; final: string
             <BandBar probabilities={decideProbs} autoMin={BANDS.autoMin} escalateMin={BANDS.escalateMin} />
           </div>
         ) : lead?.probability !== undefined && lead.status === "ok" ? (
-          <ProbabilityBar className="mt-3" value={lead.probability} label={lead.probabilityLabel} />
+          <ProbabilityBar className="mt-3" value={lead.probability} label={lead.probabilityLabel} handled={lead.verdict === "resolved"} />
         ) : (
           <div aria-hidden className="mt-3 h-1 rounded-full bg-track">
             {running ? <div className="h-full w-1/3 animate-pulse rounded-full bg-primary/40" /> : null}
