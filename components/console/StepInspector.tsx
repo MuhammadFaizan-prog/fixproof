@@ -58,7 +58,7 @@ function Body({ row }: { row: Row }) {
             </span>
           ) : null}
         </div>
-        <dl className="mt-5 grid grid-cols-[132px_minmax(0,1fr)] gap-x-4 gap-y-2.5 rounded-2xl border border-hairline bg-card px-4 py-3.5 text-[14px]">
+        <dl className="mt-5 grid grid-cols-[104px_minmax(0,1fr)] gap-x-3 sm:grid-cols-[132px_minmax(0,1fr)] sm:gap-x-4 gap-y-2.5 rounded-2xl border border-hairline bg-card px-4 py-3.5 text-[14px]">
           {kv.map(([k, v]) => (
             <div key={k} className="contents">
               <dt className="text-muted-foreground">{k}</dt>
