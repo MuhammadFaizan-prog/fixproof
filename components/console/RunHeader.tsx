@@ -1,0 +1,111 @@
+"use client";
+
+import { ChevronRight, CircleCheck, CircleHelp, Hourglass, Laptop, TriangleAlert } from "lucide-react";
+import type { Persona } from "@/data/personas";
+import type { Scenario } from "@/data/scenarios";
+import type { TriageState } from "@/lib/client/useTriage";
+import { cn } from "@/lib/utils";
+import { recordedLabel, seconds } from "./format";
+import { OUTCOME_STYLE } from "./outcome-style";
+import { Eyebrow, Panel, StatusPill } from "./primitives";
+import { isCall } from "./StageRows";
+
+/**
+ * Top of the run view (D's header panel): breadcrumb, a 36 px title with the
+ * outcome chip, one muted meta line, then the path row: the employee node,
+ * a connector carrying the run's metrics, and the outcome node.
+ */
+export function RunHeader({ state, persona, scenario }: { state: TriageState; persona: Persona; scenario: Scenario | null }) {
+  const calls = state.order.map((id) => state.rows[id]).filter((r) => isCall(r) && r.status !== "running");
+  const credits = calls.reduce((n, r) => n + (r.meta?.credits ?? 0), 0);
+  const modelMs = calls.reduce((n, r) => n + (r.meta?.modelMs ?? 0), 0);
+  const first = calls[0]?.meta;
+  const r = state.result;
+  const outcome = r?.outcome.outcome ?? null;
+  const style = outcome ? OUTCOME_STYLE[outcome] : null;
+  const passed = r ? r.outcome.checks.filter((c) => c.pass === true).length : null;
+  const idle = state.status === "idle";
+  const source = idle ? "Not run yet" : state.start?.mode === "live" ? "Live on Clocked" : first?.synthetic ? "Synthetic fixture" : first ? recordedLabel(first.recordedAt ?? null) : "Replay";
+  const title = scenario?.title ?? "Your ticket";
+  const ticketId = scenario?.id ?? "new-ticket";
+
+  const End = outcome === "AUTO_RESOLVED" ? CircleCheck : outcome === "CONFIRM_WITH_USER" ? CircleHelp : outcome === "ESCALATED" ? TriangleAlert : Hourglass;
+  const endTitle = outcome ? style!.label : state.status === "running" ? "Checking…" : state.status === "error" ? "Stopped" : "Waiting";
+  const endSub =
+    outcome === "AUTO_RESOLVED"
+      ? "no technician"
+      : outcome === "CONFIRM_WITH_USER"
+        ? "asks first"
+        : outcome === "ESCALATED"
+          ? `to ${r?.handoff?.assignmentGroup ?? "a person"}`
+          : idle
+            ? "replay a ticket"
+            : "in progress";
+
+  return (
+    <Panel className="px-5 pb-5 pt-5 sm:px-7 sm:pb-6 sm:pt-6">
+      <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-[14px] text-muted-foreground">
+        <span>Service desk</span>
+        <ChevronRight aria-hidden className="size-3.5" />
+        <span className="truncate font-mono text-[13px]">{ticketId}</span>
+        <ChevronRight aria-hidden className="size-3.5" />
+        <span className="text-foreground">Proof trail</span>
+      </nav>
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <h1 className="text-[30px] font-medium leading-[38px] tracking-[-0.02em] sm:text-[36px] sm:leading-[44px]">{title}</h1>
+        {style ? (
+          <StatusPill dot={style.dot} className={cn(style.pill, "fp-row-in")}>
+            {style.label}
+          </StatusPill>
+        ) : state.status === "running" ? (
+          <StatusPill dot="bg-primary animate-pulse" className="bg-primary-soft text-primary">
+            Running
+          </StatusPill>
+        ) : null}
+      </div>
+      <p className="mt-1 text-[15px] leading-[22px] text-muted-foreground">
+        {persona.name} · {persona.role} · {persona.osLabel} · {source}
+      </p>
+
+      <Eyebrow className="mt-5">Ticket path</Eyebrow>
+      <div className="mt-2.5 flex flex-col items-stretch gap-2 md:flex-row md:items-center md:gap-0">
+        <Node icon={Laptop} tone="bg-ok-soft text-ok" title={persona.name.split(" ")[0]} sub={persona.osLabel} />
+        <div className="relative flex shrink-0 items-center justify-center py-1 md:px-5 md:py-0">
+          <span aria-hidden className="absolute inset-x-2 top-1/2 hidden h-[2px] -translate-y-1/2 bg-violet-line md:block" />
+          <span aria-hidden className="absolute left-1 top-1/2 hidden size-2.5 -translate-y-1/2 rounded-full bg-violet-line md:block" />
+          <span aria-hidden className="absolute right-0 top-1/2 hidden size-0 -translate-y-1/2 border-y-[6px] border-l-[9px] border-y-transparent border-l-violet-line md:block" />
+          <dl className="relative z-[1] flex items-center gap-3.5 rounded-full border border-hairline bg-card px-4 py-1.5 shadow-[0_2px_10px_rgba(15,23,25,0.05)]">
+            <Metric value={idle ? "–" : String(credits)} label="credits" />
+            <Metric value={idle || !modelMs ? "–" : seconds(modelMs)} label="model" />
+            <Metric value={idle ? "–" : String(calls.length)} label="calls" />
+            <Metric value={passed == null ? "–" : `${passed} of ${r!.outcome.checks.length}`} label="checks" />
+          </dl>
+        </div>
+        <Node icon={End} tone={style ? style.pill : "border border-dashed border-neutral bg-card text-muted-foreground"} title={endTitle} sub={endSub} final={outcome} />
+      </div>
+    </Panel>
+  );
+}
+
+function Node({ icon: Icon, tone, title, sub, final }: { icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>; tone: string; title: string; sub: string; final?: string | null }) {
+  return (
+    <div className="flex min-w-0 flex-1 items-center gap-3 rounded-[20px] border border-hairline bg-card px-3.5 py-3 shadow-[0_2px_10px_rgba(15,23,25,0.05)]" data-path-outcome={final ?? undefined}>
+      <span className={cn("grid size-11 shrink-0 place-items-center rounded-full", tone)}>
+        <Icon aria-hidden className="size-5" />
+      </span>
+      <span className="min-w-0">
+        <span className="block truncate text-[17px] font-medium leading-6">{title}</span>
+        <span className="block truncate text-[13px] leading-[18px] text-muted-foreground">{sub}</span>
+      </span>
+    </div>
+  );
+}
+
+function Metric({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="flex flex-col-reverse items-center">
+      <dt className="text-[12px] leading-4 text-muted-foreground">{label}</dt>
+      <dd className="tabular whitespace-nowrap text-[15px] font-medium leading-5">{value}</dd>
+    </div>
+  );
+}

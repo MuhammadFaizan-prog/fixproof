@@ -1,11 +1,12 @@
 "use client";
 
-import { ArrowUpRight, Lock } from "lucide-react";
+import { Lock, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import { OUTCOME_STYLE } from "./outcome-style";
+import { Chip, Panel } from "./primitives";
 
 const MAX = 4000;
 
@@ -26,9 +27,9 @@ interface IntakePanelProps {
 }
 
 /**
- * Left column. Presets read like a help-desk queue (DESIGN.md R2 ticket
- * rows: 4 px status bar, title + one-line preview, pill); the employee
- * picker sets Rerank's context and Inspect's approved scope.
+ * Left column: the ticket queue (recorded presets as D-style boxed rows with
+ * an outcome chip) and the composer (employee picker sets Rerank's context and
+ * Inspect's approved scope; free text runs live only with a key).
  */
 export function IntakePanel(p: IntakePanelProps) {
   const preset = p.scenarioId ? p.scenarios.find((s) => s.id === p.scenarioId) ?? null : null;
@@ -37,15 +38,16 @@ export function IntakePanel(p: IntakePanelProps) {
   const canRun = !p.running && (preset !== null || (p.text.trim().length > 0 && p.liveAvailable === true));
 
   return (
-    <div className="flex flex-col gap-6">
-      <section aria-labelledby="presets-h" className="rounded-xl border border-border bg-card">
-        <div className="flex items-baseline justify-between gap-3 px-5 pt-5">
-          <h2 id="presets-h" className="text-[15px] font-semibold leading-[22px]">
-            Recorded tickets
+    <div className="flex flex-col gap-4 xl:gap-5">
+      <Panel id="queue" aria-labelledby="presets-h" className="scroll-mt-24 px-4 pb-4 pt-5 sm:px-5">
+        <div className="flex items-center justify-between gap-3 px-1">
+          <h2 id="presets-h" className="text-[22px] font-medium leading-8 tracking-[-0.015em]">
+            Tickets
           </h2>
-          <p className="text-xs text-muted-foreground">Replayed from live Clocked runs · no credits</p>
+          <Chip>{p.scenarios.length} recorded</Chip>
         </div>
-        <ul className="mt-3 flex flex-col gap-1 px-2 pb-2">
+        <p className="mt-0.5 px-1 text-[13px] leading-[18px] text-muted-foreground">Replayed from live Clocked runs · no credits</p>
+        <ul className="mt-3 flex flex-col gap-2">
           {p.scenarios.map((s) => {
             const style = OUTCOME_STYLE[s.recorded];
             const active = s.id === p.scenarioId;
@@ -56,58 +58,58 @@ export function IntakePanel(p: IntakePanelProps) {
                   onClick={() => p.onScenario(s)}
                   aria-pressed={active}
                   className={cn(
-                    "group grid w-full grid-cols-[4px_1fr_auto] items-center gap-x-3 rounded-lg px-3 py-2.5 text-left transition-[background,box-shadow] duration-150 ease-out",
-                    active ? "bg-surface-sunken shadow-[0_0_0_1px_var(--border)]" : "hover:bg-surface-sunken hover:shadow-sm",
+                    "grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 rounded-[18px] border px-3.5 py-2.5 text-left transition-colors duration-150",
+                    active ? "border-primary/30 bg-primary-soft" : "border-hairline bg-card hover:border-neutral/60",
                   )}
                 >
-                  <span aria-hidden className={cn("h-9 w-1 rounded-full", style.bar)} />
                   <span className="min-w-0">
-                    <span className="block truncate text-[14px] font-medium leading-5">{s.title}</span>
-                    <span className="block truncate text-[13px] leading-5 text-muted-foreground">{s.text}</span>
+                    <span className={cn("block truncate text-[15px] font-medium leading-[22px]", active && "text-primary")}>{s.title}</span>
+                    <span className="block truncate text-[13px] leading-[18px] text-muted-foreground">{s.text}</span>
                   </span>
-                  <span className="flex items-center gap-2">
-                    <span className={cn("rounded-full px-2 py-0.5 text-xs font-medium", style.pill)}>
-                      {style.label}
-                    </span>
-                    <ArrowUpRight aria-hidden className="hidden size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 sm:block" />
+                  <span className={cn("inline-flex h-6 items-center gap-1.5 rounded-full px-2 text-[12px] font-medium", style.pill)}>
+                    <span aria-hidden className={cn("size-1.5 rounded-full", style.dot)} />
+                    {style.label}
                   </span>
                 </button>
               </li>
             );
           })}
         </ul>
-      </section>
+      </Panel>
 
-      <section aria-labelledby="ticket-h" className="rounded-xl border border-border bg-card p-5">
-        <div className="flex items-baseline justify-between gap-3">
-          <h2 id="ticket-h" className="text-[15px] font-semibold leading-[22px]">
-            {preset ? preset.title : "Write your own ticket"}
+      <Panel aria-labelledby="ticket-h" className="px-4 pb-5 pt-5 sm:px-5">
+        <div className="flex items-center justify-between gap-3 px-1">
+          <h2 id="ticket-h" className="min-w-0 truncate text-[22px] font-medium leading-8 tracking-[-0.015em]">
+            {preset ? "Ticket" : "Write a ticket"}
           </h2>
           {preset ? (
-            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-              <Lock aria-hidden className="size-3" /> preset text
-            </span>
+            <Chip icon={Lock}>preset text</Chip>
           ) : null}
         </div>
 
-        <fieldset className="mt-4" disabled={Boolean(preset) || p.running}>
-          <legend className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Employee</legend>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+        <fieldset className="mt-3" disabled={Boolean(preset) || p.running}>
+          <legend className="mb-2 px-1 text-[12px] font-medium uppercase leading-4 tracking-[0.06em] text-muted-foreground">Employee</legend>
+          <div className="flex flex-col gap-2">
             {p.personas.map((x) => {
               const on = x.id === p.personaId;
               return (
                 <label
                   key={x.id}
                   className={cn(
-                    "flex min-h-11 cursor-pointer flex-col rounded-lg border px-3 py-2 transition-colors duration-150 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring",
-                    on ? "border-primary bg-accent" : "border-border hover:bg-surface-sunken",
-                    preset && !on && "opacity-50",
+                    "flex min-h-11 cursor-pointer items-center gap-3 rounded-[18px] border px-3.5 py-2 transition-colors duration-150 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring",
+                    on ? "border-primary/30 bg-primary-soft" : "border-hairline bg-card hover:border-neutral/60",
+                    preset && !on && "opacity-60",
                   )}
                 >
                   <input type="radio" name="persona" value={x.id} checked={on} onChange={() => p.onPersona(x.id)} className="sr-only" />
-                  <span className="text-[13px] font-medium leading-5">{x.name}</span>
-                  <span className="text-xs leading-[18px] text-muted-foreground">
-                    {x.osLabel} · {x.office}
+                  <span aria-hidden className={cn("grid size-5 shrink-0 place-items-center rounded-full border-2", on ? "border-primary" : "border-neutral")}>
+                    {on ? <span className="size-2 rounded-full bg-primary" /> : null}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block truncate text-[14px] font-medium leading-5">{x.name}</span>
+                    <span className="block truncate text-[12.5px] leading-[18px] text-muted-foreground">
+                      {x.osLabel} · {x.office}
+                    </span>
                   </span>
                 </label>
               );
@@ -115,8 +117,8 @@ export function IntakePanel(p: IntakePanelProps) {
           </div>
         </fieldset>
 
-        <label htmlFor="ticket" className="mb-2 mt-5 block text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-          Ticket
+        <label htmlFor="ticket" className="mb-2 mt-4 block px-1 text-[12px] font-medium uppercase leading-4 tracking-[0.06em] text-muted-foreground">
+          Ticket text
         </label>
         <textarea
           id="ticket"
@@ -126,37 +128,43 @@ export function IntakePanel(p: IntakePanelProps) {
           readOnly={Boolean(preset)}
           onChange={(e) => p.onText(e.target.value)}
           placeholder="Describe the problem the way an employee would. Personal details are masked before any step reads them."
-          className="block w-full resize-y rounded-[10px] border border-input bg-surface-sunken px-3 py-2.5 text-[15px] leading-[22px] placeholder:text-muted-foreground/80 read-only:text-secondary-foreground"
+          className="block w-full resize-y rounded-[18px] border border-hairline bg-card px-3.5 py-3 text-[14px] leading-[21px] placeholder:text-muted-foreground read-only:text-muted-foreground"
         />
-        <div className="mt-1 flex justify-between text-xs text-muted-foreground">
-          <span>{persona.device} · {persona.assetTag}</span>
-          {!preset ? <span className="tabular">{p.text.length.toLocaleString()} / {MAX.toLocaleString()}</span> : null}
+        <div className="mt-1.5 flex justify-between px-1 text-[12px] text-muted-foreground">
+          <span className="truncate">{persona.device} · {persona.assetTag}</span>
+          {!preset ? <span className="tabular shrink-0">{p.text.length.toLocaleString()} / {MAX.toLocaleString()}</span> : null}
         </div>
 
         {freeTextBlocked ? (
-          <p role="note" className="mt-3 rounded-lg bg-warn-soft px-3 py-2 text-[13px] leading-5 text-warn">
+          <p role="note" className="mt-3 rounded-[18px] bg-warn-soft px-3.5 py-2.5 text-[13px] leading-5 text-warn">
             {p.liveBlocked === "daily_cap"
               ? "Live mode has used today's credit budget, so your own tickets cannot run until midnight UTC. The recorded tickets above replay real runs."
               : "This deployment has no Clocked key, so your own tickets cannot run. The recorded tickets above replay real runs."}
           </p>
         ) : null}
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs leading-[18px] text-muted-foreground">
-            {preset ? "Replays the recorded live run. Spends no credits." : "Runs live on Clocked (about 30–50 credits)."}
-          </p>
-          <div className="flex gap-2">
-            {preset ? (
-              <Button type="button" variant="outline" className="h-11 rounded-lg px-4 sm:h-10" onClick={() => p.onText("")} disabled={p.running}>
-                Write my own
-              </Button>
-            ) : null}
-            <Button type="button" className="h-11 rounded-lg px-4 sm:h-10" onClick={p.onRun} disabled={!canRun}>
-              {p.running ? "Running…" : preset ? "Replay run" : "Run FixProof"}
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <Button type="button" className="h-11 flex-1 rounded-full px-5 text-[15px]" onClick={p.onRun} disabled={!canRun}>
+            {p.running ? (
+              "Running…"
+            ) : preset ? (
+              <>
+                <Play aria-hidden /> Replay run
+              </>
+            ) : (
+              "Run FixProof"
+            )}
+          </Button>
+          {preset ? (
+            <Button type="button" variant="outline" className="h-11 rounded-full border-hairline bg-card px-4 text-[15px]" onClick={() => p.onText("")} disabled={p.running}>
+              Write my own
             </Button>
-          </div>
+          ) : null}
         </div>
-      </section>
+        <p className="mt-2 px-1 text-[12px] leading-[18px] text-muted-foreground">
+          {preset ? "Replays the recorded live run. Spends no credits." : "Runs live on Clocked (about 30–50 credits)."}
+        </p>
+      </Panel>
     </div>
   );
 }

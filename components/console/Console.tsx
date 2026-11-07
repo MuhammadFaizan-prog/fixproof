@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AppHeader } from "@/components/shell/AppHeader";
-import { ProofTrailEmpty } from "@/components/shell/ProofTrailEmpty";
 import { pushHistory, readHistory, type HistoryEntry } from "@/lib/client/history";
 import { useTriage } from "@/lib/client/useTriage";
 import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import { IntakePanel } from "./IntakePanel";
 import { RunView } from "./RunView";
-import { TicketEvidence } from "./TicketEvidence";
+import { EvidenceRail } from "./EvidenceRail";
+import { cn } from "@/lib/utils";
 
 interface ConsoleProps {
   personas: Persona[];
@@ -66,11 +66,21 @@ export function Console({ personas, scenarios }: ConsoleProps) {
     else run({ text, personaId, mode: "live" });
   };
 
+  const runPersona = state.start ? (personas.find((p) => p.id === state.start!.persona) ?? persona) : persona;
+  const runScenario = state.start ? (state.start.scenarioId ? (scenarios.find((s) => s.id === state.start!.scenarioId) ?? null) : null) : scenario;
+  const active = state.status !== "idle";
+  const mainRef = useRef<HTMLDivElement>(null);
+  // Below xl the columns stack; once a run starts the outcome comes first, so bring it into view.
+  useEffect(() => {
+    if (state.status === "running" && !window.matchMedia("(min-width: 1280px)").matches) window.scrollTo({ top: 0, behavior: "auto" });
+    if (state.status === "running") mainRef.current?.scrollTo({ top: 0 });
+  }, [state.status, state.startedAt]);
+
   return (
-    <>
+    <div className="flex min-h-dvh flex-col xl:h-dvh">
       <AppHeader mode={state.start?.mode ?? (scenario ? "replay" : "live")} sessionCredits={sessionCredits} />
-      <main className="mx-auto grid max-w-[1440px] gap-6 px-4 py-6 sm:px-6 lg:grid-cols-12">
-        <div className="lg:col-span-5">
+      <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 gap-4 px-3 pb-6 sm:px-5 lg:grid-cols-[320px_minmax(0,1fr)] xl:min-h-0 xl:grid-cols-[340px_minmax(0,1fr)_344px] xl:gap-5 xl:pb-5">
+        <aside aria-label="Tickets" className={cn("fp-scroll min-w-0 lg:row-span-2 xl:row-span-1 xl:overflow-y-auto xl:pb-1", active ? "order-3 lg:order-none" : "order-1 lg:order-none")}>
           <IntakePanel
             personas={personas}
             scenarios={scenarios}
@@ -91,21 +101,14 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             }}
             onRun={start}
           />
-          {state.result?.screen ? (
-            <div className="mt-6">
-              <TicketEvidence key={state.startedAt ?? 0} result={state.result} extractMarks={state.rows["understand:extract"]?.evidence ?? []} />
-            </div>
-          ) : null}
-          {history.length ? (
-            <p className="mt-3 px-1 text-xs text-muted-foreground">
-              {history.length} ticket{history.length === 1 ? "" : "s"} in this browser&apos;s history (masked text only).
-            </p>
-          ) : null}
-        </div>
-        <div className="min-w-0 lg:col-span-7">
-          {state.status === "idle" ? <ProofTrailEmpty /> : <RunView state={state} persona={state.start ? personas.find((p) => p.id === state.start!.persona) ?? persona : persona} />}
-        </div>
-      </main>
-    </>
+        </aside>
+        <main ref={mainRef} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", active ? "order-1 lg:order-none" : "order-2 lg:order-none")}>
+          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} />
+        </main>
+        <aside aria-label="Evidence and scope" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", active ? "order-2 lg:order-none" : "order-3 lg:order-none", "lg:col-start-2 xl:col-start-auto")}>
+          <EvidenceRail state={state} persona={runPersona} />
+        </aside>
+      </div>
+    </div>
   );
 }
