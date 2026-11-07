@@ -1,0 +1,113 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "rerank",
+  "scenario": "probe",
+  "step": "rerank",
+  "status": 200,
+  "request": {
+    "query": "VPN drops every five minutes",
+    "context": {
+      "os": "macOS",
+      "region": "US"
+    },
+    "documents": [
+      {
+        "id": "vpn-macos",
+        "title": "VPN drops on macOS",
+        "text": "On macOS, open the VPN menu bar icon, choose Reset profile, then reconnect."
+      },
+      {
+        "id": "vpn-windows",
+        "title": "VPN drops on Windows",
+        "text": "On Windows, open the VPN tray icon, choose Reset profile, then reconnect."
+      },
+      {
+        "id": "printer",
+        "title": "Printer queue stuck",
+        "text": "Restart the Print Spooler service to clear a stuck queue."
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "vpn-macos",
+        "action": "use",
+        "relevance_score": 0.9949,
+        "document_score": 0.9962,
+        "levels": {
+          "answers": 0.9949,
+          "elsewhere": 0.0013,
+          "different_case": 0.0016,
+          "unrelated": 0.0022
+        }
+      },
+      {
+        "index": 1,
+        "id": "vpn-windows",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0015,
+        "document_score": 0.0028,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0013,
+          "different_case": 0.9913,
+          "unrelated": 0.0058
+        }
+      },
+      {
+        "index": 2,
+        "id": "printer",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0009,
+        "document_score": 0.0019,
+        "levels": {
+          "answers": 0.0009,
+          "elsewhere": 0.0009,
+          "different_case": 0.0018,
+          "unrelated": 0.9963
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 168
+    },
+    "timing": {
+      "total_ms": 35,
+      "rerank_ms": 34,
+      "questions_ms": 0,
+      "model_ms": 31,
+      "engine": {
+        "rows": 717,
+        "branches": 3,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 1024,
+        "long": 0,
+        "total_ms": 31,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 29,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 64
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "32.062817",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=0.9, upstream;dur=43.4, discovery;dur=0.0, model;dur=32.1, settle;dur=4.8, gateway;dur=53.4"
+  }
+}

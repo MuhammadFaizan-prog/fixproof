@@ -1,0 +1,157 @@
+{
+  "synthetic": true,
+  "source": "docs-example",
+  "recorded_at": null,
+  "note": "Request and response copied from the Clocked reference page's recorded example (recorded by Clocked 2026-10-21). Not returned to FixProof's key; no usage headers.",
+  "endpoint": "compare",
+  "scenario": "docs",
+  "step": "compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "vpn-en",
+        "text": "Install the VPN client from the software portal. Sign in with your work account. Multi-factor authentication is required."
+      },
+      {
+        "id": "vpn-es",
+        "text": "Instala el cliente VPN desde el portal de software. Inicia sesión con tu cuenta de trabajo. Se requiere autenticación multifactor."
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "duplicates",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "vpn-en",
+        "duplicates": [
+          "vpn-es"
+        ],
+        "overlaps": [],
+        "conflicts": []
+      },
+      {
+        "id": "vpn-es",
+        "duplicates": [
+          "vpn-en"
+        ],
+        "overlaps": [],
+        "conflicts": []
+      }
+    ],
+    "pairs": [
+      {
+        "a": "vpn-en",
+        "b": "vpn-es",
+        "relation": "same",
+        "related": 0.9979,
+        "probabilities": {
+          "same": 0.9914,
+          "overlapping": 0.0038,
+          "conflicting": 0.0027,
+          "unrelated": 0.0021
+        },
+        "duplicates": [
+          {
+            "kind": "restated",
+            "kinds": {
+              "verbatim": 0.0019,
+              "restated": 0.9944,
+              "elaborated": 0.0016,
+              "different": 0.0022
+            },
+            "confidence": 0.9978,
+            "a": {
+              "document": "vpn-en",
+              "quote": "Install the VPN client from the software portal.",
+              "start": 0,
+              "end": 48,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-es",
+              "quote": "Instala el cliente VPN desde el portal de software.",
+              "start": 0,
+              "end": 51,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "restated",
+            "kinds": {
+              "verbatim": 0.003,
+              "restated": 0.9913,
+              "elaborated": 0.0026,
+              "different": 0.003
+            },
+            "confidence": 0.997,
+            "a": {
+              "document": "vpn-en",
+              "quote": "Sign in with your work account.",
+              "start": 49,
+              "end": 80,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-es",
+              "quote": "Inicia sesión con tu cuenta de trabajo.",
+              "start": 52,
+              "end": 91,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "restated",
+            "kinds": {
+              "verbatim": 0.0023,
+              "restated": 0.9931,
+              "elaborated": 0.002,
+              "different": 0.0027
+            },
+            "confidence": 0.9973,
+            "a": {
+              "document": "vpn-en",
+              "quote": "Multi-factor authentication is required.",
+              "start": 81,
+              "end": 121,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-es",
+              "quote": "Se requiere autenticación multifactor.",
+              "start": 92,
+              "end": 130,
+              "confidence": 1
+            }
+          }
+        ],
+        "conflicts": []
+      }
+    ],
+    "duplicates": [
+      0
+    ],
+    "overlaps": [],
+    "conflicts": [],
+    "related_pairs": [
+      0
+    ],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 12,
+      "passage_reads": 1,
+      "passages_ms": 21,
+      "passages": 3,
+      "counterparts_ms": 60
+    },
+    "timing": {
+      "read_ms": 93,
+      "total_ms": 95
+    }
+  },
+  "headers": {}
+}

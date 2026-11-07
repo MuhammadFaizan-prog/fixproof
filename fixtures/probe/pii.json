@@ -1,0 +1,88 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "pii",
+  "scenario": "probe",
+  "step": "pii",
+  "status": 200,
+  "request": {
+    "text": "Hi, I'm Priya Natarajan (priya.n@northwind.example). Laptop NW-MBP-0193 keeps dropping VPN.",
+    "entities": {
+      "person": "Full names of people",
+      "email": "Email addresses",
+      "asset_tag": "Company laptop asset tags such as NW-MBP-0193"
+    },
+    "anonymize": "replace"
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "entities": [
+      {
+        "type": "person",
+        "value": "Priya Natarajan",
+        "start": 8,
+        "end": 23,
+        "confidence": 1,
+        "source": "model",
+        "mentions": 1
+      },
+      {
+        "type": "email",
+        "value": "priya.n@northwind.example",
+        "start": 25,
+        "end": 50,
+        "confidence": 1,
+        "source": "model",
+        "mentions": 1
+      },
+      {
+        "type": "asset_tag",
+        "value": "NW-MBP-0193",
+        "start": 60,
+        "end": 71,
+        "confidence": 1,
+        "source": "model",
+        "mentions": 1
+      }
+    ],
+    "counts": {
+      "person": 1,
+      "email": 1,
+      "asset_tag": 1
+    },
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "mentions": {
+      "candidates": 0,
+      "variants": 0,
+      "reads": 0,
+      "verified": 0,
+      "occurrences": {
+        "read": 0,
+        "kept": 0
+      },
+      "rejected": {},
+      "spans": 0,
+      "ms": 0
+    },
+    "checks": {
+      "trimmed": 0,
+      "split": 0,
+      "rejected": {}
+    },
+    "anonymized_text": "Hi, I'm <PERSON> (<EMAIL>). Laptop <ASSET_TAG> keeps dropping VPN.",
+    "timing": {
+      "read_ms": 112,
+      "total_ms": 113
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "110.138817",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.4, admit_db;dur=3.0, upstream;dur=123.2, discovery;dur=0.0, model;dur=110.1, settle;dur=4.8, gateway;dur=135.4"
+  }
+}

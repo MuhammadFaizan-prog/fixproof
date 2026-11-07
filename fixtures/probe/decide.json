@@ -1,0 +1,50 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "decide",
+  "scenario": "probe",
+  "step": "decide",
+  "status": 200,
+  "request": {
+    "state": "My MacBook VPN drops every five minutes since the update. Error 809. Laptop NW-MBP-0193.",
+    "questions": {
+      "policy": {
+        "type": "choice",
+        "instructions": "How should a Tier-0 help desk handle this ticket?",
+        "criteria": {
+          "auto_resolve": "A documented self-service fix exists and is safe for the employee.",
+          "suggest": "A fix may apply but the employee should confirm it worked.",
+          "escalate": "A person must handle it."
+        }
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "answers": {
+      "policy": {
+        "type": "choice",
+        "choice": "escalate",
+        "probabilities": {
+          "auto_resolve": 0.0405,
+          "suggest": 0.2141,
+          "escalate": 0.7455
+        },
+        "confidence": 0.6182
+      }
+    },
+    "usage": {
+      "input_tokens": 40,
+      "output_tokens": 3
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "18.349537",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=27.7, admit_db;dur=2.0, upstream;dur=48.2, discovery;dur=0.0, model;dur=18.3, settle;dur=5.0, gateway;dur=80.9"
+  }
+}

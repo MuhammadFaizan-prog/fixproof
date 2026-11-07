@@ -1,0 +1,59 @@
+{
+  "synthetic": true,
+  "source": "docs-example",
+  "recorded_at": null,
+  "note": "Request and response copied from the Clocked reference page's recorded example (recorded by Clocked 2026-10-08). Not returned to FixProof's key; no usage headers.",
+  "endpoint": "script",
+  "scenario": "docs",
+  "step": "script",
+  "status": 200,
+  "request": {
+    "script": "# CHG-DEMO-204 · Printer queue recovery\n# Scope: this workstation only\nGet-Service -Name Spooler\nRestart-Service -Name Spooler\nSet-MpPreference -DisableRealtimeMonitoring $true\nGet-Printer | Select-Object Name, PrinterStatus",
+    "instructions": "This is a managed enterprise workstation. The approved change is to inspect and restart the local Print Spooler service and list printer status. Endpoint protection must remain enabled. No exception to disable security controls is approved. Read-only device diagnostics and the scoped Print Spooler restart are routine administration.",
+    "evidence": true,
+    "threshold": 0.5
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "malicious": 0.9949,
+    "suspicious": 0.9978,
+    "verdict": "malicious",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "category": "security blinding or EDR evasion",
+    "categories": {
+      "benign administration": 0.0022,
+      "security blinding or EDR evasion": 0.9809,
+      "credential theft or memory dumping": 0.0017,
+      "unauthorized persistence or access expansion": 0.0027,
+      "network reconnaissance or tunneling": 0.0012,
+      "forensic destruction or anti-forensics": 0.002,
+      "ransomware or data destruction": 0.0022,
+      "obfuscated or in-memory payload": 0.0023,
+      "unsafe download or remote code execution": 0.0027,
+      "data exfiltration": 0.002
+    },
+    "severity": "critical",
+    "severity_expected": 4.504,
+    "severities": {
+      "none": 0.0094,
+      "low": 0.0094,
+      "medium": 0.0449,
+      "high": 0.3412,
+      "critical": 0.5952
+    },
+    "evidence": [
+      {
+        "line": "Set-MpPreference -DisableRealtimeMonitoring $true",
+        "start": 127,
+        "end": 176,
+        "confidence": 1
+      }
+    ],
+    "timing": {
+      "read_ms": 109,
+      "total_ms": 110
+    }
+  },
+  "headers": {}
+}

@@ -1,0 +1,105 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "grounding",
+  "scenario": "probe",
+  "step": "grounding",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "kb-payroll-status",
+        "text": "The payroll portal is unavailable. Engineers are investigating. No restoration time has been published."
+      }
+    ],
+    "answer": "Engineers are investigating the payroll portal. It will be restored by 2pm.",
+    "question": "When will payroll be back?",
+    "evidence": "all"
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.6336,
+    "ungrounded": 0.3664,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "documents": [
+      {
+        "id": "kb-payroll-status",
+        "share": 1,
+        "share_of_answer": 0.6336,
+        "claims": [
+          0
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Engineers are investigating the payroll portal.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.6351,
+        "supported": 0.9964,
+        "contradicted": 0.0014,
+        "not_stated": 0.0011,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "kb-payroll-status": 1
+        },
+        "source": "kb-payroll-status",
+        "evidence": {
+          "document": "kb-payroll-status",
+          "quote": "Engineers are investigating.",
+          "start": 35,
+          "end": 63,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "It will be restored by 2pm.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3649,
+        "supported": 0.002,
+        "contradicted": 0.0041,
+        "not_stated": 0.988,
+        "not_a_claim": 0.0058,
+        "verdict": "not_stated",
+        "sources": {
+          "kb-payroll-status": 1
+        },
+        "source": null,
+        "evidence": {
+          "document": "kb-payroll-status",
+          "quote": "No restoration time has been published.",
+          "start": 64,
+          "end": 103,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [
+      1
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.002
+    },
+    "answers_question": 0.9930502394184721,
+    "timing": {
+      "read_ms": 137,
+      "total_ms": 95
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "86.010082",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.5, admit_db;dur=2.2, upstream;dur=105.2, discovery;dur=0.0, model;dur=86.0, settle;dur=4.5, gateway;dur=116.2"
+  }
+}

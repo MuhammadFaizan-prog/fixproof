@@ -1,0 +1,154 @@
+{
+  "synthetic": true,
+  "source": "docs-example",
+  "recorded_at": null,
+  "note": "Request and response copied from the Clocked reference page's recorded example (recorded by Clocked 2026-10-08). Not returned to FixProof's key; no usage headers.",
+  "endpoint": "grounding",
+  "scenario": "docs",
+  "step": "grounding",
+  "status": 200,
+  "request": {
+    "question": "What can we accurately tell the leadership team about the payroll incident at 10:15 UTC?",
+    "documents": [
+      {
+        "id": "incident-timeline",
+        "text": "INC-2048 · Payroll access incident · 8 October 2026\n09:10 UTC: Payroll users report sign-in failures.\n09:22 UTC: The identity team identifies an expired connector certificate as the cause.\n09:45 UTC: A temporary workaround restores access for the five payroll administrators.\n10:15 UTC: Employee self-service access remains unavailable. The permanent certificate replacement is awaiting change approval. No restoration time has been committed."
+      },
+      {
+        "id": "security-note",
+        "text": "Security review · 10:05 UTC\nWe have found no evidence of unauthorized access in the logs reviewed so far. The investigation is ongoing. This note does not establish whether any data was lost."
+      }
+    ],
+    "answer": "An expired connector certificate caused the payroll sign-in incident. All payroll users now have access. The permanent fix has been deployed. No data was lost.",
+    "evidence": "all",
+    "threshold": 0.65,
+    "instructions": "Evaluate only the supplied records as of the time in the question. Distinguish a temporary workaround from a permanent fix, five administrators from all users, and no evidence found so far from a completed investigation. Missing evidence is not proof that a statement is false."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.4461,
+    "ungrounded": 0.5539,
+    "verdict": "contradicted",
+    "threshold": 0.65,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "incident-timeline",
+        "share": 0.9929,
+        "share_of_answer": 0.4429,
+        "claims": [
+          0
+        ]
+      },
+      {
+        "id": "security-note",
+        "share": 0.0071,
+        "share_of_answer": 0.0032,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "An expired connector certificate caused the payroll sign-in incident.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4423,
+        "supported": 0.9969,
+        "contradicted": 0.0012,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "incident-timeline": 0.9988,
+          "security-note": 0.0012
+        },
+        "source": "incident-timeline",
+        "evidence": {
+          "document": "incident-timeline",
+          "quote": "The identity team identifies an expired connector certificate as the cause.",
+          "start": 113,
+          "end": 188,
+          "confidence": 0.835
+        }
+      },
+      {
+        "claim": "All payroll users now have access.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2179,
+        "supported": 0.0063,
+        "contradicted": 0.9896,
+        "not_stated": 0.0023,
+        "not_a_claim": 0.0019,
+        "verdict": "contradicted",
+        "sources": {
+          "incident-timeline": 0.6032,
+          "security-note": 0.3968
+        },
+        "source": null
+      },
+      {
+        "claim": "The permanent fix has been deployed.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2308,
+        "supported": 0.0067,
+        "contradicted": 0.9888,
+        "not_stated": 0.0027,
+        "not_a_claim": 0.0018,
+        "verdict": "contradicted",
+        "sources": {
+          "incident-timeline": 0.597,
+          "security-note": 0.403
+        },
+        "source": null,
+        "evidence": {
+          "document": "incident-timeline",
+          "quote": "The permanent certificate replacement is awaiting change approval.",
+          "start": 337,
+          "end": 403,
+          "confidence": 0.987
+        }
+      },
+      {
+        "claim": "No data was lost.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.109,
+        "supported": 0.0206,
+        "contradicted": 0.0185,
+        "not_stated": 0.9471,
+        "not_a_claim": 0.0138,
+        "verdict": "not_stated",
+        "sources": {
+          "incident-timeline": 0.3447,
+          "security-note": 0.6553
+        },
+        "source": null,
+        "evidence": {
+          "document": "security-note",
+          "quote": "This note does not establish whether any data was lost.",
+          "start": 136,
+          "end": 191,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [
+      1,
+      2,
+      3
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.0063
+    },
+    "answers_question": 0.9944,
+    "timing": {
+      "read_ms": 245,
+      "total_ms": 186
+    }
+  },
+  "headers": {}
+}

@@ -1,0 +1,125 @@
+{
+  "synthetic": true,
+  "source": "docs-example",
+  "recorded_at": null,
+  "note": "Request and response copied from the Clocked reference page's recorded example (recorded by Clocked 2026-10-20). Not returned to FixProof's key; no usage headers.",
+  "endpoint": "rerank",
+  "scenario": "docs",
+  "step": "rerank",
+  "status": 200,
+  "request": {
+    "query": "Can I take my folding bike on the train?",
+    "context": {
+      "service": "high-speed",
+      "route": "domestic"
+    },
+    "documents": [
+      {
+        "id": "regional-bikes",
+        "title": "Bicycles on regional trains",
+        "text": "On regional trains, bikes travel unfolded in the bike area of the first or last car. A bike ticket is required on weekdays before 9 a.m., and spaces are first come, first served."
+      },
+      {
+        "id": "luggage-overview",
+        "title": "Luggage allowance",
+        "text": "Each passenger may bring two pieces of hand luggage and one larger item, each up to 30 kg. Hand luggage must fit in the overhead rack or under the seat. Bicycles, strollers, and sports equipment have their own rules, listed under Special items."
+      },
+      {
+        "id": "hs-bikes",
+        "title": "Bicycles on high-speed services",
+        "text": "On high-speed services, a folding bike travels free as hand luggage when it is folded and in a cover or bag. Put it in the luggage rack at the end of the car; no reservation is needed. A full-size bike must be boxed and booked as registered luggage at least 24 hours before departure."
+      },
+      {
+        "id": "pets",
+        "title": "Traveling with pets",
+        "text": "Small pets travel free in a closed carrier that fits on your lap or under the seat. A dog that does not fit in a carrier needs a child fare ticket and must wear a muzzle and a leash."
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 2,
+        "id": "hs-bikes",
+        "action": "use",
+        "relevance_score": 0.9966,
+        "document_score": 0.9975,
+        "levels": {
+          "answers": 0.9966,
+          "elsewhere": 0.0008,
+          "different_case": 0.0009,
+          "unrelated": 0.0017
+        }
+      },
+      {
+        "index": 0,
+        "id": "regional-bikes",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0064,
+        "document_score": 0.0148,
+        "levels": {
+          "answers": 0.0064,
+          "elsewhere": 0.0084,
+          "different_case": 0.9665,
+          "unrelated": 0.0187
+        }
+      },
+      {
+        "index": 1,
+        "id": "luggage-overview",
+        "action": "expand",
+        "relevance_score": 0.0033,
+        "document_score": 0.9932,
+        "levels": {
+          "answers": 0.0033,
+          "elsewhere": 0.9899,
+          "different_case": 0.0033,
+          "unrelated": 0.0035
+        }
+      },
+      {
+        "index": 3,
+        "id": "pets",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0029,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0013,
+          "different_case": 0.0038,
+          "unrelated": 0.9933
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 390
+    },
+    "timing": {
+      "total_ms": 27,
+      "rerank_ms": 27,
+      "questions_ms": 0,
+      "model_ms": 24,
+      "engine": {
+        "rows": 1058,
+        "branches": 4,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 1536,
+        "long": 0,
+        "total_ms": 24,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 24,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 80
+      }
+    }
+  },
+  "headers": {}
+}

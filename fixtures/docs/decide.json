@@ -1,0 +1,103 @@
+{
+  "synthetic": true,
+  "source": "docs-example",
+  "recorded_at": null,
+  "note": "Request and response copied from the Clocked reference page's recorded example (recorded by Clocked 2026-10-08). Not returned to FixProof's key; no usage headers.",
+  "endpoint": "decide",
+  "scenario": "docs",
+  "step": "decide",
+  "status": 200,
+  "request": {
+    "state": "The entire finance team loses its VPN connection every five minutes. Payroll must be submitted today. There is no workaround. The manager approved an emergency network change.",
+    "instructions": "Urgent means a team is blocked against a same-day business deadline without a workaround. Count approval only when it is explicitly stated.",
+    "questions": {
+      "approved": {
+        "type": "noul",
+        "instructions": "Has the manager approved the emergency change?",
+        "threshold": 0.75
+      },
+      "route": {
+        "type": "choice",
+        "instructions": "Which team should own the issue?",
+        "criteria": {
+          "network": "VPN and connectivity",
+          "hardware": "Physical devices",
+          "identity": "Password or account problems"
+        }
+      },
+      "impacts": {
+        "type": "multiselect",
+        "instructions": "Which impacts are explicitly present?",
+        "criteria": {
+          "team_blocked": "Multiple people cannot work normally.",
+          "deadline": "A business deadline is at risk today.",
+          "data_loss": "Files or records have been lost."
+        },
+        "threshold": 0.65
+      },
+      "priority": {
+        "type": "score",
+        "instructions": "Rate the incident priority.",
+        "criteria": [
+          "Low: routine request",
+          "Medium: one person affected with a workaround",
+          "High: a team blocked with a same-day deadline"
+        ]
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "answers": {
+      "approved": {
+        "type": "noul",
+        "noul": 0.9963,
+        "decision": true,
+        "threshold": 0.75
+      },
+      "route": {
+        "type": "choice",
+        "choice": "network",
+        "probabilities": {
+          "network": 0.9933,
+          "hardware": 0.0035,
+          "identity": 0.0032
+        },
+        "confidence": 0.9899
+      },
+      "impacts": {
+        "type": "multiselect",
+        "selected": [
+          "team_blocked",
+          "deadline"
+        ],
+        "probabilities": {
+          "team_blocked": 0.9932287901477004,
+          "deadline": 0.9938549079430443,
+          "data_loss": 0.0032986509009969023
+        },
+        "threshold": 0.65
+      },
+      "priority": {
+        "type": "score",
+        "score": 1.9828,
+        "legend": {
+          "0": "Low: routine request",
+          "1": "Medium: one person affected with a workaround",
+          "2": "High: a team blocked with a same-day deadline"
+        },
+        "probabilities": {
+          "0": 0.0069,
+          "1": 0.0034,
+          "2": 0.9897
+        },
+        "confidence": 0.9845
+      }
+    },
+    "usage": {
+      "input_tokens": 185,
+      "output_tokens": 14
+    }
+  },
+  "headers": {}
+}

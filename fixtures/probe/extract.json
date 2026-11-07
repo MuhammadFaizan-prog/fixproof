@@ -1,0 +1,65 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "extract",
+  "scenario": "probe",
+  "step": "extract",
+  "status": 200,
+  "request": {
+    "text": "My MacBook VPN drops every five minutes since the update. Error 809. Laptop NW-MBP-0193.",
+    "fields": {
+      "error_code": "The error code the user reports",
+      "asset_tag": "The laptop asset tag"
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": "809",
+        "start": 64,
+        "end": 67,
+        "confidence": 0.9999999997369216,
+        "p_verify": 0.9999999997369216
+      },
+      "asset_tag": {
+        "value": "NW-MBP-0193",
+        "start": 76,
+        "end": 87,
+        "confidence": 0.9999999993823432,
+        "p_verify": 0.9999999993823432
+      }
+    },
+    "timing": {
+      "read_ms": 74,
+      "forwards": {
+        "fields": [
+          5,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "reader": "recognition",
+          "doc": 3,
+          "branches": 0,
+          "generate": 55,
+          "locate": 0,
+          "verify": 15,
+          "assemble": 0
+        }
+      },
+      "total_ms": 74,
+      "server_ms": 78
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "74.496895",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.2, admit_db;dur=1.4, upstream;dur=87.7, discovery;dur=0.0, model;dur=74.5, settle;dur=5.2, gateway;dur=99.1"
+  }
+}

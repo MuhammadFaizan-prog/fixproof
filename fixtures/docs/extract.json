@@ -1,0 +1,125 @@
+{
+  "synthetic": true,
+  "source": "docs-example",
+  "recorded_at": null,
+  "note": "Request and response copied from the Clocked reference page's recorded example (recorded by Clocked 2026-10-08). Not returned to FixProof's key; no usage headers.",
+  "endpoint": "extract",
+  "scenario": "docs",
+  "step": "extract",
+  "status": 200,
+  "request": {
+    "text": "NEW STARTER · People Operations\nCandidate: Amina Rahman\nPersonal contact: amina.rahman@example.com\nRole: Senior Financial Analyst\nOffice: Manchester\nOriginal start date: 19 October 2026\nEquipment requested: ThinkPad T14, USB-C dock, two 27-inch monitors.\n\nUPDATE from People Operations, 8 October 2026:\nAmina has accepted a revised start date of 2 November 2026. The role and office are unchanged. Please use the revised date for provisioning. The line manager has not yet been assigned.\n\nPrevious starter, for reference only: Luca Moretti; start date 12 October 2026; manager Elena Costa.",
+    "instructions": "Read the current starter Amina Rahman. Prefer explicit corrections over original values. Do not borrow details from the previous starter. Keep values verbatim.",
+    "fields": {
+      "employee": "Current starter full name",
+      "role": "Current starter job title",
+      "start_date": "Revised start date of the current starter",
+      "office": "Office location of the current starter",
+      "equipment": {
+        "description": "Individual equipment items requested for the current starter",
+        "list": true,
+        "max_items": 6
+      },
+      "manager": "Assigned line manager of the current starter; empty if not assigned"
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "employee": {
+        "value": "Amina Rahman",
+        "start": 43,
+        "end": 55,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.949,
+        "p_verify": 1,
+        "confidence": 1
+      },
+      "role": {
+        "value": "Senior Financial Analyst",
+        "start": 105,
+        "end": 129,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.5,
+        "p_verify": 1,
+        "confidence": 1
+      },
+      "start_date": {
+        "value": "2 November 2026",
+        "start": 346,
+        "end": 361,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.997,
+        "p_verify": 1,
+        "confidence": 1
+      },
+      "office": {
+        "value": "Manchester",
+        "start": 138,
+        "end": 148,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.5,
+        "p_verify": 1,
+        "confidence": 1
+      },
+      "equipment": {
+        "value": [
+          "ThinkPad T14",
+          "USB-C dock",
+          "two 27-inch monitors"
+        ],
+        "items": [
+          {
+            "value": "ThinkPad T14",
+            "start": 207,
+            "end": 219,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 0.5,
+            "p_verify": 1,
+            "p_more": 1,
+            "confidence": 1
+          },
+          {
+            "value": "USB-C dock",
+            "start": 221,
+            "end": 231,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 0.58,
+            "p_verify": 1,
+            "p_more": 1,
+            "confidence": 1
+          },
+          {
+            "value": "two 27-inch monitors",
+            "start": 233,
+            "end": 253,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 0.584,
+            "p_verify": 1,
+            "p_more": 1,
+            "confidence": 1
+          }
+        ],
+        "confidence": 1
+      },
+      "manager": {
+        "value": null,
+        "confidence": 1,
+        "p_blank": 1
+      }
+    },
+    "timing": {
+      "read_ms": 299,
+      "total_ms": 299,
+      "server_ms": 308
+    }
+  },
+  "headers": {}
+}

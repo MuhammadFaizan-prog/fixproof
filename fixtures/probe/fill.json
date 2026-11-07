@@ -1,0 +1,84 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-07",
+  "endpoint": "fill",
+  "scenario": "probe",
+  "step": "fill",
+  "status": 200,
+  "request": {
+    "text": "My MacBook VPN drops every five minutes since the update. Error 809. Laptop NW-MBP-0193.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "options": [
+          "Network",
+          "Hardware",
+          "Identity & access",
+          "Not established"
+        ]
+      },
+      "severity": {
+        "type": "score",
+        "levels": [
+          "Low",
+          "Medium",
+          "High"
+        ]
+      },
+      "ack": {
+        "type": "generate",
+        "description": "One short sentence acknowledging the ticket. Do not promise a fix time.",
+        "max_tokens": 30
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "Network",
+        "confidence": 0.979,
+        "probabilities": {
+          "Network": 0.984178260065878,
+          "Hardware": 0.0032922744300422145,
+          "Identity & access": 0.0034326175767933407,
+          "Not established": 0.009096847927286393
+        }
+      },
+      "severity": {
+        "value": "High",
+        "confidence": 0.27,
+        "expected": 2.36,
+        "probabilities": {
+          "Low": 0.15316797307181299,
+          "Medium": 0.33337127681963985,
+          "High": 0.5134607501085472
+        }
+      },
+      "ack": {
+        "value": "I understand your MacBook VPN is dropping every five minutes with Error 809",
+        "confidence": 0.9955476531197655,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 31,
+      "generate_ms": 67,
+      "total_ms": 82,
+      "source_states": 1,
+      "source_prefills": 0,
+      "shared_source_tokens": 64,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "77.16112",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=7.1, admit_db;dur=2.9, upstream;dur=91.8, discovery;dur=0.0, model;dur=77.2, settle;dur=5.0, gateway;dur=104.0"
+  }
+}

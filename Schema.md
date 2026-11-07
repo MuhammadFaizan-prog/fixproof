@@ -30,11 +30,11 @@ Body: markdown sections (`##`). A section is the chunk unit; a fenced script bel
 
 ## Fixture (`fixtures/<scenario>/<step>.json`)
 ```
-{ "synthetic": boolean, "recorded_at": "YYYY-MM-DD" | null, "source": "docs-shape" | "live",
-  "endpoint": "pipeline" | "decide" | ..., "request": {...},
-  "response": {...}, "headers": { "x-clocked-credits": "7", ... } }
+{ "synthetic": boolean, "source": "live" | "docs-example" | "docs-shape", "recorded_at": "YYYY-MM-DD" | null,
+  "note"?: string, "endpoint": "pipeline" | "decide" | ..., "scenario": string, "step": string, "status": 200,
+  "request": {...}, "response": {...}, "headers": { "x-clocked-credits": "7", ... } }
 ```
-`synthetic: true` means the response was built from the documented shape, not returned by the API. Live recording overwrites with `synthetic: false`, `source: "live"`.
+Validated by `FixtureSchema` (lib/clocked/fixtures.ts). `synthetic: true` means FixProof's key did not produce it: `docs-example` is copied from a Clocked reference page, `docs-shape` is hand-built from the documented shape. Recording (`createRecordingTransport`) writes `synthetic: false`, `source: "live"`, and keeps only usage headers. Step names are slugged into file names (`rerank:expand` → `rerank-expand.json`).
 
 ## StepEvent (SSE)
 `{ step, endpoint, status: "running" | "ok" | "error" | "skipped", verdict?, probability?, evidence?, credits?, modelMs?, ms, attempts, effect, replay: boolean, synthetic: boolean }`.
