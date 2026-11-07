@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:23 PKT
+Last updated: 2026-11-08 02:29 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -21,6 +21,7 @@ Agent steps in progress (commits 9–15).
 | 10 | feat(agent): understand step with extract, fill record and decide policy | done | pass (99 tests) | yes |
 | 11 | feat(agent): rerank retrieval with expand loop and content guard | done | pass (107 tests) | yes |
 | 12 | feat(agent): compare use-passages and resolve conflicts | done | pass (112 tests) | yes |
+| 13 | feat(agent): fill-generated draft verified claim by claim with grounding | done | pass (121 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -31,7 +32,7 @@ Agent steps in progress (commits 9–15).
 | S3 | Understand: extract, fill, decide | P0 | done (lib) | pass (unit + live spot check) | tests/agent-understand.test.ts |
 | S4 | Rerank retrieval + content guard | P0 | done (lib) | pass (unit + live spot check) | tests/agent-retrieve.test.ts |
 | S5 | Compare conflicts | P0 | done (lib) | pass (unit) | tests/agent-reconcile.test.ts |
-| S6 | Draft + Verify | P0 | not started | | |
+| S6 | Draft + Verify | P0 | done (lib) | pass (unit + live spot check) | tests/agent-draft-prove.test.ts |
 | S7 | Inspect fix gate | P0 | not started | | |
 | S8 | Handoff on escalation | P0 | not started | | |
 | S9 | Proof Trail | P0 | not started | | |
@@ -79,6 +80,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:17 PKT: commit 10: Extract (error codes, asset tag, apps, deadline, device with offsets) + Fill record (category choice, severity score, affected service, needs_admin) in parallel, then Decide (policy choice + self_service_safe noul) with the record. Live tuning on 5 tickets (~15 credits): Decide's criteria now say urgency alone is not a reason to escalate (VPN ticket went escalate 65% → auto_resolve 99%). Escalate band raised to ≥0.70 so a 54/39 split (laptop charging) is a close call → confirm. typecheck, lint, test (99), build pass.
 - 2026-11-08 02:22 PKT: commit 11: BM25 top 20 (Fill category boost via boostDocument) → Rerank of all 20 with the employee as context (no top_n so every skip reason is visible) → widen expand passages to neighbouring sections and rerank once → newer superseding article pulled by metadata → one passage per article → Guard (source content) per KB section, poisoned sections cut, rest kept. Live spot check: vpn-macos skipped 7 Windows/Linux passages as different_case; mfa-poisoned cut 'Faster verification' (0.99 instruction override) and kept Steps. typecheck, lint, test (107), build pass.
 - 2026-11-08 02:23 PKT: commit 12: Compare over the kept passages (≥2): conflicting pairs become one conflict card each (strongest finding, both quotes with offsets); the newer article wins and the older passage is removed before drafting; same-date conflicts stay unresolved (policy will not auto-resolve); 'same' pairs drop the weaker duplicate. typecheck, lint, test (112), build pass.
+- 2026-11-08 02:29 PKT: commit 13: Fill generate (220 tokens) drafts only from kept passages (scripts omitted); FixProof splits the draft into its own sentences and sends them to Verify as explicit claims (evidence all), so each unsupported sentence is cut exactly and each kept one carries its source quote. Live spot check: vpn-macos 4/4 supported (grounded 1.00, answers 0.98); payroll-eta draft stated no ETA, 3/3 supported (0.93). typecheck, lint, test (121), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.
