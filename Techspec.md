@@ -25,7 +25,12 @@ Next.js route handlers on the Node runtime (not Edge), `maxDuration = 60`.
 5. draft: `fill` with one `generate` field (max_tokens 220).
 6. prove: `grounding` (documents = use passages, evidence all, threshold 0.7, question = ticket).
 7. fix gate: `script` with approved-scope instructions.
-8. outcome: pure `policy.ts` → AUTO_RESOLVED | CONFIRM_WITH_USER | ESCALATED; on ESCALATED a `fill` handoff record.
+8. outcome: pure `policy.ts` combines eight checks (every call returned, ticket safe to read, Decide band, a documented fix applies, sources agree, reply grounded ≥ 0.70 (< 0.50 escalates), reply answers the ticket ≥ 0.50, script in scope) → AUTO_RESOLVED | CONFIRM_WITH_USER | ESCALATED. Any escalate-level failure escalates; any confirm-level failure confirms. Run fix is offered only when the outcome is not ESCALATED and Inspect said benign.
+9. handoff: on ESCALATED, `fill` (summary generate, assignment group choice, priority score); the failed check, attempted steps and masked ticket are filled locally. If Clocked itself failed, the record is built locally and the ticket is queued for a person.
+
+Escalated tickets still get stages 3–7 when the ticket is safe to read, so the employee receives a verified holding reply (e.g. the published workaround during an outage) and the technician sees what was already tried. A Clocked failure at any stage never throws out of `runTicket`; it ends the run as ESCALATED.
+
+CLI: `pnpm scenario <id|all> [--live|--record]` runs presets end to end (replay by default).
 
 ## Clocked integration (lib/clocked)
 - Transport: raw `fetch` to `https://clocked.rezolve.ai/clocked/<endpoint>` with `Authorization: Bearer`, `Content-Type: application/json`, `Idempotency-Key` (docs: authentication). Chosen over `clocked-sdk` 0.7.0 so the app owns the idempotency key per logical step, reads every `X-Clocked-*` header, and replays fixtures through the same code path; the SDK's own retries would stack on ours. The SDK remains a documented option.

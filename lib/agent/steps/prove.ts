@@ -1,5 +1,6 @@
 import type { ClaimVerdict, GroundingRequest } from "@/lib/clocked/types";
 import { splitSentences } from "@/lib/text/sentences";
+import { GROUNDED_AUTO } from "../policy";
 import { pct, plural, tracedCall } from "../trace";
 import type { EvidenceMark, RunContext } from "../types";
 import type { DraftResult } from "./draft";
@@ -11,8 +12,6 @@ import type { DraftResult } from "./draft";
  * with its source quote; contradicted or not-stated sentences are removed.
  */
 
-export const GROUNDED_MIN = 0.7;
-export const ANSWERS_MIN = 0.5;
 
 export interface ProvenClaim {
   text: string;
@@ -81,7 +80,7 @@ export async function prove(ctx: RunContext, question: string, d: DraftResult): 
         summary: {
           count: supportedCount,
           countLabel: `of ${factual.length} supported`,
-          verdict: res.data.grounded >= GROUNDED_MIN ? "grounded" : "weak",
+          verdict: res.data.grounded >= GROUNDED_AUTO ? "grounded" : "weak",
           probability: res.data.grounded,
           probabilityLabel: "grounded",
           effect: `${supportedCount} of ${factual.length} sentences are backed by a source quote (grounded ${pct(res.data.grounded)}).${removedText}`,

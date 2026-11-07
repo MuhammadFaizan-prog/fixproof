@@ -26,3 +26,130 @@ export function decideBand(probabilities: Partial<Record<DecideChoice, number>>,
   if (auto >= BANDS.autoMin) return { band: "confirm", reason: `self-service safety is only ${Math.round(selfServiceSafe * 100)}%` };
   return { band: "confirm", reason: `auto_resolve is only ${Math.round(auto * 100)}% likely (needs ${Math.round(BANDS.autoMin * 100)}%)` };
 }
+
+/* ------------------------------------------------------------- outcome */
+
+export type Outcome = "AUTO_RESOLVED" | "CONFIRM_WITH_USER" | "ESCALATED";
+
+export const GROUNDED_AUTO = 0.7;
+export const GROUNDED_MIN = 0.5;
+export const ANSWERS_MIN = 0.5;
+
+export type CheckId = "clocked" | "screen" | "policy" | "retrieval" | "sources" | "grounding" | "answers" | "script";
+
+export interface Check {
+  id: CheckId;
+  label: string;
+  /** true passed, false failed, null not applicable or not reached. */
+  pass: boolean | null;
+  detail: string;
+  /** What a failure does to the outcome. */
+  severity: "escalate" | "confirm";
+}
+
+/** How each check reads when it fails (used in headlines and the handoff). */
+export const FAILED_AS: Record<CheckId, string> = {
+  clocked: "a check did not complete",
+  screen: "the ticket was held for injected instructions",
+  policy: "Decide did not clear it for self-service",
+  retrieval: "no documented fix applies",
+  sources: "knowledge-base articles conflict",
+  grounding: "the reply is not grounded in the sources",
+  answers: "the reply may not answer the question",
+  script: "the fix script is outside the approved scope",
+};
+
+export interface OutcomeInput {
+  failure?: { step: string; kind: string } | null;
+  screen?: { canContinue: boolean; quarantined: boolean } | null;
+  band?: Band | null;
+  bandReason?: string;
+  retrievedCount?: number | null;
+  unresolvedConflicts?: number | null;
+  resolvedConflicts?: number | null;
+  prove?: { grounded: number; answersQuestion: number | null; keptShare: number; removed: number; replyEmpty: boolean } | null;
+  script?: { ran: boolean; verdict: string | null; runAllowed: boolean; category?: string | null; source?: string | null } | null;
+}
+
+export interface OutcomeDecision {
+  outcome: Outcome;
+  checks: Check[];
+  /** The first failing check that set the outcome, or null for AUTO_RESOLVED. */
+  deciding: Check | null;
+  /** Whether the Run fix button may be shown. */
+  runFix: boolean;
+  headline: string;
+}
+
+const two = (n: number) => `${Math.round(n * 100)}%`;
+
+/** Combine every check into one outcome. Any escalate-level failure escalates; any confirm-level failure confirms. */
+export function decideOutcome(i: OutcomeInput): OutcomeDecision {
+  const checks: Check[] = [];
+  const add = (c: Check) => checks.push(c);
+
+  add({ id: "clocked", label: "Every check returned", severity: "escalate", pass: i.failure ? false : true, detail: i.failure ? `${i.failure.step} did not return (${i.failure.kind})` : "all Clocked calls answered" });
+
+  if (i.screen) {
+    add({
+      id: "screen",
+      label: "Ticket is safe to read",
+      severity: "escalate",
+      pass: i.screen.canContinue,
+      detail: !i.screen.canContinue ? "injected instructions with nothing safe left" : i.screen.quarantined ? "injected sentence cut; the rest is clean" : "no injected instructions",
+    });
+  }
+  if (i.band) {
+    add({ id: "policy", label: "Policy allows self-service", severity: i.band === "escalate" ? "escalate" : "confirm", pass: i.band === "auto", detail: i.bandReason ?? i.band });
+  }
+  if (i.retrievedCount !== undefined && i.retrievedCount !== null) {
+    add({ id: "retrieval", label: "A documented fix applies", severity: "escalate", pass: i.retrievedCount > 0, detail: i.retrievedCount > 0 ? `${i.retrievedCount} passage${i.retrievedCount === 1 ? "" : "s"} kept for this employee` : "no knowledge-base passage applies" });
+  }
+  if (i.unresolvedConflicts !== undefined && i.unresolvedConflicts !== null) {
+    add({
+      id: "sources",
+      label: "Sources agree",
+      severity: "escalate",
+      pass: i.unresolvedConflicts === 0,
+      detail: i.unresolvedConflicts ? `${i.unresolvedConflicts} conflict with no newer source` : i.resolvedConflicts ? "conflict resolved for the newer article" : "no conflicts",
+    });
+  }
+  if (i.prove) {
+    const g = i.prove.grounded;
+    add({
+      id: "grounding",
+      label: "Reply is grounded",
+      severity: g < GROUNDED_MIN || i.prove.replyEmpty ? "escalate" : "confirm",
+      pass: !i.prove.replyEmpty && g >= GROUNDED_AUTO,
+      detail: i.prove.replyEmpty ? "no sentence survived Verify" : `grounded ${two(g)}${i.prove.removed ? `, ${i.prove.removed} sentence${i.prove.removed === 1 ? "" : "s"} removed` : ""}`,
+    });
+    if (i.prove.answersQuestion !== null) {
+      add({ id: "answers", label: "Reply answers the ticket", severity: "confirm", pass: i.prove.answersQuestion >= ANSWERS_MIN, detail: `answers the question ${two(i.prove.answersQuestion)}` });
+    }
+  }
+  if (i.script?.ran) {
+    const malicious = i.script.verdict === "malicious";
+    add({
+      id: "script",
+      label: "Fix script is in scope",
+      severity: malicious ? "escalate" : "confirm",
+      pass: i.script.runAllowed,
+      detail: `${i.script.source ? `script in "${i.script.source}" ` : ""}${i.script.runAllowed ? "is benign for this device" : `is ${i.script.verdict}${i.script.category ? `: ${i.script.category}` : ""}`}`,
+    });
+  }
+
+  const failed = checks.filter((c) => c.pass === false);
+  const esc = failed.find((c) => c.severity === "escalate");
+  const conf = failed.find((c) => c.severity === "confirm");
+  const outcome: Outcome = esc ? "ESCALATED" : conf ? "CONFIRM_WITH_USER" : "AUTO_RESOLVED";
+  const deciding = esc ?? conf ?? null;
+  const runFix = outcome !== "ESCALATED" && Boolean(i.script?.ran && i.script.runAllowed);
+  const passed = checks.filter((c) => c.pass === true).length;
+  const headline =
+    outcome === "AUTO_RESOLVED"
+      ? `${checks.length} checks passed. Resolved without a technician.`
+      : outcome === "CONFIRM_WITH_USER"
+        ? `${passed} of ${checks.length} checks passed. Confirm before closing: ${FAILED_AS[deciding!.id]} (${deciding!.detail}).`
+        : `Handed to a person: ${FAILED_AS[deciding!.id]} (${deciding!.detail}).`;
+  return { outcome, checks, deciding, runFix, headline };
+}

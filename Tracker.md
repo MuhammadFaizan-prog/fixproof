@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:31 PKT
+Last updated: 2026-11-08 02:37 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -23,6 +23,7 @@ Agent steps in progress (commits 9–15).
 | 12 | feat(agent): compare use-passages and resolve conflicts | done | pass (112 tests) | yes |
 | 13 | feat(agent): fill-generated draft verified claim by claim with grounding | done | pass (121 tests) | yes |
 | 14 | feat(agent): inspect fix scripts before enabling run | done | pass (126 tests) | yes |
+| 15 | feat(agent): outcome policy and fill handoff on escalation | done | pass (145 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -35,7 +36,7 @@ Agent steps in progress (commits 9–15).
 | S5 | Compare conflicts | P0 | done (lib) | pass (unit) | tests/agent-reconcile.test.ts |
 | S6 | Draft + Verify | P0 | done (lib) | pass (unit + live spot check) | tests/agent-draft-prove.test.ts |
 | S7 | Inspect fix gate | P0 | done (lib) | pass (unit, live probe fixture) | tests/agent-fix-gate.test.ts |
-| S8 | Handoff on escalation | P0 | not started | | |
+| S8 | Handoff on escalation | P0 | done (lib) | pass (unit + live tampered-printer, payroll-eta) | tests/agent-policy-run.test.ts |
 | S9 | Proof Trail | P0 | not started | | |
 | S10 | Replay + live caps | P0 | not started | | |
 | S11 | Docs, video, deploy | P0 | not started | | |
@@ -60,6 +61,9 @@ None.
 
 - 2026-11-08: Content Guard runs per KB section (not per passage) so a poisoned section is cut and the rest of the article is still used; Rerank gets all 20 recalled passages without top_n so skip reasons are shown for each.
 
+- 2026-11-08: payroll-eta preset now asserts a 2pm fix time the KB never states (realistic hallucination bait: employee-asserted facts leaking into a reply). Live, the Fill draft did not repeat it, so Verify had nothing to cut; the outcome is ESCALATED (outage) with a verified holding reply. Expectation updated to CONFIRM | ESCALATED. Claim removal is covered by unit tests.
+- 2026-11-08: Escalated tickets still get a verified holding reply when the ticket is safe to read.
+
 ## Assumptions
 See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no DB).
 
@@ -83,6 +87,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:23 PKT: commit 12: Compare over the kept passages (≥2): conflicting pairs become one conflict card each (strongest finding, both quotes with offsets); the newer article wins and the older passage is removed before drafting; same-date conflicts stay unresolved (policy will not auto-resolve); 'same' pairs drop the weaker duplicate. typecheck, lint, test (112), build pass.
 - 2026-11-08 02:29 PKT: commit 13: Fill generate (220 tokens) drafts only from kept passages (scripts omitted); FixProof splits the draft into its own sentences and sends them to Verify as explicit claims (evidence all), so each unsupported sentence is cut exactly and each kept one carries its source quote. Live spot check: vpn-macos 4/4 supported (grounded 1.00, answers 0.98); payroll-eta draft stated no ETA, 3/3 supported (0.93). typecheck, lint, test (121), build pass.
 - 2026-11-08 02:31 PKT: commit 14: Inspect reads the first kept script against the persona's approved scope (device, OS, what may change); Run fix is offered only on verdict benign and suspicious < 0.5; blocked scripts carry the evidence line. No script → a skipped local row (no call). Tested with the live probe response (blocks Set-MpPreference -DisableRealtimeMonitoring). typecheck, lint, test (126), build pass.
+- 2026-11-08 02:37 PKT: commit 15: decideOutcome (pure) over 8 checks with escalate/confirm severities and FAILED_AS phrasing; Fill handoff (summary, assignment group, priority) with a local fallback; runTicket orchestrator never throws on Clocked failure (→ ESCALATED, local handoff); pnpm scenario CLI. CHECKPOINT A (live, recorded): all 8 presets match their expected outcomes: vpn-macos AUTO 50cr · admin-injection CONFIRM 37cr · tampered-printer ESCALATED (Inspect blocked Set-MpPreference, routed Security P2) 43cr · vpn-conflict AUTO (2026 policy overrides 2024) 39cr · ambiguous CONFIRM 21cr · payroll-eta ESCALATED with verified holding reply (Identity & Access P2) 35cr · mfa-poisoned CONFIRM (poisoned section cut 0.99) 37cr · outlook-sync AUTO (Mac article skipped as different_case) 36cr. typecheck, lint, test (145 without preset fixtures), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.

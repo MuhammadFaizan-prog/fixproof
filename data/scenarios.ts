@@ -75,11 +75,11 @@ export const SCENARIOS: Scenario[] = [
     id: "payroll-eta",
     title: "Hallucination bait",
     personaId: "hannah-uk-finance",
-    text: "When will the payroll portal be back? It says SSO authentication failed and I need to submit my expenses today.",
+    text: "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
     expectedArticles: ["payroll-portal-status"],
     expects: {
-      outcome: ["AUTO_RESOLVED", "CONFIRM_WITH_USER"],
-      proves: "Any restoration time in the draft is not_stated in the KB, so Verify removes it; the reply says no ETA is published and gives the workaround.",
+      outcome: ["CONFIRM_WITH_USER", "ESCALATED"],
+      proves: "The ticket asserts a 2pm fix time the KB never states. Any sentence repeating it is not_stated, so Verify cuts it; the employee gets the published workaround and the outage goes to a person.",
     },
   },
   {
