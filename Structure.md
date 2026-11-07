@@ -12,18 +12,24 @@ fixproof/
     ConflictCard, ScriptGate, HandoffCard, OutcomeBanner, CreditMeter
   lib/
     utils.ts                            # cn() helper
-    clocked/client.ts                   # fetch transport, idempotency, backoff, credits, limiter
+    clocked/client.ts                   # retries, idempotency, backoff, credits meta, limiter wiring
+    clocked/transport.ts                # raw HTTPS transport (Bearer, Idempotency-Key)
+    clocked/headers.ts, errors.ts, limiter.ts
     clocked/types.ts                    # request/response types for all 9 endpoints + pipeline
-    clocked/replay.ts                   # fixture lookup and replay transport
+    clocked/fixtures.ts, fixture-files.ts  # fixture schema + memory/file stores
+    clocked/replay.ts                   # replay and recording transports
+    clocked/mode.ts                     # replay vs live decision
     agent/run.ts                        # orchestrator
     agent/steps/*.ts                    # screen, understand, retrieve, reconcile, draft, prove, fixGate, handoff
     agent/policy.ts                     # pure outcome bands
-    kb/load.ts, kb/index.ts             # parse markdown KB, minisearch BM25, neighbors
+    kb/types.ts, kb/parse.ts, kb/load.ts  # article schema, frontmatter + ## chunk parser, loader
+    kb/index.ts                         # minisearch BM25, neighbors, singleton
     text/offsets.ts                     # code-point-safe slicing and span removal
     ratelimit.ts                        # live-mode caps
   data/kb/*.md  data/personas.ts  data/scenarios.ts
   fixtures/<scenario>/<step>.json       # recorded or synthetic Clocked responses
-  scripts/record-fixtures.ts            # re-record fixtures with a real key
+  scripts/probe.ts                      # one live call per endpoint → fixtures/probe
+  scripts/record-fixtures.ts            # re-record preset fixtures with a real key (later)
   tests/*.test.ts                       # vitest
   e2e/smoke.spec.ts                     # playwright
   docs/                                 # architecture diagram, screenshots
