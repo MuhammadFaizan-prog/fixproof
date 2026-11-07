@@ -3,7 +3,7 @@
 Last updated: 2026-11-08 01:45 PKT
 
 ## Current active work
-Commit 4 (design system). Next: Clocked client (5), replay (6), KB (7), BM25 (8).
+Commit 5 (Clocked client). Next: replay (6), KB (7), BM25 (8).
 
 ## Commits
 | # | Message | Status | Build | Pushed |
@@ -11,7 +11,7 @@ Commit 4 (design system). Next: Clocked client (5), replay (6), KB (7), BM25 (8)
 | 1 | chore: scaffold Next.js 15 + TypeScript + Tailwind with pnpm | done | pass | yes |
 | 2 | docs: add PRD, Techspec, Appflow, Schema and Structure for FixProof | done | pass | yes |
 | 3 | docs: add ImplementationPlan, Tracker, Rules and Security | done | pass | yes |
-| 4 | chore: add shadcn/ui, design tokens and base layout | not started | | |
+| 4 | chore: add shadcn/ui, design tokens and base layout | done | pass | yes |
 | 5 | feat(clocked): typed client wrapper with idempotency, backoff and credit headers | not started | | |
 | 6 | feat(clocked): replay mode backed by recorded fixtures | not started | | |
 | 7 | feat(kb): add synthetic Northwind Labs knowledge base and personas | not started | | |
@@ -40,12 +40,17 @@ None.
 - 2026-11-08: Fonts from the `geist` npm package instead of `next/font/google`, because the build sandbox cannot reach Google Fonts and builds must be reproducible offline.
 - 2026-11-08: Raw `fetch` transport instead of `clocked-sdk` 0.7.0, so the app owns idempotency keys per step, reads all `X-Clocked-*` headers, and replays fixtures through the same path (the SDK's built-in retries would stack on ours). Recorded in Techspec.
 
+- 2026-11-08: Design references chosen (docs/DESIGN.md): Merit run trace (Dribbble) for the Proof Trail, Shift Studio support ticket system (Dribbble) for chrome/cards/rows, Sentry AI agent tracing for the step inspector. Reference images linked, not committed (third-party work).
+- 2026-11-08: shadcn/ui (radix base, nova preset) with its `cn` package; dark tokens removed from P0.
+
 ## Assumptions
 See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no DB).
 
 ## Verification history
 - 2026-11-08 01:36 PKT: `pnpm build` pass (commit 1, 2).
 - 2026-11-08 01:44 PKT: first live Clocked call (decide, 10 input tokens) → HTTP 200, `X-Clocked-Credits: 1`, `X-Clocked-Cost-Basis: reference` (trial basis, so concurrency may be 1 rather than 4; limiter must be configurable).
+
+- 2026-11-08 02:05 PKT: commit 4 `pnpm build` + `pnpm lint` pass; headless Chrome screenshots at 1440 px and 390 px checked against R1/R2 (stacking, wrapping, focus ring present).
 
 ## Next actions
 1. Design references → docs/DESIGN.md → commit 4.

@@ -1,26 +1,138 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: "Newsreader Variable", ui-serif, Georgia, serif;
+  --color-surface-sunken: var(--surface-sunken);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-risk: var(--risk);
+  --color-risk-soft: var(--risk-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-mark-pii: var(--mark-pii);
+  --color-mark-extract: var(--mark-extract);
+  --color-mark-inject: var(--mark-inject);
+  --color-track: var(--track);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+
+/* FixProof tokens. Source: docs/DESIGN.md (Merit run trace + Shift support desk + Sentry agent trace). */
+:root {
+  /* canvas and surfaces (Merit: warm off-white canvas, white cards, hairline borders) */
+  --background: #f4f3ee;
+  --foreground: #1a1a17;
+  --card: #ffffff;
+  --card-foreground: #1a1a17;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a17;
+  --surface-sunken: #fafaf7;
+  /* accent (Merit deep green, sampled #1E6950 / #117151) */
+  --primary: #1b6b50;
+  --primary-foreground: #ffffff;
+  --secondary: #efeee8;
+  --secondary-foreground: #2a2a26;
+  --muted: #efeee8;
+  --muted-foreground: #6b6a63;
+  --accent: #e7f0ec;
+  --accent-foreground: #1b6b50;
+  --destructive: #b42318;
+  --border: #e4e2db;
+  --input: #dcdad2;
+  --ring: #1b6b50;
+  /* verdict semantics */
+  --ok: #1b6b50;
+  --ok-soft: #e3efe9;
+  --warn: #a15c07;
+  --warn-soft: #fbf0dc;
+  --risk: #b42318;
+  --risk-soft: #fbe7e5;
+  --info: #3f5bd8;
+  --info-soft: #e8ecfb;
+  /* evidence highlight colors (ticket pane) */
+  --mark-pii: #6d4fc2;
+  --mark-extract: #1b6b50;
+  --mark-inject: #b42318;
+  --track: #eeede7;
+  --chart-1: #1b6b50;
+  --chart-2: #a15c07;
+  --chart-3: #b42318;
+  --chart-4: #3f5bd8;
+  --chart-5: #6b6a63;
+  --radius: 0.75rem;
+  --sidebar: #fafaf7;
+  --sidebar-foreground: #1a1a17;
+  --sidebar-primary: #1b6b50;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #efeee8;
+  --sidebar-accent-foreground: #1a1a17;
+  --sidebar-border: #e4e2db;
+  --sidebar-ring: #1b6b50;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
 }
