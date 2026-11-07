@@ -13,7 +13,7 @@ export type StepStatus = "running" | "ok" | "error" | "skipped";
 export interface EvidenceMark extends Span {
   /** Which text the span indexes: the ticket as typed, the masked ticket, a KB chunk, the draft, or a script. */
   target: "original" | "masked" | "chunk" | "draft" | "script";
-  /** Chunk id when target is "chunk". */
+  /** KB chunk id or passage id ("<article>#<i>[,<j>]") when target is "chunk"; offsets are local to that text. */
   ref?: string;
   kind: "pii" | "injection" | "extract" | "support" | "conflict" | "script";
   label: string;
