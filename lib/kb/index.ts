@@ -18,7 +18,8 @@ export interface KbHit {
 export interface KbIndex {
   readonly articles: KbArticle[];
   readonly chunkCount: number;
-  search(query: string, opts?: { limit?: number }): KbHit[];
+  /** `boostCategory` multiplies the score of chunks in that category (from Fill's ticket record). */
+  search(query: string, opts?: { limit?: number; boostCategory?: string | null; boost?: number }): KbHit[];
   get(chunkId: string): KbChunk | undefined;
   /** The chunks immediately before and after one chunk in the same article (for Rerank's `expand`). */
   neighbors(chunkId: string, radius?: number): KbChunk[];
@@ -66,10 +67,11 @@ export function buildKbIndex(articles: KbArticle[]): KbIndex {
   return {
     articles,
     chunkCount: chunks.length,
-    search(query, { limit = 20 } = {}) {
+    search(query, { limit = 20, boostCategory = null, boost = 1.5 } = {}) {
       if (!query.trim()) return [];
+      const boostDocument = boostCategory ? (id: string) => (byId.get(String(id))?.category === boostCategory ? boost : 1) : undefined;
       return mini
-        .search(query)
+        .search(query, boostDocument ? { boostDocument } : undefined)
         .slice(0, limit)
         .map((r) => ({ chunk: byId.get(String(r.id)) as KbChunk, score: r.score, terms: r.terms }));
     },

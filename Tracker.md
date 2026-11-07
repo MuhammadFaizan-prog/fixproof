@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 02:17 PKT
+Last updated: 2026-11-08 02:22 PKT
 
 ## Current active work
 Agent steps in progress (commits 9–15).
@@ -19,6 +19,7 @@ Agent steps in progress (commits 9–15).
 | 9 | feat(agent): screening step via pipeline (pii + injection stop) | done | pass (91 tests) | yes |
 | 9a | fix(clocked): default concurrency to 1 for the Trial plan | done | pass (92 tests) | yes |
 | 10 | feat(agent): understand step with extract, fill record and decide policy | done | pass (99 tests) | yes |
+| 11 | feat(agent): rerank retrieval with expand loop and content guard | done | pass (107 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -27,7 +28,7 @@ Agent steps in progress (commits 9–15).
 | S1 | Intake, personas, presets | P0 | not started | | |
 | S2 | Screening via pipeline | P0 | done (lib) | pass (unit) | tests/agent-screen.test.ts |
 | S3 | Understand: extract, fill, decide | P0 | done (lib) | pass (unit + live spot check) | tests/agent-understand.test.ts |
-| S4 | Rerank retrieval + content guard | P0 | not started | | |
+| S4 | Rerank retrieval + content guard | P0 | done (lib) | pass (unit + live spot check) | tests/agent-retrieve.test.ts |
 | S5 | Compare conflicts | P0 | not started | | |
 | S6 | Draft + Verify | P0 | not started | | |
 | S7 | Inspect fix gate | P0 | not started | | |
@@ -54,6 +55,8 @@ None.
 
 - 2026-11-08: Decide bands: auto needs auto_resolve ≥ 0.80 and self_service_safe ≥ 0.50; escalate needs escalate ≥ 0.70; anything between is a close call and confirms with the employee. Decide criteria are about request type (access, security exception, outage, physical damage), never urgency.
 
+- 2026-11-08: Content Guard runs per KB section (not per passage) so a poisoned section is cut and the rest of the article is still used; Rerank gets all 20 recalled passages without top_n so skip reasons are shown for each.
+
 ## Assumptions
 See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no DB).
 
@@ -73,6 +76,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 02:13 PKT: commit 9: screen step: one Pipeline call (Protect replace + Guard stop), FixProof rebuilds the safe text from the shared original offsets (PII → <TYPE>, injected spans cut, code-point safe via lib/text/offsets.ts), Guard re-checks the remainder; flagged-without-span holds the whole ticket. Tested on the live probe pipeline fixture + doc-shaped cases. typecheck, lint, test (91), build pass.
 - 2026-11-08 02:14 PKT: commit 9a: CLOCKED_CONCURRENCY now defaults to 1 (Trial), invalid values fall back to 1; .env.example and Techspec updated; test added. typecheck, lint, test (92), build pass.
 - 2026-11-08 02:17 PKT: commit 10: Extract (error codes, asset tag, apps, deadline, device with offsets) + Fill record (category choice, severity score, affected service, needs_admin) in parallel, then Decide (policy choice + self_service_safe noul) with the record. Live tuning on 5 tickets (~15 credits): Decide's criteria now say urgency alone is not a reason to escalate (VPN ticket went escalate 65% → auto_resolve 99%). Escalate band raised to ≥0.70 so a 54/39 split (laptop charging) is a close call → confirm. typecheck, lint, test (99), build pass.
+- 2026-11-08 02:22 PKT: commit 11: BM25 top 20 (Fill category boost via boostDocument) → Rerank of all 20 with the employee as context (no top_n so every skip reason is visible) → widen expand passages to neighbouring sections and rerank once → newer superseding article pulled by metadata → one passage per article → Guard (source content) per KB section, poisoned sections cut, rest kept. Live spot check: vpn-macos skipped 7 Windows/Linux passages as different_case; mfa-poisoned cut 'Faster verification' (0.99 instruction override) and kept Steps. typecheck, lint, test (107), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.
