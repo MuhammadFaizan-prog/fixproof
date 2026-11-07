@@ -1,9 +1,9 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 03:32 PKT
+Last updated: 2026-11-08 03:44 PKT
 
 ## Current active work
-Live caps landed (21). Next: Playwright e2e (22), states/mobile (23), README + CLOCKED.md (24). Credits this run: 14 (handoff re-records).
+STOPPED after commit 22 at Faizi's request (2026-11-08 03:42 PKT): full UI redesign coming from new Dribbble/Behance/Pinterest references. Skipped for now: loading/error/mobile states (23), README + CLOCKED.md (24), gauntlet UI critic round. Credits this run: 14 (two handoff re-records); total ≈654 of 20,000.
 
 ## Commits
 | # | Message | Status | Build | Pushed |
@@ -31,6 +31,7 @@ Live caps landed (21). Next: Playwright e2e (22), states/mobile (23), README + C
 | 19 | feat(ui): proof trail with evidence highlights, step inspector and credit meter | done | pass (264 tests) | yes |
 | 20 | feat(ui): conflict card, script gate, handoff card and outcome banner | done | pass (268 tests) | yes |
 | 21 | feat(api): live-mode rate limiting and daily credit cap | done | pass (276 tests) | yes |
+| 22 | test(e2e): Playwright smoke clicks all 8 presets in replay mode | done | pass (276 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -45,7 +46,7 @@ Live caps landed (21). Next: Playwright e2e (22), states/mobile (23), README + C
 | S7 | Inspect fix gate | P0 | done (lib) | pass (unit, live probe fixture) | tests/agent-fix-gate.test.ts |
 | S8 | Handoff on escalation | P0 | done (lib) | pass (unit + live tampered-printer, payroll-eta) | tests/agent-policy-run.test.ts |
 | S9 | Proof Trail | P0 | done | pass (screens c19 1440/390) | components/console/ProofTrail.tsx |
-| S10 | Replay + live caps | P0 | not started | | |
+| S10 | Replay + live caps | P0 | done | pass (unit + e2e) | lib/server/live-guard.ts, e2e/presets.spec.ts |
 | S11 | Docs, video, deploy | P0 | not started | | |
 
 ## Blockers
@@ -102,8 +103,10 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 03:07 PKT: commit 19: Proof Trail rebuilt from R1 Merit (serif summary + meta line + one card of numbered stage rows: count column, 17px title, effect line, 4px bar, credits·model-time pill); Decide shown as its full distribution with the 80%/70% band thresholds drawn; every Clocked call is a row that opens a Sentry-style inspector (R3: big credits number, label/value grid incl. idempotency prefix, transport, 'Recorded live <date>', Effect/Request/Response tabs, Guard/Inspect category breakdown); ticket evidence pane (as typed: PII underline + injected strike by offset; what every step read: placeholders + extracted values). Mobile: trail scrolls into view on run; call rows fold the endpoint into the title. Screens c18/c19 at 1440 and 390. typecheck, lint, test (264), build pass.
 - 2026-11-08 03:23 PKT: commit 20: Outcome receipt (R1b band + overlapping card, sentence rows with real passage-id chips from Verify's per-claim source, FAILED_AS wording), Compare conflict card (heading lines stripped, resolved = amber), Inspect script gate with the flagged line, handoff card ('Stopped at' in FAILED_AS wording), count labels under the number column, resolved-conflict bar amber. Handoff source now says 'the automated desk' and 'knowledge-base fix script'; tampered-printer + payroll-eta handoff re-recorded live (scripts/rerecord-step.ts, 14 credits), so the summary no longer says 'the FixProof script'. Verify evidence with document:null (live quirk) falls back to the claim's source. Screens c20-{vpn,conflict,printer,payroll}-{idle,run,inspector}-{1440,390}. Clean build: .next/static CLOCKED 0 files, key value 0 files. typecheck, lint, test (268), build pass.
 - 2026-11-08 03:32 PKT: commit 21: lib/server/live-guard.ts: per-visitor sliding-hour limit (LIVE_PER_IP_RUNS_PER_HOUR=5), one live run in flight (LIVE_MAX_INFLIGHT=1, Trial concurrency), daily credit cap per UTC day (LIVE_DAILY_CREDIT_CAP=2000) reserving 60 per run and settling to summed X-Clocked-Credits; 429 + Retry-After + code (rate_limited/busy/daily_cap) before any Clocked call; health adds dailyCapReached; intake shows a replay-only note on cap. Presets never limited. In-memory = per warm instance (documented in Security.md). Tests with a fake key and caps forced to 0 (no credits spent). Clean build: static CLOCKED 0, key 0. typecheck, lint, test (276), build pass.
+- 2026-11-08 03:44 PKT: commit 22: playwright.config.ts + e2e/presets.spec.ts (@playwright/test 1.65.0): server started with a blank CLOCKED_API_KEY (replay only); health says replay only; each of the 8 presets is clicked and replayed, outcome card + final Proof Trail row asserted against Scenario.recorded, ESCALATED shows the handoff record; one step opens the inspector with 'Recorded live'. pnpm e2e: 10 passed (15.7 s) after pnpm build. Sandbox: needs NO_PROXY=127.0.0.1,localhost and system Chromium (/usr/bin/chromium, reinstalled via apt after a sandbox reset; Playwright CDN download is blocked here). Clean build: static CLOCKED 0, key 0. typecheck, lint, test (276 unit), build pass.
 
 ## Next actions
+0. (2026-11-08) Redesign from Faizi's new references, then resume: states/mobile (23), README + CLOCKED.md (24), gauntlet UI critic (blind vs R1/R3 and the new refs). Replay perf note: no artificial delays exist; a full replay streams in 40–120 ms (server), so the run lands as one burst with no progressive reveal (see report). Walkthrough video tool: /workspace/clocked/tools/walk.mjs (not in repo).
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.
 2. Commit 10–15: understand, retrieve (rerank + expand + content guard), compare, draft + verify, inspect, policy + handoff.
 3. Vercel: make sure data/kb and fixtures are traced into the serverless bundle (`outputFileTracingIncludes`) before the first deploy.
