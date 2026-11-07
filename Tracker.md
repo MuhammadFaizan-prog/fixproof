@@ -1,9 +1,9 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 03:23 PKT
+Last updated: 2026-11-08 03:32 PKT
 
 ## Current active work
-UI cards landed (commit 20). Next: live caps (21), Playwright e2e (22), states/mobile (23), README + CLOCKED.md (24). Credits this run: 14 (handoff re-records).
+Live caps landed (21). Next: Playwright e2e (22), states/mobile (23), README + CLOCKED.md (24). Credits this run: 14 (handoff re-records).
 
 ## Commits
 | # | Message | Status | Build | Pushed |
@@ -30,6 +30,7 @@ UI cards landed (commit 20). Next: live caps (21), Playwright e2e (22), states/m
 | 18 | feat(ui): intake form, personas and preset scenarios | done | pass (264 tests) | yes |
 | 19 | feat(ui): proof trail with evidence highlights, step inspector and credit meter | done | pass (264 tests) | yes |
 | 20 | feat(ui): conflict card, script gate, handoff card and outcome banner | done | pass (268 tests) | yes |
+| 21 | feat(api): live-mode rate limiting and daily credit cap | done | pass (276 tests) | yes |
 | next | see ImplementationPlan.md | not started | | |
 
 ## Stories
@@ -100,6 +101,7 @@ See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no 
 - 2026-11-08 03:00 PKT: commit 18: Console client: presets as R2 help-desk rows (4px status bar, title + one-line preview, outcome pill from the committed recording), employee picker (radio cards, 44px targets), ticket textarea (4,000 cap, counter), Replay/Run, health-gated free text with a 'no key' note; useTriage streams SSE into rows keyed by step id; masked-only localStorage history (fixproof.history.v1, cap 50). Scenario.recorded added and asserted by presets-replay. Screenshot via Playwright + system Chromium at 1440/390 (/workspace/clocked/screens/c17-*). typecheck, lint, test (264), build pass.
 - 2026-11-08 03:07 PKT: commit 19: Proof Trail rebuilt from R1 Merit (serif summary + meta line + one card of numbered stage rows: count column, 17px title, effect line, 4px bar, credits·model-time pill); Decide shown as its full distribution with the 80%/70% band thresholds drawn; every Clocked call is a row that opens a Sentry-style inspector (R3: big credits number, label/value grid incl. idempotency prefix, transport, 'Recorded live <date>', Effect/Request/Response tabs, Guard/Inspect category breakdown); ticket evidence pane (as typed: PII underline + injected strike by offset; what every step read: placeholders + extracted values). Mobile: trail scrolls into view on run; call rows fold the endpoint into the title. Screens c18/c19 at 1440 and 390. typecheck, lint, test (264), build pass.
 - 2026-11-08 03:23 PKT: commit 20: Outcome receipt (R1b band + overlapping card, sentence rows with real passage-id chips from Verify's per-claim source, FAILED_AS wording), Compare conflict card (heading lines stripped, resolved = amber), Inspect script gate with the flagged line, handoff card ('Stopped at' in FAILED_AS wording), count labels under the number column, resolved-conflict bar amber. Handoff source now says 'the automated desk' and 'knowledge-base fix script'; tampered-printer + payroll-eta handoff re-recorded live (scripts/rerecord-step.ts, 14 credits), so the summary no longer says 'the FixProof script'. Verify evidence with document:null (live quirk) falls back to the claim's source. Screens c20-{vpn,conflict,printer,payroll}-{idle,run,inspector}-{1440,390}. Clean build: .next/static CLOCKED 0 files, key value 0 files. typecheck, lint, test (268), build pass.
+- 2026-11-08 03:32 PKT: commit 21: lib/server/live-guard.ts: per-visitor sliding-hour limit (LIVE_PER_IP_RUNS_PER_HOUR=5), one live run in flight (LIVE_MAX_INFLIGHT=1, Trial concurrency), daily credit cap per UTC day (LIVE_DAILY_CREDIT_CAP=2000) reserving 60 per run and settling to summed X-Clocked-Credits; 429 + Retry-After + code (rate_limited/busy/daily_cap) before any Clocked call; health adds dailyCapReached; intake shows a replay-only note on cap. Presets never limited. In-memory = per warm instance (documented in Security.md). Tests with a fake key and caps forced to 0 (no credits spent). Clean build: static CLOCKED 0, key 0. typecheck, lint, test (276), build pass.
 
 ## Next actions
 1. Commit 9: screening step via pipeline (pii + injection stop), cut flagged spans by code-point offsets, re-check the remainder.

@@ -16,6 +16,8 @@ interface IntakePanelProps {
   scenarioId: string | null;
   text: string;
   liveAvailable: boolean | null;
+  /** Why live is off: no key on this deployment, or today's live credit budget is spent. */
+  liveBlocked?: "no_key" | "daily_cap" | null;
   running: boolean;
   onPersona: (id: string) => void;
   onScenario: (s: Scenario) => void;
@@ -133,7 +135,9 @@ export function IntakePanel(p: IntakePanelProps) {
 
         {freeTextBlocked ? (
           <p role="note" className="mt-3 rounded-lg bg-warn-soft px-3 py-2 text-[13px] leading-5 text-warn">
-            This deployment has no Clocked key, so your own tickets cannot run. The recorded tickets above replay real runs.
+            {p.liveBlocked === "daily_cap"
+              ? "Live mode has used today's credit budget, so your own tickets cannot run until midnight UTC. The recorded tickets above replay real runs."
+              : "This deployment has no Clocked key, so your own tickets cannot run. The recorded tickets above replay real runs."}
           </p>
         ) : null}
 

@@ -28,7 +28,7 @@ Anonymous visitor (replay presets, capped live runs). Operator (Faizi): sets env
 zod on request bodies, fixture files, and Clocked responses that drive policy (a malformed response is treated as a failed step, not trusted).
 
 ## Rate limiting and credit-drain abuse
-Presets always replay (0 credits). Live free text: per-IP runs per hour (`LIVE_PER_IP_RUNS_PER_HOUR`) and a global daily credit cap (`LIVE_DAILY_CREDIT_CAP`) computed from `X-Clocked-Credits`. Concurrency limited to the account allowance. On cap: replay-only banner.
+Presets always replay (0 credits). Live free text passes `lib/server/live-guard.ts` before any Clocked call: per-visitor runs per sliding hour (`LIVE_PER_IP_RUNS_PER_HOUR`, default 5), one live run in flight (`LIVE_MAX_INFLIGHT`, default 1, matching Trial concurrency), and a daily credit cap per UTC day (`LIVE_DAILY_CREDIT_CAP`, default 2000) that reserves `LIVE_RUN_CREDIT_ESTIMATE` (60) per run and settles to the summed `X-Clocked-Credits`. Denials are HTTP 429 with `Retry-After` and a code (`rate_limited`, `busy`, `daily_cap`); `/api/health` reports `dailyCapReached` and the intake shows a replay-only note. Counters live in process memory, so on a serverless host they are per warm instance (a bound per instance, not an exact global meter). Visitor IPs are map keys only, never logged.
 
 ## Abuse cases
 - Prompt injection in the ticket → Guard (user) quarantines and strips by offset.

@@ -21,6 +21,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
   const [scenarioId, setScenarioId] = useState<string | null>(scenarios[0].id);
   const [text, setText] = useState("");
   const [liveAvailable, setLiveAvailable] = useState<boolean | null>(null);
+  const [liveBlocked, setLiveBlocked] = useState<"no_key" | "daily_cap" | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [sessionCredits, setSessionCredits] = useState(0);
   const { state, run } = useTriage();
@@ -29,8 +30,14 @@ export function Console({ personas, scenarios }: ConsoleProps) {
     setHistory(readHistory());
     fetch("/api/health")
       .then((r) => r.json())
-      .then((h: { liveAvailable?: boolean }) => setLiveAvailable(Boolean(h.liveAvailable)))
-      .catch(() => setLiveAvailable(false));
+      .then((h: { liveAvailable?: boolean; keyConfigured?: boolean; dailyCapReached?: boolean }) => {
+        setLiveAvailable(Boolean(h.liveAvailable));
+        setLiveBlocked(h.liveAvailable ? null : h.keyConfigured && h.dailyCapReached ? "daily_cap" : "no_key");
+      })
+      .catch(() => {
+        setLiveAvailable(false);
+        setLiveBlocked("no_key");
+      });
   }, []);
 
   // Record each finished run once: masked text only.
@@ -71,6 +78,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             scenarioId={scenarioId}
             text={text}
             liveAvailable={liveAvailable}
+            liveBlocked={liveBlocked}
             running={state.status === "running"}
             onPersona={setPersonaId}
             onScenario={(s) => {
