@@ -5,6 +5,7 @@ import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import type { HistoryEntry } from "@/lib/client/history";
 import type { TriageState } from "@/lib/client/useTriage";
+import { NaiveCard } from "./NaiveCard";
 import { OutcomeCard } from "./OutcomeCard";
 import { Panel } from "./primitives";
 import { ProofTrail } from "./ProofTrail";
@@ -46,6 +47,7 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
           </div>
         </Panel>
       ) : null}
+      {state.result && state.start?.scenarioId ? <NaiveCard key={`naive-${state.startedAt ?? 0}`} scenarioId={state.start.scenarioId} /> : null}
       <ProofTrail key={`trail-${state.startedAt ?? 0}`} state={state} onInspect={setInspecting} />
       <RecentRuns history={history} scenarios={scenarios} />
       <StepInspector row={row} open={row !== null} onOpenChange={(o) => !o && setInspecting(null)} />

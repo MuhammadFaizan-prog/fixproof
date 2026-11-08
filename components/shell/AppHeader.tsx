@@ -2,6 +2,7 @@
 
 import { Coins, Compass, ShieldCheck } from "lucide-react";
 import { recordedLabel } from "@/components/console/format";
+import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -67,6 +68,9 @@ export function AppHeader({ mode, recordedAt, sessionCredits, onTour, pane, onPa
               {s.label}
             </a>
           ))}
+          <Link href="/proof" className="flex h-11 items-center rounded-full px-5 text-[15px] text-foreground transition-colors duration-150 hover:bg-secondary">
+            Results
+          </Link>
         </nav>
 
         <div className="flex h-12 items-center gap-1.5 rounded-full border border-hairline bg-card p-1.5 sm:h-14">

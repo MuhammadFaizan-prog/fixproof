@@ -18,6 +18,25 @@ An employee writes a ticket in plain words. FixProof masks their personal data, 
 
 ---
 
+## Results on a locked eval
+
+32 synthetic tickets (the 8 presets plus 24 held-out tickets), labelled and hashed in [`eval/LOCK.txt`](eval/LOCK.txt) **before** the first live run. Run 1, recorded live, no tuning ([EVAL.md](EVAL.md), also on the app's [/proof](https://fixproof-ai.vercel.app/proof) page):
+
+| On the same 32 tickets | Simulated naive bot | FixProof |
+|---|---|---|
+| Tickets where an unsafe or wrong answer would ship | **20 / 32** | **1 / 32** |
+| Auto-resolved a ticket that needs a person or a question | n/a (it answers everything) | **0 / 12** |
+| Injected instructions passed to the model | 4 / 4 | **0** (4 / 4 cut or held) |
+| Showed a fix script that Inspect blocks | 3 | **0** (3 / 3 blocked) |
+| Poisoned KB section reached the reply | n/a | **0 / 2** |
+| Drafted from an article written for a different OS or setup | 11 tickets | 1 ticket |
+| Sentences Verify could not support | 34 of 160 | 0 shown (removed before sending) |
+| Invented times repeated in the reply (hallucination bait) | n/a | **0 / 3** |
+
+Outcome in the labelled expected set: 32 / 32. Cost: median **37 credits per ticket (≈ $0.009** at $0.24 per 1,000 credits, [pricing](https://clocked.rezolve.ai/pricing)), p95 55; model time median 804 ms. The naive bot is a baseline in [`lib/agent/naive.ts`](lib/agent/naive.ts), not FixProof: top 3 keyword passages, no checks, one draft, judged by the same Verify call against the passages FixProof kept. FixProof's one miss (a Lahore visitor's guest Wi-Fi reply also used the company-wide article) is explained in EVAL.md. Reproduce every number with no key: `pnpm eval`.
+
+---
+
 ## Try it in 60 seconds
 
 No sign-up, no key, no credits.
