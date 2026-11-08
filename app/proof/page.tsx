@@ -47,7 +47,7 @@ export default function Proof() {
         </span>
       </div>
       <Panel aria-labelledby="proof-h" className="px-5 py-6 sm:px-8">
-        <Eyebrow>Proof · {s.cases} locked tickets · run {s.runId.replace(/-/g, " ")}</Eyebrow>
+        <Eyebrow>Proof · {s.cases} locked tickets · {s.runId.replace(/-/g, " ").replace(/^run (\d+) pre tuning$/, "run $1, before tuning")}</Eyebrow>
         <h1 id="proof-h" className="mt-1 text-[28px] font-medium leading-9 tracking-[-0.015em] sm:text-[32px]">
           The naive desk would have shipped {n.shippedBad} bad answers out of {n.cases}. FixProof shipped {s.fixproof.shippedBad}.
         </h1>
