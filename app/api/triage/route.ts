@@ -96,7 +96,7 @@ export async function POST(req: Request): Promise<Response> {
         if (e.status !== "running") events.push(e);
       });
       spent = result.credits;
-      return Response.json(jsonBody(start.mode.mode, start.scenarioId, start.persona.id, result, events), { headers: { "Cache-Control": "no-store" } });
+      return Response.json(await jsonBody(start.mode.mode, start.scenarioId, start.persona.id, result, events), { headers: { "Cache-Control": "no-store" } });
     } catch (err) {
       console.error("triage failed", { kind: err instanceof Error ? err.name : "unknown", scenario: start.scenarioId });
       return Response.json({ code: "internal", message: "FixProof hit an internal error. Nothing was sent to the employee." }, { status: 500 });

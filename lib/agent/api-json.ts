@@ -1,10 +1,12 @@
 import type { PublicResult } from "./triage";
+import { createHash } from "node:crypto";
+import { buildLedger } from "./ledger";
 import type { StepEvent } from "./types";
 
 const OUTCOME_LABEL = { AUTO_RESOLVED: "Resolved", CONFIRM_WITH_USER: "Needs confirmation", ESCALATED: "Handed to a person" } as const;
 
 /** The JSON API's response: what a desk integration needs, nothing the browser cards alone need. */
-export function jsonBody(mode: string, scenarioId: string | null, personaId: string, r: PublicResult, events: StepEvent[]) {
+export async function jsonBody(mode: string, scenarioId: string | null, personaId: string, r: PublicResult, events: StepEvent[]) {
   const calls = events.filter((e) => e.endpoint !== "local");
   return {
     mode,
@@ -34,7 +36,14 @@ export function jsonBody(mode: string, scenarioId: string | null, personaId: str
       modelMs: e.meta?.modelMs ?? null,
       attempts: e.meta?.attempts ?? null,
       replay: e.meta?.replay ?? null,
+      inputsHash: e.meta?.inputsHash ?? e.error?.inputsHash ?? null,
+      at: e.meta?.at ?? e.error?.at ?? null,
     })),
+    ledger: await buildLedger(
+      events,
+      { mode, scenarioId, personaId, simulated: r.simulated?.id ?? null, outcome: r.outcome.outcome, decidingCheck: r.outcome.deciding?.id ?? null, credits: r.credits },
+      (t) => createHash("sha256").update(t).digest("hex"),
+    ),
   };
 }
 

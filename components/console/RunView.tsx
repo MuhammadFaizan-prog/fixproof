@@ -6,6 +6,7 @@ import type { Scenario } from "@/data/scenarios";
 import type { HistoryEntry } from "@/lib/client/history";
 import type { TriageState } from "@/lib/client/useTriage";
 import { DeskView, type AuditEntry } from "./DeskView";
+import { LedgerCard } from "./LedgerCard";
 import { NaiveCard } from "./NaiveCard";
 import { OutcomeCard } from "./OutcomeCard";
 import { OutageCard } from "./OutageCard";
@@ -63,6 +64,7 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
       ) : null}
       {state.result ? <DeskView key={`desk-${state.startedAt ?? 0}`} result={state.result} scenarioId={state.start?.scenarioId ?? null} audit={entries} onAudit={onAudit} /> : null}
       {state.result && state.start?.scenarioId && !state.result.simulated ? <NaiveCard key={`naive-${state.startedAt ?? 0}`} scenarioId={state.start.scenarioId} /> : null}
+      {state.result ? <LedgerCard key={`ledger-${state.startedAt ?? 0}`} state={state} /> : null}
       <ProofTrail key={`trail-${state.startedAt ?? 0}`} state={state} onInspect={setInspecting} />
       <RecentRuns history={history} scenarios={scenarios} />
       <StepInspector row={row} open={row !== null} onOpenChange={(o) => !o && setInspecting(null)} />

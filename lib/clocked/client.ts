@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { ClockedError, kindForStatus } from "./errors";
 import { parseUsageHeaders } from "./headers";
 import { createLimiter, type Limiter } from "./limiter";
@@ -57,6 +57,11 @@ export interface ClockedClient {
   pipeline(body: RequestMap["pipeline"], opts: CallOptions): Promise<ClockedResult<"pipeline">>;
 }
 
+/** SHA-256 hex of a request body as serialised for the wire; the audit ledger stores this, never the body. */
+export function hashInputs(body: unknown): string {
+  return createHash("sha256").update(JSON.stringify(body)).digest("hex");
+}
+
 const defaultSleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 /** Full-jitter backoff: random in [0, min(max, base * 2^(attempt-1))]. */
@@ -98,6 +103,7 @@ export function createClockedClient(options: ClientOptions): ClockedClient {
     const idempotencyKey = uuid();
     const keyPrefix = idempotencyKey.slice(0, 8);
     const started = now();
+    const inputsHash = hashInputs(body);
     let unknownOutcome = false;
 
     for (let attempt = 1; ; attempt++) {
@@ -115,7 +121,7 @@ export function createClockedClient(options: ClientOptions): ClockedClient {
             endpoint,
             step,
             attempts: attempt,
-            meta: { idempotencyKeyPrefix: keyPrefix },
+            meta: { idempotencyKeyPrefix: keyPrefix, inputsHash, at: new Date(now()).toISOString() },
           });
         }
         const waitMs = backoffDelay(attempt, baseDelayMs, maxDelayMs, random);
@@ -140,6 +146,8 @@ export function createClockedClient(options: ClientOptions): ClockedClient {
         replay: transport.kind === "replay",
         synthetic: res.replay?.synthetic ?? false,
         recordedAt: res.replay?.recordedAt ?? null,
+        inputsHash,
+        at: new Date(now()).toISOString(),
       };
 
       if (res.status >= 200 && res.status < 300) {

@@ -124,7 +124,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
     setPane("run");
     if (!window.matchMedia("(min-width: 1280px)").matches) window.scrollTo({ top: 0, behavior: "auto" });
     mainRef.current?.scrollTo({ top: 0 });
-  }, [state.status, state.startedAt]);
+  }, [state.status, state.startedAt, mainRef]);
   const choosePane = (p: Pane) => {
     setPane(p);
     window.scrollTo({ top: 0, behavior: "auto" });

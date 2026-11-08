@@ -28,7 +28,7 @@ export async function tracedCall<E extends Endpoint, T>(
       ...base,
       status: "error",
       effect: "This check did not return, so FixProof will not act on it.",
-      error: { kind: e?.kind ?? "unknown", message: e?.message ?? "Unexpected error", status: e?.status },
+      error: { kind: e?.kind ?? "unknown", message: e?.message ?? "Unexpected error", status: e?.status, inputsHash: e?.meta?.inputsHash, at: e?.meta?.at },
     });
     throw err;
   }

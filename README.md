@@ -5,8 +5,8 @@
 Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2026.
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
-[![Unit tests](https://img.shields.io/badge/unit%20tests-647%20passing-2FBF6B?style=flat-square)](tests)
-[![E2E](https://img.shields.io/badge/e2e-42%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
+[![Unit tests](https://img.shields.io/badge/unit%20tests-653%20passing-2FBF6B?style=flat-square)](tests)
+[![E2E](https://img.shields.io/badge/e2e-44%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
 
@@ -204,11 +204,16 @@ curl -s https://fixproof-ai.vercel.app/api/triage \
   "reply": "…verified sentences only…",
   "handoff": { "failedCheck": { … }, "attempted": [ … ], "maskedTicket": "…", "assignmentGroup": "…", "priority": "…" },
   "credits": 43, "usdAtBuildRate": 0.01032,
-  "calls": [ { "step": "screen", "endpoint": "pipeline", "verdict": "clean", "effect": "No personal data found to mask. Guard found no injected instructions.", "credits": 3, "attempts": 1 }, … ]
+  "calls": [ { "step": "screen", "endpoint": "pipeline", "verdict": "clean", "effect": "No personal data found to mask. Guard found no injected instructions.", "credits": 3, "attempts": 1, "inputsHash": "…64 hex…", "at": "…ISO time…" }, … ],
+  "ledger": { "version": "fixproof-ledger/1", "run": { … }, "calls": [ { "seq": 1, "inputsHash": "…", "decision": "clean", "credits": 3, "prevHash": "000…", "rowHash": "…" }, … ], "headHash": "…" }
 }
 ```
 
 Add `"simulate": "guard_down" | "rate_limited" | "timeout"` to a preset request to get an outage drill as JSON. `GET /api/triage` lists the presets, employee profiles and drills it accepts. Without `accept: application/json` the endpoint streams `text/event-stream`, which is what the web app uses.
+
+### Audit ledger
+
+Every run carries an audit ledger, in the app (under the outcome, with **Export JSON**) and as `ledger` in the JSON API: one row per Clocked call, in order, with the SHA-256 of the exact request body sent (never the body itself), the decision it led to, credits, attempts, the idempotency-key prefix and when the call finished. Rows are hash-chained: each row's hash covers the previous one, so an edited or deleted row breaks the chain from that row on ([`lib/agent/ledger.ts`](lib/agent/ledger.ts) has `verifyLedger`). On a recorded run each request hash equals the SHA-256 of the request saved in the fixture, so a replay can be checked against the recordings ([`tests/ledger.test.ts`](tests/ledger.test.ts)). Outage drills record the failed call and leave blocked stages out, since they were never called.
 
 ## Accessibility
 

@@ -489,6 +489,10 @@ export interface ClockedMeta {
   /** true when that fixture was built from the documented shape rather than recorded live. */
   synthetic: boolean;
   recordedAt: string | null;
+  /** SHA-256 (hex) of the exact JSON request body sent to Clocked, for the audit ledger. Never the body itself. */
+  inputsHash: string;
+  /** ISO time this call finished on the server clock. */
+  at: string;
 }
 
 export interface ClockedResult<E extends Endpoint> {

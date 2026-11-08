@@ -29,6 +29,10 @@ export interface StepMeta {
   replay: boolean;
   synthetic: boolean;
   recordedAt: string | null;
+  /** SHA-256 of the request body sent to Clocked (audit ledger). */
+  inputsHash?: string;
+  /** ISO time the call finished on the server clock. */
+  at?: string;
 }
 
 export interface StepEvent {
@@ -52,7 +56,7 @@ export interface StepEvent {
   meta?: StepMeta;
   /** Request/response summary for the inspector. Never contains raw PII or the key. */
   detail?: { request?: unknown; response?: unknown };
-  error?: { kind: string; message: string; status?: number };
+  error?: { kind: string; message: string; status?: number; inputsHash?: string; at?: string };
   /** Failed attempts before this row's final status (429 / 5xx / timeout), each retried with the same Idempotency-Key. */
   retries?: { attempt: number; status: number | null; waitMs: number }[];
 }
@@ -78,5 +82,7 @@ export function toStepMeta(meta: ClockedMeta): StepMeta {
     replay: meta.replay,
     synthetic: meta.synthetic,
     recordedAt: meta.recordedAt,
+    inputsHash: meta.inputsHash,
+    at: meta.at,
   };
 }
