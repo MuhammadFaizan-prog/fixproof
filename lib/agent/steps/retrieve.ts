@@ -46,12 +46,63 @@ export interface SkippedPassage {
   detail?: string;
 }
 
+export interface DeviceQuestion {
+  /** Operating systems the relevant articles are written for, e.g. ["windows", "macos", "linux"]. */
+  platforms: string[];
+  /** One article title per platform, so the employee and the auditor see why the answer depends on the device. */
+  articles: { platform: string; title: string }[];
+  /** The question sent to the employee (FixProof's words, not a knowledge-base claim). */
+  text: string;
+}
+
 export interface RetrieveResult {
   query: string;
   recalled: number;
   used: Passage[];
   skipped: SkippedPassage[];
   dropped: SkippedPassage[];
+  /** Set when the device is unknown and the fixes differ by device: nothing is drafted, the employee is asked. */
+  deviceQuestion?: DeviceQuestion | null;
+}
+
+const PLATFORM_WORD: Record<string, string> = { windows: "a Windows PC", macos: "a Mac", linux: "a Linux computer" };
+const PLATFORM_ORDER = ["windows", "macos", "linux"];
+/** Words that name a device or OS in the ticket itself. */
+const NAMES_DEVICE = /\b(windows|win ?1[01]|pc|thinkpad|surface|mac|macbook|imac|macos|os ?x|linux|ubuntu|debian|fedora|chromebook)\b/i;
+/** Rerank must rate a passage at least this relevant before it counts towards "the fixes differ by device". */
+export const DEVICE_RELEVANCE_MIN = 0.3;
+
+/** The device is unknown when no device is on file for the employee and the ticket (and Extract) do not name one. */
+export function deviceUnknown(persona: RunContext["persona"], text: string, u: UnderstandResult): boolean {
+  if (persona.os !== "unknown") return false;
+  if (NAMES_DEVICE.test(text)) return false;
+  return !(u.extracted.device && NAMES_DEVICE.test(u.extracted.device.value));
+}
+
+/**
+ * When the device is unknown: do the knowledge-base fixes for this ticket
+ * differ by OS? Counts single-OS articles Rerank skipped as a different setup
+ * (same topic, other OS) at any score, and single-OS passages it kept or wants
+ * widened at DEVICE_RELEVANCE_MIN or more. Two or more operating systems means
+ * the answer depends on the device, so FixProof asks instead of picking one.
+ */
+export function deviceQuestionFor(relevant: Passage[], differentCase: Passage[] = []): DeviceQuestion | null {
+  const byPlatform = new Map<string, string>();
+  const consider = (p: Passage) => {
+    if (p.os.length !== 1 || p.os[0] === "any") return;
+    if (!byPlatform.has(p.os[0])) byPlatform.set(p.os[0], p.title);
+  };
+  relevant.filter((p) => p.relevance >= DEVICE_RELEVANCE_MIN).forEach(consider);
+  differentCase.forEach(consider);
+  if (byPlatform.size < 2) return null;
+  const platforms = PLATFORM_ORDER.filter((x) => byPlatform.has(x));
+  const words = platforms.map((x) => PLATFORM_WORD[x]);
+  const list = words.length === 2 ? words.join(" or ") : `${words.slice(0, -1).join(", ")} or ${words[words.length - 1]}`;
+  return {
+    platforms,
+    articles: platforms.map((x) => ({ platform: x, title: byPlatform.get(x)! })),
+    text: `Which device is this on: ${list}? The fix is different on each, so I will send the steps for yours as soon as you tell me.`,
+  };
 }
 
 /** BM25 query: the safe text without placeholders, plus the exact values Extract and Fill found. */
@@ -153,6 +204,24 @@ export async function retrieve(ctx: RunContext, index: KbIndex, text: string, u:
       };
     },
   );
+
+  // Missing information: no device on file, none named, and the fixes differ by OS. Ask which device; never pick one.
+  // Rerank has already kept only what applies to any device, so the run goes on with those passages alone.
+  if (deviceUnknown(ctx.persona, text, u)) {
+    const differentCase = first.skipped.filter((s) => s.reason === "different_case").map((s) => candidates.find((c) => c.id === s.id)).filter((c): c is Passage => Boolean(c));
+    const q = deviceQuestionFor([...first.use, ...first.expand], differentCase);
+    if (q) {
+      result.deviceQuestion = q;
+      const named = q.articles.map((a) => `"${a.title}"`).join(", ");
+      localStep(ctx, { id: "retrieve:device", stage: "retrieve", title: "Which device?" }, {
+        verdict: "ask",
+        count: q.platforms.length,
+        countLabel: "setups",
+        effect: `No device is on file for this employee and the ticket does not name one, but the fixes differ by device (${named}). FixProof asks which device instead of guessing; only passages that apply to any device go on to the draft.`,
+        detail: { request: { personaDevice: ctx.persona.device, platforms: q.platforms }, response: { question: q.text } },
+      });
+    }
+  }
 
   let used = first.use;
   result.skipped = first.skipped;

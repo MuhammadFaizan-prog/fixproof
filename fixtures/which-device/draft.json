@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "which-device",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy VPN keeps disconnecting every few minutes since this morning and I have a client call at 4pm. Can you help?\n\nKnowledge base sources:\n[1] VPN client troubleshooting policy (2026) · Policy (updated 2026-09-01)\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Device not on file, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear your VPN is disconnecting. 1. Use Reset profile in the VPN client, or reset your VPN profile from the self-service portal",
+        "confidence": 0.9110201718106414,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 109,
+      "total_ms": 125,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 224,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "120.344737",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:west",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=220.9, discovery;dur=0.0, model;dur=120.3, settle;dur=4.1, gateway;dur=230.0"
+  }
+}

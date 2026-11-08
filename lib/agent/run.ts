@@ -59,6 +59,7 @@ export async function runTicket(ctx: RunContext, input: RunInput): Promise<RunRe
       attempted.push(`classified it as ${r.understand.record.category ?? "uncategorised"}, ${r.understand.record.severity ?? "unknown"} severity`);
       r.retrieve = await retrieve(c, input.index, r.screen.safeText, r.understand);
       attempted.push(`searched the knowledge base and kept ${r.retrieve.used.length} passage${r.retrieve.used.length === 1 ? "" : "s"}`);
+      if (r.retrieve.deviceQuestion) attempted.push("asked the employee which device the problem is on");
       if (r.retrieve.used.length) {
         r.reconcile = await reconcile(c, r.retrieve.used);
         const sources = r.reconcile.used;
@@ -79,7 +80,9 @@ export async function runTicket(ctx: RunContext, input: RunInput): Promise<RunRe
     screen: r.screen ? { canContinue: r.screen.canContinue, quarantined: r.screen.quarantined } : null,
     band: r.understand?.policy.band ?? null,
     bandReason: r.understand?.policy.reason,
-    retrievedCount: r.retrieve ? r.retrieve.used.length : null,
+    // A device question with nothing device-neutral to send is still a question, not "no fix applies".
+    retrievedCount: r.retrieve && !(r.retrieve.deviceQuestion && !r.retrieve.used.length) ? r.retrieve.used.length : null,
+    deviceQuestion: r.retrieve?.deviceQuestion ? { platforms: r.retrieve.deviceQuestion.platforms } : null,
     unresolvedConflicts: r.reconcile?.ran ? r.reconcile.unresolved : null,
     resolvedConflicts: r.reconcile?.ran ? r.reconcile.conflicts.length - r.reconcile.unresolved : null,
     resolvedBy: r.reconcile?.conflicts.some((x) => x.rule === "scope") ? "scope" : null,

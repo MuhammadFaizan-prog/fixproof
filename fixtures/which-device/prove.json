@@ -1,0 +1,110 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "which-device",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My VPN keeps disconnecting every few minutes since this morning and I have a client call at 4pm. Can you help?",
+    "answer": "I am sorry to hear your VPN is disconnecting. 1. Use Reset profile in the VPN client, or reset your VPN profile from the self-service portal",
+    "claims": [
+      "I am sorry to hear your VPN is disconnecting.",
+      "1. Use Reset profile in the VPN client, or reset your VPN profile from the self-service portal"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9902,
+    "ungrounded": 0.0098,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 1,
+        "share_of_answer": 0.9902,
+        "claims": [
+          1
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I am sorry to hear your VPN is disconnecting.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.5900704082206032,
+          "offer_or_question": 0.31514620562190804,
+          "pointer": 0.039761698867065126,
+          "meta": 0.055021687290423636
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0011,
+        "contradicted": 0.002,
+        "not_stated": 0.0083,
+        "not_a_claim": 0.9885,
+        "verdict": "not_a_claim",
+        "sources": {
+          "vpn-policy-2026#0": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Use Reset profile in the VPN client, or reset your VPN profile from the self-service portal",
+        "kind": "claim",
+        "counted": true,
+        "weight": 1,
+        "supported": 0.9902,
+        "contradicted": 0.0022,
+        "not_stated": 0.0028,
+        "not_a_claim": 0.0048,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 1
+        },
+        "source": "vpn-policy-2026#0",
+        "evidence": {
+          "document": "vpn-policy-2026#0",
+          "quote": "Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+          "start": 216,
+          "end": 312,
+          "confidence": 0.992
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9902
+    },
+    "answers_question": 0.9948661969375482,
+    "timing": {
+      "read_ms": 136,
+      "total_ms": 96
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "87.45424",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:west",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=193.7, discovery;dur=0.0, model;dur=87.5, settle;dur=4.4, gateway;dur=203.1"
+  }
+}

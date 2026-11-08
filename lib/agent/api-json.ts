@@ -20,6 +20,7 @@ export async function jsonBody(mode: string, scenarioId: string | null, personaI
     decidingCheck: r.outcome.deciding ? { id: r.outcome.deciding.id, label: r.outcome.deciding.label, detail: r.outcome.deciding.detail } : null,
     reasons: r.outcome.checks.map((c) => ({ id: c.id, label: c.label, pass: c.pass, detail: c.detail, severity: c.severity })),
     reply: r.reply,
+    question: r.question ? { text: r.question.text, options: r.question.platforms } : null,
     maskedTicket: r.screen?.safeText ?? null,
     handoff: r.handoff,
     failure: r.failure,

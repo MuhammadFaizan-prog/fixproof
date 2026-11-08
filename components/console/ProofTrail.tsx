@@ -232,6 +232,7 @@ function CallLine({ row, onInspect }: { row: Row; onInspect: (id: string) => voi
       <button
         type="button"
         data-step-button
+        data-step-id={row.id}
         onClick={() => onInspect(row.id)}
         className="group flex min-h-9 w-full items-center gap-3 rounded-xl border border-hairline bg-card px-3 text-left text-[13px] leading-5 transition-colors duration-150 hover:border-primary/30 hover:bg-primary-soft/40"
       >

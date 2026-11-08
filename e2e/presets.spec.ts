@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { SCENARIOS } from "../data/scenarios";
 
 /**
- * Click each of the 8 presets, replay its recorded run, and check the
+ * Click each preset (the 8 locked ones and any added after the lock), replay its recorded run, and check the
  * outcome banner and the final Proof Trail row match the recording.
  */
 test.describe("presets replay end to end (no key)", () => {
@@ -27,6 +27,10 @@ test.describe("presets replay end to end (no key)", () => {
       await page.getByRole("button", { name: "Expand all" }).click();
       await expect(rows.first()).toBeVisible();
       if (s.recorded === "ESCALATED") await expect(page.getByText("Handoff record", { exact: true })).toBeVisible();
+      if (s.id === "which-device") {
+        await expect(page.locator("[data-device-question]")).toContainText("Which device is this on: a Windows PC, a Mac or a Linux computer?");
+        await expect(page.locator("[data-outcome-status]")).toContainText("the fix depends on a device that is not on file");
+      }
     });
   }
 

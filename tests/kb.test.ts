@@ -69,15 +69,17 @@ describe("parser", () => {
 });
 
 describe("personas and scenarios", () => {
-  it("has three personas, one per OS and region", () => {
-    expect(new Set(PERSONAS.map((p) => p.os))).toEqual(new Set(["windows", "macos", "linux"]));
+  it("has three managed personas, one per OS and region, plus one with no device on file", () => {
+    expect(new Set(PERSONAS.filter((p) => p.os !== "unknown").map((p) => p.os))).toEqual(new Set(["windows", "macos", "linux"]));
+    expect(PERSONAS.filter((p) => p.os === "unknown").map((p) => p.id)).toEqual(["sam-us-contractor"]);
     expect(new Set(PERSONAS.map((p) => p.region))).toEqual(new Set(["uk", "us", "pk"]));
     expect(PERSONAS.every((p) => /remain enabled/.test(p.approvedScope))).toBe(true);
   });
 
-  it("has eight presets that reference real personas and articles", () => {
-    expect(SCENARIOS).toHaveLength(8);
-    expect(new Set(SCENARIOS.map((s) => s.id)).size).toBe(8);
+  it("has the eight locked eval presets (plus post-lock ones) that reference real personas and articles", () => {
+    expect(SCENARIOS.filter((s) => !s.postLock)).toHaveLength(8);
+    expect(SCENARIOS.filter((s) => s.postLock).map((s) => s.id)).toEqual(["which-device"]);
+    expect(new Set(SCENARIOS.map((s) => s.id)).size).toBe(SCENARIOS.length);
     for (const s of SCENARIOS) {
       expect(getPersona(s.personaId), s.id).toBeDefined();
       for (const a of s.expectedArticles) expect(byId.has(a), `${s.id} → ${a}`).toBe(true);

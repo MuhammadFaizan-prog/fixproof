@@ -1,5 +1,5 @@
 /**
- * The eight preset tickets. Each one proves a specific behavior (PRD
+ * The preset tickets: the eight locked eval presets, then any added after the lock (postLock). Each one proves a specific behavior (PRD
  * acceptance criteria AC1–AC6 plus two everyday cases). `expectedArticles`
  * are the KB articles that must reach Rerank for the scenario to work; the
  * BM25 recall test checks them.
@@ -13,6 +13,8 @@ export interface Scenario {
   text: string;
   expectedArticles: string[];
   expects: { outcome: Outcome | Outcome[]; proves: string };
+  /** Added after the eval lock (not one of the 32 locked eval cases). */
+  postLock?: boolean;
   /** Outcome of the committed live recording (fixtures/<id>/). tests/presets-replay.test.ts keeps this honest. */
   recorded: Outcome;
 }
@@ -113,6 +115,19 @@ export const SCENARIOS: Scenario[] = [
       proves: "An everyday ticket resolved from the right article, with the macOS variant skipped for a Windows user.",
     },
     recorded: "AUTO_RESOLVED",
+  },
+  {
+    id: "which-device",
+    title: "Which device?",
+    personaId: "sam-us-contractor",
+    text: "My VPN keeps disconnecting every few minutes since this morning and I have a client call at 4pm. Can you help?",
+    expectedArticles: ["vpn-windows-drops", "vpn-macos-drops"],
+    expects: {
+      outcome: "CONFIRM_WITH_USER",
+      proves: "No device is on file and the ticket does not name one; Rerank finds fixes written for different operating systems, so FixProof asks which device instead of guessing (missing information).",
+    },
+    recorded: "CONFIRM_WITH_USER",
+    postLock: true,
   },
 ];
 

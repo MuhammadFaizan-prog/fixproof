@@ -1,0 +1,173 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "compare",
+  "scenario": "which-device",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "vpn-policy-2024#0,1",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.\n\n## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA."
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "conflicts",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "vpn-policy-2024#0,1",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": [
+          "vpn-policy-2026#0"
+        ]
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": [
+          "vpn-policy-2024#0,1"
+        ]
+      }
+    ],
+    "pairs": [
+      {
+        "a": "vpn-policy-2024#0,1",
+        "b": "vpn-policy-2026#0",
+        "relation": "conflicting",
+        "related": 0.9972,
+        "probabilities": {
+          "same": 0.0028,
+          "overlapping": 0.0054,
+          "conflicting": 0.989,
+          "unrelated": 0.0028
+        },
+        "duplicates": [],
+        "conflicts": [
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0018,
+              "date_or_version": 0.0024,
+              "rule_or_condition": 0.9865,
+              "scope": 0.0049,
+              "name": 0.0023,
+              "no_conflict": 0.0022
+            },
+            "confidence": 0.9978,
+            "a": {
+              "document": "vpn-policy-2024#0,1",
+              "quote": "If the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal.",
+              "start": 10,
+              "end": 138,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "## Policy\nNever uninstall or reinstall the VPN client yourself.",
+              "start": 0,
+              "end": 63,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0033,
+              "date_or_version": 0.0046,
+              "rule_or_condition": 0.9579,
+              "scope": 0.0233,
+              "name": 0.0054,
+              "no_conflict": 0.0055
+            },
+            "confidence": 0.9945,
+            "a": {
+              "document": "vpn-policy-2024#0,1",
+              "quote": "If the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal.",
+              "start": 10,
+              "end": 138,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it.",
+              "start": 64,
+              "end": 215,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0017,
+              "date_or_version": 0.0023,
+              "rule_or_condition": 0.9862,
+              "scope": 0.0045,
+              "name": 0.0027,
+              "no_conflict": 0.0025
+            },
+            "confidence": 0.97,
+            "a": {
+              "document": "vpn-policy-2024#0,1",
+              "quote": "If the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal.",
+              "start": 10,
+              "end": 138,
+              "confidence": 1
+            },
+            "b": {
+              "document": "vpn-policy-2026#0",
+              "quote": "Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+              "start": 216,
+              "end": 312,
+              "confidence": 0.97
+            }
+          }
+        ]
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [
+      0
+    ],
+    "related_pairs": [
+      0
+    ],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 18,
+      "passage_reads": 1,
+      "passages_ms": 47,
+      "passages": 3,
+      "counterparts_ms": 43,
+      "kinds_ms": 27
+    },
+    "timing": {
+      "read_ms": 135,
+      "total_ms": 137
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "127.210082",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:west",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.8, upstream;dur=233.5, discovery;dur=0.0, model;dur=127.2, settle;dur=4.7, gateway;dur=243.2"
+  }
+}

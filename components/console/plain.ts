@@ -64,6 +64,8 @@ export function plainWhy(c: { id: string; detail: string }, r: WhyInput): string
     }
     case "screen":
       return "the ticket tried to give the help desk instructions and nothing safe was left";
+    case "device":
+      return "the fix depends on which device this is, and none is on file";
     case "retrieval":
       return "no help article applies to this employee's setup";
     case "sources":

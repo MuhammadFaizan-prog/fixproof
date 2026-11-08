@@ -35,7 +35,7 @@ export const GROUNDED_AUTO = 0.7;
 export const GROUNDED_MIN = 0.5;
 export const ANSWERS_MIN = 0.5;
 
-export type CheckId = "clocked" | "screen" | "policy" | "retrieval" | "sources" | "grounding" | "answers" | "script";
+export type CheckId = "clocked" | "screen" | "device" | "policy" | "retrieval" | "sources" | "grounding" | "answers" | "script";
 
 export interface Check {
   id: CheckId;
@@ -51,6 +51,7 @@ export interface Check {
 export const FAILED_AS: Record<CheckId, string> = {
   clocked: "a check did not complete",
   screen: "the ticket was held for injected instructions",
+  device: "the fix depends on a device that is not on file",
   policy: "Decide did not clear it for self-service",
   retrieval: "no documented fix applies",
   sources: "knowledge-base articles conflict",
@@ -65,6 +66,8 @@ export interface OutcomeInput {
   band?: Band | null;
   bandReason?: string;
   retrievedCount?: number | null;
+  /** Set when the device is unknown and the relevant fixes differ by OS (missing information). */
+  deviceQuestion?: { platforms: string[] } | null;
   unresolvedConflicts?: number | null;
   resolvedConflicts?: number | null;
   /** The precedence rule that resolved the conflict(s): "scope" when an office/OS-specific article governed. */
@@ -146,6 +149,10 @@ export function decideOutcome(i: OutcomeInput): OutcomeDecision {
       pass: i.screen.canContinue,
       detail: !i.screen.canContinue ? "injected instructions with nothing safe left" : i.screen.quarantined ? "injected sentence cut; the rest is clean" : "no injected instructions",
     });
+  }
+  if (i.deviceQuestion) {
+    const names: Record<string, string> = { windows: "Windows", macos: "macOS", linux: "Linux" };
+    add({ id: "device", label: "Device is known", severity: "confirm", pass: false, detail: `asks which device: ${i.deviceQuestion.platforms.map((p) => names[p] ?? p).join(", ")}` });
   }
   if (i.band) {
     add({ id: "policy", label: "Policy allows self-service", severity: i.band === "escalate" ? "escalate" : "confirm", pass: i.band === "auto", detail: i.bandReason ?? i.band });

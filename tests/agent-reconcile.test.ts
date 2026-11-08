@@ -74,7 +74,7 @@ describe("reconcile step", () => {
       expect(scopeRank(lahore, bilal)).toBe(1);
       expect(scopeRank(global, bilal)).toBe(0);
       expect(scopeRank(scoped("x#0", "2026-01-01", ["any"], ["uk"]), bilal)).toBe(-1);
-      expect(scopeRank(scoped("y#0", "2026-01-01", [bilal.os], ["pk"]), bilal)).toBe(2);
+      expect(scopeRank(scoped("y#0", "2026-01-01", ["linux"], ["pk"]), bilal)).toBe(2);
     });
 
     it("same scope: newer wins; same scope and date: no winner", () => {

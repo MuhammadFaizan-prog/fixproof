@@ -3,12 +3,16 @@ import scorecard from "../eval/scorecard.json";
 import { SCENARIOS } from "../data/scenarios";
 
 /** The naive-bot card is on every preset, clearly labelled, and /proof shows the scorecard numbers. */
-test("naive bot card on every preset, labelled as not FixProof", async ({ page }) => {
-  for (const s of SCENARIOS) {
+test("naive bot card on every locked preset, labelled as not FixProof", async ({ page }) => {
+  // Post-lock presets have no naive-bot recording, so they show no naive card.
+  for (const s of SCENARIOS.filter((x) => !x.postLock)) {
     await page.goto(`/?preset=${s.id}`);
     await expect(page.locator(`[data-naive-card="${s.id}"]`)).toBeVisible({ timeout: 30_000 });
     await expect(page.locator(`[data-naive-card="${s.id}"]`)).toContainText("simulated naive bot, not FixProof");
   }
+  await page.goto("/?preset=which-device");
+  await expect(page.locator("[data-outcome-card]")).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator("[data-naive-card]")).toHaveCount(0);
   await page.goto("/?preset=tampered-printer");
   const card = page.locator('[data-naive-card="tampered-printer"]');
   await card.getByRole("button", { expanded: false }).click();

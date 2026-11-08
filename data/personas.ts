@@ -7,7 +7,8 @@ export interface Persona {
   name: string;
   role: string;
   department: string;
-  os: "windows" | "macos" | "linux";
+  /** "unknown" when no managed device is on file (contractor, new starter): FixProof asks which device instead of guessing. */
+  os: "windows" | "macos" | "linux" | "unknown";
   osLabel: string;
   device: string;
   assetTag: string;
@@ -59,6 +60,20 @@ export const PERSONAS: Persona[] = [
     office: "Lahore",
     approvedScope:
       "Managed Northwind Labs Ubuntu 24.04 workstation NW-WS-0841. Approved self-service changes: reconnect the northwind-vpn NetworkManager profile, restart user services, read-only diagnostics. The endpoint agent and firewall must remain enabled. No sudo escalation, no new users, no SSH keys added for others.",
+  },
+  {
+    id: "sam-us-contractor",
+    name: "Sam Okafor",
+    role: "Contract Data Analyst",
+    department: "Finance",
+    os: "unknown",
+    osLabel: "Device not on file",
+    device: "No device in the asset register",
+    assetTag: "none on file",
+    region: "us",
+    office: "New York",
+    approvedScope:
+      "No managed device is on file for this contractor, so no device change is approved. Read-only guidance only: no fix script may run. Endpoint protection and security controls must remain enabled. No account or permission change.",
   },
 ];
 

@@ -107,6 +107,7 @@ export function publicResult(r: RunResult, simulate: FaultId | null = null) {
     },
     understand: r.understand,
     retrieve: r.retrieve && { recalled: r.retrieve.recalled, used: r.retrieve.used.map(slimPassage), skipped: r.retrieve.skipped, dropped: r.retrieve.dropped },
+    question: r.retrieve?.deviceQuestion ?? null,
     reconcile: r.reconcile,
     reply: r.prove?.reply ?? null,
     prove: r.prove && { grounded: r.prove.grounded, answersQuestion: r.prove.answersQuestion, claims: r.prove.claims, keptShare: r.prove.keptShare },

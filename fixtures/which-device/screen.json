@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "pipeline",
+  "scenario": "which-device",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "My VPN keeps disconnecting every few minutes since this morning and I have a client call at 4pm. Can you help?",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 76,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "My VPN keeps disconnecting every few minutes since this morning and I have a client call at 4pm. Can you help?",
+          "timing": {
+            "read_ms": 75,
+            "total_ms": 76
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 29,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0015591189919718085,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9954579052327567,
+            "instruction override": 0.0008857529873285477,
+            "role-play or persona jailbreak": 0.0006610571702757822,
+            "system prompt or secret extraction": 0.0006534585642672233,
+            "obfuscated or encoded payload": 0.0006406872445220792,
+            "tool misuse or data exfiltration": 0.0007884594764411012,
+            "social engineering": 0.0009126793244085879
+          },
+          "severity": "none",
+          "severity_expected": 1.023,
+          "severities": {
+            "none": 0.9885386002008292,
+            "low": 0.005968840575309449,
+            "medium": 0.0015805096826121785,
+            "high": 0.0018079655069473495,
+            "critical": 0.0021040840343018465
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 28,
+            "total_ms": 29
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 105,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.928738",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:west",
+    "server-timing": "admit;dur=28.6, admit_db;dur=2.4, upstream;dur=335.8, discovery;dur=0.0, model;dur=98.9, settle;dur=4.4, gateway;dur=368.8"
+  }
+}

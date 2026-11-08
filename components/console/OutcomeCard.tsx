@@ -44,7 +44,9 @@ export function OutcomeCard({ result, persona, onAudit }: { result: PublicResult
     o.outcome === "AUTO_RESOLVED"
       ? `Every sentence is backed by a knowledge-base passage for ${persona.osLabel}.${result.outcome.runFix ? " The fix script stayed inside this laptop's approved scope." : ""}`
       : o.outcome === "CONFIRM_WITH_USER"
-        ? `FixProof sends the verified steps and asks ${first} to confirm before closing.`
+        ? result.question
+          ? `${steps ? `FixProof sends only the ${stepsWord} that ${steps === 1 ? "applies" : "apply"} to any device` : "Nothing device-specific is sent"} and asks ${first} which device it is before sending device-specific steps.`
+          : `FixProof sends the verified steps and asks ${first} to confirm before closing.`
         : routing?.low
           ? `${routing.text} ${result.reply ? `${first} still gets the verified steps while waiting.` : "Nothing was sent to the employee."}`
           : `${result.reply ? `${first} still gets the verified steps while waiting.` : "Nothing was sent to the employee."}`;
@@ -113,6 +115,20 @@ export function OutcomeCard({ result, persona, onAudit }: { result: PublicResult
       ) : (
         <p className="mt-4 rounded-[18px] border border-hairline bg-card px-4 py-3 text-[15px] text-muted-foreground">Nothing safe was left to answer, so no reply was drafted.</p>
       )}
+
+      {result.question ? (
+        <div className="mt-3 rounded-[18px] border border-warn-soft bg-warn-soft/40 px-4 py-3" data-device-question>
+          <Eyebrow className="text-warn">Question to {first} (FixProof&apos;s words, not from the knowledge base)</Eyebrow>
+          <p className="mt-1 text-[15px] leading-[22px]">{result.question.text}</p>
+          <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="Fixes that differ by device">
+            {result.question.articles.map((a) => (
+              <li key={a.platform} className="rounded-full border border-hairline bg-card px-2.5 py-0.5 text-[13px] leading-5 text-muted-foreground">
+                {a.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <Callout tone={tone} icon={o.outcome === "AUTO_RESOLVED" ? CircleCheck : o.outcome === "CONFIRM_WITH_USER" ? CircleHelp : TriangleAlert} className="mt-3 w-fit">
         {note}
