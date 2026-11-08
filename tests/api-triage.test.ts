@@ -95,3 +95,51 @@ describe("GET /api/health", () => {
     expect(JSON.stringify(body)).not.toContain(process.env.CLOCKED_API_KEY ?? "@@never@@");
   });
 });
+
+describe("JSON API (Accept: application/json)", () => {
+  const post = (body: object, ip = "203.0.113.9", accept = "application/json") =>
+    POST(new Request("http://x/api/triage", { method: "POST", headers: { "content-type": "application/json", accept, "x-forwarded-for": ip }, body: JSON.stringify(body) }));
+
+  it("replays a preset as one JSON document with outcome, reasons, handoff and per-call credits", async () => {
+    const res = await post({ personaId: "x", scenarioId: "tampered-printer" });
+    expect(res.status).toBe(200);
+    expect(res.headers.get("content-type")).toMatch(/application\/json/);
+    const j = await res.json();
+    expect(j.mode).toBe("replay");
+    expect(j.outcome).toBe("ESCALATED");
+    expect(j.outcomeLabel).toBe("Handed to a person");
+    expect(j.decidingCheck.id).toBe("script");
+    expect(j.reasons.length).toBeGreaterThan(3);
+    expect(j.handoff.assignmentGroup).toBeTruthy();
+    expect(j.calls.length).toBeGreaterThan(5);
+    expect(j.calls.every((c: { credits: number | null; endpoint: string }) => typeof c.credits === "number" && c.endpoint !== "local")).toBe(true);
+    expect(j.credits).toBe(j.calls.reduce((n: number, c: { credits: number }) => n + c.credits, 0));
+  });
+
+  it("runs an outage drill as JSON", async () => {
+    const j = await (await post({ personaId: "x", scenarioId: "vpn-macos", simulate: "timeout" }, "203.0.113.10")).json();
+    expect(j.simulated).toBe("timeout");
+    expect(j.outcome).toBe("ESCALATED");
+    expect(j.reply).toBeNull();
+  });
+
+  it("limits replays per visitor per minute with 429 and Retry-After", async () => {
+    const { resetReplayLimiter } = await import("@/lib/server/api-limit");
+    const prev = process.env.API_REPLAY_PER_IP_PER_MINUTE;
+    process.env.API_REPLAY_PER_IP_PER_MINUTE = "2";
+    resetReplayLimiter();
+    try {
+      expect((await post({ personaId: "x", scenarioId: "ambiguous" }, "198.51.100.7")).status).toBe(200);
+      expect((await post({ personaId: "x", scenarioId: "ambiguous" }, "198.51.100.7")).status).toBe(200);
+      const third = await post({ personaId: "x", scenarioId: "ambiguous" }, "198.51.100.7");
+      expect(third.status).toBe(429);
+      expect(Number(third.headers.get("retry-after"))).toBeGreaterThan(0);
+      // the browser's event stream is not limited by the JSON API limiter
+      expect((await post({ personaId: "x", scenarioId: "ambiguous" }, "198.51.100.7", "*/*")).headers.get("content-type")).toMatch(/event-stream/);
+    } finally {
+      if (prev === undefined) delete process.env.API_REPLAY_PER_IP_PER_MINUTE;
+      else process.env.API_REPLAY_PER_IP_PER_MINUTE = prev;
+      resetReplayLimiter();
+    }
+  });
+});

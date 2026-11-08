@@ -5,7 +5,7 @@
 Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2026.
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
-[![Unit tests](https://img.shields.io/badge/unit%20tests-634%20passing-2FBF6B?style=flat-square)](tests)
+[![Unit tests](https://img.shields.io/badge/unit%20tests-637%20passing-2FBF6B?style=flat-square)](tests)
 [![E2E](https://img.shields.io/badge/e2e-28%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
@@ -182,6 +182,33 @@ Source: `pnpm eval` replay of the 32 locked tickets (run 2), recorded `X-Clocked
 Credits are the sums of the `X-Clocked-Credits` headers saved with each recording in [`fixtures/`](fixtures).
 
 ---
+
+## Plug it into a desk: JSON API
+
+The same pipeline answers one JSON document when you ask for JSON, so a service desk, chat bot or ticketing workflow can call it. Presets replay recorded runs (0 credits); free text runs live only within the live caps below. Replays are limited per visitor per minute and live runs per visitor per hour, both with `429` and `Retry-After`.
+
+```bash
+curl -s https://fixproof-ai.vercel.app/api/triage \
+  -H 'content-type: application/json' -H 'accept: application/json' \
+  -d '{"scenarioId":"tampered-printer","personaId":"hannah-uk-finance"}'
+```
+
+```jsonc
+{
+  "mode": "replay",
+  "outcome": "ESCALATED", "outcomeLabel": "Handed to a person",
+  "headline": "Handed to a person: the knowledge-base fix script is outside the approved scope (script in \"Print queue stuck on a Windows laptop\" is malicious: security blinding or EDR evasion).",
+  "runFixOffered": false,
+  "decidingCheck": { "id": "script", "label": "Fix script is in scope", "detail": "…" },
+  "reasons": [ { "id": "clocked", "pass": true, … }, { "id": "script", "pass": false, … } ],
+  "reply": "…verified sentences only…",
+  "handoff": { "failedCheck": { … }, "attempted": [ … ], "maskedTicket": "…", "assignmentGroup": "…", "priority": "…" },
+  "credits": 43, "usdAtBuildRate": 0.01032,
+  "calls": [ { "step": "screen", "endpoint": "pipeline", "verdict": "clean", "effect": "No personal data found to mask. Guard found no injected instructions.", "credits": 3, "attempts": 1 }, … ]
+}
+```
+
+Add `"simulate": "guard_down" | "rate_limited" | "timeout"` to a preset request to get an outage drill as JSON. `GET /api/triage` lists the presets, employee profiles and drills it accepts. Without `accept: application/json` the endpoint streams `text/event-stream`, which is what the web app uses.
 
 ## Run it yourself
 
