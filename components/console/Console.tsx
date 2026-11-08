@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AppHeader } from "@/components/shell/AppHeader";
 import { pushHistory, readHistory, type HistoryEntry } from "@/lib/client/history";
 import { useTriage } from "@/lib/client/useTriage";
@@ -13,6 +13,7 @@ import { IntakePanel } from "./IntakePanel";
 import { RunView } from "./RunView";
 import { EvidenceRail } from "./EvidenceRail";
 import { cn } from "@/lib/utils";
+import { useHydratedMarker, useScrollTabStop } from "@/lib/client/useScrollTabStop";
 import type { Pane } from "@/components/shell/AppHeader";
 
 interface ConsoleProps {
@@ -111,7 +112,11 @@ export function Console({ personas, scenarios }: ConsoleProps) {
 
   const runPersona = state.start ? (personas.find((p) => p.id === state.start!.persona) ?? persona) : persona;
   const runScenario = state.start ? (state.start.scenarioId ? (scenarios.find((s) => s.id === state.start!.scenarioId) ?? null) : null) : scenario;
-  const mainRef = useRef<HTMLDivElement>(null);
+  // Each column is a tab stop only while it scrolls (xl and up); the run column keeps programmatic focus.
+  const [mainRef, mainTab] = useScrollTabStop<HTMLElement>(-1);
+  const [ticketsRef, ticketsTab] = useScrollTabStop<HTMLElement>();
+  const [evidenceRef, evidenceTab] = useScrollTabStop<HTMLElement>();
+  useHydratedMarker();
   const recordedAt = state.start?.mode === "replay" ? (state.order.map((id) => state.rows[id].meta?.recordedAt).find(Boolean) ?? null) : null;
   // Below xl the columns stack; once a run starts the outcome comes first, so bring it into view.
   useEffect(() => {
@@ -129,7 +134,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
     <div className="flex min-h-dvh flex-col xl:h-dvh">
       <AppHeader mode={state.start?.mode ?? (scenario ? "replay" : "live")} recordedAt={recordedAt} onTour={tour === null ? () => goTour(0) : undefined} sessionCredits={sessionCredits} pane={pane} onPane={choosePane} runOutcome={state.result?.outcome.outcome ?? (state.status === "running" ? "running" : null)} />
       <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 gap-4 px-3 pb-6 sm:px-5 lg:grid-cols-[320px_minmax(0,1fr)] xl:min-h-0 xl:grid-cols-[340px_minmax(0,1fr)_344px] xl:gap-5 xl:pb-5">
-        <aside id="pane-tickets" aria-label="Tickets" tabIndex={0} className={cn("fp-scroll min-w-0 lg:row-span-2 xl:row-span-1 xl:overflow-y-auto xl:pb-1", pane !== "tickets" && "max-lg:hidden")}>
+        <aside id="pane-tickets" ref={ticketsRef} aria-label="Tickets" tabIndex={ticketsTab} className={cn("fp-scroll min-w-0 lg:row-span-2 xl:row-span-1 xl:overflow-y-auto xl:pb-1", pane !== "tickets" && "max-lg:hidden")}>
           <IntakePanel
             personas={personas}
             scenarios={scenarios}
@@ -155,7 +160,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             onSimulate={setSimulate}
           />
         </aside>
-        <main id="pane-run" ref={mainRef} tabIndex={0} aria-label="Run" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", pane === "tickets" && "max-lg:hidden", pane === "evidence" && "max-md:hidden")}>
+        <main id="pane-run" ref={mainRef} tabIndex={mainTab} aria-label="Run" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", pane === "tickets" && "max-lg:hidden", pane === "evidence" && "max-md:hidden")}>
           {tour !== null ? (
             <div className="mb-4 xl:mb-5">
               <TourBar stops={TOUR} index={tour} onBack={() => goTour(Math.max(0, tour - 1))} onNext={() => goTour(Math.min(TOUR.length - 1, tour + 1))} onExit={exitTour} />
@@ -163,7 +168,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
           ) : null}
           <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => replay(runScenario, simulate) : undefined} onFallback={() => replay(scenarios[0])} />
         </main>
-        <aside id="pane-evidence" aria-label="Evidence and scope" tabIndex={0} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", "lg:col-start-2 xl:col-start-auto", pane === "tickets" && "max-lg:hidden", pane === "run" && "max-md:hidden")}>
+        <aside id="pane-evidence" ref={evidenceRef} aria-label="Evidence and scope" tabIndex={evidenceTab} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", "lg:col-start-2 xl:col-start-auto", pane === "tickets" && "max-lg:hidden", pane === "run" && "max-md:hidden")}>
           <EvidenceRail state={state} persona={runPersona} />
         </aside>
       </div>

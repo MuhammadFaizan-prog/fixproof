@@ -36,6 +36,8 @@ for (const width of [1440, 390]) {
 test("keyboard only: pick a preset, replay it, hear the steps and the outcome", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#presets-h")).toBeVisible();
+  // Tab before hydration lands on server HTML whose handlers are not attached yet; wait for the client.
+  await expect(page.locator("html[data-hydrated]")).toHaveCount(1, { timeout: 15_000 });
   let found = false;
   for (let i = 0; i < 40 && !found; i++) {
     await page.keyboard.press("Tab");
@@ -55,4 +57,21 @@ test("keyboard only: pick a preset, replay it, hear the steps and the outcome", 
   await expect(page.locator("[data-outcome-card]")).toHaveAttribute("data-outcome-card", "ESCALATED", { timeout: 30_000 });
   await expect(page.locator("[data-outcome-status]")).toContainText("Outcome: Handed to a person");
   await expect(page.locator("[data-trail-live]")).toContainText(/Step \d of 8/);
+});
+
+test("columns are tab stops only while they scroll", async ({ page }) => {
+  // xl (1440): the tickets column overflows, so it is focusable for keyboard scrolling.
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/?preset=vpn-macos");
+  await expect(page.locator("html[data-hydrated]")).toHaveCount(1, { timeout: 15_000 });
+  await expect(page.locator("[data-outcome-card]")).toBeVisible({ timeout: 30_000 });
+  for (const sel of ["#pane-tickets", "#pane-evidence"]) {
+    expect(await page.locator(sel).evaluate((el) => el.scrollHeight > el.clientHeight + 1)).toBe(true);
+    await expect(page.locator(sel)).toHaveAttribute("tabindex", "0");
+  }
+  // lg (1100): columns stack and do not scroll on their own, so asides are not tab stops and the run column is focus-only (-1).
+  await page.setViewportSize({ width: 1100, height: 900 });
+  await expect(page.locator("#pane-tickets")).not.toHaveAttribute("tabindex", /.*/);
+  await expect(page.locator("#pane-evidence")).not.toHaveAttribute("tabindex", /.*/);
+  await expect(page.locator("#pane-run")).toHaveAttribute("tabindex", "-1");
 });

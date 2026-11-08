@@ -6,7 +6,7 @@ Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
 [![Unit tests](https://img.shields.io/badge/unit%20tests-647%20passing-2FBF6B?style=flat-square)](tests)
-[![E2E](https://img.shields.io/badge/e2e-41%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
+[![E2E](https://img.shields.io/badge/e2e-42%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
 

@@ -5,6 +5,7 @@ import scorecard2 from "@/eval/scorecard-run-2.json";
 import ablation from "@/eval/ablation.json";
 import endpoints from "@/eval/endpoints.json";
 import { Panel, Eyebrow, StatTile } from "@/components/console/primitives";
+import { ScrollRegion } from "@/components/console/ScrollRegion";
 
 export const metadata = { title: "Proof · FixProof" };
 
@@ -72,7 +73,7 @@ export default function Proof() {
         <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
           The naive bot is not FixProof: it reads the ticket as typed, drafts from the top 3 keyword matches with no checks, and shows any script as-is. Verify then judges its draft against the passages FixProof kept.
         </p>
-        <div className="mt-4 overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring" tabIndex={0} role="region" aria-label="Naive bot vs FixProof table (scrolls sideways)">
+        <ScrollRegion className="mt-4 overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring" label="Naive bot vs FixProof table (scrolls sideways)">
           <table className="w-full min-w-[560px] border-separate border-spacing-y-1.5 text-left text-[14px]">
             <thead>
               <tr className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground">
@@ -91,7 +92,7 @@ export default function Proof() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
         <p className="mt-3 text-[13px] text-muted-foreground">
           Run 1&apos;s one miss: a Lahore visitor&apos;s guest Wi-Fi reply also drew on the company-wide article, because the conflict rule at the lock was &ldquo;newer wins&rdquo;. It was sent back to the employee to confirm, not auto-resolved. Run 2 below fixes it. Full table: <a className="text-primary underline" href={`${REPO}/blob/main/EVAL.md`}>EVAL.md</a>.
         </p>
@@ -121,7 +122,7 @@ export default function Proof() {
         <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
           For each endpoint, the first locked ticket where its output changed what FixProof did, and the first where it correctly changed nothing or was not called. Credits are the recorded <code className="font-mono text-[13px]">X-Clocked-Credits</code> across all {endpoints.cases} tickets (run 2 replay). Protect and the ticket Guard share one Pipeline call, counted on the Protect row.
         </p>
-        <div className="mt-4 overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring" tabIndex={0} role="region" aria-label="Endpoint table (scrolls sideways)">
+        <ScrollRegion className="mt-4 overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring" label="Endpoint table (scrolls sideways)">
           <table className="w-full min-w-[760px] border-separate border-spacing-y-1.5 text-left text-[13.5px] leading-5">
             <thead>
               <tr className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground">
@@ -159,7 +160,7 @@ export default function Proof() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
         <div className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-4">
           <StatTile label="Per ticket, median" value={`${endpoints.perTicket.creditsMedian} cr ≈ $${endpoints.perTicket.usdMedian.toFixed(4)}`} />
           {endpoints.byOutcome.map((o) => (
