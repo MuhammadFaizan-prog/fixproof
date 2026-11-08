@@ -6,7 +6,7 @@ Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
 [![Unit tests](https://img.shields.io/badge/unit%20tests-637%20passing-2FBF6B?style=flat-square)](tests)
-[![E2E](https://img.shields.io/badge/e2e-28%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
+[![E2E](https://img.shields.io/badge/e2e-41%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
 
@@ -209,6 +209,10 @@ curl -s https://fixproof-ai.vercel.app/api/triage \
 ```
 
 Add `"simulate": "guard_down" | "rate_limited" | "timeout"` to a preset request to get an outage drill as JSON. `GET /api/triage` lists the presets, employee profiles and drills it accepts. Without `accept: application/json` the endpoint streams `text/event-stream`, which is what the web app uses.
+
+## Accessibility
+
+[`e2e/a11y.spec.ts`](e2e/a11y.spec.ts) runs axe-core with the WCAG 2.0, 2.1 and 2.2 A/AA rule tags on six views (the idle desk, a resolved preset, an escalated preset, an outage drill, the judge tour and /proof) at 1440 px and 390 px, and fails on any serious or critical violation; the latest run reported no violations at any impact level. The same spec drives a full run by keyboard only (Tab to a ticket, Enter, Tab to *Replay run*, Enter) and checks the focus ring. Each finished Proof Trail step is announced through a polite `role="status"` region ("Step 3 of 8, Find what applies to you: …"), and so is the outcome.
 
 ## Run it yourself
 

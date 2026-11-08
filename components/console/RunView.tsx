@@ -14,6 +14,7 @@ import { ProofTrail } from "./ProofTrail";
 import { RecentRuns } from "./RunsList";
 import { RunHeader } from "./RunHeader";
 import { StepInspector } from "./StepInspector";
+import { plainText } from "./plain";
 
 /** 429 codes from the live guard: live is limited, but every recorded run still replays at no cost. */
 const LIVE_LIMIT_CODES = new Set(["daily_cap", "rate_limited", "busy", "budget_unavailable"]);
@@ -31,6 +32,9 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
   );
   return (
     <div className="flex flex-col gap-4 xl:gap-5">
+      <p role="status" aria-live="polite" aria-atomic="true" className="sr-only" data-outcome-status>
+        {state.status === "running" ? "Run started." : state.result ? `Outcome: ${{ AUTO_RESOLVED: "Resolved", CONFIRM_WITH_USER: "Needs confirmation", ESCALATED: "Handed to a person" }[state.result.outcome.outcome as "AUTO_RESOLVED"] ?? ""}. ${plainText(state.result.outcome.headline)}` : state.status === "error" && state.error ? `The run stopped. ${state.error.message}` : ""}
+      </p>
       <RunHeader state={state} persona={persona} scenario={scenario} onReplay={onReplay} onInspect={setInspecting} />
       {state.status === "error" && state.error ? (
         <div role="alert" className="rounded-[28px] border border-risk-soft bg-risk-wash px-6 py-4">

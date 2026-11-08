@@ -70,13 +70,24 @@ export function ProofTrail({ state, onInspect }: { state: TriageState; onInspect
         <Eyebrow as="span">Confidence</Eyebrow>
         <Eyebrow as="span" className="text-right">Credits · time</Eyebrow>
       </div>
-      <ol aria-live="polite" aria-busy={state.status === "running"} className="mt-2 flex flex-col gap-2">
+      <p role="status" aria-live="polite" className="sr-only" data-trail-live>
+        {liveMessage(stages)}
+      </p>
+      <ol aria-busy={state.status === "running"} aria-label="Stages" className="mt-2 flex flex-col gap-2">
         {stages.map((s) => (
           <StageRow key={s.id} stage={s} final={s.id === "outcome" ? outcome : null} open={open.has(s.id)} onToggle={() => toggle(s.id)} onInspect={onInspect} idle={state.status === "idle"} />
         ))}
       </ol>
     </Panel>
   );
+}
+
+/** One announcement per finished step: the latest stage that has a result, in words a screen reader can say. */
+function liveMessage(stages: StageView[]): string {
+  const done = stages.filter((s) => s.lead && s.lead.status !== "running");
+  const last = done[done.length - 1];
+  if (!last?.lead) return "";
+  return `Step ${last.index + 1} of ${stages.length}, ${last.title}: ${plainText(last.lead.effect)}`;
 }
 
 function StageRow({ stage, final, open, onToggle, onInspect, idle }: { stage: StageView; final: string | null; open: boolean; onToggle: () => void; onInspect: (id: string) => void; idle: boolean }) {

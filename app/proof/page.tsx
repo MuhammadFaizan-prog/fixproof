@@ -72,7 +72,7 @@ export default function Proof() {
         <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
           The naive bot is not FixProof: it reads the ticket as typed, drafts from the top 3 keyword matches with no checks, and shows any script as-is. Verify then judges its draft against the passages FixProof kept.
         </p>
-        <div className="mt-4 overflow-x-auto">
+        <div className="mt-4 overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring" tabIndex={0} role="region" aria-label="Naive bot vs FixProof table (scrolls sideways)">
           <table className="w-full min-w-[560px] border-separate border-spacing-y-1.5 text-left text-[14px]">
             <thead>
               <tr className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground">
@@ -121,7 +121,7 @@ export default function Proof() {
         <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
           For each endpoint, the first locked ticket where its output changed what FixProof did, and the first where it correctly changed nothing or was not called. Credits are the recorded <code className="font-mono text-[13px]">X-Clocked-Credits</code> across all {endpoints.cases} tickets (run 2 replay). Protect and the ticket Guard share one Pipeline call, counted on the Protect row.
         </p>
-        <div className="mt-4 overflow-x-auto">
+        <div className="mt-4 overflow-x-auto focus-visible:outline-2 focus-visible:outline-ring" tabIndex={0} role="region" aria-label="Endpoint table (scrolls sideways)">
           <table className="w-full min-w-[760px] border-separate border-spacing-y-1.5 text-left text-[13.5px] leading-5">
             <thead>
               <tr className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground">
