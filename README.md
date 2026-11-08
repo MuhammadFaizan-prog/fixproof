@@ -69,7 +69,7 @@ The eight presets replay live Clocked runs recorded on 7 Nov 2026 (UTC), through
 
 ## The pipeline
 
-Eight stages. Each one's Clocked output decides what the next one does, and skipped stages are shown as skipped rather than called for show.
+Eight stages. Each one's Clocked output decides what the next one does, and skipped stages are shown as skipped rather than called for show. Endpoint by endpoint, with what each output changes and how uncertain, missing or failed results are handled: [CLOCKED.md](CLOCKED.md). What a run costs next to a Level 1 ticket: [VALUE.md](VALUE.md).
 
 ```mermaid
 flowchart TD
@@ -189,6 +189,7 @@ Presets never spend credits and are never rate-limited. With a Redis REST store 
 | `data/kb/` | Synthetic knowledge base for a fictional company, Northwind Labs |
 | `fixtures/` | Live recordings (usage headers only, never the key) |
 | `app/`, `components/` | Next.js app and the console UI |
+| `CLOCKED.md`, `VALUE.md`, `EVAL.md`, `ABLATION.md` | How each Clocked endpoint is used; cost and value; eval and ablation results |
 | `docs/DESIGN.md` | Design tokens and layout, with measured values and contrast ratios |
 
 ---

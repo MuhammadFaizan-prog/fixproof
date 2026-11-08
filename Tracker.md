@@ -1,6 +1,6 @@
 # Tracker: FixProof
 
-Last updated: 2026-11-08 04:38 PKT
+Last updated: 2026-11-08 15:40 PKT
 
 ## Current active work
 UI redesign, direction D (OrchestrateIQ): done on `redesign-d`, fast-forwarded into main and pushed with Faizi's approval (main 72d787c for the UI). Deploy is his (Vercel), not done here. Previously: STOPPED after commit 22 at Faizi's request (2026-11-08 03:42 PKT): full UI redesign coming from new Dribbble/Behance/Pinterest references. Skipped for now: loading/error/mobile states (23), README + CLOCKED.md (24), gauntlet UI critic round. Credits this run: 14 (two handoff re-records); total ≈654 of 20,000.
@@ -40,6 +40,9 @@ UI redesign, direction D (OrchestrateIQ): done on `redesign-d`, fast-forwarded i
 | P9a | docs: showcase README (hero, screenshot strip, try-it path, Mermaid pipeline, endpoint table, setup, env names, credits); withdraw the false 'nobody else' claim in REVERSE-ENGINEERING | done | pass (279 unit, 12 e2e) | yes |
 | L1 | feat(api): public-safe live mode: hard per-run credit ceiling, optional global daily cap via Redis REST (fail closed), liveBudget in health, replay fallback, env docs | done | pass (284 unit, 12 e2e) | yes |
 | RS | feat(ui): responsive pass: pane tabs in the top bar below 1024 px (Tickets/Run/Evidence on phones, rail under the run on tablets), compact run metrics on phones, 44 px touch targets, e2e at 360/390/768/1024/1440 | done | pass (284 unit, 17 e2e) | yes |
+| P0-5 | feat(hitl): This fixed it / Still broken, desk view edit → re-verify (/api/recheck, recorded 'back by 2pm'), reasoned overrides, audit log, no-execution test (1f21f84) | done | pass (617 unit, 23 e2e) | yes |
+| P0-6 | feat(ui): plain-language copy, outcome labels Resolved / Needs confirmation / Handed to a person, copy-lint e2e, low-confidence routing (3421d6b) | done | pass (617 unit, 25 e2e) | yes |
+| P0-9a | docs: CLOCKED.md and VALUE.md (reviewed against code and eval/scorecard.json), README links | done | pass | yes |
 | next | v2 P0 list (docs-ref/REQUIREMENTS-v2.md) in cut order | in progress | | |
 
 ## Stories
@@ -87,6 +90,7 @@ None.
 See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no DB).
 
 ## Verification history
+- 2026-11-08 15:30 PKT: P0-5 gated alone from a worktree (typecheck, lint, 617 unit, eval, ablate, build, leak 0/0, 23 e2e), then P0-6 (25 e2e incl. copy-lint and low-confidence routing). 'Handed to a person' checked at 390/1024/1440 (screens/item6/): queue pills moved to the preview line so titles no longer truncate; the ticket-path node uses short words (Resolved / Confirming / Handed off) and hides its icon below 1280 px. CLOCKED.md/VALUE.md figures checked against lib/clocked/client.ts (4 attempts, 500 ms base, 8 s cap), live-guard (run ceiling 90), policy bands, retrieve (MAX_EXPAND 3, MAX_USE 4, category boost ≥0.6), eval/scorecard.json and fixture call counts (6–17). /api/recheck added to outputFileTracingIncludes. Sandbox reset mid-run; tools/setup-mirror.sh restored /tmp/fp.
 - 2026-11-08 14:10 PKT: responsive commit: typecheck, lint, unit 284, build, leak 0/0, e2e 17 (5 new viewport tests: no horizontal overflow at 360/390/768/1024/1440, outcome card top < 440 px on phones (was ~580), every visible control ≥ 44 px below 1024, panes switch). Screens: /workspace/clocked/screens/responsive/responsive-{390-run,390-evidence,768-run}.png.
 - 2026-11-08 14:00 PKT: live mode commit: typecheck, lint, unit 284, build, leak grep 0/0, e2e 12. Local live verification (next start on the built mirror, key via gateway): one free-text ticket (Bilal, Ubuntu VPN + reinstall question) ran the full pipeline live: 17 calls across all 9 endpoints + Pipeline (pipeline 1, extract 1, fill 2, decide 1, rerank 2, guard-content 7, compare 1, verify 1, inspect 1), 59 credits, CONFIRM_WITH_USER (Decide auto 39%), Compare resolved 2026 over 2024, 4/4 sentences supported, Inspect benign. /api/health: liveBudget per-instance. Credits this job so far: 59.
 - 2026-11-08 13:55 PKT: README commit: typecheck, lint, unit 279, build (key-shaped env set), leak grep static CLOCKED 0 / key value 0, e2e 12 passed. Checks now run on a local-disk mirror (/tmp/fp via tools/check.sh) because /workspace is slow. Note: in this sandbox CLOCKED_API_KEY is a placeholder that the network gateway swaps for the real key on the wire, so the real key never exists on disk here.
