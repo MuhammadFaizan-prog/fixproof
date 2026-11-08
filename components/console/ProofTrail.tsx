@@ -100,11 +100,14 @@ function StageRow({ stage, final, open, onToggle, onInspect, idle }: { stage: St
         ? "bg-primary-soft text-primary"
         : pending
           ? "border border-dashed border-neutral text-muted-foreground"
+          : stage.status === "blocked"
+            ? "border border-dashed border-risk/50 text-risk"
           : stage.status === "skipped"
             ? "bg-secondary text-muted-foreground"
             : "bg-primary-soft text-primary";
 
-  const effect = lead ? lead.effect : pending ? stage.promise : "Not needed for this ticket.";
+  const blocked = stage.status === "blocked";
+  const effect = lead ? lead.effect : pending ? stage.promise : blocked ? "Not run: an earlier Clocked call did not return, so FixProof stopped before this stage (fail-closed)." : "Not needed for this ticket.";
   const bar =
     decideProbs && stage.id === "understand" ? (
       <BandBar probabilities={decideProbs} autoMin={BANDS.autoMin} escalateMin={BANDS.escalateMin} />
@@ -154,6 +157,8 @@ function StageRow({ stage, final, open, onToggle, onInspect, idle }: { stage: St
             <span className="tabular hidden whitespace-nowrap text-[13px] text-muted-foreground sm:inline">
               <span className="font-medium text-foreground">{stage.credits} cr</span> · {seconds(stage.ms)}
             </span>
+          ) : blocked ? (
+            <span className="hidden text-[13px] text-risk sm:inline">blocked</span>
           ) : !pending ? (
             <span className="hidden text-[13px] text-muted-foreground sm:inline">no call</span>
           ) : (
@@ -165,7 +170,7 @@ function StageRow({ stage, final, open, onToggle, onInspect, idle }: { stage: St
           {bar}
           <span className="tabular flex justify-between text-[12px] text-muted-foreground">
             <span>{stage.count && !pending && !running ? `${stage.count.value} ${stage.count.label}` : ""}</span>
-            <span>{running ? "working…" : stage.credits ? `${stage.credits} cr · ${seconds(stage.ms)}` : pending ? stage.endpoints.join(" · ") : "no call"}</span>
+            <span>{running ? "working…" : stage.credits ? `${stage.credits} cr · ${seconds(stage.ms)}` : pending ? stage.endpoints.join(" · ") : blocked ? "blocked" : "no call"}</span>
           </span>
         </span>
       </button>

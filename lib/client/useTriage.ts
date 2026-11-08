@@ -65,6 +65,7 @@ export interface TriageRequestBody {
   personaId: string;
   scenarioId?: string;
   mode: "replay" | "live";
+  simulate?: "guard_down" | "rate_limited" | "timeout";
 }
 
 export function useTriage() {

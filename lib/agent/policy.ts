@@ -97,6 +97,13 @@ export interface FailureMeaning {
   retryable: boolean;
 }
 
+/** A run step id in words, for failure copy ("prove" → "verification"). */
+export function stepLabel(step: string): string {
+  const stage = step.split(":")[0];
+  const words: Record<string, string> = { screen: "screening (Protect + Guard)", understand: "understanding (Extract, Fill, Decide)", retrieve: "retrieval (Rerank, Guard)", reconcile: "the source check (Compare)", draft: "drafting (Fill)", prove: "verification (Verify)", fixgate: "script inspection (Inspect)", handoff: "the handoff (Fill)" };
+  return words[stage.toLowerCase()] ?? "the run";
+}
+
 export function failureMeaning(kind: string): FailureMeaning {
   switch (kind) {
     case "rate_limited":
@@ -129,7 +136,7 @@ export function decideOutcome(i: OutcomeInput): OutcomeDecision {
   const checks: Check[] = [];
   const add = (c: Check) => checks.push(c);
 
-  add({ id: "clocked", label: "Every check returned", severity: "escalate", pass: i.failure ? false : true, detail: i.failure ? `${failureMeaning(i.failure.kind).detail} at ${i.failure.step}` : "all Clocked calls answered" });
+  add({ id: "clocked", label: "Every check returned", severity: "escalate", pass: i.failure ? false : true, detail: i.failure ? `${failureMeaning(i.failure.kind).detail} during ${stepLabel(i.failure.step)}` : "all Clocked calls answered" });
 
   if (i.screen) {
     add({
@@ -191,6 +198,8 @@ export function decideOutcome(i: OutcomeInput): OutcomeDecision {
       ? `${checks.length} checks passed. Resolved without a technician.`
       : outcome === "CONFIRM_WITH_USER"
         ? `${passed} of ${checks.length} checks passed. Confirm before closing: ${FAILED_AS[deciding!.id]} (${deciding!.detail}).`
-        : `Handed to a person: ${FAILED_AS[deciding!.id]} (${deciding!.detail}).`;
+        : deciding!.id === "clocked"
+          ? `Clocked unavailable, queued for a person: ${FAILED_AS.clocked} (${deciding!.detail}).`
+          : `Handed to a person: ${FAILED_AS[deciding!.id]} (${deciding!.detail}).`;
   return { outcome, checks, deciding, runFix, headline };
 }

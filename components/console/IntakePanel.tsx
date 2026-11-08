@@ -7,6 +7,7 @@ import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import { OUTCOME_STYLE } from "./outcome-style";
 import { Chip, Panel } from "./primitives";
+import { FAULTS, FAULT_IDS, type FaultId } from "@/lib/clocked/faults";
 
 const MAX = 4000;
 
@@ -24,6 +25,9 @@ interface IntakePanelProps {
   onScenario: (s: Scenario) => void;
   onText: (t: string) => void;
   onRun: () => void;
+  /** Outage drill for the preset replay: null runs it as recorded. */
+  simulate?: FaultId | null;
+  onSimulate?: (f: FaultId | null) => void;
 }
 
 /**
@@ -141,13 +145,39 @@ export function IntakePanel(p: IntakePanelProps) {
           </p>
         ) : null}
 
+        {preset && p.onSimulate ? (
+          <div className="mt-4">
+            <label htmlFor="drill" className="mb-2 block px-1 text-[12px] font-medium uppercase leading-4 tracking-[0.06em] text-muted-foreground">
+              Outage drill
+            </label>
+            <select
+              id="drill"
+              data-drill-select
+              value={p.simulate ?? ""}
+              onChange={(e) => p.onSimulate!((e.target.value || null) as FaultId | null)}
+              disabled={p.running}
+              className="block h-11 w-full rounded-[18px] border border-hairline bg-card px-3.5 text-[14px]"
+            >
+              <option value="">Off: replay as recorded</option>
+              {FAULT_IDS.map((f) => (
+                <option key={f} value={f}>
+                  Simulate: {FAULTS[f].label}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1.5 px-1 text-[12px] leading-[18px] text-muted-foreground">
+              {p.simulate ? FAULTS[p.simulate].expect : "Replay this ticket with Clocked failing at one step, to see what FixProof blocks, skips and retries. Simulated, no credits."}
+            </p>
+          </div>
+        ) : null}
+
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <Button type="button" className="h-11 flex-1 rounded-full px-5 text-[15px]" onClick={p.onRun} disabled={!canRun}>
             {p.running ? (
               "Running…"
             ) : preset ? (
               <>
-                <Play aria-hidden /> Replay run
+                <Play aria-hidden /> {p.simulate ? "Run the drill" : "Replay run"}
               </>
             ) : (
               "Run FixProof"

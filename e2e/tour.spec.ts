@@ -12,7 +12,8 @@ test("judge tour plays 4 presets with captions and exits on Esc", async ({ page 
     const s = SCENARIOS.find((x) => x.id === stop.scenarioId)!;
     await expect(page.locator(`[data-tour-stop="${stop.scenarioId}"]`)).toBeVisible();
     await expect(page.getByText(`stop ${i + 1} of ${TOUR.length}`)).toBeVisible();
-    await expect(page.locator("[data-outcome-card]")).toHaveAttribute("data-outcome-card", s.recorded, { timeout: 30_000 });
+    await expect(page.locator("[data-outcome-card]")).toHaveAttribute("data-outcome-card", stop.simulate ? "ESCALATED" : s.recorded, { timeout: 30_000 });
+    if (stop.simulate) await expect(page.locator(`[data-drill="${stop.simulate}"]`)).toBeVisible();
     if (i < TOUR.length - 1) await page.getByRole("button", { name: "Next stop" }).click();
   }
   await page.getByRole("button", { name: "Back", exact: true }).click();

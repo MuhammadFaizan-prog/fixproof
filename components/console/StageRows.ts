@@ -15,7 +15,8 @@ export interface StageView {
   lead: Row | null;
   /** Merit's number column: the stage's key count, when it has one. */
   count: { value: number; label: string } | null;
-  status: "pending" | "running" | "ok" | "error" | "skipped";
+  /** blocked: never ran because an earlier stage's Clocked call did not return (fail-closed). */
+  status: "pending" | "running" | "ok" | "error" | "skipped" | "blocked";
   credits: number;
   ms: number;
 }
@@ -39,6 +40,7 @@ export function stageViews(state: TriageState): StageView[] {
     byStage.set(row.stage, [...(byStage.get(row.stage) ?? []), row]);
   }
   const done = state.status === "done" || state.status === "error";
+  let failedEarlier = false;
   return STAGES.map((s, index) => {
     const rows = byStage.get(s.id) ?? [];
     const lead = rows.length ? (LEAD[s.id](rows) ?? rows[0]) : null;
@@ -47,7 +49,8 @@ export function stageViews(state: TriageState): StageView[] {
     else if (rows.some((r) => r.status === "running")) status = "running";
     else if (rows.length && rows.every((r) => r.status === "skipped")) status = "skipped";
     else if (rows.length) status = "ok";
-    else if (done) status = "skipped";
+    else if (done) status = failedEarlier && s.id !== "outcome" ? "blocked" : "skipped";
+    if (status === "error" && s.id !== "outcome") failedEarlier = true;
     const credits = rows.reduce((n, r) => n + (r.meta?.credits ?? 0), 0);
     const ms = rows.reduce((n, r) => n + (r.meta?.modelMs ?? 0), 0);
     const counted = [lead, ...rows].find((r) => r && r.status !== "running" && r.count !== undefined) ?? null;

@@ -5,8 +5,8 @@
 Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2026.
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
-[![Unit tests](https://img.shields.io/badge/unit%20tests-627%20passing-2FBF6B?style=flat-square)](tests)
-[![E2E](https://img.shields.io/badge/e2e-25%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
+[![Unit tests](https://img.shields.io/badge/unit%20tests-632%20passing-2FBF6B?style=flat-square)](tests)
+[![E2E](https://img.shields.io/badge/e2e-28%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
 
@@ -127,6 +127,13 @@ flowchart TD
 - **Uncertain:** Decide's middle band asks the employee instead of guessing. Weak grounding, a failed "answers the ticket" check or a suspicious script also stop auto-resolve.
 - **Missing:** fields Extract cannot find are left empty rather than guessed. No applicable passage means a handoff, never an empty reply.
 - **Failed requests:** each call has its own idempotency key; 429 and 5xx are retried with the same key and `Retry-After`. If Clocked is still unavailable, the run ends as *handed to a person* with a handoff built locally, and the kind of failure sets the priority. The app never runs a script and never grants access.
+- **See it fail on purpose: outage drills.** Pick a recorded ticket and an *Outage drill* (or open [`/?preset=vpn-macos&fail=guard_down`](https://fixproof-ai.vercel.app/?preset=vpn-macos&fail=guard_down), `fail=rate_limited`, `fail=timeout`; it is also the last stop of the judge tour). The recorded run replays with a simulated Clocked failure injected at one step, through the same client, retry loop and outcome policy as a live run (0 credits, [`lib/clocked/faults.ts`](lib/clocked/faults.ts)):
+
+  | Drill | Where | What FixProof does |
+  |---|---|---|
+  | Guard down (503) | Screen (Protect + Guard) | 4 attempts with the same Idempotency-Key, then **fail-closed**: every later stage shows *blocked, not run*; "Clocked unavailable, queued for a person" with a handoff built locally |
+  | Rate limited (429) | Find (Rerank) | Waits the `Retry-After`, retries the same attempt, answered on attempt 3; the run finishes with the recorded outcome and the retry line on the row |
+  | Verify times out | Prove (Verify) | The draft exists but was never verified, so it is **withheld**; the fix script is never inspected or offered; queued for a person |
 
 ### The eight recorded presets
 

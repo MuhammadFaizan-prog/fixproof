@@ -7,6 +7,7 @@ import { useTriage } from "@/lib/client/useTriage";
 import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import { TOUR } from "@/data/tour";
+import { isFaultId, type FaultId } from "@/lib/clocked/faults";
 import { TourBar } from "./TourBar";
 import { IntakePanel } from "./IntakePanel";
 import { RunView } from "./RunView";
@@ -31,12 +32,14 @@ export function Console({ personas, scenarios }: ConsoleProps) {
   // Below 1024 px the three columns become panes switched from the top bar (tablet shows the rail under the run).
   const [pane, setPane] = useState<Pane>("tickets");
   const [tour, setTour] = useState<number | null>(null);
+  const [simulate, setSimulate] = useState<FaultId | null>(null);
 
   const replay = useCallback(
-    (s: Scenario) => {
+    (s: Scenario, fault: FaultId | null = null) => {
       setScenarioId(s.id);
       setPersonaId(s.personaId);
-      run({ text: s.text, personaId: s.personaId, scenarioId: s.id, mode: "replay" });
+      setSimulate(fault);
+      run({ text: s.text, personaId: s.personaId, scenarioId: s.id, mode: "replay", ...(fault ? { simulate: fault } : {}) });
     },
     [run],
   );
@@ -45,11 +48,14 @@ export function Console({ personas, scenarios }: ConsoleProps) {
       const s = scenarios.find((x) => x.id === TOUR[i].scenarioId);
       if (!s) return;
       setTour(i);
-      replay(s);
+      replay(s, TOUR[i].simulate ?? null);
     },
     [scenarios, replay],
   );
-  const exitTour = useCallback(() => setTour(null), []);
+  const exitTour = useCallback(() => {
+    setTour(null);
+    setSimulate(null);
+  }, []);
 
   // Deep links: /?tour=1 starts the judge tour; /?preset=<id> replays one preset.
   useEffect(() => {
@@ -57,7 +63,8 @@ export function Console({ personas, scenarios }: ConsoleProps) {
     if (q.get("tour")) goTour(0);
     else {
       const s = q.get("preset") ? scenarios.find((x) => x.id === q.get("preset")) : undefined;
-      if (s) replay(s);
+      const fail = q.get("fail");
+      if (s) replay(s, isFaultId(fail) ? fail : null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -98,7 +105,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
   const scenario = scenarioId ? scenarios.find((s) => s.id === scenarioId) ?? null : null;
 
   const start = () => {
-    if (scenario) run({ text: scenario.text, personaId: scenario.personaId, scenarioId: scenario.id, mode: "replay" });
+    if (scenario) run({ text: scenario.text, personaId: scenario.personaId, scenarioId: scenario.id, mode: "replay", ...(simulate ? { simulate } : {}) });
     else run({ text, personaId, mode: "live" });
   };
 
@@ -140,9 +147,12 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             }}
             onText={(t) => {
               setScenarioId(null);
+              setSimulate(null);
               setText(t);
             }}
             onRun={start}
+            simulate={simulate}
+            onSimulate={setSimulate}
           />
         </aside>
         <main id="pane-run" ref={mainRef} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", pane === "tickets" && "max-lg:hidden", pane === "evidence" && "max-md:hidden")}>
@@ -151,7 +161,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
               <TourBar stops={TOUR} index={tour} onBack={() => goTour(Math.max(0, tour - 1))} onNext={() => goTour(Math.min(TOUR.length - 1, tour + 1))} onExit={exitTour} />
             </div>
           ) : null}
-          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => run({ text: runScenario.text, personaId: runScenario.personaId, scenarioId: runScenario.id, mode: "replay" }) : undefined} onFallback={() => replay(scenarios[0])} />
+          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => replay(runScenario, simulate) : undefined} onFallback={() => replay(scenarios[0])} />
         </main>
         <aside id="pane-evidence" aria-label="Evidence and scope" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", "lg:col-start-2 xl:col-start-auto", pane === "tickets" && "max-lg:hidden", pane === "run" && "max-md:hidden")}>
           <EvidenceRail state={state} persona={runPersona} />

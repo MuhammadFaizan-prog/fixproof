@@ -8,6 +8,7 @@ import type { TriageState } from "@/lib/client/useTriage";
 import { DeskView, type AuditEntry } from "./DeskView";
 import { NaiveCard } from "./NaiveCard";
 import { OutcomeCard } from "./OutcomeCard";
+import { OutageCard } from "./OutageCard";
 import { Panel } from "./primitives";
 import { ProofTrail } from "./ProofTrail";
 import { RecentRuns } from "./RunsList";
@@ -42,6 +43,7 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
           ) : null}
         </div>
       ) : null}
+      {state.result?.simulated ? <OutageCard key={`drill-${state.startedAt ?? 0}`} state={state} /> : null}
       {state.result ? (
         <OutcomeCard key={`outcome-${state.startedAt ?? 0}`} result={state.result} persona={persona} onAudit={onAudit} />
       ) : state.status === "running" ? (
@@ -56,7 +58,7 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
         </Panel>
       ) : null}
       {state.result ? <DeskView key={`desk-${state.startedAt ?? 0}`} result={state.result} scenarioId={state.start?.scenarioId ?? null} audit={entries} onAudit={onAudit} /> : null}
-      {state.result && state.start?.scenarioId ? <NaiveCard key={`naive-${state.startedAt ?? 0}`} scenarioId={state.start.scenarioId} /> : null}
+      {state.result && state.start?.scenarioId && !state.result.simulated ? <NaiveCard key={`naive-${state.startedAt ?? 0}`} scenarioId={state.start.scenarioId} /> : null}
       <ProofTrail key={`trail-${state.startedAt ?? 0}`} state={state} onInspect={setInspecting} />
       <RecentRuns history={history} scenarios={scenarios} />
       <StepInspector row={row} open={row !== null} onOpenChange={(o) => !o && setInspecting(null)} />

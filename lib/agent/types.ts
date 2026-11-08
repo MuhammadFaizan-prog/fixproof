@@ -53,6 +53,8 @@ export interface StepEvent {
   /** Request/response summary for the inspector. Never contains raw PII or the key. */
   detail?: { request?: unknown; response?: unknown };
   error?: { kind: string; message: string; status?: number };
+  /** Failed attempts before this row's final status (429 / 5xx / timeout), each retried with the same Idempotency-Key. */
+  retries?: { attempt: number; status: number | null; waitMs: number }[];
 }
 
 export type Emit = (event: StepEvent) => void;

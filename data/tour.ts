@@ -7,6 +7,8 @@ export interface TourStop {
   scenarioId: string;
   title: string;
   caption: string;
+  /** Replay this stop as an outage drill (lib/clocked/faults.ts). */
+  simulate?: "guard_down" | "rate_limited" | "timeout";
 }
 
 export const TOUR: TourStop[] = [
@@ -32,6 +34,13 @@ export const TOUR: TourStop[] = [
     scenarioId: "vpn-conflict",
     title: "Two policies disagree",
     caption:
-      "Compare found that the 2024 and 2026 VPN policies contradict each other. The newer policy stands, the older passage is removed before drafting, and both quotes are shown side by side.",
+      "Compare found that the 2024 and 2026 VPN policies contradict each other. Both have the same scope, so the newer policy stands, the older passage is removed before drafting, and both quotes are shown side by side. (An article written for the employee's own office or OS would beat a company-wide one, even an older one.)",
+  },
+  {
+    scenarioId: "vpn-macos",
+    simulate: "guard_down",
+    title: "When Clocked fails",
+    caption:
+      "The first ticket again, with Guard down (simulated 503). FixProof retried with the same Idempotency-Key, then failed closed: nothing reads an unscreened ticket, so every later stage is blocked and the ticket is queued for a person. Try the other drills (429, timeout) from the Outage drill menu.",
   },
 ];
