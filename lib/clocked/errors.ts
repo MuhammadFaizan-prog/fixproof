@@ -12,7 +12,8 @@ export type ClockedErrorKind =
   | "ended" // retryAsNew: true, this attempt is over
   | "network"
   | "timeout"
-  | "no_fixture";
+  | "no_fixture"
+  | "budget"; // live run hit its per-run credit ceiling (lib/clocked/budget.ts)
 
 export interface ClockedErrorInit {
   kind: ClockedErrorKind;

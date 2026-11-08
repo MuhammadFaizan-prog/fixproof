@@ -107,6 +107,8 @@ export function failureMeaning(kind: string): FailureMeaning {
     case "credits":
     case "no_key":
       return { detail: "FixProof's Clocked access was refused (key or credits)", next: "A person picks it up; the help-desk owner is alerted to restore Clocked access.", priority: "P2", retryable: false };
+    case "budget":
+      return { detail: "this live run reached its credit ceiling", next: "A person picks it up with everything checked so far; nothing was guessed.", priority: "P3", retryable: false };
     case "no_fixture":
       return { detail: "no recorded response exists for this step", next: "Run it live, or pick a preset that has a recording.", priority: "P3", retryable: false };
     case "invalid":

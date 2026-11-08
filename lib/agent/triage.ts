@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { createClockedClient, createLiveClientFromEnv, type ClockedClient } from "@/lib/clocked/client";
+import { createClockedClient, type ClockedClient } from "@/lib/clocked/client";
+import { createBudgetTransport } from "@/lib/clocked/budget";
+import { ClockedError } from "@/lib/clocked/errors";
+import { createHttpTransport } from "@/lib/clocked/transport";
+import { DEFAULTS as LIVE_DEFAULTS } from "@/lib/server/live-guard";
 import { createFileFixtureStore } from "@/lib/clocked/fixture-files";
 import { resolveMode, type ModeDecision } from "@/lib/clocked/mode";
 import { createReplayTransport } from "@/lib/clocked/replay";
@@ -64,7 +68,15 @@ export function clientFor(start: TriageStart, env: NodeJS.ProcessEnv = process.e
   if (start.mode.mode === "replay") {
     return createClockedClient({ transport: createReplayTransport({ store: createFileFixtureStore(), scenario: start.scenarioId as string }), sleep: async () => {} });
   }
-  return createLiveClientFromEnv(env);
+  const apiKey = env.CLOCKED_API_KEY?.trim();
+  if (!apiKey) throw new ClockedError("CLOCKED_API_KEY is not set", { kind: "no_key", endpoint: "pipeline", step: "init", attempts: 0 });
+  const ceiling = Number(env.LIVE_RUN_CREDIT_CEILING);
+  const concurrency = Number(env.CLOCKED_CONCURRENCY ?? 1);
+  // Every live run is bounded by a hard credit ceiling, whatever the daily caps say.
+  return createClockedClient({
+    transport: createBudgetTransport(createHttpTransport({ apiKey, baseUrl: env.CLOCKED_BASE_URL || undefined }), Number.isInteger(ceiling) && ceiling > 0 ? ceiling : LIVE_DEFAULTS.runCeiling),
+    concurrency: Number.isInteger(concurrency) && concurrency > 0 ? concurrency : 1,
+  });
 }
 
 /** What the browser receives at the end: everything the cards need, nothing it did not already have. */

@@ -90,8 +90,8 @@ describe("POST /api/triage", () => {
 
 describe("GET /api/health", () => {
   it("reports whether live mode is available without exposing the key", async () => {
-    const body = await GET().json();
-    expect(Object.keys(body).sort()).toEqual(["dailyCapReached", "keyConfigured", "liveAvailable", "ok"]);
+    const body = await (await GET()).json();
+    expect(Object.keys(body).sort()).toEqual(["dailyCapReached", "keyConfigured", "liveAvailable", "liveBudget", "ok"]);
     expect(JSON.stringify(body)).not.toContain(process.env.CLOCKED_API_KEY ?? "@@never@@");
   });
 });

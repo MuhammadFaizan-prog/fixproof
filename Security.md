@@ -28,7 +28,12 @@ Anonymous visitor (replay presets, capped live runs). Operator (Faizi): sets env
 zod on request bodies, fixture files, and Clocked responses that drive policy (a malformed response is treated as a failed step, not trusted).
 
 ## Rate limiting and credit-drain abuse
-Presets always replay (0 credits). Live free text passes `lib/server/live-guard.ts` before any Clocked call: per-visitor runs per sliding hour (`LIVE_PER_IP_RUNS_PER_HOUR`, default 5), one live run in flight (`LIVE_MAX_INFLIGHT`, default 1, matching Trial concurrency), and a daily credit cap per UTC day (`LIVE_DAILY_CREDIT_CAP`, default 2000) that reserves `LIVE_RUN_CREDIT_ESTIMATE` (60) per run and settles to the summed `X-Clocked-Credits`. Denials are HTTP 429 with `Retry-After` and a code (`rate_limited`, `busy`, `daily_cap`); `/api/health` reports `dailyCapReached` and the intake shows a replay-only note. Counters live in process memory, so on a serverless host they are per warm instance (a bound per instance, not an exact global meter). Visitor IPs are map keys only, never logged.
+Presets always replay (0 credits). Live free text passes `lib/server/live-guard.ts` before any Clocked call: per-visitor runs per sliding hour (`LIVE_PER_IP_RUNS_PER_HOUR`, default 5), one live run in flight (`LIVE_MAX_INFLIGHT`, default 1, matching Trial concurrency), and a daily credit cap per UTC day (`LIVE_DAILY_CREDIT_CAP`, default 2000) that reserves `LIVE_RUN_CREDIT_ESTIMATE` (60) per run and settles to the summed `X-Clocked-Credits`. Denials are HTTP 429 with `Retry-After` and a code (`rate_limited`, `busy`, `daily_cap`); `/api/health` reports `dailyCapReached` and the intake shows a replay-only note. Visitor IPs are map keys only, never logged.
+
+**Global vs per-instance budget (honest limits).** The rate and in-flight counters live in process memory, so on a serverless host they are per warm instance. The daily credit cap has two modes, reported by `/api/health` as `liveBudget`:
+- `global`: when `KV_REST_API_URL`/`KV_REST_API_TOKEN` (or the `UPSTASH_REDIS_REST_*` pair) are set, every run atomically reserves its estimate against one Redis key per UTC day before any Clocked call and settles to what Clocked charged, so `LIVE_DAILY_CREDIT_CAP` holds across all instances. If the store cannot be reached, live runs are refused (`budget_unavailable`, fail closed); presets still replay.
+- `per-instance`: with no store, each warm instance's cap is lowered to `LIVE_INSTANCE_CREDIT_CAP` (default 400). Worst case per day is that cap times the number of instances Vercel keeps warm; this is a bound, not an exact meter.
+In both modes every live run is bounded by `LIVE_RUN_CREDIT_CEILING` (default 90): once a run's summed `X-Clocked-Credits` reach it, the next call is refused and the run is handed to a person with a local handoff (`lib/clocked/budget.ts`). Input is capped at 4,000 characters (zod) before anything else runs. Concurrency stays at 1 (`CLOCKED_CONCURRENCY`) until the CLOCKEDHACKATHON upgrade to 4 concurrent requests is confirmed on the account page.
 
 ## Abuse cases
 - Prompt injection in the ticket → Guard (user) quarantines and strips by offset.
@@ -55,5 +60,5 @@ Revoke key → new key in Vercel → redeploy → verify `/api/health` → re-ru
 
 ## Verified 2026-11-08 (API route commit)
 - `.next/static` contains no `CLOCKED` string and no copy of the key value (grep after a clean build).
-- `/api/health` returns only `{ ok, keyConfigured, liveAvailable }`.
+- `/api/health` returns only `{ ok, keyConfigured, liveAvailable, dailyCapReached, liveBudget }`: booleans and the budget mode, never usage figures or any part of the key.
 - The route logs only an error name and scenario id, never ticket text or headers. Presets ignore client-sent text, so a preset run can never be steered by the client.

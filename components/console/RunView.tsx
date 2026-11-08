@@ -12,8 +12,11 @@ import { RecentRuns } from "./RunsList";
 import { RunHeader } from "./RunHeader";
 import { StepInspector } from "./StepInspector";
 
+/** 429 codes from the live guard: live is limited, but every recorded run still replays at no cost. */
+const LIVE_LIMIT_CODES = new Set(["daily_cap", "rate_limited", "busy", "budget_unavailable"]);
+
 /** Main column: run header, the outcome receipt (top, in view), the Proof Trail, recent runs, and the step inspector. */
-export function RunView({ state, persona, scenario, history, scenarios, onReplay }: { state: TriageState; persona: Persona; scenario: Scenario | null; history: HistoryEntry[]; scenarios: Scenario[]; onReplay?: () => void }) {
+export function RunView({ state, persona, scenario, history, scenarios, onReplay, onFallback }: { state: TriageState; persona: Persona; scenario: Scenario | null; history: HistoryEntry[]; scenarios: Scenario[]; onReplay?: () => void; onFallback?: () => void }) {
   const [inspecting, setInspecting] = useState<string | null>(null);
   const row = inspecting ? (state.rows[inspecting] ?? null) : null;
   return (
@@ -23,6 +26,11 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
         <div role="alert" className="rounded-[28px] border border-risk-soft bg-risk-wash px-6 py-4">
           <p className="text-[15px] font-medium text-risk">The run stopped</p>
           <p className="mt-1 text-[14px] text-risk">{state.error.message}</p>
+          {onFallback && LIVE_LIMIT_CODES.has(state.error.code) ? (
+            <button type="button" onClick={onFallback} className="mt-3 inline-flex h-11 items-center rounded-full bg-primary px-5 text-[15px] font-medium text-primary-foreground hover:bg-primary/90">
+              Replay a recorded run instead
+            </button>
+          ) : null}
         </div>
       ) : null}
       {state.result ? (

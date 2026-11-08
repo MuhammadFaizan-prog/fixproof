@@ -1,3 +1,5 @@
+import { ledgerConfigFromEnv } from "./credit-ledger";
+
 /**
  * Budget guards for live mode (free-text tickets that spend real Clocked
  * credits). Replay never passes through here.
@@ -10,12 +12,15 @@
  *    actually charged (X-Clocked-Credits) when it ends.
  *
  * State is in process memory. On a serverless host each warm instance keeps
- * its own counters, so the caps are per instance: a bound on spend per
- * instance, not an exact global meter. Visitor addresses are kept only as
- * map keys for an hour and are never logged.
+ * its own counters. When a durable store is configured (credit-ledger.ts),
+ * the API route also reserves every run against one global daily total, so
+ * LIVE_DAILY_CREDIT_CAP is a true global cap. Without one, this guard's cap
+ * is lowered to LIVE_INSTANCE_CREDIT_CAP (default 400) per warm instance, and
+ * every run is still bounded by LIVE_RUN_CREDIT_CEILING (budget.ts). Visitor
+ * addresses are kept only as map keys for an hour and are never logged.
  */
 
-export const DEFAULTS = { dailyCreditCap: 2000, perIpPerHour: 5, maxInflight: 1, runEstimate: 60 } as const;
+export const DEFAULTS = { dailyCreditCap: 2000, instanceCreditCap: 400, perIpPerHour: 5, maxInflight: 1, runEstimate: 60, runCeiling: 90 } as const;
 
 export interface GuardConfig {
   dailyCreditCap: number;
@@ -23,6 +28,8 @@ export interface GuardConfig {
   maxInflight: number;
   /** Credits reserved per run before it starts (presets used 21–50 live). */
   runEstimate: number;
+  /** Hard ceiling per live run; the run is handed to a person when it is reached. */
+  runCeiling: number;
 }
 
 function intFrom(v: string | undefined, fallback: number, min: number): number {
@@ -30,9 +37,12 @@ function intFrom(v: string | undefined, fallback: number, min: number): number {
   return Number.isInteger(n) && n >= min ? n : fallback;
 }
 
-export function guardConfigFromEnv(env: NodeJS.ProcessEnv = process.env): GuardConfig {
+/** `durable`: a global ledger also meters the day, so this per-instance cap need not be lowered. */
+export function guardConfigFromEnv(env: NodeJS.ProcessEnv = process.env, durable = false): GuardConfig {
+  const daily = intFrom(env.LIVE_DAILY_CREDIT_CAP, DEFAULTS.dailyCreditCap, 0);
   return {
-    dailyCreditCap: intFrom(env.LIVE_DAILY_CREDIT_CAP, DEFAULTS.dailyCreditCap, 0),
+    dailyCreditCap: durable ? daily : Math.min(daily, intFrom(env.LIVE_INSTANCE_CREDIT_CAP, DEFAULTS.instanceCreditCap, 0)),
+    runCeiling: intFrom(env.LIVE_RUN_CREDIT_CEILING, DEFAULTS.runCeiling, 1),
     perIpPerHour: intFrom(env.LIVE_PER_IP_RUNS_PER_HOUR, DEFAULTS.perIpPerHour, 0),
     maxInflight: intFrom(env.LIVE_MAX_INFLIGHT, DEFAULTS.maxInflight, 1),
     runEstimate: intFrom(env.LIVE_RUN_CREDIT_ESTIMATE, DEFAULTS.runEstimate, 1),
@@ -87,7 +97,7 @@ export function createLiveGuard(config: GuardConfig, now: () => number = Date.no
       const list = recent(ip);
       if (list.length >= config.perIpPerHour) {
         const retry = list.length ? Math.max(1, Math.ceil((list[0] + HOUR - now()) / 1000)) : 3600;
-        return { ok: false, code: "rate_limited", message: `Live mode allows ${config.perIpPerHour} runs an hour per visitor. The recorded presets still run.`, retryAfterSec: retry };
+        return { ok: false, code: "rate_limited", message: `Live mode allows ${config.perIpPerHour} runs an hour per visitor. Try again in about ${Math.max(1, Math.ceil(retry / 60))} min; the recorded tickets still replay.`, retryAfterSec: retry };
       }
       if (inflight >= config.maxInflight) {
         return { ok: false, code: "busy", message: "Another live run is in progress. Try again in a few seconds, or replay a preset.", retryAfterSec: 10 };
@@ -115,6 +125,9 @@ export function createLiveGuard(config: GuardConfig, now: () => number = Date.no
       rollDay();
       return { creditsLeftToday: Math.max(0, config.dailyCreditCap - spent - reserved), capReached: spent + reserved + config.runEstimate > config.dailyCreditCap };
     },
+    config() {
+      return config;
+    },
   };
 }
 
@@ -123,7 +136,7 @@ export type LiveGuard = ReturnType<typeof createLiveGuard>;
 let shared: LiveGuard | null = null;
 /** The process-wide guard used by the API routes. */
 export function liveGuard(): LiveGuard {
-  shared ??= createLiveGuard(guardConfigFromEnv());
+  shared ??= createLiveGuard(guardConfigFromEnv(process.env, Boolean(ledgerConfigFromEnv())));
   return shared;
 }
 

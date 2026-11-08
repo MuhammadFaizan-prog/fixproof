@@ -3,7 +3,7 @@ import { POST } from "@/app/api/triage/route";
 import { GET } from "@/app/api/health/route";
 import { clientIp, createLiveGuard, guardConfigFromEnv, resetLiveGuard, type Denial, type Ticket } from "@/lib/server/live-guard";
 
-const cfg = { dailyCreditCap: 100, perIpPerHour: 2, maxInflight: 1, runEstimate: 40 };
+const cfg = { dailyCreditCap: 100, perIpPerHour: 2, maxInflight: 1, runEstimate: 40, runCeiling: 90 };
 const ok = (t: Ticket | Denial): Ticket => {
   if (!t.ok) throw new Error(`denied: ${t.code}`);
   return t;
@@ -11,7 +11,12 @@ const ok = (t: Ticket | Denial): Ticket => {
 
 describe("live guard", () => {
   it("reads caps from the environment and falls back on bad values", () => {
-    expect(guardConfigFromEnv({ LIVE_DAILY_CREDIT_CAP: "500", LIVE_PER_IP_RUNS_PER_HOUR: "x" } as never)).toMatchObject({ dailyCreditCap: 500, perIpPerHour: 5, maxInflight: 1 });
+    expect(guardConfigFromEnv({ LIVE_DAILY_CREDIT_CAP: "500", LIVE_PER_IP_RUNS_PER_HOUR: "x" } as never, true)).toMatchObject({ dailyCreditCap: 500, perIpPerHour: 5, maxInflight: 1, runCeiling: 90 });
+  });
+
+  it("without a durable ledger the daily cap is lowered to the per-instance cap", () => {
+    expect(guardConfigFromEnv({ LIVE_DAILY_CREDIT_CAP: "2000" } as never)).toMatchObject({ dailyCreditCap: 400 });
+    expect(guardConfigFromEnv({ LIVE_DAILY_CREDIT_CAP: "2000", LIVE_INSTANCE_CREDIT_CAP: "150", LIVE_RUN_CREDIT_CEILING: "70" } as never)).toMatchObject({ dailyCreditCap: 150, runCeiling: 70 });
   });
 
   it("limits each visitor per sliding hour and says when to retry", () => {
@@ -82,7 +87,7 @@ describe("live guard in the API", () => {
     const res = await post({ text: "My VPN keeps dropping.", personaId: "priya-us-design", mode: "live" });
     expect(res.status).toBe(429);
     expect(await res.json()).toMatchObject({ code: "daily_cap" });
-    expect(await GET().json()).toMatchObject({ keyConfigured: true, liveAvailable: false, dailyCapReached: true });
+    expect(await (await GET()).json()).toMatchObject({ keyConfigured: true, liveAvailable: false, dailyCapReached: true });
   });
 
   it("never limits preset replays", async () => {

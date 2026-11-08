@@ -1,6 +1,7 @@
 import { encodeSse } from "@/lib/sse";
 import { planTriage, runTriage, TriageInputError, TriageRequestSchema } from "@/lib/agent/triage";
 import { clientIp, liveGuard, type Ticket } from "@/lib/server/live-guard";
+import { creditLedger } from "@/lib/server/credit-ledger";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -43,6 +44,30 @@ export async function POST(req: Request): Promise<Response> {
       return Response.json({ code: admitted.code, message: admitted.message, retryAfterSec: admitted.retryAfterSec }, { status: 429, headers: { "Retry-After": String(admitted.retryAfterSec) } });
     }
     ticket = admitted;
+    // Global daily meter shared by every instance, when a durable store is configured.
+    const ledger = creditLedger();
+    if (ledger) {
+      const { dailyCreditCap, runEstimate } = liveGuard().config();
+      let reserved = false;
+      try {
+        reserved = await ledger.reserve(runEstimate, dailyCreditCap);
+      } catch {
+        admitted.settle(0);
+        return Response.json({ code: "budget_unavailable", message: "Live mode cannot check today's credit budget right now, so it is paused. The recorded tickets still replay.", retryAfterSec: 60 }, { status: 429, headers: { "Retry-After": "60" } });
+      }
+      if (!reserved) {
+        admitted.settle(0);
+        return Response.json({ code: "daily_cap", message: "Live mode has used today's credit budget. The recorded tickets still replay; live opens again after midnight UTC.", retryAfterSec: 3600 }, { status: 429, headers: { "Retry-After": "3600" } });
+      }
+      const local = admitted;
+      ticket = {
+        ok: true,
+        settle(spent: number) {
+          local.settle(spent);
+          ledger.adjust(Math.max(0, Math.round(spent)) - runEstimate).catch(() => {});
+        },
+      };
+    }
   }
 
   const encoder = new TextEncoder();

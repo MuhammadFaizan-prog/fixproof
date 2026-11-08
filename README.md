@@ -155,8 +155,11 @@ All optional. With none set, FixProof runs in replay mode. Copy [`.env.example`]
 | `LIVE_PER_IP_RUNS_PER_HOUR` | Live runs per visitor per hour. |
 | `LIVE_MAX_INFLIGHT` | Live runs at once. |
 | `LIVE_RUN_CREDIT_ESTIMATE` | Credits reserved per live run before it starts. |
+| `LIVE_RUN_CREDIT_CEILING` | Hard ceiling per live run; past it the run stops and goes to a person. |
+| `LIVE_INSTANCE_CREDIT_CAP` | Daily cap per serverless instance when no durable store is set. |
+| `KV_REST_API_URL`, `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`) | Optional Redis REST store for one global daily credit cap across instances. |
 
-Presets never spend credits and are never rate-limited. The live limits are kept in memory, so on a serverless host they apply per warm instance; see [`Security.md`](Security.md).
+Presets never spend credits and are never rate-limited. With a Redis REST store the daily cap is global; without one it is a lower cap per warm instance, and every live run has a hard credit ceiling either way. `/api/health` reports which mode is active (`liveBudget`); details in [`Security.md`](Security.md).
 
 ### Repository map
 
