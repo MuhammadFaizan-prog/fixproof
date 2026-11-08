@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "Should I reinstall the VPN client on my Mac? It keeps dropping after the update.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "software",
+        "confidence": 0.44,
+        "probabilities": {
+          "network": 0.30571296950102045,
+          "identity": 0.019015962549920596,
+          "hardware": 0.012607580865421273,
+          "software": 0.5104056653943124,
+          "printing": 0.012317734056413695,
+          "security": 0.02085711766873102,
+          "accounts": 0.022956863573831338,
+          "none": 0.09612610639034924
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.374,
+        "expected": 1.574,
+        "probabilities": {
+          "low": 0.5306143582036832,
+          "medium": 0.38805965283205984,
+          "high": 0.058444101399184406,
+          "critical": 0.022881887565072537
+        }
+      },
+      "affected_service": {
+        "value": "VPN client",
+        "start": 23,
+        "end": 33,
+        "confidence": 0.9999977748495263,
+        "p_verify": 0.9999977748495263
+      },
+      "needs_admin": {
+        "value": true,
+        "confidence": 0.474,
+        "probabilities": {
+          "yes": 0.7369562891647737,
+          "no": 0.26304371083522626
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 59,
+      "generate_ms": 0,
+      "total_ms": 63,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "60.697986",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=147.9, discovery;dur=0.0, model;dur=60.7, settle;dur=4.1, gateway;dur=157.1"
+  }
+}

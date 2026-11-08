@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-generator-friday",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nThe generator switched over and now my VPN is gone. IT said yesterday this would be fixed permanently by Friday, right?\n\nKnowledge base sources:\n[1] VPN drops on Linux workstations · Fix + Script (updated 2026-09-18)\n## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n[script omitted]\n\n[2] VPN client troubleshooting policy (2026) · Policy (updated 2026-09-01)\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I do not have information regarding when the generator issue will be permanently fixed. \n\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+        "confidence": 0.9776683195129211,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 271,
+      "total_ms": 289,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 304,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "12",
+    "x-clocked-model-ms": "280.918464",
+    "x-clocked-cost-usd": "0.002390",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.4, admit_db;dur=1.2, upstream;dur=373.2, discovery;dur=0.0, model;dur=280.9, settle;dur=3.5, gateway;dur=381.1"
+  }
+}

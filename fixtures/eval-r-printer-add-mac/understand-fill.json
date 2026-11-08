@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-printer-add-mac",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "How do I add the 4th floor printer to my MacBook? It doesn't show up in the printer list.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "printing",
+        "confidence": 0.966,
+        "probabilities": {
+          "network": 0.003219074277946882,
+          "identity": 0.002316165660205218,
+          "hardware": 0.007493771200635657,
+          "software": 0.0035422218615146655,
+          "printing": 0.970418901335889,
+          "security": 0.0032243306992007737,
+          "accounts": 0.0031391756870881773,
+          "none": 0.006646359277519588
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.965,
+        "expected": 1.042,
+        "probabilities": {
+          "low": 0.9738191810089628,
+          "medium": 0.014958682946876939,
+          "high": 0.00634840582638957,
+          "critical": 0.004873730217770686
+        }
+      },
+      "affected_service": {
+        "value": "4th floor printer",
+        "start": 17,
+        "end": 34,
+        "confidence": 0.9999482035544094,
+        "p_verify": 0.9999482035544094
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.609,
+        "probabilities": {
+          "yes": 0.1953064482536252,
+          "no": 0.8046935517463748
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 61,
+      "generate_ms": 0,
+      "total_ms": 65,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "62.805122",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=149.4, discovery;dur=0.0, model;dur=62.8, settle;dur=4.5, gateway;dur=158.9"
+  }
+}

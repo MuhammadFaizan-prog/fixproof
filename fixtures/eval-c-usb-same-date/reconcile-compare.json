@@ -1,0 +1,121 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "compare",
+  "scenario": "eval-c-usb-same-date",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "usb-storage-encrypted#0",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder."
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "conflicts",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "usb-storage-encrypted#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": [
+          "usb-storage-blocked#0"
+        ]
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": [
+          "usb-storage-encrypted#0"
+        ]
+      }
+    ],
+    "pairs": [
+      {
+        "a": "usb-storage-encrypted#0",
+        "b": "usb-storage-blocked#0",
+        "relation": "conflicting",
+        "related": 0.9935,
+        "probabilities": {
+          "same": 0.0039,
+          "overlapping": 0.0174,
+          "conflicting": 0.9723,
+          "unrelated": 0.0065
+        },
+        "duplicates": [],
+        "conflicts": [
+          {
+            "kind": "rule_or_condition",
+            "kinds": {
+              "value": 0.0038,
+              "date_or_version": 0.0045,
+              "rule_or_condition": 0.9663,
+              "scope": 0.0147,
+              "name": 0.005,
+              "no_conflict": 0.0056
+            },
+            "confidence": 0.9944,
+            "a": {
+              "document": "usb-storage-encrypted#0",
+              "quote": "Company-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible.",
+              "start": 10,
+              "end": 153,
+              "confidence": 1
+            },
+            "b": {
+              "document": "usb-storage-blocked#0",
+              "quote": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops.",
+              "start": 0,
+              "end": 99,
+              "confidence": 1
+            }
+          }
+        ]
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [
+      0
+    ],
+    "related_pairs": [
+      0
+    ],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 20,
+      "passage_reads": 1,
+      "passages_ms": 47,
+      "passages": 1,
+      "counterparts_ms": 29,
+      "kinds_ms": 17
+    },
+    "timing": {
+      "read_ms": 113,
+      "total_ms": 116
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "103.668254",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=202.1, discovery;dur=0.0, model;dur=103.7, settle;dur=24.1, gateway;dur=230.9"
+  }
+}

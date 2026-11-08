@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "pipeline",
+  "scenario": "eval-a-not-working",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "it's not working again",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 29,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "it's not working again",
+          "timing": {
+            "read_ms": 28,
+            "total_ms": 28
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 27,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0017462732243719303,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9943704723392143,
+            "instruction override": 0.0013041566320543788,
+            "role-play or persona jailbreak": 0.000788331718162235,
+            "system prompt or secret extraction": 0.0008683409343823667,
+            "obfuscated or encoded payload": 0.0007356962236963695,
+            "tool misuse or data exfiltration": 0.0009455059142553456,
+            "social engineering": 0.0009874962382350316
+          },
+          "severity": "none",
+          "severity_expected": 1.014,
+          "severities": {
+            "none": 0.9935895476246586,
+            "low": 0.002481573228993233,
+            "medium": 0.001231912629006933,
+            "high": 0.0013030102662386768,
+            "critical": 0.0013939562511025919
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 26,
+            "total_ms": 27
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 56,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "50.754335",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.8, upstream;dur=140.2, discovery;dur=0.0, model;dur=50.8, settle;dur=4.4, gateway;dur=149.4"
+  }
+}

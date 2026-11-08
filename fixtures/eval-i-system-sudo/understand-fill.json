@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-i-system-sudo",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "I need admin to install Figma plugins.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "software",
+        "confidence": 0.851,
+        "probabilities": {
+          "network": 0.007956605152577016,
+          "identity": 0.008010166507205672,
+          "hardware": 0.0063196246378648445,
+          "software": 0.8697238168819811,
+          "printing": 0.007606461907553511,
+          "security": 0.007993129945840564,
+          "accounts": 0.018707525369704346,
+          "none": 0.07368266959727296
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.831,
+        "expected": 1.186,
+        "probabilities": {
+          "low": 0.8732975347848205,
+          "medium": 0.08158250455627562,
+          "high": 0.031021416594503602,
+          "critical": 0.01409854406440025
+        }
+      },
+      "affected_service": {
+        "value": "Figma",
+        "start": 24,
+        "end": 29,
+        "confidence": 0.9998756708830175,
+        "p_verify": 0.9998756708830175
+      },
+      "needs_admin": {
+        "value": true,
+        "confidence": 0.941,
+        "probabilities": {
+          "yes": 0.9704693440967119,
+          "no": 0.029530655903288072
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 59,
+      "generate_ms": 0,
+      "total_ms": 65,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "62.284641",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.6, admit_db;dur=0.7, upstream;dur=149.8, discovery;dur=0.0, model;dur=62.3, settle;dur=4.3, gateway;dur=158.7"
+  }
+}

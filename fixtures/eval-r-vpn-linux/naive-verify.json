@@ -1,0 +1,127 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-vpn-linux",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "The VPN on my Ubuntu workstation keeps disconnecting every few minutes and I have to reconnect northwind-vpn by hand.",
+    "answer": "I am sorry to hear that your VPN is disconnecting on your Ubuntu workstation. Unfortunately, the provided knowledge base only contains troubleshooting steps for macOS and Windows, and does not include a fix for Ubuntu",
+    "claims": [
+      "I am sorry to hear that your VPN is disconnecting on your Ubuntu workstation.",
+      "Unfortunately, the provided knowledge base only contains troubleshooting steps for macOS and Windows, and does not include a fix for Ubuntu"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      },
+      {
+        "id": "vpn-linux-drops#0,1,2",
+        "text": "## Symptoms\nOn Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.\n\n## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```"
+      },
+      {
+        "id": "pk-office-network#0",
+        "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.0173,
+    "ungrounded": 0.9827,
+    "verdict": "contradicted",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-linux-drops#0,1,2",
+        "share": 0.6905,
+        "share_of_answer": 0.0119,
+        "claims": []
+      },
+      {
+        "id": "pk-office-network#0",
+        "share": 0.1925,
+        "share_of_answer": 0.0033,
+        "claims": []
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.117,
+        "share_of_answer": 0.002,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I am sorry to hear that your VPN is disconnecting on your Ubuntu workstation.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.9706769502627973,
+          "offer_or_question": 0.00858505160231003,
+          "pointer": 0.007659615730862618,
+          "meta": 0.013078382404030033
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0033,
+        "contradicted": 0.0013,
+        "not_stated": 0.0028,
+        "not_a_claim": 0.9925,
+        "verdict": "not_a_claim",
+        "sources": {
+          "vpn-policy-2026#0": 0.3341,
+          "vpn-linux-drops#0,1,2": 0.3682,
+          "pk-office-network#0": 0.2976
+        },
+        "source": null
+      },
+      {
+        "claim": "Unfortunately, the provided knowledge base only contains troubleshooting steps for macOS and Windows, and does not include a fix for Ubuntu",
+        "kind": "claim",
+        "counted": true,
+        "weight": 1,
+        "supported": 0.0173,
+        "contradicted": 0.9743,
+        "not_stated": 0.0056,
+        "not_a_claim": 0.0028,
+        "verdict": "contradicted",
+        "sources": {
+          "vpn-policy-2026#0": 0.117,
+          "vpn-linux-drops#0,1,2": 0.6905,
+          "pk-office-network#0": 0.1925
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      1
+    ],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.0173
+    },
+    "answers_question": 0.9440654139537442,
+    "timing": {
+      "read_ms": 163,
+      "total_ms": 117
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "108.505985",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=201.2, discovery;dur=0.0, model;dur=108.5, settle;dur=4.4, gateway;dur=210.5"
+  }
+}

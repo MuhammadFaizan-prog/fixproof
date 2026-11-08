@@ -1,0 +1,251 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-a-not-working",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "it's not working again",
+    "documents": [
+      {
+        "id": "sharepoint-access-request#0",
+        "title": "Get access to a SharePoint site · Steps",
+        "text": "## Steps\nOpen the site link and click **Request access**. The site owner gets an email and usually approves within one working day. The help desk cannot add you to a site without the owner's approval.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-04-17"
+        }
+      },
+      {
+        "id": "software-install-request#0",
+        "title": "Install software that is not in the portal · Steps",
+        "text": "## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-08"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#1",
+        "title": "VPN client troubleshooting policy (2024) · Notes",
+        "text": "## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "bluetooth-headset-pairing#0",
+        "title": "Bluetooth headset will not pair · Fix",
+        "text": "## Fix\nForget the headset in Bluetooth settings, put it into pairing mode (usually hold the power button for 5 seconds), and pair again. Keep it within one metre of the laptop while pairing.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-03-22"
+        }
+      },
+      {
+        "id": "mail-macos-not-syncing#0",
+        "title": "Outlook for Mac not syncing · Fix",
+        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "teams-audio-no-sound#0",
+        "title": "Teams calls with no sound · Fix",
+        "text": "## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-02"
+        }
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "title": "OneDrive sync paused or stuck · Fix",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-06-28"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Product Designer",
+        "os": "macOS 15",
+        "device": "MacBook Pro 14-inch",
+        "office": "New York",
+        "region": "US"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 6,
+        "id": "onedrive-sync-paused#0",
+        "action": "use",
+        "relevance_score": 0.9922,
+        "document_score": 0.9946,
+        "levels": {
+          "answers": 0.9922,
+          "elsewhere": 0.0023,
+          "different_case": 0.0022,
+          "unrelated": 0.0033
+        }
+      },
+      {
+        "index": 5,
+        "id": "teams-audio-no-sound#0",
+        "action": "use",
+        "relevance_score": 0.8166,
+        "document_score": 0.8406,
+        "levels": {
+          "answers": 0.8166,
+          "elsewhere": 0.024,
+          "different_case": 0.0448,
+          "unrelated": 0.1145
+        }
+      },
+      {
+        "index": 7,
+        "id": "vpn-macos-drops#1",
+        "action": "use",
+        "relevance_score": 0.6926,
+        "document_score": 0.721,
+        "levels": {
+          "answers": 0.6926,
+          "elsewhere": 0.0284,
+          "different_case": 0.0413,
+          "unrelated": 0.2377
+        }
+      },
+      {
+        "index": 4,
+        "id": "mail-macos-not-syncing#0",
+        "action": "use",
+        "relevance_score": 0.6721,
+        "document_score": 0.7089,
+        "levels": {
+          "answers": 0.6721,
+          "elsewhere": 0.0368,
+          "different_case": 0.1099,
+          "unrelated": 0.1812
+        }
+      },
+      {
+        "index": 2,
+        "id": "vpn-policy-2024#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.1087,
+        "document_score": 0.1747,
+        "levels": {
+          "answers": 0.1087,
+          "elsewhere": 0.0659,
+          "different_case": 0.0498,
+          "unrelated": 0.7756
+        }
+      },
+      {
+        "index": 3,
+        "id": "bluetooth-headset-pairing#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.1027,
+        "document_score": 0.1335,
+        "levels": {
+          "answers": 0.1027,
+          "elsewhere": 0.0308,
+          "different_case": 0.0643,
+          "unrelated": 0.8022
+        }
+      },
+      {
+        "index": 1,
+        "id": "software-install-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0067,
+        "document_score": 0.0164,
+        "levels": {
+          "answers": 0.0067,
+          "elsewhere": 0.0097,
+          "different_case": 0.0127,
+          "unrelated": 0.9708
+        }
+      },
+      {
+        "index": 0,
+        "id": "sharepoint-access-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0037,
+        "document_score": 0.009,
+        "levels": {
+          "answers": 0.0037,
+          "elsewhere": 0.0053,
+          "different_case": 0.0116,
+          "unrelated": 0.9794
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 1710
+    },
+    "timing": {
+      "total_ms": 60,
+      "rerank_ms": 59,
+      "questions_ms": 0,
+      "model_ms": 54,
+      "engine": {
+        "rows": 2406,
+        "branches": 8,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 3072,
+        "long": 0,
+        "total_ms": 54,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 51,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 160
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "57.220768",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=1.0, upstream;dur=144.8, discovery;dur=0.0, model;dur=57.2, settle;dur=4.7, gateway;dur=154.3"
+  }
+}

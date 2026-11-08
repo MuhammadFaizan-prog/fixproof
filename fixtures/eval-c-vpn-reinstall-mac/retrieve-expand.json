@@ -1,0 +1,110 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "retrieve:expand",
+  "status": 200,
+  "request": {
+    "query": "Should I reinstall the VPN client on my Mac? It keeps dropping after the update.",
+    "documents": [
+      {
+        "id": "vpn-macos-drops#1-3",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile + Script: restart the VPN agent + If it still drops",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#2-3",
+        "title": "VPN drops every few minutes on macOS · Script: restart the VPN agent + If it still drops",
+        "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Product Designer",
+        "os": "macOS 15",
+        "device": "MacBook Pro 14-inch",
+        "office": "New York",
+        "region": "US"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "vpn-macos-drops#1-3",
+        "action": "use",
+        "relevance_score": 0.989,
+        "document_score": 0.9926,
+        "levels": {
+          "answers": 0.989,
+          "elsewhere": 0.0036,
+          "different_case": 0.0043,
+          "unrelated": 0.003
+        }
+      },
+      {
+        "index": 1,
+        "id": "vpn-macos-drops#2-3",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0469,
+        "document_score": 0.2849,
+        "levels": {
+          "answers": 0.0469,
+          "elsewhere": 0.238,
+          "different_case": 0.0499,
+          "unrelated": 0.6652
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 799
+    },
+    "timing": {
+      "total_ms": 26,
+      "rerank_ms": 25,
+      "questions_ms": 0,
+      "model_ms": 20,
+      "engine": {
+        "rows": 941,
+        "branches": 2,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 1024,
+        "long": 0,
+        "total_ms": 20,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 20,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "22.465536",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=1.0, upstream;dur=110.2, discovery;dur=0.0, model;dur=22.5, settle;dur=4.1, gateway;dur=119.1"
+  }
+}

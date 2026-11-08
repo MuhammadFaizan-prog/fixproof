@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-guest-wifi-scope",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nA visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?\n\nKnowledge base:\n[1] Guest Wi-Fi in the Lahore office · Steps\n## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.\n\n[2] Guest Wi-Fi for visitors · Steps\n## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.\n\n[3] Lahore office network and power backup · Notes\n## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:\n1. Have the visitor join the NW-Guest-LHE network.\n2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit",
+        "confidence": 0.9941687611316168,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 213,
+      "total_ms": 229,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 288,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "222.224381",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.6, admit_db;dur=0.8, upstream;dur=313.9, discovery;dur=0.0, model;dur=222.2, settle;dur=4.0, gateway;dur=322.5"
+  }
+}

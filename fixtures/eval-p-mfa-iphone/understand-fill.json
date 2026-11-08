@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-p-mfa-iphone",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "I'm switching to a new iPhone. How do I move my Microsoft Authenticator over without getting locked out?",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "identity",
+        "confidence": 0.533,
+        "probabilities": {
+          "network": 0.011536050505293619,
+          "identity": 0.5912117946586782,
+          "hardware": 0.012040289682289975,
+          "software": 0.037727530229479236,
+          "printing": 0.014728930840777614,
+          "security": 0.11658270983788345,
+          "accounts": 0.1681561683774945,
+          "none": 0.048016525868103364
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.954,
+        "expected": 1.057,
+        "probabilities": {
+          "low": 0.965500576309419,
+          "medium": 0.018294669347938892,
+          "high": 0.009815868910657317,
+          "critical": 0.006388885431984801
+        }
+      },
+      "affected_service": {
+        "value": "Microsoft Authenticator",
+        "start": 48,
+        "end": 71,
+        "confidence": 0.9999998502941397,
+        "p_verify": 0.9999998502941397
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.972,
+        "probabilities": {
+          "yes": 0.013974309153763076,
+          "no": 0.9860256908462369
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 61,
+      "generate_ms": 0,
+      "total_ms": 65,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "63.048577",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.7, upstream;dur=149.8, discovery;dur=0.0, model;dur=63.0, settle;dur=4.6, gateway;dur=159.2"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-t-printer-error",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nPrint jobs are stuck in the queue with 'Error - Printing' and they won't clear. Nothing comes out of the printer.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy the automated desk stopped: the knowledge-base fix script is outside the approved scope (script in \"Print queue stuck on a Windows laptop\" is malicious: security blinding or EDR evasion).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as printing, medium severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (100% grounded); inspected the powershell script: malicious.\n\nVerified holding reply sent to the employee:\n1. Open Settings > Bluetooth & devices > Printers & scanners, select the printer and choose Open print queue.\n2. Cancel all documents, then try printing a test page",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "Print jobs are stuck in the queue with 'Error - Printing' and they won't clear. The knowledge-base fix script is outside the approved scope (script in \"Print queue stuck on a Windows laptop\" is malicious: security blinding or EDR evasion)",
+        "confidence": 0.9388484068358955,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "Security",
+        "confidence": 0.429,
+        "probabilities": {
+          "Service Desk": 0.03171884699875182,
+          "Network Operations": 0.020588310000210004,
+          "Identity & Access": 0.021113509973847967,
+          "Security": 0.5431834242666912,
+          "End-user Computing": 0.38339590876049906
+        }
+      },
+      "priority": {
+        "value": "P4",
+        "confidence": 0.305,
+        "expected": 1.866,
+        "probabilities": {
+          "P4": 0.47839784308072136,
+          "P3": 0.2497080850002028,
+          "P2": 0.19945199832262983,
+          "P1": 0.07244207359644597
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 48,
+      "generate_ms": 154,
+      "total_ms": 171,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 256,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "165.057664",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.8, upstream;dur=255.3, discovery;dur=0.0, model;dur=165.1, settle;dur=4.3, gateway;dur=264.6"
+  }
+}

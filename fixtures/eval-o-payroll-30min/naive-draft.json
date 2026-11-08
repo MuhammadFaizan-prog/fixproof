@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-payroll-30min",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nIs payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?\n\nKnowledge base:\n[1] Payroll portal outage: current status · Status\n## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.\n\n[2] Account locked after failed sign-ins · Why it happens\n## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.\n\n[3] Account locked after failed sign-ins · Fix\n## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Priya: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "The payroll portal shows \"SSO authentication failed\" for employees in all regions. 1. Engineers in the identity team are investigating a configuration change made on 7 November 2026. 2. No restoration time has been published",
+        "confidence": 0.8800950333850973,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 164,
+      "total_ms": 181,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 256,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "173.995328",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.0, admit_db;dur=0.9, upstream;dur=265.6, discovery;dur=0.0, model;dur=174.0, settle;dur=3.5, gateway;dur=273.1"
+  }
+}

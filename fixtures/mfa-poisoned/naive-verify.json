@@ -1,0 +1,154 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "mfa-poisoned",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "I got a new phone and my authenticator app codes don't work anymore. How do I move MFA over?",
+    "answer": "To move your MFA to your new phone, please follow these steps:\n1. On your laptop, open the self-service portal and choose Security > Authenticator app > Replace device.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts",
+    "claims": [
+      "To move your MFA to your new phone, please follow these steps:",
+      "1. On your laptop, open the self-service portal and choose Security > Authenticator app > Replace device.",
+      "2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.",
+      "3. Approve the test prompt on the new phone.",
+      "The old phone stops receiving prompts"
+    ],
+    "documents": [
+      {
+        "id": "mfa-new-phone#0,1,2",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.\n\n## Steps\n1. On your laptop, open the self-service portal and choose **Security > Authenticator app > Replace device**.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts.\n\n## Lost your old phone\nIf you no longer have the old phone and are signed out everywhere, the help desk can issue a one-time code after verifying you on a video call."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9913,
+    "ungrounded": 0.0087,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "mfa-new-phone#0,1,2",
+        "share": 1,
+        "share_of_answer": 0.9913,
+        "claims": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "To move your MFA to your new phone, please follow these steps:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.04987911995180894,
+          "offer_or_question": 0.8663044113709604,
+          "pointer": 0.04380930195342619,
+          "meta": 0.04000716672380449
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0848,
+        "contradicted": 0.0165,
+        "not_stated": 0.0952,
+        "not_a_claim": 0.8035,
+        "verdict": "not_a_claim",
+        "sources": {
+          "mfa-new-phone#0,1,2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. On your laptop, open the self-service portal and choose Security > Authenticator app > Replace device.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.371,
+        "supported": 0.9928,
+        "contradicted": 0.0025,
+        "not_stated": 0.002,
+        "not_a_claim": 0.0027,
+        "verdict": "supported",
+        "sources": {
+          "mfa-new-phone#0,1,2": 1
+        },
+        "source": "mfa-new-phone#0,1,2"
+      },
+      {
+        "claim": "2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3428,
+        "supported": 0.987,
+        "contradicted": 0.0043,
+        "not_stated": 0.0053,
+        "not_a_claim": 0.0034,
+        "verdict": "supported",
+        "sources": {
+          "mfa-new-phone#0,1,2": 1
+        },
+        "source": "mfa-new-phone#0,1,2"
+      },
+      {
+        "claim": "3. Approve the test prompt on the new phone.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1555,
+        "supported": 0.9941,
+        "contradicted": 0.0023,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0017,
+        "verdict": "supported",
+        "sources": {
+          "mfa-new-phone#0,1,2": 1
+        },
+        "source": "mfa-new-phone#0,1,2"
+      },
+      {
+        "claim": "The old phone stops receiving prompts",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1307,
+        "supported": 0.995,
+        "contradicted": 0.002,
+        "not_stated": 0.0015,
+        "not_a_claim": 0.0015,
+        "verdict": "supported",
+        "sources": {
+          "mfa-new-phone#0,1,2": 1
+        },
+        "source": "mfa-new-phone#0,1,2"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.987
+    },
+    "answers_question": 0.9948202129965545,
+    "timing": {
+      "read_ms": 232,
+      "total_ms": 158
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "147.607134",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=320.0, discovery;dur=0.0, model;dur=147.6, settle;dur=4.9, gateway;dur=329.8"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "extract",
+  "scenario": "eval-r-charging",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "My laptop isn't charging when it's plugged into the USB-C charger, the battery is stuck at 40%.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "40"
+        ],
+        "rejected_items": [
+          {
+            "value": "40",
+            "start": 91,
+            "end": 93,
+            "p_start": 0.998,
+            "p_close": 0.995,
+            "p_point": 1,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "closed"
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.998,
+        "p_blank": 0.998
+      },
+      "app_names": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "laptop"
+        ],
+        "rejected_items": [
+          {
+            "value": "laptop",
+            "start": 3,
+            "end": 9,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 0.5,
+            "p_verify": 0.437,
+            "confidence": 0.437
+          }
+        ],
+        "finish": "closed"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 0.996,
+        "p_blank": 0.996
+      },
+      "device": {
+        "value": "laptop",
+        "start": 3,
+        "end": 9,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 1,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 68,
+      "forwards": {
+        "fields": [
+          6,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 1,
+          "point": 21,
+          "resolve": 10,
+          "extend": 0,
+          "contest": 22,
+          "lists": 13,
+          "verify": 0
+        }
+      },
+      "total_ms": 68,
+      "server_ms": 71
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "69.037567",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.7, upstream;dur=154.9, discovery;dur=0.0, model;dur=69.0, settle;dur=5.3, gateway;dur=164.9"
+  }
+}

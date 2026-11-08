@@ -1,0 +1,539 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-w-vpn-809-linux",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "VPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.",
+    "documents": [
+      {
+        "id": "vpn-windows-drops#0",
+        "title": "VPN drops every few minutes on Windows · Symptoms",
+        "text": "## Symptoms\nThe Northwind VPN disconnects every few minutes on a Windows 11 laptop, sometimes with error 809. It usually follows a Windows update that changed the network adapter driver.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#2",
+        "title": "VPN drops every few minutes on Windows · Script: restart the VPN service",
+        "text": "## Script: restart the VPN service\nThe help desk may run this approved script on a managed Windows laptop. It restarts the Northwind VPN service only.\n\n```powershell\n# Northwind VPN service restart (Windows). Scope: this workstation only.\nRestart-Service -Name NorthwindVpnAgent\nGet-Service -Name NorthwindVpnAgent | Select-Object Status\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#0",
+        "title": "VPN drops every few minutes on macOS · Symptoms",
+        "text": "## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#1",
+        "title": "VPN drops every few minutes on Windows · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#3",
+        "title": "VPN drops every few minutes on macOS · If it still drops",
+        "text": "## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#2",
+        "title": "VPN drops every few minutes on macOS · Script: restart the VPN agent",
+        "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "pk-office-network#0",
+        "title": "Lahore office network and power backup · Notes",
+        "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-10-10"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#0",
+        "title": "VPN drops on Linux workstations · Symptoms",
+        "text": "## Symptoms\nOn Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#1",
+        "title": "VPN drops on Linux workstations · Fix",
+        "text": "## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#2",
+        "title": "VPN drops on Linux workstations · Script",
+        "text": "## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "printer-queue-recovery#0",
+        "title": "Print queue stuck on a Windows laptop · Symptoms",
+        "text": "## Symptoms\nJobs sit in the queue with status \"Printing\" or \"Error\" and nothing comes out of the floor printer. Other people can print to the same printer.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#1",
+        "title": "VPN client troubleshooting policy (2024) · Notes",
+        "text": "## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "browser-certificate-error#1",
+        "title": "Certificate error on internal sites · Fix",
+        "text": "## Fix\n1. Check the laptop date and time are set automatically.\n2. Connect to the VPN; internal sites only have trusted certificates on the corporate network.\n3. Do not click through the warning on sites that ask for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-25"
+        }
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "title": "VPN client troubleshooting policy (2026) · Policy",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-01"
+        }
+      },
+      {
+        "id": "printer-queue-recovery#2",
+        "title": "Print queue stuck on a Windows laptop · Script: printer queue recovery",
+        "text": "## Script: printer queue recovery\nIf the queue will not clear, the help desk runs this script on your laptop. Last edited 3 November 2026 by an external contractor account.\n\n```powershell\n# CHG-NW-2231 · Printer queue recovery\n# Scope: this workstation only\nGet-Service -Name Spooler\nRestart-Service -Name Spooler\nSet-MpPreference -DisableRealtimeMonitoring $true\nGet-Printer | Select-Object Name, PrinterStatus\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#0",
+        "title": "VPN client troubleshooting policy (2024) · Policy",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "title": "Outlook not syncing on Windows · Fix",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "vpn-policy-2026#1",
+        "title": "VPN client troubleshooting policy (2026) · Why this changed",
+        "text": "## Why this changed\nThe 2026 client stores the device certificate in the client's own keychain entry. This policy replaces the 2024 policy.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-01"
+        }
+      },
+      {
+        "id": "account-lockout#1",
+        "title": "Account locked after failed sign-ins · Fix",
+        "text": "## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Backend Engineer",
+        "os": "Ubuntu 24.04",
+        "device": "Dell Precision 3581",
+        "office": "Lahore",
+        "region": "PK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 16,
+        "id": "vpn-policy-2024#0",
+        "action": "use",
+        "relevance_score": 0.9927,
+        "document_score": 0.9943,
+        "levels": {
+          "answers": 0.9927,
+          "elsewhere": 0.0016,
+          "different_case": 0.002,
+          "unrelated": 0.0037
+        }
+      },
+      {
+        "index": 10,
+        "id": "vpn-linux-drops#2",
+        "action": "use",
+        "relevance_score": 0.9894,
+        "document_score": 0.9923,
+        "levels": {
+          "answers": 0.9894,
+          "elsewhere": 0.0029,
+          "different_case": 0.0032,
+          "unrelated": 0.0044
+        }
+      },
+      {
+        "index": 9,
+        "id": "vpn-linux-drops#1",
+        "action": "use",
+        "relevance_score": 0.9883,
+        "document_score": 0.9908,
+        "levels": {
+          "answers": 0.9883,
+          "elsewhere": 0.0025,
+          "different_case": 0.0038,
+          "unrelated": 0.0054
+        }
+      },
+      {
+        "index": 7,
+        "id": "pk-office-network#0",
+        "action": "use",
+        "relevance_score": 0.9773,
+        "document_score": 0.9821,
+        "levels": {
+          "answers": 0.9773,
+          "elsewhere": 0.0048,
+          "different_case": 0.008,
+          "unrelated": 0.0099
+        }
+      },
+      {
+        "index": 8,
+        "id": "vpn-linux-drops#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.331,
+        "document_score": 0.3402,
+        "levels": {
+          "answers": 0.331,
+          "elsewhere": 0.0092,
+          "different_case": 0.0672,
+          "unrelated": 0.5926
+        }
+      },
+      {
+        "index": 14,
+        "id": "vpn-policy-2026#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.277,
+        "document_score": 0.3515,
+        "levels": {
+          "answers": 0.277,
+          "elsewhere": 0.0745,
+          "different_case": 0.0412,
+          "unrelated": 0.6073
+        }
+      },
+      {
+        "index": 12,
+        "id": "vpn-policy-2024#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.1749,
+        "document_score": 0.2843,
+        "levels": {
+          "answers": 0.1749,
+          "elsewhere": 0.1094,
+          "different_case": 0.024,
+          "unrelated": 0.6917
+        }
+      },
+      {
+        "index": 13,
+        "id": "browser-certificate-error#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0125,
+        "document_score": 0.022,
+        "levels": {
+          "answers": 0.0125,
+          "elsewhere": 0.0095,
+          "different_case": 0.0161,
+          "unrelated": 0.9619
+        }
+      },
+      {
+        "index": 18,
+        "id": "vpn-policy-2026#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0055,
+        "document_score": 0.0333,
+        "levels": {
+          "answers": 0.0055,
+          "elsewhere": 0.0278,
+          "different_case": 0.0185,
+          "unrelated": 0.9482
+        }
+      },
+      {
+        "index": 11,
+        "id": "printer-queue-recovery#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0022,
+        "document_score": 0.0055,
+        "levels": {
+          "answers": 0.0022,
+          "elsewhere": 0.0033,
+          "different_case": 0.9047,
+          "unrelated": 0.0899
+        }
+      },
+      {
+        "index": 1,
+        "id": "vpn-windows-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0021,
+        "document_score": 0.0037,
+        "levels": {
+          "answers": 0.0021,
+          "elsewhere": 0.0015,
+          "different_case": 0.9898,
+          "unrelated": 0.0065
+        }
+      },
+      {
+        "index": 0,
+        "id": "vpn-windows-drops#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.002,
+        "document_score": 0.0033,
+        "levels": {
+          "answers": 0.002,
+          "elsewhere": 0.0013,
+          "different_case": 0.9877,
+          "unrelated": 0.0089
+        }
+      },
+      {
+        "index": 17,
+        "id": "outlook-not-syncing#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.002,
+        "document_score": 0.0051,
+        "levels": {
+          "answers": 0.002,
+          "elsewhere": 0.0031,
+          "different_case": 0.8775,
+          "unrelated": 0.1174
+        }
+      },
+      {
+        "index": 3,
+        "id": "vpn-windows-drops#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0019,
+        "document_score": 0.0033,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0014,
+          "different_case": 0.9867,
+          "unrelated": 0.01
+        }
+      },
+      {
+        "index": 15,
+        "id": "printer-queue-recovery#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0018,
+        "document_score": 0.0043,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0026,
+          "different_case": 0.8963,
+          "unrelated": 0.0994
+        }
+      },
+      {
+        "index": 2,
+        "id": "vpn-macos-drops#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0016,
+        "document_score": 0.0028,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0012,
+          "different_case": 0.989,
+          "unrelated": 0.0082
+        }
+      },
+      {
+        "index": 4,
+        "id": "vpn-macos-drops#3",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0016,
+        "document_score": 0.0028,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0012,
+          "different_case": 0.9871,
+          "unrelated": 0.0101
+        }
+      },
+      {
+        "index": 5,
+        "id": "vpn-macos-drops#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0016,
+        "document_score": 0.0028,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0012,
+          "different_case": 0.99,
+          "unrelated": 0.0072
+        }
+      },
+      {
+        "index": 19,
+        "id": "account-lockout#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0014,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.0011,
+          "different_case": 0.0027,
+          "unrelated": 0.9948
+        }
+      },
+      {
+        "index": 6,
+        "id": "vpn-macos-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0013,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0012,
+          "different_case": 0.9917,
+          "unrelated": 0.0058
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 4738
+    },
+    "timing": {
+      "total_ms": 195,
+      "rerank_ms": 117,
+      "questions_ms": 0,
+      "model_ms": 108,
+      "engine": {
+        "rows": 6158,
+        "branches": 20,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 8192,
+        "long": 0,
+        "total_ms": 108,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 106,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "114.300385",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.7, upstream;dur=279.6, discovery;dur=0.0, model;dur=114.3, settle;dur=5.0, gateway;dur=289.7"
+  }
+}

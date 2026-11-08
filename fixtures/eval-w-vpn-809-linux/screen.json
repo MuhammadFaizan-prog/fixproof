@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "pipeline",
+  "scenario": "eval-w-vpn-809-linux",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "VPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 74,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "VPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.",
+          "timing": {
+            "read_ms": 73,
+            "total_ms": 74
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 28,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0013597706812474852,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9954099242745993,
+            "instruction override": 0.0010459059511621247,
+            "role-play or persona jailbreak": 0.000644156237932625,
+            "system prompt or secret extraction": 0.0006062858899912524,
+            "obfuscated or encoded payload": 0.0006210041507047556,
+            "tool misuse or data exfiltration": 0.0007922821355378824,
+            "social engineering": 0.0008804413600720707
+          },
+          "severity": "none",
+          "severity_expected": 1.023,
+          "severities": {
+            "none": 0.9891217220555317,
+            "low": 0.005197199541054918,
+            "medium": 0.001562539230285198,
+            "high": 0.001697040035754193,
+            "critical": 0.0024214991373739643
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 28,
+            "total_ms": 28
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 103,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "96.641058",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.3, admit_db;dur=0.8, upstream;dur=187.6, discovery;dur=0.0, model;dur=96.6, settle;dur=4.6, gateway;dur=197.4"
+  }
+}

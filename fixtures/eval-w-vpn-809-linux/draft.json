@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-vpn-809-linux",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nVPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.\n\nKnowledge base sources:\n[1] VPN client troubleshooting policy (2026) · Policy (updated 2026-09-01)\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.\n\n[2] VPN drops on Linux workstations · Fix + Script (updated 2026-09-18)\n## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n[script omitted]\n\n[3] Lahore office network and power backup · Notes (updated 2026-10-10)\n## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+        "confidence": 0.3142734381362763,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 148,
+      "total_ms": 167,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 384,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "161.021503",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=9.4, admit_db;dur=2.2, upstream;dur=328.1, discovery;dur=0.0, model;dur=161.0, settle;dur=4.4, gateway;dur=341.8"
+  }
+}

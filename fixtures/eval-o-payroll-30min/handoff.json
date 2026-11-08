@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-payroll-30min",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nIs payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?\n\nEmployee: Product Designer, Design, New York; MacBook Pro 14-inch (macOS 15).\n\nWhy the automated desk stopped: Decide did not clear it for self-service (escalate is 90% likely).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as uncategorised, low severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (77% grounded).\n\nVerified holding reply sent to the employee:\n1. Expense claims can be submitted by email to the finance shared mailbox.\n2. Updates are posted on the IT status page every two hours",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "The employee is asking for confirmation on the exact time payroll will be fixed. The automated desk stopped because it did not clear it for self-service",
+        "confidence": 0.9884696753425003,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "Service Desk",
+        "confidence": 0.897,
+        "probabilities": {
+          "Service Desk": 0.9179436624977064,
+          "Network Operations": 0.017284867785647844,
+          "Identity & Access": 0.025450371923859,
+          "Security": 0.010359336712552151,
+          "End-user Computing": 0.028961761080234585
+        }
+      },
+      "priority": {
+        "value": "P4",
+        "confidence": 0.326,
+        "expected": 2.032,
+        "probabilities": {
+          "P4": 0.49442205530256456,
+          "P3": 0.15094076315245872,
+          "P2": 0.183069412223952,
+          "P1": 0.17156776932102472
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 47,
+      "generate_ms": 127,
+      "total_ms": 143,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 240,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "138.261344",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.2, admit_db;dur=0.9, upstream;dur=227.1, discovery;dur=0.0, model;dur=138.3, settle;dur=3.6, gateway;dur=235.0"
+  }
+}

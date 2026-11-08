@@ -1,0 +1,202 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-w-outlook-windows",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "Outlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.",
+    "answer": "I am sorry to hear you are having trouble with Outlook syncing.\n1. Check File > Office Account shows your Northwind account.\n2. Sign out and back in if it shows an error.\n3. Turn off Work Offline on the Send/Receive tab.\n4. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.\n5. If it syncs in safe mode, disable add-ins one at a time.\n6. Use Account settings > Repair if nothing helps",
+    "claims": [
+      "I am sorry to hear you are having trouble with Outlook syncing.",
+      "1. Check File > Office Account shows your Northwind account.",
+      "2. Sign out and back in if it shows an error.",
+      "3. Turn off Work Offline on the Send/Receive tab.",
+      "4. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.",
+      "5. If it syncs in safe mode, disable add-ins one at a time.",
+      "6. Use Account settings > Repair if nothing helps"
+    ],
+    "documents": [
+      {
+        "id": "outlook-not-syncing#1",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9727,
+    "ungrounded": 0.0273,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "outlook-not-syncing#1",
+        "share": 1,
+        "share_of_answer": 0.9727,
+        "claims": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I am sorry to hear you are having trouble with Outlook syncing.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.5377390590223095,
+          "offer_or_question": 0.1792406934898461,
+          "pointer": 0.018116024252107142,
+          "meta": 0.26490422323573737
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0012,
+        "contradicted": 0.0021,
+        "not_stated": 0.0139,
+        "not_a_claim": 0.9828,
+        "verdict": "not_a_claim",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Check File > Office Account shows your Northwind account.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1719,
+        "supported": 0.9921,
+        "contradicted": 0.0025,
+        "not_stated": 0.0025,
+        "not_a_claim": 0.003,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": "outlook-not-syncing#1"
+      },
+      {
+        "claim": "2. Sign out and back in if it shows an error.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1289,
+        "supported": 0.9104,
+        "contradicted": 0.0188,
+        "not_stated": 0.0291,
+        "not_a_claim": 0.0417,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": "outlook-not-syncing#1"
+      },
+      {
+        "claim": "3. Turn off Work Offline on the Send/Receive tab.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1404,
+        "supported": 0.9864,
+        "contradicted": 0.0043,
+        "not_stated": 0.0053,
+        "not_a_claim": 0.004,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": "outlook-not-syncing#1"
+      },
+      {
+        "claim": "4. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2493,
+        "supported": 0.9803,
+        "contradicted": 0.007,
+        "not_stated": 0.0066,
+        "not_a_claim": 0.0061,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": "outlook-not-syncing#1",
+        "evidence": {
+          "document": "outlook-not-syncing#1",
+          "quote": "3.",
+          "start": 169,
+          "end": 171,
+          "confidence": 0.999
+        }
+      },
+      {
+        "claim": "5. If it syncs in safe mode, disable add-ins one at a time.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1691,
+        "supported": 0.9628,
+        "contradicted": 0.0088,
+        "not_stated": 0.0152,
+        "not_a_claim": 0.0132,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": "outlook-not-syncing#1"
+      },
+      {
+        "claim": "6. Use Account settings > Repair if nothing helps",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1404,
+        "supported": 0.9908,
+        "contradicted": 0.0032,
+        "not_stated": 0.0028,
+        "not_a_claim": 0.0032,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": "outlook-not-syncing#1",
+        "evidence": {
+          "document": "outlook-not-syncing#1",
+          "quote": "4.",
+          "start": 322,
+          "end": 324,
+          "confidence": 0.998
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.9104
+    },
+    "answers_question": 0.9769310599267167,
+    "timing": {
+      "read_ms": 242,
+      "total_ms": 167
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "156.433376",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=328.7, discovery;dur=0.0, model;dur=156.4, settle;dur=4.7, gateway;dur=338.2"
+  }
+}

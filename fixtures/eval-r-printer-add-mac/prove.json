@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-printer-add-mac",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "How do I add the 4th floor printer to my MacBook? It doesn't show up in the printer list.",
+    "answer": "To add the 4th floor printer to your MacBook, follow these steps:\n1. Open System Settings > Printers & Scanners and click Add Printer.\n2. Choose the printer named after your floor, for example \"NW-LDN-3F\".\n3. Select Northwind Secure Print as the driver and click Add",
+    "claims": [
+      "To add the 4th floor printer to your MacBook, follow these steps:",
+      "1. Open System Settings > Printers & Scanners and click Add Printer.",
+      "2. Choose the printer named after your floor, for example \"NW-LDN-3F\".",
+      "3. Select Northwind Secure Print as the driver and click Add"
+    ],
+    "documents": [
+      {
+        "id": "printer-add-macos#0",
+        "text": "## Steps\n1. Open **System Settings > Printers & Scanners** and click **Add Printer**.\n2. Choose the printer named after your floor, for example \"NW-LDN-3F\".\n3. Select **Northwind Secure Print** as the driver and click **Add**.\nPrint jobs are held until you tap your badge at the printer."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.8833,
+    "ungrounded": 0.1167,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "printer-add-macos#0",
+        "share": 1,
+        "share_of_answer": 0.8833,
+        "claims": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "To add the 4th floor printer to your MacBook, follow these steps:",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2471,
+        "supported": 0.6177,
+        "contradicted": 0.0158,
+        "not_stated": 0.1615,
+        "not_a_claim": 0.2051,
+        "verdict": "supported",
+        "sources": {
+          "printer-add-macos#0": 1
+        },
+        "source": "printer-add-macos#0"
+      },
+      {
+        "claim": "1. Open System Settings > Printers & Scanners and click Add Printer.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2586,
+        "supported": 0.9914,
+        "contradicted": 0.0022,
+        "not_stated": 0.0025,
+        "not_a_claim": 0.0038,
+        "verdict": "supported",
+        "sources": {
+          "printer-add-macos#0": 1
+        },
+        "source": "printer-add-macos#0"
+      },
+      {
+        "claim": "2. Choose the printer named after your floor, for example \"NW-LDN-3F\".",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2662,
+        "supported": 0.976,
+        "contradicted": 0.0069,
+        "not_stated": 0.0097,
+        "not_a_claim": 0.0074,
+        "verdict": "supported",
+        "sources": {
+          "printer-add-macos#0": 1
+        },
+        "source": "printer-add-macos#0"
+      },
+      {
+        "claim": "3. Select Northwind Secure Print as the driver and click Add",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2281,
+        "supported": 0.9402,
+        "contradicted": 0.0115,
+        "not_stated": 0.0323,
+        "not_a_claim": 0.016,
+        "verdict": "supported",
+        "sources": {
+          "printer-add-macos#0": 1
+        },
+        "source": "printer-add-macos#0"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.6177
+    },
+    "answers_question": 0.993928597092651,
+    "timing": {
+      "read_ms": 158,
+      "total_ms": 112
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "103.942593",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.9, upstream;dur=197.0, discovery;dur=0.0, model;dur=103.9, settle;dur=4.4, gateway;dur=206.5"
+  }
+}

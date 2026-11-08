@@ -1,0 +1,146 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-vpn-linux",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "The VPN on my Ubuntu workstation keeps disconnecting every few minutes and I have to reconnect northwind-vpn by hand.",
+    "answer": "On Ubuntu 24.04 engineering workstations, the Northwind VPN drops after the laptop sleeps or after a kernel update. 1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`. 2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+    "claims": [
+      "On Ubuntu 24.04 engineering workstations, the Northwind VPN drops after the laptop sleeps or after a kernel update.",
+      "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.",
+      "2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      },
+      {
+        "id": "vpn-linux-drops#0,1,2",
+        "text": "## Symptoms\nOn Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.\n\n## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```"
+      },
+      {
+        "id": "pk-office-network#0",
+        "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9979,
+    "ungrounded": 0.0021,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-linux-drops#0,1,2",
+        "share": 0.9986,
+        "share_of_answer": 0.9965,
+        "claims": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "pk-office-network#0",
+        "share": 0.0009,
+        "share_of_answer": 0.0009,
+        "claims": []
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.0006,
+        "share_of_answer": 0.0006,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "On Ubuntu 24.04 engineering workstations, the Northwind VPN drops after the laptop sleeps or after a kernel update.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3686,
+        "supported": 0.9982,
+        "contradicted": 0.0006,
+        "not_stated": 0.0005,
+        "not_a_claim": 0.0006,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0005,
+          "vpn-linux-drops#0,1,2": 0.9988,
+          "pk-office-network#0": 0.0007
+        },
+        "source": "vpn-linux-drops#0,1,2",
+        "evidence": {
+          "document": "vpn-linux-drops#0,1,2",
+          "quote": "On Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.",
+          "start": 12,
+          "end": 147,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2885,
+        "supported": 0.9975,
+        "contradicted": 0.0008,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.0009,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0007,
+          "vpn-linux-drops#0,1,2": 0.9983,
+          "pk-office-network#0": 0.001
+        },
+        "source": "vpn-linux-drops#0,1,2"
+      },
+      {
+        "claim": "2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3429,
+        "supported": 0.9979,
+        "contradicted": 0.0007,
+        "not_stated": 0.0006,
+        "not_a_claim": 0.0008,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0006,
+          "vpn-linux-drops#0,1,2": 0.9985,
+          "pk-office-network#0": 0.0009
+        },
+        "source": "vpn-linux-drops#0,1,2"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9975
+    },
+    "answers_question": 0.9745988045334797,
+    "timing": {
+      "read_ms": 196,
+      "total_ms": 132
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "124.978432",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=219.7, discovery;dur=0.0, model;dur=125.0, settle;dur=4.6, gateway;dur=229.3"
+  }
+}

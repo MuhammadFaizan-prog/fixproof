@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-bluetooth",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy Bluetooth headset won't pair with my laptop anymore. It shows connected for a second and then drops.\n\nKnowledge base:\n[1] Bluetooth headset will not pair · Fix\n## Fix\nForget the headset in Bluetooth settings, put it into pairing mode (usually hold the power button for 5 seconds), and pair again. Keep it within one metre of the laptop while pairing.\n\n[2] VPN drops on Linux workstations · Symptoms\n## Symptoms\nOn Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.\n\n[3] Corporate Wi-Fi asks for a certificate · Fix\n## Fix\nChoose the network \"Northwind-Corp\" and accept the certificate issued to \"radius.northwind.example\". If the laptop shows a different certificate name, do not connect and tell the help desk.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I'm sorry to hear your Bluetooth headset is having connection issues. Please try the following steps:\n1. Forget the headset in Bluetooth settings.\n2. Put it into pairing mode (usually hold the power button for 5 seconds).\n3. Pair again, keeping it within one metre of the laptop while pairing",
+        "confidence": 0.994116912404292,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 205,
+      "total_ms": 221,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 240,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "214.442528",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.8, upstream;dur=305.5, discovery;dur=0.0, model;dur=214.4, settle;dur=4.4, gateway;dur=314.7"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nShould I reinstall the VPN client on my Mac? It keeps dropping after the update.\n\nKnowledge base sources:\n[1] VPN client troubleshooting policy (2026) · Policy (updated 2026-09-01)\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.\n\n[2] VPN drops every few minutes on macOS · Fix: reset the VPN profile + Script: restart the VPN agent + If it still drops (updated 2026-10-02)\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n[script omitted]\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (macOS 15, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Never uninstall or reinstall the VPN client yourself. 1. Click the Northwind VPN icon in the menu bar and choose Disconnect. 2. Choose Settings > Reset profile. 3. Reconnect and sign in with your work account and MFA",
+        "confidence": 0.9294404037686416,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 164,
+      "total_ms": 184,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 448,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "8",
+    "x-clocked-model-ms": "177.750336",
+    "x-clocked-cost-usd": "0.001594",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=268.7, discovery;dur=0.0, model;dur=177.8, settle;dur=4.3, gateway;dur=277.9"
+  }
+}

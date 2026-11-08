@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-charging",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "My laptop isn't charging when it's plugged into the USB-C charger, the battery is stuck at 40%.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "hardware",
+        "confidence": 0.926,
+        "probabilities": {
+          "network": 0.005187752336428968,
+          "identity": 0.0036412430887029818,
+          "hardware": 0.934903196522214,
+          "software": 0.005718789413111951,
+          "printing": 0.004983839446753313,
+          "security": 0.005814901272032555,
+          "accounts": 0.006410056225503257,
+          "none": 0.03334022169525299
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.578,
+        "expected": 1.982,
+        "probabilities": {
+          "low": 0.18121701434137674,
+          "medium": 0.6837107457560537,
+          "high": 0.10738123531032066,
+          "critical": 0.0276910045922489
+        }
+      },
+      "affected_service": {
+        "value": "laptop",
+        "start": 3,
+        "end": 9,
+        "confidence": 0.9999999704486284,
+        "p_verify": 0.9999999704486284
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.946,
+        "probabilities": {
+          "yes": 0.026828008930285807,
+          "no": 0.9731719910697142
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 59,
+      "generate_ms": 0,
+      "total_ms": 63,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "60.430976",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.8, upstream;dur=147.1, discovery;dur=0.0, model;dur=60.4, settle;dur=4.7, gateway;dur=156.7"
+  }
+}

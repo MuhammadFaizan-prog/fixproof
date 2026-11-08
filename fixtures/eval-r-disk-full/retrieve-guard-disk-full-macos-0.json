@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "injection",
+  "scenario": "eval-r-disk-full",
+  "step": "retrieve:guard:disk-full-macos#0",
+  "status": 200,
+  "request": {
+    "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.00272715209770924,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9933367181741843,
+      "instruction override": 0.0015772425768946496,
+      "role-play or persona jailbreak": 0.0009146209856983674,
+      "system prompt or secret extraction": 0.0010066930699326505,
+      "obfuscated or encoded payload": 0.0009392192265937796,
+      "tool misuse or data exfiltration": 0.0010615562691731872,
+      "social engineering": 0.0011639496975230242
+    },
+    "severity": "none",
+    "severity_expected": 1.015,
+    "severities": {
+      "none": 0.9931616148205161,
+      "low": 0.0027059159609789923,
+      "medium": 0.0012459102526673539,
+      "high": 0.0012461271413772913,
+      "critical": 0.001640431824460238
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 29,
+      "total_ms": 29
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "25.549248",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.8, upstream;dur=114.4, discovery;dur=0.0, model;dur=25.5, settle;dur=4.6, gateway;dur=123.8"
+  }
+}

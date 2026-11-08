@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-bluetooth",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy Bluetooth headset won't pair with my laptop anymore. It shows connected for a second and then drops.\n\nKnowledge base sources:\n[1] Bluetooth headset will not pair · Fix (updated 2026-03-22)\n## Fix\nForget the headset in Bluetooth settings, put it into pairing mode (usually hold the power button for 5 seconds), and pair again. Keep it within one metre of the laptop while pairing.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear you are having trouble with your Bluetooth headset. 1. Forget the headset in Bluetooth settings. 2. Put it into pairing mode, usually by holding the power button for 5 seconds. 3. Pair it again while keeping it within one metre of the laptop",
+        "confidence": 0.9641154639617139,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 218,
+      "total_ms": 236,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "10",
+    "x-clocked-model-ms": "228.068094",
+    "x-clocked-cost-usd": "0.001992",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.2, admit_db;dur=2.2, upstream;dur=397.0, discovery;dur=0.0, model;dur=228.1, settle;dur=4.3, gateway;dur=407.5"
+  }
+}

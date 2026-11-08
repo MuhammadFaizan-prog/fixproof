@@ -1,0 +1,265 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-charging",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "My laptop isn't charging when it's plugged into the USB-C charger, the battery is stuck at 40%.",
+    "answer": "I'm sorry to hear your laptop isn't charging. Please try the following steps:\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\nIf the laptop does not charge from its own charger either, it needs a hardware check. Please raise a ticket with your asset tag so the hardware team can swap the charger or book a repair",
+    "claims": [
+      "I'm sorry to hear your laptop isn't charging.",
+      "Please try the following steps:",
+      "1. Plug the charger straight into the laptop instead of the dock.",
+      "If it charges, the dock is the problem.",
+      "2. Try a different USB-C port on the laptop.",
+      "On ThinkPads, use the port nearest the hinge.",
+      "3. Look at the charger wattage.",
+      "Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.",
+      "If the laptop does not charge from its own charger either, it needs a hardware check.",
+      "Please raise a ticket with your asset tag so the hardware team can swap the charger or book a repair"
+    ],
+    "documents": [
+      {
+        "id": "laptop-not-charging#0,1,2",
+        "text": "## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\n\n## Reset the dock\nUnplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.\n\n## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9935,
+    "ungrounded": 0.0065,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-not-charging#0,1,2",
+        "share": 1,
+        "share_of_answer": 0.9935,
+        "claims": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I'm sorry to hear your laptop isn't charging.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.08001385547831516,
+          "offer_or_question": 0.7948443787675723,
+          "pointer": 0.022163200843060563,
+          "meta": 0.10297856491105195
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0016,
+        "contradicted": 0.0021,
+        "not_stated": 0.0119,
+        "not_a_claim": 0.9844,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "Please try the following steps:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.01031554640840693,
+          "offer_or_question": 0.9257774215238564,
+          "pointer": 0.045776844710523776,
+          "meta": 0.018130187357212845
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0058,
+        "contradicted": 0.0078,
+        "not_stated": 0.0446,
+        "not_a_claim": 0.9418,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Plug the charger straight into the laptop instead of the dock.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.165,
+        "supported": 0.9926,
+        "contradicted": 0.0023,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0031,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "If it charges, the dock is the problem.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.099,
+        "supported": 0.9944,
+        "contradicted": 0.0022,
+        "not_stated": 0.0017,
+        "not_a_claim": 0.0018,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "2. Try a different USB-C port on the laptop.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1117,
+        "supported": 0.9932,
+        "contradicted": 0.0021,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0027,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "On ThinkPads, use the port nearest the hinge.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1142,
+        "supported": 0.9936,
+        "contradicted": 0.0024,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0019,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "3. Look at the charger wattage.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.0787,
+        "supported": 0.9929,
+        "contradicted": 0.0026,
+        "not_stated": 0.0019,
+        "not_a_claim": 0.0026,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2157,
+        "supported": 0.9942,
+        "contradicted": 0.0022,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0018,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2",
+        "evidence": {
+          "document": "laptop-not-charging#0,1,2",
+          "quote": "Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.",
+          "start": 249,
+          "end": 334,
+          "confidence": 0.773
+        }
+      },
+      {
+        "claim": "If the laptop does not charge from its own charger either, it needs a hardware check.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2157,
+        "supported": 0.9933,
+        "contradicted": 0.0021,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0027,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2",
+        "evidence": {
+          "document": "laptop-not-charging#0,1,2",
+          "quote": "If the laptop does not charge from its own charger either, it needs a hardware check.",
+          "start": 465,
+          "end": 550,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "Please raise a ticket with your asset tag so the hardware team can swap the charger or book a repair",
+        "kind": "pointer",
+        "kinds": {
+          "acknowledgement": 0.003195227349589546,
+          "offer_or_question": 0.005147498311932045,
+          "pointer": 0.9875109351604415,
+          "meta": 0.004146339178036881
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.3869,
+        "contradicted": 0.0104,
+        "not_stated": 0.0595,
+        "not_a_claim": 0.5432,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0,
+      1,
+      9
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.9926
+    },
+    "answers_question": 0.9943848057941391,
+    "timing": {
+      "read_ms": 328,
+      "total_ms": 216
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "205.55011",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.9, upstream;dur=301.2, discovery;dur=0.0, model;dur=205.6, settle;dur=4.9, gateway;dur=311.2"
+  }
+}

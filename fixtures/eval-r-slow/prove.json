@@ -1,0 +1,137 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-slow",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My laptop has been really slow since Monday, the fans are loud and Excel takes ages to open.",
+    "answer": "I am sorry to hear your laptop is slow.\n1. Restart the laptop.\n2. Check free disk space.\n3. Install pending updates from the software portal",
+    "claims": [
+      "I am sorry to hear your laptop is slow.",
+      "1. Restart the laptop.",
+      "2. Check free disk space.",
+      "3. Install pending updates from the software portal"
+    ],
+    "documents": [
+      {
+        "id": "laptop-slow-performance#0",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9933,
+    "ungrounded": 0.0067,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-slow-performance#0",
+        "share": 1,
+        "share_of_answer": 0.9933,
+        "claims": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I am sorry to hear your laptop is slow.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.8632220124495112,
+          "offer_or_question": 0.07199949441821156,
+          "pointer": 0.01597109229239599,
+          "meta": 0.04880740083988121
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.001,
+        "contradicted": 0.002,
+        "not_stated": 0.011,
+        "not_a_claim": 0.986,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-slow-performance#0": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Restart the laptop.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2245,
+        "supported": 0.9926,
+        "contradicted": 0.0018,
+        "not_stated": 0.0017,
+        "not_a_claim": 0.0039,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#0": 1
+        },
+        "source": "laptop-slow-performance#0"
+      },
+      {
+        "claim": "2. Check free disk space.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2551,
+        "supported": 0.9907,
+        "contradicted": 0.0028,
+        "not_stated": 0.0025,
+        "not_a_claim": 0.004,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#0": 1
+        },
+        "source": "laptop-slow-performance#0"
+      },
+      {
+        "claim": "3. Install pending updates from the software portal",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5204,
+        "supported": 0.9949,
+        "contradicted": 0.0018,
+        "not_stated": 0.0014,
+        "not_a_claim": 0.002,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#0": 1
+        },
+        "source": "laptop-slow-performance#0"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.9907
+    },
+    "answers_question": 0.9855672380502066,
+    "timing": {
+      "read_ms": 166,
+      "total_ms": 121
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "109.727202",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.7, admit_db;dur=2.1, upstream;dur=205.6, discovery;dur=0.0, model;dur=109.7, settle;dur=4.7, gateway;dur=217.0"
+  }
+}

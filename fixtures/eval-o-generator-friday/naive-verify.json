@@ -1,0 +1,126 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-o-generator-friday",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "The generator switched over and now my VPN is gone. IT said yesterday this would be fixed permanently by Friday, right?",
+    "answer": "If the VPN dropped when the generator switched over, please wait for the Wi-Fi to return and then reconnect.\n\n1. Wait for the Wi-Fi to be back.\n2. Reconnect rather than resetting the profile",
+    "claims": [
+      "If the VPN dropped when the generator switched over, please wait for the Wi-Fi to return and then reconnect.",
+      "1. Wait for the Wi-Fi to be back.",
+      "2. Reconnect rather than resetting the profile"
+    ],
+    "documents": [
+      {
+        "id": "vpn-linux-drops#1,2",
+        "text": "## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```"
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.0073,
+    "ungrounded": 0.9927,
+    "verdict": "contradicted",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0,
+        "share_of_answer": 0.0052,
+        "claims": []
+      },
+      {
+        "id": "vpn-linux-drops#1,2",
+        "share": 0,
+        "share_of_answer": 0.0021,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "If the VPN dropped when the generator switched over, please wait for the Wi-Fi to return and then reconnect.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5775,
+        "supported": 0.0024,
+        "contradicted": 0.0019,
+        "not_stated": 0.9928,
+        "not_a_claim": 0.0029,
+        "verdict": "not_stated",
+        "sources": {
+          "vpn-linux-drops#1,2": 0.5014,
+          "vpn-policy-2026#0": 0.4986
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Wait for the Wi-Fi to be back.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1765,
+        "supported": 0.0052,
+        "contradicted": 0.0047,
+        "not_stated": 0.9836,
+        "not_a_claim": 0.0065,
+        "verdict": "not_stated",
+        "sources": {
+          "vpn-linux-drops#1,2": 0.5412,
+          "vpn-policy-2026#0": 0.4588
+        },
+        "source": null
+      },
+      {
+        "claim": "2. Reconnect rather than resetting the profile",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.246,
+        "supported": 0.0202,
+        "contradicted": 0.9641,
+        "not_stated": 0.0104,
+        "not_a_claim": 0.0053,
+        "verdict": "contradicted",
+        "sources": {
+          "vpn-linux-drops#1,2": 0.181,
+          "vpn-policy-2026#0": 0.819
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      0,
+      1,
+      2
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.0024
+    },
+    "answers_question": 0.11346447806437776,
+    "timing": {
+      "read_ms": 138,
+      "total_ms": 90
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "81.878366",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=3.8, admit_db;dur=0.8, upstream;dur=174.4, discovery;dur=0.0, model;dur=81.9, settle;dur=3.6, gateway;dur=181.8"
+  }
+}

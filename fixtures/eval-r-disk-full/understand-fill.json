@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-disk-full",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "My Mac keeps warning that the startup disk is almost full and apps freeze when I save files.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": null,
+        "confidence": 0.463,
+        "probabilities": {
+          "network": 0.017770294832105963,
+          "identity": 0.013327296837473935,
+          "hardware": 0.15655428735319324,
+          "software": 0.24424662732968727,
+          "printing": 0.013305068678451772,
+          "security": 0.012788084179357444,
+          "accounts": 0.011561206161458056,
+          "none": 0.5304471346282723
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.72,
+        "expected": 2.107,
+        "probabilities": {
+          "low": 0.068089375553148,
+          "medium": 0.7899895846511472,
+          "high": 0.10891050858020072,
+          "critical": 0.03301053121550406
+        }
+      },
+      "affected_service": {
+        "value": "Mac",
+        "start": 3,
+        "end": 6,
+        "confidence": 0.9999998334388467,
+        "p_verify": 0.9999998334388467
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.944,
+        "probabilities": {
+          "yes": 0.028121560285994773,
+          "no": 0.9718784397140052
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 58,
+      "generate_ms": 0,
+      "total_ms": 62,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "59.695486",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=223.3, discovery;dur=0.0, model;dur=59.7, settle;dur=4.4, gateway;dur=232.5"
+  }
+}

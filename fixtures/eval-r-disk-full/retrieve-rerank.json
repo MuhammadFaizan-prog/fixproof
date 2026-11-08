@@ -1,0 +1,469 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-r-disk-full",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "My Mac keeps warning that the startup disk is almost full and apps freeze when I save files.",
+    "documents": [
+      {
+        "id": "disk-full-macos#0",
+        "title": "Mac says the disk is almost full · Fix",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-19"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "title": "Laptop is slow or behaving strangely · First steps",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "mail-macos-not-syncing#0",
+        "title": "Outlook for Mac not syncing · Fix",
+        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "title": "OneDrive sync paused or stuck · Fix",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-06-28"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#2",
+        "title": "VPN drops every few minutes on macOS · Script: restart the VPN agent",
+        "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#1",
+        "title": "Laptop is slow or behaving strangely · Tell us what you see",
+        "text": "## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "keyboard-layout-uk#0",
+        "title": "Keyboard types the wrong symbols · Fix",
+        "text": "## Fix\nIf @ and \" are swapped, the layout is set to US instead of UK. On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\". On a Mac open **System Settings > Keyboard > Input Sources** and add \"British\".",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "uk",
+          "updated": "2026-02-11"
+        }
+      },
+      {
+        "id": "teams-audio-no-sound#0",
+        "title": "Teams calls with no sound · Fix",
+        "text": "## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-02"
+        }
+      },
+      {
+        "id": "password-reset-self-service#0",
+        "title": "Reset your password · Steps",
+        "text": "## Steps\n1. Go to the self-service portal and choose **Forgot password**.\n2. Approve the MFA prompt, then choose a new password of at least 14 characters.\n3. On a Mac, update the password in **Keychain Access** when prompted.\nThe help desk never asks for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "dock-monitor-not-detected#0",
+        "title": "External monitor not detected on the dock · Fix",
+        "text": "## Fix\n1. Check the monitor is on the right input (DisplayPort or HDMI).\n2. Unplug the laptop from the dock and plug it back in.\n3. On Windows press **Win + P** and choose **Extend**. On a Mac open **System Settings > Displays** and click **Detect Displays** while holding Option.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#0",
+        "title": "VPN client troubleshooting policy (2024) · Policy",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "browser-certificate-error#1",
+        "title": "Certificate error on internal sites · Fix",
+        "text": "## Fix\n1. Check the laptop date and time are set automatically.\n2. Connect to the VPN; internal sites only have trusted certificates on the corporate network.\n3. Do not click through the warning on sites that ask for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-25"
+        }
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "title": "USB storage is blocked on company laptops · Policy",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
+        "id": "usb-storage-encrypted#0",
+        "title": "Encrypted USB drives for client handover · Policy",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#2",
+        "title": "Laptop is slow or behaving strangely · Possible security issue",
+        "text": "## Possible security issue\nUnexpected pop-ups, new browser toolbars or files you did not create can be signs of malware. Disconnect from the network and contact the help desk by phone.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "account-lockout#0",
+        "title": "Account locked after failed sign-ins · Why it happens",
+        "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Product Designer",
+        "os": "macOS 15",
+        "device": "MacBook Pro 14-inch",
+        "office": "New York",
+        "region": "US"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "disk-full-macos#0",
+        "action": "use",
+        "relevance_score": 0.9959,
+        "document_score": 0.9969,
+        "levels": {
+          "answers": 0.9959,
+          "elsewhere": 0.001,
+          "different_case": 0.0011,
+          "unrelated": 0.002
+        }
+      },
+      {
+        "index": 1,
+        "id": "laptop-slow-performance#0",
+        "action": "use",
+        "relevance_score": 0.9923,
+        "document_score": 0.9938,
+        "levels": {
+          "answers": 0.9923,
+          "elsewhere": 0.0015,
+          "different_case": 0.0037,
+          "unrelated": 0.0025
+        }
+      },
+      {
+        "index": 5,
+        "id": "laptop-slow-performance#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.041,
+        "document_score": 0.2135,
+        "levels": {
+          "answers": 0.041,
+          "elsewhere": 0.1726,
+          "different_case": 0.0436,
+          "unrelated": 0.7428
+        }
+      },
+      {
+        "index": 14,
+        "id": "laptop-slow-performance#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0036,
+        "document_score": 0.0092,
+        "levels": {
+          "answers": 0.0036,
+          "elsewhere": 0.0056,
+          "different_case": 0.0153,
+          "unrelated": 0.9755
+        }
+      },
+      {
+        "index": 3,
+        "id": "onedrive-sync-paused#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.003,
+        "document_score": 0.0081,
+        "levels": {
+          "answers": 0.003,
+          "elsewhere": 0.0051,
+          "different_case": 0.0168,
+          "unrelated": 0.9751
+        }
+      },
+      {
+        "index": 2,
+        "id": "mail-macos-not-syncing#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0019,
+        "document_score": 0.0034,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0015,
+          "different_case": 0.0047,
+          "unrelated": 0.9919
+        }
+      },
+      {
+        "index": 6,
+        "id": "keyboard-layout-uk#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.0035,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0017,
+          "different_case": 0.0117,
+          "unrelated": 0.9848
+        }
+      },
+      {
+        "index": 12,
+        "id": "usb-storage-blocked#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.0039,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0022,
+          "different_case": 0.004,
+          "unrelated": 0.992
+        }
+      },
+      {
+        "index": 8,
+        "id": "password-reset-self-service#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0024,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0008,
+          "different_case": 0.0025,
+          "unrelated": 0.995
+        }
+      },
+      {
+        "index": 11,
+        "id": "browser-certificate-error#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0015,
+        "document_score": 0.0023,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0007,
+          "different_case": 0.0015,
+          "unrelated": 0.9962
+        }
+      },
+      {
+        "index": 9,
+        "id": "dock-monitor-not-detected#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0014,
+        "document_score": 0.003,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.0016,
+          "different_case": 0.0038,
+          "unrelated": 0.9932
+        }
+      },
+      {
+        "index": 16,
+        "id": "vpn-macos-drops#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0019,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0007,
+          "different_case": 0.0019,
+          "unrelated": 0.9961
+        }
+      },
+      {
+        "index": 4,
+        "id": "vpn-macos-drops#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0006,
+          "different_case": 0.0015,
+          "unrelated": 0.9969
+        }
+      },
+      {
+        "index": 7,
+        "id": "teams-audio-no-sound#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0006,
+          "different_case": 0.0016,
+          "unrelated": 0.9967
+        }
+      },
+      {
+        "index": 15,
+        "id": "account-lockout#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0016,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0005,
+          "different_case": 0.0011,
+          "unrelated": 0.9973
+        }
+      },
+      {
+        "index": 10,
+        "id": "vpn-policy-2024#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0016,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0005,
+          "different_case": 0.0013,
+          "unrelated": 0.9972
+        }
+      },
+      {
+        "index": 13,
+        "id": "usb-storage-encrypted#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0016,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0005,
+          "different_case": 0.0011,
+          "unrelated": 0.9973
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 3963
+    },
+    "timing": {
+      "total_ms": 94,
+      "rerank_ms": 93,
+      "questions_ms": 0,
+      "model_ms": 85,
+      "engine": {
+        "rows": 5170,
+        "branches": 17,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 6144,
+        "long": 0,
+        "total_ms": 85,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 83,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "90.989632",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=0.9, upstream;dur=178.3, discovery;dur=0.0, model;dur=91.0, settle;dur=5.5, gateway;dur=189.0"
+  }
+}

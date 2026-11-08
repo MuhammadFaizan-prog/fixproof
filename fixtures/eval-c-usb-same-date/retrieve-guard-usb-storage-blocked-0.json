@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "injection",
+  "scenario": "eval-c-usb-same-date",
+  "step": "retrieve:guard:usb-storage-blocked#0",
+  "status": 200,
+  "request": {
+    "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.014636463025551438,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9881804166462707,
+      "instruction override": 0.0023304163689915483,
+      "role-play or persona jailbreak": 0.0014305279392151048,
+      "system prompt or secret extraction": 0.0019677927441660837,
+      "obfuscated or encoded payload": 0.001453453475299008,
+      "tool misuse or data exfiltration": 0.002396470690132482,
+      "social engineering": 0.00224092213592512
+    },
+    "severity": "none",
+    "severity_expected": 1.025,
+    "severities": {
+      "none": 0.9887351516319748,
+      "low": 0.004679503470982064,
+      "medium": 0.002044669397681303,
+      "high": 0.001981408641299911,
+      "critical": 0.002559266858061938
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 28,
+      "total_ms": 28
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "25.340384",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=112.2, discovery;dur=0.0, model;dur=25.3, settle;dur=4.2, gateway;dur=121.3"
+  }
+}

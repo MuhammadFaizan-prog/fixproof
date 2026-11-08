@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-slow",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy laptop has been really slow since Monday, the fans are loud and Excel takes ages to open.\n\nKnowledge base sources:\n[1] Laptop is slow or behaving strangely · First steps (updated 2026-08-30)\n## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Windows 11, London) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear your laptop is slow.\n1. Restart the laptop.\n2. Check free disk space.\n3. Install pending updates from the software portal",
+        "confidence": 0.9098332844377036,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 121,
+      "total_ms": 139,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 192,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "133.088065",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=223.9, discovery;dur=0.0, model;dur=133.1, settle;dur=4.4, gateway;dur=233.3"
+  }
+}

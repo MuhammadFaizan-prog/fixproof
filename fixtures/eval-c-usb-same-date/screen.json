@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "pipeline",
+  "scenario": "eval-c-usb-same-date",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "Can I use my encrypted USB stick to hand files to a client at their office tomorrow?",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 79,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "Can I use my encrypted USB stick to hand files to a client at their office tomorrow?",
+          "timing": {
+            "read_ms": 78,
+            "total_ms": 79
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 29,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0014131039900563414,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9938576351712385,
+            "instruction override": 0.0016422457487886735,
+            "role-play or persona jailbreak": 0.0008083808697186554,
+            "system prompt or secret extraction": 0.0008719380830059273,
+            "obfuscated or encoded payload": 0.0008453048521733095,
+            "tool misuse or data exfiltration": 0.0009966080253506295,
+            "social engineering": 0.0009778872497243202
+          },
+          "severity": "none",
+          "severity_expected": 1.018,
+          "severities": {
+            "none": 0.9916368780907523,
+            "low": 0.0037675694952983207,
+            "medium": 0.0013936424465431356,
+            "high": 0.001403541935871098,
+            "critical": 0.0017983680315351522
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 28,
+            "total_ms": 28
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 108,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "100.962141",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.4, admit_db;dur=0.8, upstream;dur=193.1, discovery;dur=0.0, model;dur=101.0, settle;dur=4.5, gateway;dur=201.9"
+  }
+}

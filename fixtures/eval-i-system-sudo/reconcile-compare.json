@@ -1,0 +1,142 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "compare",
+  "scenario": "eval-i-system-sudo",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "admin-rights-policy#0,1",
+        "text": "## Policy\nThe help desk does not grant local administrator or Domain Admin rights. Requests for elevated access go through the access portal with manager approval and a security review. Approved access is time-limited.\n\n## What to do instead\nMost software can be installed from the software portal without admin rights. If you need something that is not in the portal, raise a software request."
+      },
+      {
+        "id": "software-install-request#0",
+        "text": "## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "overlaps",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "admin-rights-policy#0,1",
+        "duplicates": [],
+        "overlaps": [
+          "software-install-request#0"
+        ],
+        "conflicts": []
+      },
+      {
+        "id": "software-install-request#0",
+        "duplicates": [],
+        "overlaps": [
+          "admin-rights-policy#0,1"
+        ],
+        "conflicts": []
+      }
+    ],
+    "pairs": [
+      {
+        "a": "admin-rights-policy#0,1",
+        "b": "software-install-request#0",
+        "relation": "overlapping",
+        "related": 0.9988,
+        "probabilities": {
+          "same": 0.0027,
+          "overlapping": 0.9941,
+          "conflicting": 0.002,
+          "unrelated": 0.0012
+        },
+        "duplicates": [
+          {
+            "kind": "restated",
+            "kinds": {
+              "verbatim": 0.0041,
+              "restated": 0.9866,
+              "elaborated": 0.0051,
+              "different": 0.0042
+            },
+            "confidence": 0.9958,
+            "a": {
+              "document": "admin-rights-policy#0,1",
+              "quote": "## What to do instead",
+              "start": 220,
+              "end": 241,
+              "confidence": 1
+            },
+            "b": {
+              "document": "software-install-request#0",
+              "quote": "## Steps\nMost approved software is in the software portal and installs without admin rights.",
+              "start": 0,
+              "end": 92,
+              "confidence": 1
+            }
+          },
+          {
+            "kind": "restated",
+            "kinds": {
+              "verbatim": 0.0196,
+              "restated": 0.5408,
+              "elaborated": 0.0432,
+              "different": 0.3964
+            },
+            "confidence": 0.6036,
+            "a": {
+              "document": "admin-rights-policy#0,1",
+              "quote": "If you need something that is not in the portal, raise a software request.",
+              "start": 320,
+              "end": 394,
+              "confidence": 1
+            },
+            "b": {
+              "document": "software-install-request#0",
+              "quote": "For anything else, raise a software request with the name, version and business reason.",
+              "start": 93,
+              "end": 180,
+              "confidence": 0.987
+            }
+          }
+        ],
+        "conflicts": []
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [
+      0
+    ],
+    "conflicts": [],
+    "related_pairs": [
+      0
+    ],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 18,
+      "passage_reads": 1,
+      "passages_ms": 46,
+      "passages": 2,
+      "counterparts_ms": 65
+    },
+    "timing": {
+      "read_ms": 129,
+      "total_ms": 131
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "123.928222",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.7, upstream;dur=215.7, discovery;dur=0.0, model;dur=123.9, settle;dur=4.6, gateway;dur=225.0"
+  }
+}

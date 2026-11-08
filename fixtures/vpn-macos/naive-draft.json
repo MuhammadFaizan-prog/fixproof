@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "vpn-macos",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nHi, it's Priya Natarajan. My VPN keeps dropping every five minutes since yesterday's update, error 809. I have a client demo at 3pm today. I'm on my MacBook, NW-MBP-0193. You can reach me at priya.n@northwind.example.\n\nKnowledge base:\n[1] VPN drops every few minutes on macOS · Symptoms\n## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.\n\n[2] VPN drops every few minutes on Windows · Symptoms\n## Symptoms\nThe Northwind VPN disconnects every few minutes on a Windows 11 laptop, sometimes with error 809. It usually follows a Windows update that changed the network adapter driver.\n\n[3] VPN drops every few minutes on Windows · Fix: reset the VPN profile\n## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Priya: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Hi Priya, I'm sorry to hear you're experiencing VPN issues before your demo. Since this started after an update on your macOS device, it is likely due to a stale VPN profile. Please follow these steps:\n\n1. Right-click the Northwind VPN icon and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt",
+        "confidence": 0.234860738932773,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 301,
+      "total_ms": 321,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 336,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "13",
+    "x-clocked-model-ms": "310.496738",
+    "x-clocked-cost-usd": "0.002590",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=42.6, admit_db;dur=9.1, upstream;dur=644.5, discovery;dur=0.0, model;dur=310.5, settle;dur=5.3, gateway;dur=692.4"
+  }
+}

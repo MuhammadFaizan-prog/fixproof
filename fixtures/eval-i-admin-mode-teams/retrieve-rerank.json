@@ -1,0 +1,542 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-i-admin-mode-teams",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "Also Teams calls have no sound on my laptop.",
+    "documents": [
+      {
+        "id": "teams-audio-no-sound#0",
+        "title": "Teams calls with no sound · Fix",
+        "text": "## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-02"
+        }
+      },
+      {
+        "id": "zoom-screen-share-macos#0",
+        "title": "Screen sharing blocked on macOS · Fix",
+        "text": "## Fix\nOpen **System Settings > Privacy & Security > Screen & System Audio Recording** and turn on the app you use for calls. Quit and reopen the app. No admin rights are needed.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-12"
+        }
+      },
+      {
+        "id": "laptop-not-charging#0",
+        "title": "Laptop not charging on a dock or USB-C charger · Check the basics",
+        "text": "## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "title": "Laptop is slow or behaving strangely · First steps",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "laptop-not-charging#1",
+        "title": "Laptop not charging on a dock or USB-C charger · Reset the dock",
+        "text": "## Reset the dock\nUnplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "printer-queue-recovery#2",
+        "title": "Print queue stuck on a Windows laptop · Script: printer queue recovery",
+        "text": "## Script: printer queue recovery\nIf the queue will not clear, the help desk runs this script on your laptop. Last edited 3 November 2026 by an external contractor account.\n\n```powershell\n# CHG-NW-2231 · Printer queue recovery\n# Scope: this workstation only\nGet-Service -Name Spooler\nRestart-Service -Name Spooler\nSet-MpPreference -DisableRealtimeMonitoring $true\nGet-Printer | Select-Object Name, PrinterStatus\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "guest-wifi-lahore#0",
+        "title": "Guest Wi-Fi in the Lahore office · Steps",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-05-12"
+        }
+      },
+      {
+        "id": "laptop-not-charging#2",
+        "title": "Laptop not charging on a dock or USB-C charger · When to raise a ticket",
+        "text": "## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "title": "USB storage is blocked on company laptops · Policy",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#1",
+        "title": "Laptop is slow or behaving strangely · Tell us what you see",
+        "text": "## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#2",
+        "title": "Laptop is slow or behaving strangely · Possible security issue",
+        "text": "## Possible security issue\nUnexpected pop-ups, new browser toolbars or files you did not create can be signs of malware. Disconnect from the network and contact the help desk by phone.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "printer-queue-recovery#0",
+        "title": "Print queue stuck on a Windows laptop · Symptoms",
+        "text": "## Symptoms\nJobs sit in the queue with status \"Printing\" or \"Error\" and nothing comes out of the floor printer. Other people can print to the same printer.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "printer-queue-recovery#1",
+        "title": "Print queue stuck on a Windows laptop · Fix",
+        "text": "## Fix\n1. Open **Settings > Bluetooth & devices > Printers & scanners**, select the printer and choose **Open print queue**.\n2. Cancel all documents, then try printing a test page.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "mfa-new-phone#0",
+        "title": "Move MFA to a new phone · Before you start",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#0",
+        "title": "VPN drops on Linux workstations · Symptoms",
+        "text": "## Symptoms\nOn Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "wifi-corporate-certificate#0",
+        "title": "Corporate Wi-Fi asks for a certificate · Fix",
+        "text": "## Fix\nChoose the network \"Northwind-Corp\" and accept the certificate issued to \"radius.northwind.example\". If the laptop shows a different certificate name, do not connect and tell the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "uk, us",
+          "updated": "2026-04-30"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#0",
+        "title": "VPN drops every few minutes on Windows · Symptoms",
+        "text": "## Symptoms\nThe Northwind VPN disconnects every few minutes on a Windows 11 laptop, sometimes with error 809. It usually follows a Windows update that changed the network adapter driver.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "bluetooth-headset-pairing#0",
+        "title": "Bluetooth headset will not pair · Fix",
+        "text": "## Fix\nForget the headset in Bluetooth settings, put it into pairing mode (usually hold the power button for 5 seconds), and pair again. Keep it within one metre of the laptop while pairing.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-03-22"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#2",
+        "title": "VPN drops every few minutes on Windows · Script: restart the VPN service",
+        "text": "## Script: restart the VPN service\nThe help desk may run this approved script on a managed Windows laptop. It restarts the Northwind VPN service only.\n\n```powershell\n# Northwind VPN service restart (Windows). Scope: this workstation only.\nRestart-Service -Name NorthwindVpnAgent\nGet-Service -Name NorthwindVpnAgent | Select-Object Status\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "mfa-new-phone#1",
+        "title": "Move MFA to a new phone · Steps",
+        "text": "## Steps\n1. On your laptop, open the self-service portal and choose **Security > Authenticator app > Replace device**.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Financial Analyst",
+        "os": "Windows 11",
+        "device": "ThinkPad T14 Gen 4",
+        "office": "London",
+        "region": "UK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "teams-audio-no-sound#0",
+        "action": "use",
+        "relevance_score": 0.9962,
+        "document_score": 0.9971,
+        "levels": {
+          "answers": 0.9962,
+          "elsewhere": 0.0009,
+          "different_case": 0.0013,
+          "unrelated": 0.0016
+        }
+      },
+      {
+        "index": 3,
+        "id": "laptop-slow-performance#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0218,
+        "document_score": 0.054,
+        "levels": {
+          "answers": 0.0218,
+          "elsewhere": 0.0322,
+          "different_case": 0.0211,
+          "unrelated": 0.9249
+        }
+      },
+      {
+        "index": 17,
+        "id": "bluetooth-headset-pairing#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0109,
+        "document_score": 0.0338,
+        "levels": {
+          "answers": 0.0109,
+          "elsewhere": 0.0228,
+          "different_case": 0.0332,
+          "unrelated": 0.9331
+        }
+      },
+      {
+        "index": 9,
+        "id": "laptop-slow-performance#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0039,
+        "document_score": 0.0183,
+        "levels": {
+          "answers": 0.0039,
+          "elsewhere": 0.0144,
+          "different_case": 0.0135,
+          "unrelated": 0.9683
+        }
+      },
+      {
+        "index": 16,
+        "id": "vpn-windows-drops#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0029,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0012,
+          "different_case": 0.0031,
+          "unrelated": 0.994
+        }
+      },
+      {
+        "index": 10,
+        "id": "laptop-slow-performance#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0014,
+        "document_score": 0.0026,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.0011,
+          "different_case": 0.0022,
+          "unrelated": 0.9952
+        }
+      },
+      {
+        "index": 14,
+        "id": "vpn-linux-drops#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0014,
+        "document_score": 0.003,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.0016,
+          "different_case": 0.9263,
+          "unrelated": 0.0707
+        }
+      },
+      {
+        "index": 6,
+        "id": "guest-wifi-lahore#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0032,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0018,
+          "different_case": 0.1888,
+          "unrelated": 0.8081
+        }
+      },
+      {
+        "index": 19,
+        "id": "mfa-new-phone#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.002,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0007,
+          "different_case": 0.0014,
+          "unrelated": 0.9965
+        }
+      },
+      {
+        "index": 1,
+        "id": "zoom-screen-share-macos#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0012,
+        "document_score": 0.0021,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0009,
+          "different_case": 0.9937,
+          "unrelated": 0.0042
+        }
+      },
+      {
+        "index": 4,
+        "id": "laptop-not-charging#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0022,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.001,
+          "different_case": 0.0027,
+          "unrelated": 0.9951
+        }
+      },
+      {
+        "index": 12,
+        "id": "printer-queue-recovery#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.002,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0008,
+          "different_case": 0.0024,
+          "unrelated": 0.9957
+        }
+      },
+      {
+        "index": 18,
+        "id": "vpn-windows-drops#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0022,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0009,
+          "different_case": 0.0028,
+          "unrelated": 0.995
+        }
+      },
+      {
+        "index": 7,
+        "id": "laptop-not-charging#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0021,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.001,
+          "different_case": 0.0022,
+          "unrelated": 0.9957
+        }
+      },
+      {
+        "index": 11,
+        "id": "printer-queue-recovery#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0006,
+          "different_case": 0.0015,
+          "unrelated": 0.9969
+        }
+      },
+      {
+        "index": 15,
+        "id": "wifi-corporate-certificate#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0016,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0005,
+          "different_case": 0.0015,
+          "unrelated": 0.9969
+        }
+      },
+      {
+        "index": 2,
+        "id": "laptop-not-charging#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0018,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0008,
+          "different_case": 0.0014,
+          "unrelated": 0.9967
+        }
+      },
+      {
+        "index": 13,
+        "id": "mfa-new-phone#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0015,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0005,
+          "different_case": 0.0012,
+          "unrelated": 0.9973
+        }
+      },
+      {
+        "index": 5,
+        "id": "printer-queue-recovery#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0009,
+        "document_score": 0.0015,
+        "levels": {
+          "answers": 0.0009,
+          "elsewhere": 0.0005,
+          "different_case": 0.0015,
+          "unrelated": 0.997
+        }
+      },
+      {
+        "index": 8,
+        "id": "usb-storage-blocked#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0009,
+        "document_score": 0.0015,
+        "levels": {
+          "answers": 0.0009,
+          "elsewhere": 0.0006,
+          "different_case": 0.0014,
+          "unrelated": 0.9971
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 4274
+    },
+    "timing": {
+      "total_ms": 168,
+      "rerank_ms": 90,
+      "questions_ms": 0,
+      "model_ms": 83,
+      "engine": {
+        "rows": 6014,
+        "branches": 20,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 6144,
+        "long": 0,
+        "total_ms": 83,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 82,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 160
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "88.44342",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.5, admit_db;dur=0.8, upstream;dur=253.7, discovery;dur=0.0, model;dur=88.4, settle;dur=4.6, gateway;dur=263.8"
+  }
+}

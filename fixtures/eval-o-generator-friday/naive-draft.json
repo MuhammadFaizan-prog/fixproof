@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-generator-friday",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nThe generator switched over and now my VPN is gone. IT said yesterday this would be fixed permanently by Friday, right?\n\nKnowledge base:\n[1] Lahore office network and power backup · Notes\n## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.\n\n[2] VPN drops every few minutes on Windows · Fix: reset the VPN profile\n## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.\n\n[3] VPN drops every few minutes on macOS · Fix: reset the VPN profile\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "If the VPN dropped when the generator switched over, please wait for the Wi-Fi to return and then reconnect.\n\n1. Wait for the Wi-Fi to be back.\n2. Reconnect rather than resetting the profile",
+        "confidence": 0.97920392592642,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 214,
+      "total_ms": 231,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 336,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "223.42848",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=2.3, upstream;dur=314.4, discovery;dur=0.0, model;dur=223.4, settle;dur=3.4, gateway;dur=323.5"
+  }
+}

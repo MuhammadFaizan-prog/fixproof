@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-disk-full",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy Mac keeps warning that the startup disk is almost full and apps freeze when I save files.\n\nKnowledge base:\n[1] Mac says the disk is almost full · Fix\n## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.\n\n[2] Laptop is slow or behaving strangely · First steps\n## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.\n\n[3] OneDrive sync paused or stuck · Fix\n## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Priya: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I'm sorry to hear your Mac is running low on disk space.\n\n1. Open System Settings > General > Storage and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened",
+        "confidence": 0.9961511491185732,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 215,
+      "total_ms": 232,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 320,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "224.587358",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=0.9, upstream;dur=316.0, discovery;dur=0.0, model;dur=224.6, settle;dur=4.5, gateway;dur=325.7"
+  }
+}

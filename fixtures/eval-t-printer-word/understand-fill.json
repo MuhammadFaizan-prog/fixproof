@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-t-printer-word",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "Nothing prints from Word or Excel, the queue shows six documents waiting and I can't cancel them.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "printing",
+        "confidence": 0.481,
+        "probabilities": {
+          "network": 0.007768454225329949,
+          "identity": 0.008776313173218095,
+          "hardware": 0.015233688689445512,
+          "software": 0.21266938382915626,
+          "printing": 0.5461599484821116,
+          "security": 0.008645621081197742,
+          "accounts": 0.010532764702571243,
+          "none": 0.19021382581696958
+        }
+      },
+      "severity": {
+        "value": "high",
+        "confidence": 0.508,
+        "expected": 2.667,
+        "probabilities": {
+          "low": 0.05259652326143941,
+          "medium": 0.2717692347889375,
+          "high": 0.6311906775479192,
+          "critical": 0.04444356440170386
+        }
+      },
+      "affected_service": {
+        "value": "Word or Excel",
+        "start": 20,
+        "end": 33,
+        "confidence": 0.9999942366557957,
+        "p_verify": 0.9999942366557957
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.752,
+        "probabilities": {
+          "yes": 0.12419678435146064,
+          "no": 0.8758032156485394
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 79,
+      "generate_ms": 0,
+      "total_ms": 85,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "81.985184",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=169.1, discovery;dur=0.0, model;dur=82.0, settle;dur=4.2, gateway;dur=178.0"
+  }
+}

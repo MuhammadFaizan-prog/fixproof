@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-zoom-share-windows",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nScreen sharing in Zoom is blocked on my laptop, it says a permission is needed.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy the automated desk stopped: Decide did not clear it for self-service (escalate is 99% likely).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as software, medium severity; searched the knowledge base and kept 0 passages.\n\nNo reply was sent to the employee.",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "Screen sharing in Zoom is blocked on the employee's laptop, stating a permission is needed. The automated desk stopped because it did not clear the issue for self-service",
+        "confidence": 0.9913429178809665,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "End-user Computing",
+        "confidence": 0.872,
+        "probabilities": {
+          "Service Desk": 0.015819524549821436,
+          "Network Operations": 0.00853257939868274,
+          "Identity & Access": 0.013615274398910594,
+          "Security": 0.06436692806466952,
+          "End-user Computing": 0.8976656935879157
+        }
+      },
+      "priority": {
+        "value": "P4",
+        "confidence": 0.462,
+        "expected": 1.782,
+        "probabilities": {
+          "P4": 0.596146007399089,
+          "P3": 0.07498328928705908,
+          "P2": 0.2800177082247596,
+          "P1": 0.04885299508909241
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 47,
+      "generate_ms": 156,
+      "total_ms": 171,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "165.932129",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.8, upstream;dur=255.5, discovery;dur=0.0, model;dur=165.9, settle;dur=4.3, gateway;dur=265.0"
+  }
+}

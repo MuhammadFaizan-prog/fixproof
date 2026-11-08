@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-vpn-linux",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nThe VPN on my Ubuntu workstation keeps disconnecting every few minutes and I have to reconnect northwind-vpn by hand.\n\nKnowledge base:\n[1] VPN drops every few minutes on macOS · Fix: reset the VPN profile\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n[2] VPN drops every few minutes on Windows · Fix: reset the VPN profile\n## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.\n\n[3] VPN drops every few minutes on macOS · Symptoms\n## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear that your VPN is disconnecting on your Ubuntu workstation. Unfortunately, the provided knowledge base only contains troubleshooting steps for macOS and Windows, and does not include a fix for Ubuntu",
+        "confidence": 0.024922068029007205,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 214,
+      "total_ms": 230,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 336,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "223.309886",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.8, upstream;dur=315.1, discovery;dur=0.0, model;dur=223.3, settle;dur=4.7, gateway;dur=324.8"
+  }
+}

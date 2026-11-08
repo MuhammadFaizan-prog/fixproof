@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-printer-add-mac",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nHow do I add the 4th floor printer to my MacBook? It doesn't show up in the printer list.\n\nKnowledge base sources:\n[1] Add a floor printer on macOS · Steps (updated 2026-06-14)\n## Steps\n1. Open **System Settings > Printers & Scanners** and click **Add Printer**.\n2. Choose the printer named after your floor, for example \"NW-LDN-3F\".\n3. Select **Northwind Secure Print** as the driver and click **Add**.\nPrint jobs are held until you tap your badge at the printer.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (macOS 15, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "To add the 4th floor printer to your MacBook, follow these steps:\n1. Open System Settings > Printers & Scanners and click Add Printer.\n2. Choose the printer named after your floor, for example \"NW-LDN-3F\".\n3. Select Northwind Secure Print as the driver and click Add",
+        "confidence": 0.07966706757842501,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 191,
+      "total_ms": 210,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 224,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "202.68",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.6, admit_db;dur=2.2, upstream;dur=295.4, discovery;dur=0.0, model;dur=202.7, settle;dur=4.5, gateway;dur=306.5"
+  }
+}

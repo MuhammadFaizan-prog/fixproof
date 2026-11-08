@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-i-admin-mode-teams",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "Also Teams calls have no sound on my laptop.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": null,
+        "confidence": 0.431,
+        "probabilities": {
+          "network": 0.015515503038440145,
+          "identity": 0.012191790002216306,
+          "hardware": 0.23952043895233133,
+          "software": 0.18629841649095738,
+          "printing": 0.015234088129884709,
+          "security": 0.014134793841417057,
+          "accounts": 0.01501529724160693,
+          "none": 0.5020896723031462
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.376,
+        "expected": 1.552,
+        "probabilities": {
+          "low": 0.5322443839868699,
+          "medium": 0.40399637893413837,
+          "high": 0.04306538734608567,
+          "critical": 0.020693849732906073
+        }
+      },
+      "affected_service": {
+        "value": "Teams calls",
+        "start": 5,
+        "end": 16,
+        "confidence": 0.9993872341969434,
+        "p_verify": 0.9993872341969434
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.828,
+        "probabilities": {
+          "yes": 0.0862004980994101,
+          "no": 0.9137995019005899
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 69,
+      "generate_ms": 0,
+      "total_ms": 75,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "72.289373",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.5, admit_db;dur=0.8, upstream;dur=159.7, discovery;dur=0.0, model;dur=72.3, settle;dur=4.9, gateway;dur=169.1"
+  }
+}

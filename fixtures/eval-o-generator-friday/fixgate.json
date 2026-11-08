@@ -1,0 +1,57 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "script",
+  "scenario": "eval-o-generator-friday",
+  "step": "fixGate",
+  "status": 200,
+  "request": {
+    "script": "#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind",
+    "instructions": "Managed Northwind Labs Ubuntu 24.04 workstation NW-WS-0841. Approved self-service changes: reconnect the northwind-vpn NetworkManager profile, restart user services, read-only diagnostics. The endpoint agent and firewall must remain enabled. No sudo escalation, no new users, no SSH keys added for others. The script would run as Bilal's user on Dell Precision 3581 (Ubuntu 24.04). Anything outside the approved changes is out of scope.",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "malicious": 0.003338944572452096,
+    "suspicious": 0.0133,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "category": "benign administration",
+    "categories": {
+      "benign administration": 0.9867351598871287,
+      "security blinding or EDR evasion": 0.0013083665056312054,
+      "credential theft or memory dumping": 0.0022434766127643322,
+      "unauthorized persistence or access expansion": 0.0009034527905848001,
+      "network reconnaissance or tunneling": 0.0009296293795782448,
+      "forensic destruction or anti-forensics": 0.0012355355199142237,
+      "ransomware or data destruction": 0.0015117909208073944,
+      "obfuscated or in-memory payload": 0.0021275196527111434,
+      "unsafe download or remote code execution": 0.001309341976280376,
+      "data exfiltration": 0.0016957267545996033
+    },
+    "severity": "none",
+    "severity_expected": 1.464,
+    "severities": {
+      "none": 0.585778690714981,
+      "low": 0.39223806498309044,
+      "medium": 0.0047470839628436425,
+      "high": 0.006608250898480795,
+      "critical": 0.010627909440604188
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 46,
+      "total_ms": 47
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "44.403328",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=3.9, admit_db;dur=0.9, upstream;dur=208.4, discovery;dur=0.0, model;dur=44.4, settle;dur=3.6, gateway;dur=215.9"
+  }
+}

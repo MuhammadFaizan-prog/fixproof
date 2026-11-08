@@ -1,0 +1,134 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "payroll-eta",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
+    "answer": "I cannot confirm a specific restoration time as no restoration time has been published.\n\n1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back.\n2. Updates are posted on the IT status page every two hours",
+    "claims": [
+      "I cannot confirm a specific restoration time as no restoration time has been published.",
+      "1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back.",
+      "2. Updates are posted on the IT status page every two hours"
+    ],
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.\n\n## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9918,
+    "ungrounded": 0.0082,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "share": 1,
+        "share_of_answer": 0.9918,
+        "claims": [
+          0,
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I cannot confirm a specific restoration time as no restoration time has been published.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3246,
+        "supported": 0.994,
+        "contradicted": 0.0021,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0018,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "No restoration time has been published.",
+          "start": 190,
+          "end": 229,
+          "confidence": 0.999
+        }
+      },
+      {
+        "claim": "1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4552,
+        "supported": 0.9891,
+        "contradicted": 0.003,
+        "not_stated": 0.0026,
+        "not_a_claim": 0.0053,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "## Workaround",
+          "start": 231,
+          "end": 244,
+          "confidence": 0.622
+        }
+      },
+      {
+        "claim": "2. Updates are posted on the IT status page every two hours",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2201,
+        "supported": 0.9939,
+        "contradicted": 0.0024,
+        "not_stated": 0.0019,
+        "not_a_claim": 0.0018,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "Updates are posted on the IT status page every two hours.",
+          "start": 437,
+          "end": 494,
+          "confidence": 0.94
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9891
+    },
+    "answers_question": 0.9727666637313197,
+    "timing": {
+      "read_ms": 168,
+      "total_ms": 121
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "111.468256",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.8, upstream;dur=205.7, discovery;dur=0.0, model;dur=111.5, settle;dur=4.6, gateway;dur=215.2"
+  }
+}

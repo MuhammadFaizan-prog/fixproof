@@ -1,0 +1,168 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-charging",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My laptop isn't charging when it's plugged into the USB-C charger, the battery is stuck at 40%.",
+    "answer": "1. Plug the charger straight into the laptop instead of the dock. 2. Try a different USB-C port on the laptop. 3. Look at the charger wattage. 4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop. If the laptop does not charge from its own charger either, it needs a hardware check",
+    "claims": [
+      "1. Plug the charger straight into the laptop instead of the dock.",
+      "2. Try a different USB-C port on the laptop.",
+      "3. Look at the charger wattage.",
+      "4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.",
+      "If the laptop does not charge from its own charger either, it needs a hardware check"
+    ],
+    "documents": [
+      {
+        "id": "laptop-not-charging#0,1,2",
+        "text": "## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\n\n## Reset the dock\nUnplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.\n\n## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9927,
+    "ungrounded": 0.0073,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-not-charging#0,1,2",
+        "share": 1,
+        "share_of_answer": 0.9927,
+        "claims": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "1. Plug the charger straight into the laptop instead of the dock.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2097,
+        "supported": 0.9908,
+        "contradicted": 0.0024,
+        "not_stated": 0.002,
+        "not_a_claim": 0.0047,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "2. Try a different USB-C port on the laptop.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1419,
+        "supported": 0.9927,
+        "contradicted": 0.0022,
+        "not_stated": 0.002,
+        "not_a_claim": 0.0032,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2"
+      },
+      {
+        "claim": "3. Look at the charger wattage.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1,
+        "supported": 0.9933,
+        "contradicted": 0.0023,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0026,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2",
+        "evidence": {
+          "document": "laptop-not-charging#0,1,2",
+          "quote": "Look at the charger wattage.",
+          "start": 220,
+          "end": 248,
+          "confidence": 0.531
+        }
+      },
+      {
+        "claim": "4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2774,
+        "supported": 0.9936,
+        "contradicted": 0.0019,
+        "not_stated": 0.0016,
+        "not_a_claim": 0.0028,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2",
+        "evidence": {
+          "document": "laptop-not-charging#0,1,2",
+          "quote": "Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.",
+          "start": 354,
+          "end": 437,
+          "confidence": 0.999
+        }
+      },
+      {
+        "claim": "If the laptop does not charge from its own charger either, it needs a hardware check",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.271,
+        "supported": 0.9928,
+        "contradicted": 0.0019,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0035,
+        "verdict": "supported",
+        "sources": {
+          "laptop-not-charging#0,1,2": 1
+        },
+        "source": "laptop-not-charging#0,1,2",
+        "evidence": {
+          "document": "laptop-not-charging#0,1,2",
+          "quote": "If the laptop does not charge from its own charger either, it needs a hardware check.",
+          "start": 465,
+          "end": 550,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.9908
+    },
+    "answers_question": 0.9936085002663695,
+    "timing": {
+      "read_ms": 223,
+      "total_ms": 147
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "138.240095",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.3, admit_db;dur=0.8, upstream;dur=308.9, discovery;dur=0.0, model;dur=138.2, settle;dur=5.1, gateway;dur=319.3"
+  }
+}

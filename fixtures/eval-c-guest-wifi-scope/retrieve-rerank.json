@@ -1,0 +1,301 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-c-guest-wifi-scope",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "A visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?",
+    "documents": [
+      {
+        "id": "guest-wifi-lahore#0",
+        "title": "Guest Wi-Fi in the Lahore office · Steps",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-05-12"
+        }
+      },
+      {
+        "id": "guest-wifi-policy#0",
+        "title": "Guest Wi-Fi for visitors · Steps",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-01"
+        }
+      },
+      {
+        "id": "pk-office-network#0",
+        "title": "Lahore office network and power backup · Notes",
+        "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-10-10"
+        }
+      },
+      {
+        "id": "wifi-corporate-certificate#0",
+        "title": "Corporate Wi-Fi asks for a certificate · Fix",
+        "text": "## Fix\nChoose the network \"Northwind-Corp\" and accept the certificate issued to \"radius.northwind.example\". If the laptop shows a different certificate name, do not connect and tell the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "uk, us",
+          "updated": "2026-04-30"
+        }
+      },
+      {
+        "id": "sharepoint-access-request#0",
+        "title": "Get access to a SharePoint site · Steps",
+        "text": "## Steps\nOpen the site link and click **Request access**. The site owner gets an email and usually approves within one working day. The help desk cannot add you to a site without the owner's approval.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-04-17"
+        }
+      },
+      {
+        "id": "linux-sudo-access#0",
+        "title": "Request sudo on an engineering workstation · Policy",
+        "text": "## Policy\nEngineers get time-limited sudo through the access portal with team lead approval. The help desk cannot grant sudo directly.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-06-05"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#3",
+        "title": "VPN drops every few minutes on macOS · If it still drops",
+        "text": "## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "payroll-portal-status#1",
+        "title": "Payroll portal outage: current status · Workaround",
+        "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      },
+      {
+        "id": "disk-full-macos#0",
+        "title": "Mac says the disk is almost full · Fix",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-19"
+        }
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "title": "Outlook not syncing on Windows · Fix",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Backend Engineer",
+        "os": "Ubuntu 24.04",
+        "device": "Dell Precision 3581",
+        "office": "Lahore",
+        "region": "PK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 1,
+        "id": "guest-wifi-policy#0",
+        "action": "use",
+        "relevance_score": 0.9963,
+        "document_score": 0.9972,
+        "levels": {
+          "answers": 0.9963,
+          "elsewhere": 0.0008,
+          "different_case": 0.001,
+          "unrelated": 0.0019
+        }
+      },
+      {
+        "index": 0,
+        "id": "guest-wifi-lahore#0",
+        "action": "use",
+        "relevance_score": 0.9956,
+        "document_score": 0.9966,
+        "levels": {
+          "answers": 0.9956,
+          "elsewhere": 0.001,
+          "different_case": 0.0013,
+          "unrelated": 0.0021
+        }
+      },
+      {
+        "index": 6,
+        "id": "vpn-macos-drops#3",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0033,
+        "document_score": 0.0074,
+        "levels": {
+          "answers": 0.0033,
+          "elsewhere": 0.0041,
+          "different_case": 0.7773,
+          "unrelated": 0.2153
+        }
+      },
+      {
+        "index": 3,
+        "id": "wifi-corporate-certificate#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.003,
+        "document_score": 0.0072,
+        "levels": {
+          "answers": 0.003,
+          "elsewhere": 0.0042,
+          "different_case": 0.9519,
+          "unrelated": 0.041
+        }
+      },
+      {
+        "index": 2,
+        "id": "pk-office-network#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0022,
+        "document_score": 0.0098,
+        "levels": {
+          "answers": 0.0022,
+          "elsewhere": 0.0076,
+          "different_case": 0.0085,
+          "unrelated": 0.9817
+        }
+      },
+      {
+        "index": 8,
+        "id": "disk-full-macos#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0029,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0014,
+          "different_case": 0.0039,
+          "unrelated": 0.9932
+        }
+      },
+      {
+        "index": 9,
+        "id": "outlook-not-syncing#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.003,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0014,
+          "different_case": 0.004,
+          "unrelated": 0.993
+        }
+      },
+      {
+        "index": 4,
+        "id": "sharepoint-access-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0015,
+        "document_score": 0.0027,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0012,
+          "different_case": 0.002,
+          "unrelated": 0.9953
+        }
+      },
+      {
+        "index": 7,
+        "id": "payroll-portal-status#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.002,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0006,
+          "different_case": 0.0014,
+          "unrelated": 0.9967
+        }
+      },
+      {
+        "index": 5,
+        "id": "linux-sudo-access#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0022,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.001,
+          "different_case": 0.0019,
+          "unrelated": 0.9959
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 2269
+    },
+    "timing": {
+      "total_ms": 138,
+      "rerank_ms": 61,
+      "questions_ms": 0,
+      "model_ms": 54,
+      "engine": {
+        "rows": 2979,
+        "branches": 10,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 3072,
+        "long": 0,
+        "total_ms": 54,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 51,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "57.821217",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=222.8, discovery;dur=0.0, model;dur=57.8, settle;dur=4.4, gateway;dur=232.2"
+  }
+}

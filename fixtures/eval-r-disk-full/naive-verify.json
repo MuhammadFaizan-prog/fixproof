@@ -1,0 +1,172 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-disk-full",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "My Mac keeps warning that the startup disk is almost full and apps freeze when I save files.",
+    "answer": "I'm sorry to hear your Mac is running low on disk space.\n\n1. Open System Settings > General > Storage and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened",
+    "claims": [
+      "I'm sorry to hear your Mac is running low on disk space.",
+      "1. Open System Settings > General > Storage and review the recommendations.",
+      "2. Empty the Trash and the Downloads folder.",
+      "3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened"
+    ],
+    "documents": [
+      {
+        "id": "disk-full-macos#0",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened."
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9971,
+    "ungrounded": 0.0029,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "disk-full-macos#0",
+        "share": 0.9987,
+        "share_of_answer": 0.9958,
+        "claims": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "share": 0.0013,
+        "share_of_answer": 0.0013,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I'm sorry to hear your Mac is running low on disk space.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.830395495007082,
+          "offer_or_question": 0.10807450032017982,
+          "pointer": 0.01715698445977201,
+          "meta": 0.044373020212966185
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0015,
+        "contradicted": 0.0009,
+        "not_stated": 0.001,
+        "not_a_claim": 0.9966,
+        "verdict": "not_a_claim",
+        "sources": {
+          "disk-full-macos#0": 0.6013,
+          "laptop-slow-performance#0": 0.3987
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Open System Settings > General > Storage and review the recommendations.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3606,
+        "supported": 0.9969,
+        "contradicted": 0.001,
+        "not_stated": 0.0009,
+        "not_a_claim": 0.0012,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.9985,
+          "laptop-slow-performance#0": 0.0015
+        },
+        "source": "disk-full-macos#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document disk-full-macos#0:",
+          "start": 0,
+          "end": 27,
+          "confidence": 0.967
+        }
+      },
+      {
+        "claim": "2. Empty the Trash and the Downloads folder.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2115,
+        "supported": 0.9972,
+        "contradicted": 0.0009,
+        "not_stated": 0.0009,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.9989,
+          "laptop-slow-performance#0": 0.0011
+        },
+        "source": "disk-full-macos#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document disk-full-macos#0:",
+          "start": 0,
+          "end": 27,
+          "confidence": 0.986
+        }
+      },
+      {
+        "claim": "3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4279,
+        "supported": 0.9973,
+        "contradicted": 0.0009,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.001,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.9988,
+          "laptop-slow-performance#0": 0.0012
+        },
+        "source": "disk-full-macos#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document disk-full-macos#0:",
+          "start": 0,
+          "end": 27,
+          "confidence": 0.983
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9969
+    },
+    "answers_question": 0.9944021970113598,
+    "timing": {
+      "read_ms": 203,
+      "total_ms": 140
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "131.986145",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.9, upstream;dur=224.5, discovery;dur=0.0, model;dur=132.0, settle;dur=4.7, gateway;dur=234.3"
+  }
+}

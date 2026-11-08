@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-vpn-809-linux",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "VPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "network",
+        "confidence": 0.558,
+        "probabilities": {
+          "network": 0.6136083256640369,
+          "identity": 0.027404634478242228,
+          "hardware": 0.013566774385371256,
+          "software": 0.0383130898357297,
+          "printing": 0.00960111027578732,
+          "security": 0.01431948554193128,
+          "accounts": 0.013207297876842803,
+          "none": 0.26997928194205856
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.668,
+        "expected": 2.221,
+        "probabilities": {
+          "low": 0.03993817155989736,
+          "medium": 0.7512157758774763,
+          "high": 0.15708500466308498,
+          "critical": 0.05176104789954129
+        }
+      },
+      "affected_service": {
+        "value": "VPN",
+        "start": 0,
+        "end": 3,
+        "confidence": 0.9999999982494951,
+        "p_verify": 0.9999999982494951
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.268,
+        "probabilities": {
+          "yes": 0.3660237221882582,
+          "no": 0.6339762778117418
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 53,
+      "generate_ms": 0,
+      "total_ms": 58,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "55.696639",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.5, admit_db;dur=1.5, upstream;dur=219.9, discovery;dur=0.0, model;dur=55.7, settle;dur=4.4, gateway;dur=229.8"
+  }
+}

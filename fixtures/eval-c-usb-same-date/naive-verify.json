@@ -1,0 +1,166 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-c-usb-same-date",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Can I use my encrypted USB stick to hand files to a client at their office tomorrow?",
+    "answer": "Yes, you can use your company-issued encrypted USB drive for this purpose if a secure share link is not possible.\n\n1. Unlock the drive with its PIN.\n2. Copy only the files the client needs.\n3. Log the handover in the client folder",
+    "claims": [
+      "Yes, you can use your company-issued encrypted USB drive for this purpose if a secure share link is not possible.",
+      "1. Unlock the drive with its PIN.",
+      "2. Copy only the files the client needs.",
+      "3. Log the handover in the client folder"
+    ],
+    "documents": [
+      {
+        "id": "usb-storage-encrypted#0",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder."
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.7113,
+    "ungrounded": 0.2887,
+    "verdict": "contradicted",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "usb-storage-encrypted#0",
+        "share": 0.9787,
+        "share_of_answer": 0.6962,
+        "claims": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "share": 0.0213,
+        "share_of_answer": 0.0152,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Yes, you can use your company-issued encrypted USB drive for this purpose if a secure share link is not possible.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5,
+        "supported": 0.4269,
+        "contradicted": 0.5471,
+        "not_stated": 0.0104,
+        "not_a_claim": 0.0157,
+        "verdict": "contradicted",
+        "sources": {
+          "usb-storage-encrypted#0": 0.933,
+          "usb-storage-blocked#0": 0.067
+        },
+        "source": null,
+        "evidence": {
+          "document": "usb-storage-encrypted#0",
+          "quote": "Company-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible.",
+          "start": 10,
+          "end": 153,
+          "confidence": 0.883
+        }
+      },
+      {
+        "claim": "1. Unlock the drive with its PIN.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.146,
+        "supported": 0.9944,
+        "contradicted": 0.0017,
+        "not_stated": 0.0015,
+        "not_a_claim": 0.0024,
+        "verdict": "supported",
+        "sources": {
+          "usb-storage-encrypted#0": 0.998,
+          "usb-storage-blocked#0": 0.002
+        },
+        "source": "usb-storage-encrypted#0",
+        "evidence": {
+          "document": "usb-storage-encrypted#0",
+          "quote": "Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.",
+          "start": 154,
+          "end": 265,
+          "confidence": 0.934
+        }
+      },
+      {
+        "claim": "2. Copy only the files the client needs.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.177,
+        "supported": 0.9964,
+        "contradicted": 0.0012,
+        "not_stated": 0.0011,
+        "not_a_claim": 0.0013,
+        "verdict": "supported",
+        "sources": {
+          "usb-storage-encrypted#0": 0.9985,
+          "usb-storage-blocked#0": 0.0015
+        },
+        "source": "usb-storage-encrypted#0"
+      },
+      {
+        "claim": "3. Log the handover in the client folder",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.177,
+        "supported": 0.9964,
+        "contradicted": 0.0012,
+        "not_stated": 0.0012,
+        "not_a_claim": 0.0012,
+        "verdict": "supported",
+        "sources": {
+          "usb-storage-encrypted#0": 0.9983,
+          "usb-storage-blocked#0": 0.0017
+        },
+        "source": "usb-storage-encrypted#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document usb-storage-encrypted#0:",
+          "start": 0,
+          "end": 33,
+          "confidence": 0.974
+        }
+      }
+    ],
+    "unsupported_claims": [
+      0
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.4269
+    },
+    "answers_question": 0.9919181197744785,
+    "timing": {
+      "read_ms": 198,
+      "total_ms": 131
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "121.541569",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=217.0, discovery;dur=0.0, model;dur=121.5, settle;dur=4.5, gateway;dur=226.2"
+  }
+}

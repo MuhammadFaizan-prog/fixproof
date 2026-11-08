@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-usb-same-date",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nCan I use my encrypted USB stick to hand files to a client at their office tomorrow?\n\nKnowledge base:\n[1] Encrypted USB drives for client handover · Policy\n## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.\n\n[2] USB storage is blocked on company laptops · Policy\n## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.\n\n[3] VPN client troubleshooting policy (2026) · Policy\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Hannah: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Yes, you can use your company-issued encrypted USB drive for this purpose if a secure share link is not possible.\n\n1. Unlock the drive with its PIN.\n2. Copy only the files the client needs.\n3. Log the handover in the client folder",
+        "confidence": 0.976864590893404,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 214,
+      "total_ms": 231,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 304,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "223.737952",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.8, upstream;dur=316.3, discovery;dur=0.0, model;dur=223.7, settle;dur=4.2, gateway;dur=325.2"
+  }
+}

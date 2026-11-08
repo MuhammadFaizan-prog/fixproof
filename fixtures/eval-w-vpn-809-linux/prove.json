@@ -1,0 +1,120 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-w-vpn-809-linux",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "VPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.",
+    "answer": "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+    "claims": [
+      "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.",
+      "2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      },
+      {
+        "id": "vpn-linux-drops#1,2",
+        "text": "## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```"
+      },
+      {
+        "id": "pk-office-network#0",
+        "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9979,
+    "ungrounded": 0.0021,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-linux-drops#1,2",
+        "share": 0.9985,
+        "share_of_answer": 0.9964,
+        "claims": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "pk-office-network#0",
+        "share": 0.001,
+        "share_of_answer": 0.001,
+        "claims": []
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.0006,
+        "share_of_answer": 0.0006,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4569,
+        "supported": 0.998,
+        "contradicted": 0.0005,
+        "not_stated": 0.0007,
+        "not_a_claim": 0.0007,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0005,
+          "vpn-linux-drops#1,2": 0.9987,
+          "pk-office-network#0": 0.0009
+        },
+        "source": "vpn-linux-drops#1,2"
+      },
+      {
+        "claim": "2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5431,
+        "supported": 0.9978,
+        "contradicted": 0.0008,
+        "not_stated": 0.0007,
+        "not_a_claim": 0.0008,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0006,
+          "vpn-linux-drops#1,2": 0.9983,
+          "pk-office-network#0": 0.001
+        },
+        "source": "vpn-linux-drops#1,2"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9978
+    },
+    "answers_question": 0.9866204472270164,
+    "timing": {
+      "read_ms": 141,
+      "total_ms": 101
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "94.595104",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=1.7, upstream;dur=185.2, discovery;dur=0.0, model;dur=94.6, settle;dur=4.4, gateway;dur=195.4"
+  }
+}

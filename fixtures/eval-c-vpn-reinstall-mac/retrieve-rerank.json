@@ -1,0 +1,536 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "Should I reinstall the VPN client on my Mac? It keeps dropping after the update.",
+    "documents": [
+      {
+        "id": "vpn-policy-2024#0",
+        "title": "VPN client troubleshooting policy (2024) · Policy",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "title": "VPN client troubleshooting policy (2026) · Policy",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-01"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#0",
+        "title": "VPN drops every few minutes on macOS · Symptoms",
+        "text": "## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#1",
+        "title": "VPN client troubleshooting policy (2024) · Notes",
+        "text": "## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "vpn-policy-2026#1",
+        "title": "VPN client troubleshooting policy (2026) · Why this changed",
+        "text": "## Why this changed\nThe 2026 client stores the device certificate in the client's own keychain entry. This policy replaces the 2024 policy.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-01"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#1",
+        "title": "VPN drops every few minutes on Windows · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#2",
+        "title": "VPN drops every few minutes on macOS · Script: restart the VPN agent",
+        "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#0",
+        "title": "VPN drops on Linux workstations · Symptoms",
+        "text": "## Symptoms\nOn Ubuntu 24.04 engineering workstations, the Northwind VPN (WireGuard profile) drops after the laptop sleeps or after a kernel update.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#0",
+        "title": "VPN drops every few minutes on Windows · Symptoms",
+        "text": "## Symptoms\nThe Northwind VPN disconnects every few minutes on a Windows 11 laptop, sometimes with error 809. It usually follows a Windows update that changed the network adapter driver.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#3",
+        "title": "VPN drops every few minutes on macOS · If it still drops",
+        "text": "## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "disk-full-macos#0",
+        "title": "Mac says the disk is almost full · Fix",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-19"
+        }
+      },
+      {
+        "id": "usb-storage-encrypted#0",
+        "title": "Encrypted USB drives for client handover · Policy",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#2",
+        "title": "VPN drops every few minutes on Windows · Script: restart the VPN service",
+        "text": "## Script: restart the VPN service\nThe help desk may run this approved script on a managed Windows laptop. It restarts the Northwind VPN service only.\n\n```powershell\n# Northwind VPN service restart (Windows). Scope: this workstation only.\nRestart-Service -Name NorthwindVpnAgent\nGet-Service -Name NorthwindVpnAgent | Select-Object Status\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "mail-macos-not-syncing#0",
+        "title": "Outlook for Mac not syncing · Fix",
+        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "account-lockout#1",
+        "title": "Account locked after failed sign-ins · Fix",
+        "text": "## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "password-reset-self-service#0",
+        "title": "Reset your password · Steps",
+        "text": "## Steps\n1. Go to the self-service portal and choose **Forgot password**.\n2. Approve the MFA prompt, then choose a new password of at least 14 characters.\n3. On a Mac, update the password in **Keychain Access** when prompted.\nThe help desk never asks for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#1",
+        "title": "VPN drops on Linux workstations · Fix",
+        "text": "## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "vpn-linux-drops#2",
+        "title": "VPN drops on Linux workstations · Script",
+        "text": "## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "title": "Laptop is slow or behaving strangely · First steps",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Product Designer",
+        "os": "macOS 15",
+        "device": "MacBook Pro 14-inch",
+        "office": "New York",
+        "region": "US"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 1,
+        "id": "vpn-policy-2026#0",
+        "action": "use",
+        "relevance_score": 0.9955,
+        "document_score": 0.9966,
+        "levels": {
+          "answers": 0.9955,
+          "elsewhere": 0.0012,
+          "different_case": 0.0013,
+          "unrelated": 0.0021
+        }
+      },
+      {
+        "index": 0,
+        "id": "vpn-policy-2024#0",
+        "action": "use",
+        "relevance_score": 0.9947,
+        "document_score": 0.9963,
+        "levels": {
+          "answers": 0.9947,
+          "elsewhere": 0.0016,
+          "different_case": 0.0015,
+          "unrelated": 0.0022
+        }
+      },
+      {
+        "index": 8,
+        "id": "vpn-macos-drops#1",
+        "action": "use",
+        "relevance_score": 0.9923,
+        "document_score": 0.9951,
+        "levels": {
+          "answers": 0.9923,
+          "elsewhere": 0.0027,
+          "different_case": 0.0027,
+          "unrelated": 0.0022
+        }
+      },
+      {
+        "index": 3,
+        "id": "vpn-policy-2024#1",
+        "action": "use",
+        "relevance_score": 0.9911,
+        "document_score": 0.9934,
+        "levels": {
+          "answers": 0.9911,
+          "elsewhere": 0.0024,
+          "different_case": 0.0024,
+          "unrelated": 0.0042
+        }
+      },
+      {
+        "index": 2,
+        "id": "vpn-macos-drops#0",
+        "action": "use",
+        "relevance_score": 0.6342,
+        "document_score": 0.7388,
+        "levels": {
+          "answers": 0.6342,
+          "elsewhere": 0.1046,
+          "different_case": 0.0397,
+          "unrelated": 0.2215
+        }
+      },
+      {
+        "index": 6,
+        "id": "vpn-macos-drops#2",
+        "action": "expand",
+        "relevance_score": 0.1276,
+        "document_score": 0.6415,
+        "levels": {
+          "answers": 0.1276,
+          "elsewhere": 0.514,
+          "different_case": 0.0427,
+          "unrelated": 0.3157
+        }
+      },
+      {
+        "index": 10,
+        "id": "vpn-macos-drops#3",
+        "action": "expand",
+        "relevance_score": 0.0917,
+        "document_score": 0.6837,
+        "levels": {
+          "answers": 0.0917,
+          "elsewhere": 0.592,
+          "different_case": 0.0337,
+          "unrelated": 0.2825
+        }
+      },
+      {
+        "index": 19,
+        "id": "laptop-slow-performance#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0512,
+        "document_score": 0.2475,
+        "levels": {
+          "answers": 0.0512,
+          "elsewhere": 0.1963,
+          "different_case": 0.0217,
+          "unrelated": 0.7308
+        }
+      },
+      {
+        "index": 4,
+        "id": "vpn-policy-2026#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0122,
+        "document_score": 0.1084,
+        "levels": {
+          "answers": 0.0122,
+          "elsewhere": 0.0962,
+          "different_case": 0.0247,
+          "unrelated": 0.8669
+        }
+      },
+      {
+        "index": 14,
+        "id": "mail-macos-not-syncing#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.0034,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0017,
+          "different_case": 0.0054,
+          "unrelated": 0.9911
+        }
+      },
+      {
+        "index": 17,
+        "id": "vpn-linux-drops#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0017,
+        "document_score": 0.003,
+        "levels": {
+          "answers": 0.0017,
+          "elsewhere": 0.0013,
+          "different_case": 0.9887,
+          "unrelated": 0.0083
+        }
+      },
+      {
+        "index": 9,
+        "id": "vpn-windows-drops#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0015,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0011,
+          "different_case": 0.9917,
+          "unrelated": 0.0058
+        }
+      },
+      {
+        "index": 11,
+        "id": "disk-full-macos#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0015,
+        "document_score": 0.0032,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0017,
+          "different_case": 0.0032,
+          "unrelated": 0.9937
+        }
+      },
+      {
+        "index": 13,
+        "id": "vpn-windows-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0014,
+        "document_score": 0.0026,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.0012,
+          "different_case": 0.9904,
+          "unrelated": 0.007
+        }
+      },
+      {
+        "index": 15,
+        "id": "account-lockout#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0014,
+        "document_score": 0.0024,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.001,
+          "different_case": 0.0024,
+          "unrelated": 0.9952
+        }
+      },
+      {
+        "index": 18,
+        "id": "vpn-linux-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0014,
+        "document_score": 0.0024,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.001,
+          "different_case": 0.9931,
+          "unrelated": 0.0045
+        }
+      },
+      {
+        "index": 7,
+        "id": "vpn-linux-drops#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0013,
+        "document_score": 0.0023,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.001,
+          "different_case": 0.9927,
+          "unrelated": 0.005
+        }
+      },
+      {
+        "index": 16,
+        "id": "password-reset-self-service#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0026,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0013,
+          "different_case": 0.0028,
+          "unrelated": 0.9945
+        }
+      },
+      {
+        "index": 5,
+        "id": "vpn-windows-drops#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0012,
+        "document_score": 0.0022,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.001,
+          "different_case": 0.9931,
+          "unrelated": 0.0047
+        }
+      },
+      {
+        "index": 12,
+        "id": "usb-storage-encrypted#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0008,
+        "document_score": 0.0013,
+        "levels": {
+          "answers": 0.0008,
+          "elsewhere": 0.0005,
+          "different_case": 0.0012,
+          "unrelated": 0.9975
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 4536
+    },
+    "timing": {
+      "total_ms": 169,
+      "rerank_ms": 91,
+      "questions_ms": 0,
+      "model_ms": 83,
+      "engine": {
+        "rows": 5956,
+        "branches": 20,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 6144,
+        "long": 0,
+        "total_ms": 83,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 82,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "89.156799",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=254.3, discovery;dur=0.0, model;dur=89.2, settle;dur=4.9, gateway;dur=263.9"
+  }
+}

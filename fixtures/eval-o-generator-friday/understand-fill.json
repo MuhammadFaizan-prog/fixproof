@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-generator-friday",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "The generator switched over and now my VPN is gone. IT said yesterday this would be fixed permanently by Friday, right?",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "network",
+        "confidence": 0.726,
+        "probabilities": {
+          "network": 0.760378608810395,
+          "identity": 0.015198453632070981,
+          "hardware": 0.012645009611237568,
+          "software": 0.02934797063755898,
+          "printing": 0.010206730323339203,
+          "security": 0.019810048382679017,
+          "accounts": 0.014824593895679897,
+          "none": 0.13758858470703939
+        }
+      },
+      "severity": {
+        "value": "high",
+        "confidence": 0.453,
+        "expected": 2.616,
+        "probabilities": {
+          "low": 0.03918838793607866,
+          "medium": 0.33835335176111964,
+          "high": 0.5896416927446123,
+          "critical": 0.032816567558189416
+        }
+      },
+      "affected_service": {
+        "value": "VPN",
+        "start": 39,
+        "end": 42,
+        "confidence": 0.999999999430077,
+        "p_verify": 0.999999999430077
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.622,
+        "probabilities": {
+          "yes": 0.188956185636466,
+          "no": 0.811043814363534
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 58,
+      "generate_ms": 0,
+      "total_ms": 62,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "59.921631",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.2, admit_db;dur=1.1, upstream;dur=224.4, discovery;dur=0.0, model;dur=59.9, settle;dur=3.5, gateway;dur=232.1"
+  }
+}

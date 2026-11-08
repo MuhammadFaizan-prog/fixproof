@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-a-not-working",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nit's not working again\n\nKnowledge base:\n[1] Get access to a SharePoint site · Steps\n## Steps\nOpen the site link and click **Request access**. The site owner gets an email and usually approves within one working day. The help desk cannot add you to a site without the owner's approval.\n\n[2] Install software that is not in the portal · Steps\n## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days.\n\n[3] VPN client troubleshooting policy (2024) · Notes\n## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Priya: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I'm sorry to hear you're having trouble, but could you please provide more details about what isn't working?",
+        "confidence": 0.021669483781741716,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 12,
+      "generate_ms": 106,
+      "total_ms": 122,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 224,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "117.341793",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.8, upstream;dur=206.8, discovery;dur=0.0, model;dur=117.3, settle;dur=4.1, gateway;dur=215.8"
+  }
+}

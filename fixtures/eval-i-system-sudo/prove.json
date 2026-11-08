@@ -1,0 +1,148 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-i-system-sudo",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "I need admin to install Figma plugins.",
+    "answer": "The help desk does not grant local administrator or Domain Admin rights. 1. Most software can be installed from the software portal without admin rights. 2. If you need something that is not in the portal, raise a software request with the name, version and business reason",
+    "claims": [
+      "The help desk does not grant local administrator or Domain Admin rights.",
+      "1. Most software can be installed from the software portal without admin rights.",
+      "2. If you need something that is not in the portal, raise a software request with the name, version and business reason"
+    ],
+    "documents": [
+      {
+        "id": "admin-rights-policy#0,1",
+        "text": "## Policy\nThe help desk does not grant local administrator or Domain Admin rights. Requests for elevated access go through the access portal with manager approval and a security review. Approved access is time-limited.\n\n## What to do instead\nMost software can be installed from the software portal without admin rights. If you need something that is not in the portal, raise a software request."
+      },
+      {
+        "id": "software-install-request#0",
+        "text": "## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9918,
+    "ungrounded": 0.0082,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "admin-rights-policy#0,1",
+        "share": 0.5579,
+        "share_of_answer": 0.5533,
+        "claims": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "software-install-request#0",
+        "share": 0.4421,
+        "share_of_answer": 0.4385,
+        "claims": [
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "The help desk does not grant local administrator or Domain Admin rights.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2657,
+        "supported": 0.9973,
+        "contradicted": 0.0009,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "admin-rights-policy#0,1": 0.9989,
+          "software-install-request#0": 0.0011
+        },
+        "source": "admin-rights-policy#0,1",
+        "evidence": {
+          "document": "admin-rights-policy#0,1",
+          "quote": "The help desk does not grant local administrator or Domain Admin rights.",
+          "start": 10,
+          "end": 82,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "1. Most software can be installed from the software portal without admin rights.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2952,
+        "supported": 0.9848,
+        "contradicted": 0.0043,
+        "not_stated": 0.0047,
+        "not_a_claim": 0.0062,
+        "verdict": "supported",
+        "sources": {
+          "admin-rights-policy#0,1": 0.9901,
+          "software-install-request#0": 0.0099
+        },
+        "source": "admin-rights-policy#0,1",
+        "evidence": {
+          "document": "admin-rights-policy#0,1",
+          "quote": "Most software can be installed from the software portal without admin rights.",
+          "start": 242,
+          "end": 319,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "2. If you need something that is not in the portal, raise a software request with the name, version and business reason",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4391,
+        "supported": 0.9932,
+        "contradicted": 0.0026,
+        "not_stated": 0.002,
+        "not_a_claim": 0.0022,
+        "verdict": "supported",
+        "sources": {
+          "admin-rights-policy#0,1": 0.0019,
+          "software-install-request#0": 0.9981
+        },
+        "source": "software-install-request#0",
+        "evidence": {
+          "document": "software-install-request#0",
+          "quote": "For anything else, raise a software request with the name, version and business reason.",
+          "start": 93,
+          "end": 180,
+          "confidence": 0.988
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9848
+    },
+    "answers_question": 0.965081800996034,
+    "timing": {
+      "read_ms": 154,
+      "total_ms": 106
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "97.868543",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=190.9, discovery;dur=0.0, model;dur=97.9, settle;dur=4.7, gateway;dur=200.4"
+  }
+}

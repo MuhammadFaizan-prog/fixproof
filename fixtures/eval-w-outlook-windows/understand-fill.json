@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-outlook-windows",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "Outlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "software",
+        "confidence": 0.488,
+        "probabilities": {
+          "network": 0.01514801716491163,
+          "identity": 0.011254297422067175,
+          "hardware": 0.010628000666326746,
+          "software": 0.5520724549609378,
+          "printing": 0.009330763166889747,
+          "security": 0.013072533501461044,
+          "accounts": 0.028485331950768366,
+          "none": 0.3600086011666375
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.491,
+        "expected": 2.314,
+        "probabilities": {
+          "low": 0.05645667371253428,
+          "medium": 0.6179239403550174,
+          "high": 0.2807166327063432,
+          "critical": 0.04490275322610506
+        }
+      },
+      "affected_service": {
+        "value": "Outlook",
+        "start": 0,
+        "end": 7,
+        "confidence": 0.9999999989124724,
+        "p_verify": 0.9999999989124724
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.97,
+        "probabilities": {
+          "yes": 0.014990348026923561,
+          "no": 0.9850096519730764
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 58,
+      "generate_ms": 0,
+      "total_ms": 63,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "60.982177",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.5, admit_db;dur=0.8, upstream;dur=147.7, discovery;dur=0.0, model;dur=61.0, settle;dur=4.3, gateway;dur=156.5"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-guest-wifi-scope",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "A visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "network",
+        "confidence": 0.881,
+        "probabilities": {
+          "network": 0.8957917819204942,
+          "identity": 0.00992871637923707,
+          "hardware": 0.0077354808538967175,
+          "software": 0.00939818086984721,
+          "printing": 0.009884236337260531,
+          "security": 0.011423295845560549,
+          "accounts": 0.011717098622729778,
+          "none": 0.04412120917097389
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.983,
+        "expected": 1.025,
+        "probabilities": {
+          "low": 0.9874298187608475,
+          "medium": 0.004310801460638333,
+          "high": 0.004061079059581109,
+          "critical": 0.004198300718933103
+        }
+      },
+      "affected_service": {
+        "value": null,
+        "confidence": 1
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.93,
+        "probabilities": {
+          "yes": 0.03524694615842083,
+          "no": 0.9647530538415792
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 61,
+      "generate_ms": 0,
+      "total_ms": 66,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "63.540705",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.1, admit_db;dur=0.7, upstream;dur=151.3, discovery;dur=0.0, model;dur=63.5, settle;dur=3.5, gateway;dur=159.0"
+  }
+}

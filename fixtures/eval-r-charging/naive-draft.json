@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-charging",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy laptop isn't charging when it's plugged into the USB-C charger, the battery is stuck at 40%.\n\nKnowledge base:\n[1] Laptop not charging on a dock or USB-C charger · Check the basics\n## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\n\n[2] Laptop not charging on a dock or USB-C charger · When to raise a ticket\n## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair.\n\n[3] Laptop not charging on a dock or USB-C charger · Reset the dock\n## Reset the dock\nUnplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I'm sorry to hear your laptop isn't charging. Please try the following steps:\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\nIf the laptop does not charge from its own charger either, it needs a hardware check. Please raise a ticket with your asset tag so the hardware team can swap the charger or book a repair",
+        "confidence": 0.9940179183709649,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 361,
+      "total_ms": 379,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 320,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "15",
+    "x-clocked-model-ms": "368.317315",
+    "x-clocked-cost-usd": "0.002988",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.8, upstream;dur=464.1, discovery;dur=0.0, model;dur=368.3, settle;dur=4.4, gateway;dur=473.5"
+  }
+}

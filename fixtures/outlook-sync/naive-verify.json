@@ -1,0 +1,161 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "outlook-sync",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Outlook on my laptop stopped getting new mail around lunchtime. It says Disconnected at the bottom, but webmail works fine.",
+    "answer": "I'm sorry to hear your Outlook is showing as disconnected. Please try the following steps:\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email",
+    "claims": [
+      "I'm sorry to hear your Outlook is showing as disconnected.",
+      "Please try the following steps:",
+      "1. Check you are online and not in **Work Offline** mode (Outlook menu).",
+      "2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.",
+      "3. If mail is still missing, remove the account and add it again with your work email"
+    ],
+    "documents": [
+      {
+        "id": "outlook-not-syncing#0,1",
+        "text": "## Symptoms\nNew mail stops arriving, the status bar says \"Disconnected\" or \"Trying to connect\", and Outlook on the web shows mail that the desktop app does not.\n\n## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.2186,
+    "ungrounded": 0.7814,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "outlook-not-syncing#0,1",
+        "share": 1,
+        "share_of_answer": 0.2186,
+        "claims": [
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I'm sorry to hear your Outlook is showing as disconnected.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.977336427178159,
+          "offer_or_question": 0.009421631428829723,
+          "pointer": 0.004672527086596272,
+          "meta": 0.008569414306414955
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0012,
+        "contradicted": 0.002,
+        "not_stated": 0.0064,
+        "not_a_claim": 0.9904,
+        "verdict": "not_a_claim",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "Please try the following steps:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.01059351221663431,
+          "offer_or_question": 0.942614311407742,
+          "pointer": 0.02487126198342039,
+          "meta": 0.02192091439220331
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0052,
+        "contradicted": 0.0063,
+        "not_stated": 0.0352,
+        "not_a_claim": 0.9532,
+        "verdict": "not_a_claim",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Check you are online and not in **Work Offline** mode (Outlook menu).",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2963,
+        "supported": 0.5429,
+        "contradicted": 0.0653,
+        "not_stated": 0.3719,
+        "not_a_claim": 0.0199,
+        "verdict": "supported",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": "outlook-not-syncing#0,1"
+      },
+      {
+        "claim": "2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3539,
+        "supported": 0.1618,
+        "contradicted": 0.0564,
+        "not_stated": 0.7598,
+        "not_a_claim": 0.022,
+        "verdict": "not_stated",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "3. If mail is still missing, remove the account and add it again with your work email",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3498,
+        "supported": 0.0014,
+        "contradicted": 0.0023,
+        "not_stated": 0.9932,
+        "not_a_claim": 0.0031,
+        "verdict": "not_stated",
+        "sources": {
+          "outlook-not-syncing#0,1": 1
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      3,
+      4
+    ],
+    "not_claims": [
+      0,
+      1
+    ],
+    "weakest_claim": {
+      "index": 4,
+      "supported": 0.0014
+    },
+    "answers_question": 0.9945199332915733,
+    "timing": {
+      "read_ms": 206,
+      "total_ms": 144
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "134.055552",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=1.0, upstream;dur=227.9, discovery;dur=0.0, model;dur=134.1, settle;dur=4.9, gateway;dur=237.9"
+  }
+}

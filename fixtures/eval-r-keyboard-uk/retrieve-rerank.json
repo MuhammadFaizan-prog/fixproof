@@ -1,0 +1,350 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-r-keyboard-uk",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "My keyboard types @ when I press the quote key and I can't find the pound sign.",
+    "documents": [
+      {
+        "id": "keyboard-layout-uk#0",
+        "title": "Keyboard types the wrong symbols · Fix",
+        "text": "## Fix\nIf @ and \" are swapped, the layout is set to US instead of UK. On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\". On a Mac open **System Settings > Keyboard > Input Sources** and add \"British\".",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "uk",
+          "updated": "2026-02-11"
+        }
+      },
+      {
+        "id": "dock-monitor-not-detected#0",
+        "title": "External monitor not detected on the dock · Fix",
+        "text": "## Fix\n1. Check the monitor is on the right input (DisplayPort or HDMI).\n2. Unplug the laptop from the dock and plug it back in.\n3. On Windows press **Win + P** and choose **Extend**. On a Mac open **System Settings > Displays** and click **Detect Displays** while holding Option.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "account-lockout#0",
+        "title": "Account locked after failed sign-ins · Why it happens",
+        "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#1",
+        "title": "VPN client troubleshooting policy (2024) · Notes",
+        "text": "## Notes\nReinstalling clears cached certificates. Expect to sign in again with MFA.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "guest-wifi-policy#0",
+        "title": "Guest Wi-Fi for visitors · Steps",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-01"
+        }
+      },
+      {
+        "id": "account-lockout#1",
+        "title": "Account locked after failed sign-ins · Fix",
+        "text": "## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "title": "OneDrive sync paused or stuck · Fix",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-06-28"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "title": "Outlook not syncing on Windows · Fix",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#2",
+        "title": "Laptop is slow or behaving strangely · Possible security issue",
+        "text": "## Possible security issue\nUnexpected pop-ups, new browser toolbars or files you did not create can be signs of malware. Disconnect from the network and contact the help desk by phone.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "mfa-new-phone#0",
+        "title": "Move MFA to a new phone · Before you start",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "mfa-new-phone#2",
+        "title": "Move MFA to a new phone · Lost your old phone",
+        "text": "## Lost your old phone\nIf you no longer have the old phone and are signed out everywhere, the help desk can issue a one-time code after verifying you on a video call.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Financial Analyst",
+        "os": "Windows 11",
+        "device": "ThinkPad T14 Gen 4",
+        "office": "London",
+        "region": "UK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "keyboard-layout-uk#0",
+        "action": "use",
+        "relevance_score": 0.9951,
+        "document_score": 0.9962,
+        "levels": {
+          "answers": 0.9951,
+          "elsewhere": 0.0011,
+          "different_case": 0.0013,
+          "unrelated": 0.0024
+        }
+      },
+      {
+        "index": 9,
+        "id": "laptop-slow-performance#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.0034,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0017,
+          "different_case": 0.0038,
+          "unrelated": 0.9928
+        }
+      },
+      {
+        "index": 4,
+        "id": "guest-wifi-policy#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0024,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0007,
+          "different_case": 0.0018,
+          "unrelated": 0.9959
+        }
+      },
+      {
+        "index": 3,
+        "id": "vpn-policy-2024#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0015,
+        "document_score": 0.0023,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0008,
+          "different_case": 0.0016,
+          "unrelated": 0.9961
+        }
+      },
+      {
+        "index": 8,
+        "id": "outlook-not-syncing#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0015,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.001,
+          "different_case": 0.0022,
+          "unrelated": 0.9953
+        }
+      },
+      {
+        "index": 1,
+        "id": "dock-monitor-not-detected#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0011,
+          "different_case": 0.002,
+          "unrelated": 0.9955
+        }
+      },
+      {
+        "index": 2,
+        "id": "account-lockout#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0018,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0006,
+          "different_case": 0.0015,
+          "unrelated": 0.9967
+        }
+      },
+      {
+        "index": 6,
+        "id": "onedrive-sync-paused#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0019,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0006,
+          "different_case": 0.0018,
+          "unrelated": 0.9963
+        }
+      },
+      {
+        "index": 10,
+        "id": "mfa-new-phone#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0019,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0006,
+          "different_case": 0.0017,
+          "unrelated": 0.9965
+        }
+      },
+      {
+        "index": 11,
+        "id": "mfa-new-phone#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0005,
+          "different_case": 0.0012,
+          "unrelated": 0.9971
+        }
+      },
+      {
+        "index": 5,
+        "id": "account-lockout#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0006,
+          "different_case": 0.0017,
+          "unrelated": 0.9966
+        }
+      },
+      {
+        "index": 7,
+        "id": "vpn-macos-drops#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0024,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0013,
+          "different_case": 0.3463,
+          "unrelated": 0.6514
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 2687
+    },
+    "timing": {
+      "total_ms": 69,
+      "rerank_ms": 68,
+      "questions_ms": 0,
+      "model_ms": 63,
+      "engine": {
+        "rows": 3539,
+        "branches": 12,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 4096,
+        "long": 0,
+        "total_ms": 63,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 61,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "66.323395",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.4, admit_db;dur=0.8, upstream;dur=153.7, discovery;dur=0.0, model;dur=66.3, settle;dur=4.4, gateway;dur=163.5"
+  }
+}

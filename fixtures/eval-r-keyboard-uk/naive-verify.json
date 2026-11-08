@@ -1,0 +1,134 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-keyboard-uk",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "My keyboard types @ when I press the quote key and I can't find the pound sign.",
+    "answer": "It sounds like your keyboard layout is set incorrectly. 1. On Windows open Settings > Time & language > Language & region and set the keyboard to \"United Kingdom\". 2. On a Mac open System Settings > Keyboard > Input Sources and add \"British\"",
+    "claims": [
+      "It sounds like your keyboard layout is set incorrectly.",
+      "1. On Windows open Settings > Time & language > Language & region and set the keyboard to \"United Kingdom\".",
+      "2. On a Mac open System Settings > Keyboard > Input Sources and add \"British\""
+    ],
+    "documents": [
+      {
+        "id": "keyboard-layout-uk#0",
+        "text": "## Fix\nIf @ and \" are swapped, the layout is set to US instead of UK. On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\". On a Mac open **System Settings > Keyboard > Input Sources** and add \"British\"."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9928,
+    "ungrounded": 0.0072,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "keyboard-layout-uk#0",
+        "share": 1,
+        "share_of_answer": 0.9928,
+        "claims": [
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "It sounds like your keyboard layout is set incorrectly.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.9523300860946218,
+          "offer_or_question": 0.021920057574267546,
+          "pointer": 0.007496749933783226,
+          "meta": 0.01825310639732745
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0448,
+        "contradicted": 0.0209,
+        "not_stated": 0.1163,
+        "not_a_claim": 0.8179,
+        "verdict": "not_a_claim",
+        "sources": {
+          "keyboard-layout-uk#0": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. On Windows open Settings > Time & language > Language & region and set the keyboard to \"United Kingdom\".",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5815,
+        "supported": 0.9918,
+        "contradicted": 0.0025,
+        "not_stated": 0.0027,
+        "not_a_claim": 0.003,
+        "verdict": "supported",
+        "sources": {
+          "keyboard-layout-uk#0": 1
+        },
+        "source": "keyboard-layout-uk#0",
+        "evidence": {
+          "document": "keyboard-layout-uk#0",
+          "quote": "On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\".",
+          "start": 70,
+          "end": 178,
+          "confidence": 0.991
+        }
+      },
+      {
+        "claim": "2. On a Mac open System Settings > Keyboard > Input Sources and add \"British\"",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4185,
+        "supported": 0.9942,
+        "contradicted": 0.0018,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0019,
+        "verdict": "supported",
+        "sources": {
+          "keyboard-layout-uk#0": 1
+        },
+        "source": "keyboard-layout-uk#0",
+        "evidence": {
+          "document": "keyboard-layout-uk#0",
+          "quote": "On a Mac open **System Settings > Keyboard > Input Sources** and add \"British\".",
+          "start": 179,
+          "end": 258,
+          "confidence": 0.999
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9918
+    },
+    "answers_question": 0.990166505741888,
+    "timing": {
+      "read_ms": 166,
+      "total_ms": 119
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "107.385215",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.2, admit_db;dur=2.2, upstream;dur=204.1, discovery;dur=0.0, model;dur=107.4, settle;dur=4.4, gateway;dur=214.7"
+  }
+}

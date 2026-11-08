@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-i-system-sudo",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nI need admin to install Figma plugins.\n\nEmployee: Product Designer, Design, New York; MacBook Pro 14-inch (macOS 15).\n\nWhy the automated desk stopped: Decide did not clear it for self-service (escalate is 100% likely).\n\nWhat the automated desk already did: screened the ticket and cut an injected instruction; classified it as software, low severity; searched the knowledge base and kept 2 passages; drafted a reply and verified it (99% grounded).\n\nVerified holding reply sent to the employee:\nThe help desk does not grant local administrator or Domain Admin rights.\n1. Most software can be installed from the software portal without admin rights.\n2. If you need something that is not in the portal, raise a software request with the name, version and business reason",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "The employee needs admin rights to install Figma plugins. The automated desk stopped because it did not clear the request for self-service",
+        "confidence": 0.9924596237412977,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "End-user Computing",
+        "confidence": 0.907,
+        "probabilities": {
+          "Service Desk": 0.029382470128530944,
+          "Network Operations": 0.007826587772870685,
+          "Identity & Access": 0.02028939553615585,
+          "Security": 0.01670649437104762,
+          "End-user Computing": 0.9257950521913949
+        }
+      },
+      "priority": {
+        "value": "P4",
+        "confidence": 0.424,
+        "expected": 1.54,
+        "probabilities": {
+          "P4": 0.5680967775426614,
+          "P3": 0.3418509713685572,
+          "P2": 0.0716705595055362,
+          "P1": 0.018381691583245163
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 48,
+      "generate_ms": 112,
+      "total_ms": 129,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 240,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "123.586176",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=213.2, discovery;dur=0.0, model;dur=123.6, settle;dur=4.8, gateway;dur=222.8"
+  }
+}

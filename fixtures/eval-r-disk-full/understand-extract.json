@@ -1,0 +1,146 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "extract",
+  "scenario": "eval-r-disk-full",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "My Mac keeps warning that the startup disk is almost full and apps freeze when I save files.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": [
+          "startup disk is almost full"
+        ],
+        "items": [
+          {
+            "value": "startup disk is almost full",
+            "start": 30,
+            "end": 57,
+            "p_start": 0.866,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 1,
+            "p_more": 0.634,
+            "confidence": 0.866
+          }
+        ],
+        "confidence": 0.866,
+        "rejected": [
+          "apps freeze when I save files"
+        ],
+        "rejected_items": [
+          {
+            "value": "apps freeze when I save files",
+            "start": 62,
+            "end": 91,
+            "p_start": 0.999,
+            "p_close": 1,
+            "p_point": 0.197,
+            "p_verify": 0.025,
+            "confidence": 0.025
+          }
+        ],
+        "finish": "budget"
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.999,
+        "p_blank": 0.999
+      },
+      "app_names": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "Mac"
+        ],
+        "rejected_items": [
+          {
+            "value": "Mac",
+            "start": 3,
+            "end": 6,
+            "p_start": 0.807,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 0.479,
+            "confidence": 0.479
+          }
+        ],
+        "finish": "closed"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 0.997,
+        "p_blank": 0.997
+      },
+      "device": {
+        "value": "Mac",
+        "start": 3,
+        "end": 6,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.5,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 98,
+      "forwards": {
+        "fields": [
+          12,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 0,
+          "point": 16,
+          "resolve": 10,
+          "extend": 0,
+          "contest": 22,
+          "lists": 47,
+          "verify": 0
+        }
+      },
+      "total_ms": 98,
+      "server_ms": 100
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.079521",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.3, admit_db;dur=2.2, upstream;dur=185.0, discovery;dur=0.0, model;dur=98.1, settle;dur=4.4, gateway;dur=195.8"
+  }
+}

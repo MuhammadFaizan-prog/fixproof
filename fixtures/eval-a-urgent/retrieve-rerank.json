@@ -1,0 +1,423 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-a-urgent",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "help pls, urgent",
+    "documents": [
+      {
+        "id": "mfa-new-phone#0",
+        "title": "Move MFA to a new phone · Before you start",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "linux-sudo-access#0",
+        "title": "Request sudo on an engineering workstation · Policy",
+        "text": "## Policy\nEngineers get time-limited sudo through the access portal with team lead approval. The help desk cannot grant sudo directly.",
+        "metadata": {
+          "os": "linux",
+          "region": "any",
+          "updated": "2026-06-05"
+        }
+      },
+      {
+        "id": "vpn-policy-2024#0",
+        "title": "VPN client troubleshooting policy (2024) · Policy",
+        "text": "## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "wifi-corporate-certificate#0",
+        "title": "Corporate Wi-Fi asks for a certificate · Fix",
+        "text": "## Fix\nChoose the network \"Northwind-Corp\" and accept the certificate issued to \"radius.northwind.example\". If the laptop shows a different certificate name, do not connect and tell the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "uk, us",
+          "updated": "2026-04-30"
+        }
+      },
+      {
+        "id": "mfa-new-phone#2",
+        "title": "Move MFA to a new phone · Lost your old phone",
+        "text": "## Lost your old phone\nIf you no longer have the old phone and are signed out everywhere, the help desk can issue a one-time code after verifying you on a video call.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#2",
+        "title": "Laptop is slow or behaving strangely · Possible security issue",
+        "text": "## Possible security issue\nUnexpected pop-ups, new browser toolbars or files you did not create can be signs of malware. Disconnect from the network and contact the help desk by phone.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "sharepoint-access-request#0",
+        "title": "Get access to a SharePoint site · Steps",
+        "text": "## Steps\nOpen the site link and click **Request access**. The site owner gets an email and usually approves within one working day. The help desk cannot add you to a site without the owner's approval.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-04-17"
+        }
+      },
+      {
+        "id": "vpn-windows-drops#2",
+        "title": "VPN drops every few minutes on Windows · Script: restart the VPN service",
+        "text": "## Script: restart the VPN service\nThe help desk may run this approved script on a managed Windows laptop. It restarts the Northwind VPN service only.\n\n```powershell\n# Northwind VPN service restart (Windows). Scope: this workstation only.\nRestart-Service -Name NorthwindVpnAgent\nGet-Service -Name NorthwindVpnAgent | Select-Object Status\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "admin-rights-policy#0",
+        "title": "Local administrator rights · Policy",
+        "text": "## Policy\nThe help desk does not grant local administrator or Domain Admin rights. Requests for elevated access go through the access portal with manager approval and a security review. Approved access is time-limited.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-07-01"
+        }
+      },
+      {
+        "id": "phishing-report#0",
+        "title": "Report a suspicious email · Steps",
+        "text": "## Steps\nUse the **Report phishing** button in Outlook. Do not forward the email or click links in it. If you already entered your password, reset it at once from the self-service portal and tell the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-02"
+        }
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "title": "VPN client troubleshooting policy (2026) · Policy",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-01"
+        }
+      },
+      {
+        "id": "password-reset-self-service#0",
+        "title": "Reset your password · Steps",
+        "text": "## Steps\n1. Go to the self-service portal and choose **Forgot password**.\n2. Approve the MFA prompt, then choose a new password of at least 14 characters.\n3. On a Mac, update the password in **Keychain Access** when prompted.\nThe help desk never asks for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "printer-queue-recovery#2",
+        "title": "Print queue stuck on a Windows laptop · Script: printer queue recovery",
+        "text": "## Script: printer queue recovery\nIf the queue will not clear, the help desk runs this script on your laptop. Last edited 3 November 2026 by an external contractor account.\n\n```powershell\n# CHG-NW-2231 · Printer queue recovery\n# Scope: this workstation only\nGet-Service -Name Spooler\nRestart-Service -Name Spooler\nSet-MpPreference -DisableRealtimeMonitoring $true\nGet-Printer | Select-Object Name, PrinterStatus\n```",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#2",
+        "title": "VPN drops every few minutes on macOS · Script: restart the VPN agent",
+        "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "title": "Outlook not syncing on Windows · Fix",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Backend Engineer",
+        "os": "Ubuntu 24.04",
+        "device": "Dell Precision 3581",
+        "office": "Lahore",
+        "region": "PK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 5,
+        "id": "laptop-slow-performance#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.1337,
+        "document_score": 0.1563,
+        "levels": {
+          "answers": 0.1337,
+          "elsewhere": 0.0225,
+          "different_case": 0.0632,
+          "unrelated": 0.7806
+        }
+      },
+      {
+        "index": 4,
+        "id": "mfa-new-phone#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0361,
+        "document_score": 0.0567,
+        "levels": {
+          "answers": 0.0361,
+          "elsewhere": 0.0206,
+          "different_case": 0.0596,
+          "unrelated": 0.8837
+        }
+      },
+      {
+        "index": 10,
+        "id": "vpn-policy-2026#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0304,
+        "document_score": 0.0492,
+        "levels": {
+          "answers": 0.0304,
+          "elsewhere": 0.0187,
+          "different_case": 0.0416,
+          "unrelated": 0.9092
+        }
+      },
+      {
+        "index": 9,
+        "id": "phishing-report#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0278,
+        "document_score": 0.04,
+        "levels": {
+          "answers": 0.0278,
+          "elsewhere": 0.0121,
+          "different_case": 0.0496,
+          "unrelated": 0.9105
+        }
+      },
+      {
+        "index": 11,
+        "id": "password-reset-self-service#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0269,
+        "document_score": 0.0453,
+        "levels": {
+          "answers": 0.0269,
+          "elsewhere": 0.0185,
+          "different_case": 0.0334,
+          "unrelated": 0.9213
+        }
+      },
+      {
+        "index": 2,
+        "id": "vpn-policy-2024#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0248,
+        "document_score": 0.0333,
+        "levels": {
+          "answers": 0.0248,
+          "elsewhere": 0.0085,
+          "different_case": 0.0277,
+          "unrelated": 0.939
+        }
+      },
+      {
+        "index": 1,
+        "id": "linux-sudo-access#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0154,
+        "document_score": 0.0227,
+        "levels": {
+          "answers": 0.0154,
+          "elsewhere": 0.0073,
+          "different_case": 0.0238,
+          "unrelated": 0.9535
+        }
+      },
+      {
+        "index": 0,
+        "id": "mfa-new-phone#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0126,
+        "document_score": 0.0514,
+        "levels": {
+          "answers": 0.0126,
+          "elsewhere": 0.0388,
+          "different_case": 0.0302,
+          "unrelated": 0.9183
+        }
+      },
+      {
+        "index": 6,
+        "id": "sharepoint-access-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0117,
+        "document_score": 0.0189,
+        "levels": {
+          "answers": 0.0117,
+          "elsewhere": 0.0072,
+          "different_case": 0.0324,
+          "unrelated": 0.9487
+        }
+      },
+      {
+        "index": 8,
+        "id": "admin-rights-policy#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0071,
+        "document_score": 0.0156,
+        "levels": {
+          "answers": 0.0071,
+          "elsewhere": 0.0085,
+          "different_case": 0.0305,
+          "unrelated": 0.9539
+        }
+      },
+      {
+        "index": 12,
+        "id": "printer-queue-recovery#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0021,
+        "document_score": 0.0038,
+        "levels": {
+          "answers": 0.0021,
+          "elsewhere": 0.0018,
+          "different_case": 0.9871,
+          "unrelated": 0.0091
+        }
+      },
+      {
+        "index": 14,
+        "id": "outlook-not-syncing#1",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0019,
+        "document_score": 0.0034,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0015,
+          "different_case": 0.9869,
+          "unrelated": 0.0098
+        }
+      },
+      {
+        "index": 3,
+        "id": "wifi-corporate-certificate#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0018,
+        "document_score": 0.0038,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.002,
+          "different_case": 0.9854,
+          "unrelated": 0.0109
+        }
+      },
+      {
+        "index": 7,
+        "id": "vpn-windows-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0018,
+        "document_score": 0.0031,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0014,
+          "different_case": 0.9908,
+          "unrelated": 0.0061
+        }
+      },
+      {
+        "index": 13,
+        "id": "vpn-macos-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0015,
+        "document_score": 0.0029,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0014,
+          "different_case": 0.9883,
+          "unrelated": 0.0088
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 3241
+    },
+    "timing": {
+      "total_ms": 173,
+      "rerank_ms": 95,
+      "questions_ms": 0,
+      "model_ms": 86,
+      "engine": {
+        "rows": 4546,
+        "branches": 15,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 6144,
+        "long": 0,
+        "total_ms": 86,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 84,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 160
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "92.852348",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=257.5, discovery;dur=0.0, model;dur=92.9, settle;dur=4.8, gateway;dur=266.9"
+  }
+}

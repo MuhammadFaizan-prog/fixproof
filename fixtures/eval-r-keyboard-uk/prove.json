@@ -1,0 +1,134 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-keyboard-uk",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My keyboard types @ when I press the quote key and I can't find the pound sign.",
+    "answer": "If @ and \" are swapped, the layout is set to US instead of UK. 1. Open Settings > Time & language > Language & region. 2. Set the keyboard to \"United Kingdom\"",
+    "claims": [
+      "If @ and \" are swapped, the layout is set to US instead of UK.",
+      "1. Open Settings > Time & language > Language & region.",
+      "2. Set the keyboard to \"United Kingdom\""
+    ],
+    "documents": [
+      {
+        "id": "keyboard-layout-uk#0",
+        "text": "## Fix\nIf @ and \" are swapped, the layout is set to US instead of UK. On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\". On a Mac open **System Settings > Keyboard > Input Sources** and add \"British\"."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9645,
+    "ungrounded": 0.0355,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "keyboard-layout-uk#0",
+        "share": 1,
+        "share_of_answer": 0.9645,
+        "claims": [
+          0,
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "If @ and \" are swapped, the layout is set to US instead of UK.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3974,
+        "supported": 0.9955,
+        "contradicted": 0.0017,
+        "not_stated": 0.0014,
+        "not_a_claim": 0.0014,
+        "verdict": "supported",
+        "sources": {
+          "keyboard-layout-uk#0": 1
+        },
+        "source": "keyboard-layout-uk#0",
+        "evidence": {
+          "document": "keyboard-layout-uk#0",
+          "quote": "If @ and \" are swapped, the layout is set to US instead of UK.",
+          "start": 7,
+          "end": 69,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "1. Open Settings > Time & language > Language & region.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3526,
+        "supported": 0.9194,
+        "contradicted": 0.0152,
+        "not_stated": 0.0459,
+        "not_a_claim": 0.0195,
+        "verdict": "supported",
+        "sources": {
+          "keyboard-layout-uk#0": 1
+        },
+        "source": "keyboard-layout-uk#0",
+        "evidence": {
+          "document": "keyboard-layout-uk#0",
+          "quote": "On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\".",
+          "start": 70,
+          "end": 178,
+          "confidence": 0.954
+        }
+      },
+      {
+        "claim": "2. Set the keyboard to \"United Kingdom\"",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.25,
+        "supported": 0.9789,
+        "contradicted": 0.0069,
+        "not_stated": 0.0089,
+        "not_a_claim": 0.0052,
+        "verdict": "supported",
+        "sources": {
+          "keyboard-layout-uk#0": 1
+        },
+        "source": "keyboard-layout-uk#0",
+        "evidence": {
+          "document": "keyboard-layout-uk#0",
+          "quote": "On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\".",
+          "start": 70,
+          "end": 178,
+          "confidence": 0.939
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9194
+    },
+    "answers_question": 0.9929150820651689,
+    "timing": {
+      "read_ms": 138,
+      "total_ms": 98
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "89.552318",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=182.6, discovery;dur=0.0, model;dur=89.6, settle;dur=4.9, gateway;dur=192.6"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-payroll-30min",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "Is payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": null,
+        "confidence": 0.883,
+        "probabilities": {
+          "network": 0.008445357976110374,
+          "identity": 0.007572339258721044,
+          "hardware": 0.009221873890058586,
+          "software": 0.05285255425864974,
+          "printing": 0.007566249063260559,
+          "security": 0.008383734820485812,
+          "accounts": 0.008693587194182518,
+          "none": 0.8972643035385314
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.678,
+        "expected": 1.432,
+        "probabilities": {
+          "low": 0.7584501578984971,
+          "medium": 0.10041470311934707,
+          "high": 0.09171611969744989,
+          "critical": 0.04941901928470592
+        }
+      },
+      "affected_service": {
+        "value": "payroll",
+        "start": 3,
+        "end": 10,
+        "confidence": 0.9999966041154611,
+        "p_verify": 0.9999966041154611
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.969,
+        "probabilities": {
+          "yes": 0.015652060470682017,
+          "no": 0.984347939529318
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 59,
+      "generate_ms": 0,
+      "total_ms": 64,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "61.829662",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=148.9, discovery;dur=0.0, model;dur=61.8, settle;dur=4.4, gateway;dur=158.0"
+  }
+}

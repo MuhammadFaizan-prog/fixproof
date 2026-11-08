@@ -1,0 +1,153 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "extract",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "Should I reinstall the VPN client on my Mac? It keeps dropping after the update.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": null,
+        "confidence": 0.355,
+        "p_blank": 0.355
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.907,
+        "p_blank": 0.907
+      },
+      "app_names": {
+        "value": [
+          "VPN client",
+          "Mac"
+        ],
+        "items": [
+          {
+            "value": "VPN client",
+            "start": 23,
+            "end": 33,
+            "p_start": 1,
+            "p_close": 0.999,
+            "p_point": 0.5,
+            "p_verify": 1,
+            "p_more": 0.976,
+            "confidence": 0.999
+          },
+          {
+            "value": "Mac",
+            "start": 40,
+            "end": 43,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 0.796,
+            "p_verify": 1,
+            "p_more": 0.999,
+            "confidence": 1
+          }
+        ],
+        "confidence": 0.999,
+        "rejected": [
+          "update",
+          "the update"
+        ],
+        "rejected_items": [
+          {
+            "value": "update",
+            "start": 73,
+            "end": 79,
+            "p_start": 0.448,
+            "p_close": 1,
+            "p_point": 0.319,
+            "p_verify": 0,
+            "confidence": 0
+          },
+          {
+            "value": "the update",
+            "start": 69,
+            "end": 79,
+            "p_start": 0.113,
+            "p_close": 1,
+            "p_point": 0.243,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "budget"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 0.995,
+        "p_blank": 0.995
+      },
+      "device": {
+        "value": "Mac",
+        "start": 40,
+        "end": 43,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.5,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 127,
+      "forwards": {
+        "fields": [
+          18,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 1,
+          "point": 21,
+          "resolve": 9,
+          "extend": 0,
+          "contest": 15,
+          "lists": 79,
+          "verify": 0
+        }
+      },
+      "total_ms": 127,
+      "server_ms": 129
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "127.362244",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=213.5, discovery;dur=0.0, model;dur=127.4, settle;dur=4.5, gateway;dur=222.8"
+  }
+}

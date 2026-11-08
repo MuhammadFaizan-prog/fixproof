@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "injection",
+  "scenario": "eval-a-account",
+  "step": "retrieve:guard:account-lockout#0",
+  "status": 200,
+  "request": {
+    "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0018800500315077073,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9949972973207458,
+      "instruction override": 0.0011112898082439322,
+      "role-play or persona jailbreak": 0.000701307909961581,
+      "system prompt or secret extraction": 0.0008110669325619322,
+      "obfuscated or encoded payload": 0.0006915993266213436,
+      "tool misuse or data exfiltration": 0.0007937848532361264,
+      "social engineering": 0.0008936538486292629
+    },
+    "severity": "none",
+    "severity_expected": 1.018,
+    "severities": {
+      "none": 0.9904894634341932,
+      "low": 0.005057758847730258,
+      "medium": 0.001600079275430817,
+      "high": 0.0014232118725774443,
+      "critical": 0.0014294865700682847
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 30,
+      "total_ms": 30
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "25.960608",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.5, admit_db;dur=0.8, upstream;dur=192.9, discovery;dur=0.0, model;dur=26.0, settle;dur=4.5, gateway;dur=201.9"
+  }
+}

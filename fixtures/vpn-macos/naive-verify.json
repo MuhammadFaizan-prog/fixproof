@@ -1,0 +1,201 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "vpn-macos",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Hi, it's Priya Natarajan. My VPN keeps dropping every five minutes since yesterday's update, error 809. I have a client demo at 3pm today. I'm on my MacBook, NW-MBP-0193. You can reach me at priya.n@northwind.example.",
+    "answer": "Hi Priya, I'm sorry to hear you're experiencing VPN issues before your demo. Since this started after an update on your macOS device, it is likely due to a stale VPN profile. Please follow these steps:\n\n1. Right-click the Northwind VPN icon and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt",
+    "claims": [
+      "Hi Priya, I'm sorry to hear you're experiencing VPN issues before your demo.",
+      "Since this started after an update on your macOS device, it is likely due to a stale VPN profile.",
+      "Please follow these steps:",
+      "1. Right-click the Northwind VPN icon and choose **Disconnect**.",
+      "2. Open **Settings > Reset profile** in the VPN client.",
+      "3. Reconnect and approve the MFA prompt"
+    ],
+    "documents": [
+      {
+        "id": "vpn-macos-drops#0,1,2,3",
+        "text": "## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.\n\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account."
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.7175,
+    "ungrounded": 0.2825,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-macos-drops#0,1,2,3",
+        "share": 0.989,
+        "share_of_answer": 0.7096,
+        "claims": [
+          1,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.011,
+        "share_of_answer": 0.0079,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Hi Priya, I'm sorry to hear you're experiencing VPN issues before your demo.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.31274749839267174,
+          "offer_or_question": 0.6204036679057521,
+          "pointer": 0.03224161190613641,
+          "meta": 0.03460722179543972
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0022,
+        "contradicted": 0.0013,
+        "not_stated": 0.0016,
+        "not_a_claim": 0.995,
+        "verdict": "not_a_claim",
+        "sources": {
+          "vpn-macos-drops#0,1,2,3": 0.5205,
+          "vpn-policy-2026#0": 0.4795
+        },
+        "source": null
+      },
+      {
+        "claim": "Since this started after an update on your macOS device, it is likely due to a stale VPN profile.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3804,
+        "supported": 0.9883,
+        "contradicted": 0.0024,
+        "not_stated": 0.005,
+        "not_a_claim": 0.0043,
+        "verdict": "supported",
+        "sources": {
+          "vpn-macos-drops#0,1,2,3": 0.9968,
+          "vpn-policy-2026#0": 0.0032
+        },
+        "source": "vpn-macos-drops#0,1,2,3",
+        "evidence": {
+          "document": "vpn-macos-drops#0,1,2,3",
+          "quote": "It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.",
+          "start": 138,
+          "end": 243,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "Please follow these steps:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.03617405871540468,
+          "offer_or_question": 0.7787558971355049,
+          "pointer": 0.14408822710803895,
+          "meta": 0.04098181704105151
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0532,
+        "contradicted": 0.0135,
+        "not_stated": 0.0744,
+        "not_a_claim": 0.8588,
+        "verdict": "not_a_claim",
+        "sources": {
+          "vpn-macos-drops#0,1,2,3": 0.7244,
+          "vpn-policy-2026#0": 0.2756
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Right-click the Northwind VPN icon and choose **Disconnect**.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.251,
+        "supported": 0.0351,
+        "contradicted": 0.4066,
+        "not_stated": 0.5387,
+        "not_a_claim": 0.0196,
+        "verdict": "not_stated",
+        "sources": {
+          "vpn-macos-drops#0,1,2,3": 0.7783,
+          "vpn-policy-2026#0": 0.2217
+        },
+        "source": null
+      },
+      {
+        "claim": "2. Open **Settings > Reset profile** in the VPN client.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2157,
+        "supported": 0.984,
+        "contradicted": 0.0034,
+        "not_stated": 0.0072,
+        "not_a_claim": 0.0053,
+        "verdict": "supported",
+        "sources": {
+          "vpn-macos-drops#0,1,2,3": 0.9952,
+          "vpn-policy-2026#0": 0.0048
+        },
+        "source": "vpn-macos-drops#0,1,2,3"
+      },
+      {
+        "claim": "3. Reconnect and approve the MFA prompt",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1529,
+        "supported": 0.7876,
+        "contradicted": 0.0276,
+        "not_stated": 0.1176,
+        "not_a_claim": 0.0672,
+        "verdict": "supported",
+        "sources": {
+          "vpn-macos-drops#0,1,2,3": 0.9694,
+          "vpn-policy-2026#0": 0.0306
+        },
+        "source": "vpn-macos-drops#0,1,2,3"
+      }
+    ],
+    "unsupported_claims": [
+      3
+    ],
+    "not_claims": [
+      0,
+      2
+    ],
+    "weakest_claim": {
+      "index": 3,
+      "supported": 0.0351
+    },
+    "answers_question": 0.9718268346931969,
+    "timing": {
+      "read_ms": 254,
+      "total_ms": 175
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "163.5217",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.5, admit_db;dur=2.1, upstream;dur=261.2, discovery;dur=0.0, model;dur=163.5, settle;dur=5.2, gateway;dur=272.9"
+  }
+}

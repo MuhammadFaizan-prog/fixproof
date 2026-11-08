@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-zoom-share-windows",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nScreen sharing in Zoom is blocked on my laptop, it says a permission is needed.\n\nKnowledge base:\n[1] Screen sharing blocked on macOS · Fix\n## Fix\nOpen **System Settings > Privacy & Security > Screen & System Audio Recording** and turn on the app you use for calls. Quit and reopen the app. No admin rights are needed.\n\n[2] USB storage is blocked on company laptops · Policy\n## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.\n\n[3] Laptop is slow or behaving strangely · Tell us what you see\n## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Hannah: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "To fix the screen sharing issue on your macOS, please follow these steps:\n1. Open System Settings > Privacy & Security > Screen & System Audio Recording\n2. Turn on the app you use for calls.\n3. Quit and reopen the app",
+        "confidence": 0.9927931231868893,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 168,
+      "total_ms": 184,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 272,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "8",
+    "x-clocked-model-ms": "178.210464",
+    "x-clocked-cost-usd": "0.001594",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.6, admit_db;dur=1.6, upstream;dur=267.8, discovery;dur=0.0, model;dur=178.2, settle;dur=5.5, gateway;dur=278.9"
+  }
+}

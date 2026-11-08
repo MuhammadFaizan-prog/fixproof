@@ -1,0 +1,145 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "extract",
+  "scenario": "eval-w-zoom-share-windows",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "Screen sharing in Zoom is blocked on my laptop, it says a permission is needed.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": [
+          "a permission is needed"
+        ],
+        "items": [
+          {
+            "value": "a permission is needed",
+            "start": 56,
+            "end": 78,
+            "p_start": 0.988,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 1,
+            "p_more": 0.001,
+            "confidence": 0.988
+          }
+        ],
+        "confidence": 0.988,
+        "finish": "closed"
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.998,
+        "p_blank": 0.998
+      },
+      "app_names": {
+        "value": [
+          "Zoom"
+        ],
+        "items": [
+          {
+            "value": "Zoom",
+            "start": 18,
+            "end": 22,
+            "p_start": 0.996,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 1,
+            "p_more": 0.999,
+            "confidence": 0.996
+          }
+        ],
+        "confidence": 0.996,
+        "rejected": [
+          "laptop"
+        ],
+        "rejected_items": [
+          {
+            "value": "laptop",
+            "start": 40,
+            "end": 46,
+            "p_start": 0.008,
+            "p_close": 1,
+            "p_point": 0.262,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "budget"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 0.995,
+        "p_blank": 0.995
+      },
+      "device": {
+        "value": "laptop",
+        "start": 40,
+        "end": 46,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 1,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 98,
+      "forwards": {
+        "fields": [
+          12,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 1,
+          "point": 21,
+          "resolve": 10,
+          "extend": 0,
+          "contest": 22,
+          "lists": 43,
+          "verify": 0
+        }
+      },
+      "total_ms": 98,
+      "server_ms": 100
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.662529",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=184.4, discovery;dur=0.0, model;dur=98.7, settle;dur=4.5, gateway;dur=193.7"
+  }
+}

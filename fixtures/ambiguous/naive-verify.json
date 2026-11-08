@@ -1,0 +1,181 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "ambiguous",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "my computer is weird today",
+    "answer": "I'm sorry to hear your computer is behaving strangely. To help me investigate, please provide more details:\n\n1. Tell us what you see.\n2. \"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\"",
+    "claims": [
+      "I'm sorry to hear your computer is behaving strangely.",
+      "To help me investigate, please provide more details:",
+      "1. Tell us what you see.",
+      "2. \"Slow\" or \"weird\" can mean many things.",
+      "A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\""
+    ],
+    "documents": [
+      {
+        "id": "laptop-slow-performance#1",
+        "text": "## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\"."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.942,
+    "ungrounded": 0.058,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-slow-performance#1",
+        "share": 1,
+        "share_of_answer": 0.942,
+        "claims": [
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I'm sorry to hear your computer is behaving strangely.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.3924658253507139,
+          "offer_or_question": 0.5205974331202844,
+          "pointer": 0.022006630556726157,
+          "meta": 0.06493011097227554
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.002,
+        "contradicted": 0.0038,
+        "not_stated": 0.0146,
+        "not_a_claim": 0.9795,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "To help me investigate, please provide more details:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.004190457073808802,
+          "offer_or_question": 0.9849954428435628,
+          "pointer": 0.004269275049034653,
+          "meta": 0.006544825033593772
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0032,
+        "contradicted": 0.006,
+        "not_stated": 0.037,
+        "not_a_claim": 0.9538,
+        "verdict": "not_a_claim",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Tell us what you see.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1067,
+        "supported": 0.551,
+        "contradicted": 0.0183,
+        "not_stated": 0.083,
+        "not_a_claim": 0.3477,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": "laptop-slow-performance#1",
+        "evidence": {
+          "document": "laptop-slow-performance#1",
+          "quote": "## Tell us what you see",
+          "start": 0,
+          "end": 23,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "2. \"Slow\" or \"weird\" can mean many things.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1867,
+        "supported": 0.986,
+        "contradicted": 0.0036,
+        "not_stated": 0.0039,
+        "not_a_claim": 0.0065,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": "laptop-slow-performance#1",
+        "evidence": {
+          "document": "laptop-slow-performance#1",
+          "quote": "Slow\" or \"weird\" can mean many things.",
+          "start": 25,
+          "end": 63,
+          "confidence": 0.977
+        }
+      },
+      {
+        "claim": "A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\"",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.7067,
+        "supported": 0.9893,
+        "contradicted": 0.0027,
+        "not_stated": 0.0025,
+        "not_a_claim": 0.0055,
+        "verdict": "supported",
+        "sources": {
+          "laptop-slow-performance#1": 1
+        },
+        "source": "laptop-slow-performance#1",
+        "evidence": {
+          "document": "laptop-slow-performance#1",
+          "quote": "A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+          "start": 64,
+          "end": 224,
+          "confidence": 0.998
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0,
+      1
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.551
+    },
+    "answers_question": 0.9638641139010695,
+    "timing": {
+      "read_ms": 220,
+      "total_ms": 147
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "138.086946",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=1.7, upstream;dur=309.3, discovery;dur=0.0, model;dur=138.1, settle;dur=4.8, gateway;dur=319.9"
+  }
+}

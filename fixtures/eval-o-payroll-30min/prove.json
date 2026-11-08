@@ -1,0 +1,128 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-o-payroll-30min",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "Is payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?",
+    "answer": "The sources do not provide an exact time for when the payroll portal will be fixed. 1. Expense claims can be submitted by email to the finance shared mailbox. 2. Updates are posted on the IT status page every two hours",
+    "claims": [
+      "The sources do not provide an exact time for when the payroll portal will be fixed.",
+      "1. Expense claims can be submitted by email to the finance shared mailbox.",
+      "2. Updates are posted on the IT status page every two hours"
+    ],
+    "documents": [
+      {
+        "id": "payroll-portal-status#1-2",
+        "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.7717,
+    "ungrounded": 0.2283,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "payroll-portal-status#1-2",
+        "share": 1,
+        "share_of_answer": 0.7717,
+        "claims": [
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "The sources do not provide an exact time for when the payroll portal will be fixed.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3843,
+        "supported": 0.4155,
+        "contradicted": 0.0143,
+        "not_stated": 0.5611,
+        "not_a_claim": 0.0091,
+        "verdict": "not_stated",
+        "sources": {
+          "payroll-portal-status#1-2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Expense claims can be submitted by email to the finance shared mailbox.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3426,
+        "supported": 0.9939,
+        "contradicted": 0.002,
+        "not_stated": 0.0015,
+        "not_a_claim": 0.0026,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#1-2": 1
+        },
+        "source": "payroll-portal-status#1-2",
+        "evidence": {
+          "document": "payroll-portal-status#1-2",
+          "quote": "Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back.",
+          "start": 14,
+          "end": 133,
+          "confidence": 0.852
+        }
+      },
+      {
+        "claim": "2. Updates are posted on the IT status page every two hours",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2731,
+        "supported": 0.9943,
+        "contradicted": 0.0022,
+        "not_stated": 0.0018,
+        "not_a_claim": 0.0017,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#1-2": 1
+        },
+        "source": "payroll-portal-status#1-2",
+        "evidence": {
+          "document": "payroll-portal-status#1-2",
+          "quote": "Updates are posted on the IT status page every two hours.",
+          "start": 206,
+          "end": 263,
+          "confidence": 0.963
+        }
+      }
+    ],
+    "unsupported_claims": [
+      0
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.4155
+    },
+    "answers_question": 0.9103867344865033,
+    "timing": {
+      "read_ms": 153,
+      "total_ms": 107
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.096479",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.1, admit_db;dur=0.8, upstream;dur=192.9, discovery;dur=0.0, model;dur=98.1, settle;dur=3.5, gateway;dur=200.5"
+  }
+}

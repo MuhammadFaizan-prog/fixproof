@@ -1,0 +1,86 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "compare",
+  "scenario": "eval-c-guest-wifi-scope",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "guest-wifi-policy#0",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors."
+      },
+      {
+        "id": "guest-wifi-lahore#0",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "clean",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "guest-wifi-policy#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      },
+      {
+        "id": "guest-wifi-lahore#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      }
+    ],
+    "pairs": [
+      {
+        "a": "guest-wifi-policy#0",
+        "b": "guest-wifi-lahore#0",
+        "relation": "overlapping",
+        "related": 0.9911,
+        "probabilities": {
+          "same": 0.0081,
+          "overlapping": 0.9457,
+          "conflicting": 0.0373,
+          "unrelated": 0.0089
+        },
+        "duplicates": [],
+        "conflicts": []
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [],
+    "related_pairs": [
+      0
+    ],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 19,
+      "passage_reads": 1,
+      "passages_ms": 48,
+      "passages": 0
+    },
+    "timing": {
+      "read_ms": 67,
+      "total_ms": 68
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "61.269952",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=0.9, upstream;dur=153.4, discovery;dur=0.0, model;dur=61.3, settle;dur=4.2, gateway;dur=162.7"
+  }
+}

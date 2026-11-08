@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-keyboard-uk",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "My keyboard types @ when I press the quote key and I can't find the pound sign.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "hardware",
+        "confidence": 0.564,
+        "probabilities": {
+          "network": 0.010828796926475317,
+          "identity": 0.0088092534710916,
+          "hardware": 0.6187944720889499,
+          "software": 0.01772762798727732,
+          "printing": 0.010859577240427834,
+          "security": 0.012121757039578202,
+          "accounts": 0.015268084095981644,
+          "none": 0.30559043115021817
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.615,
+        "expected": 1.371,
+        "probabilities": {
+          "low": 0.7115042734518948,
+          "medium": 0.22919796812731064,
+          "high": 0.03607065981560367,
+          "critical": 0.02322709860519084
+        }
+      },
+      "affected_service": {
+        "value": "keyboard",
+        "start": 3,
+        "end": 11,
+        "confidence": 0.9999999847644943,
+        "p_verify": 0.9999999847644943
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.93,
+        "probabilities": {
+          "yes": 0.03488499604550743,
+          "no": 0.9651150039544926
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 58,
+      "generate_ms": 0,
+      "total_ms": 62,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "60.377568",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=146.6, discovery;dur=0.0, model;dur=60.4, settle;dur=4.6, gateway;dur=156.0"
+  }
+}

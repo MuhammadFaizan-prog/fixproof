@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-a-account",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nSomething is wrong with my account I think?\n\nKnowledge base sources:\n[1] Account locked after failed sign-ins · Why it happens + Fix (updated 2026-05-30)\n## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.\n\n## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail.\n\n[2] Outlook not syncing on Windows · Fix (updated 2026-09-09)\n## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.\n\n[3] OneDrive sync paused or stuck · Fix (updated 2026-06-28)\n## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Windows 11, London) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear you are having trouble with your account. 1. Ten failed sign-ins in 15 minutes lock the account for 30 minutes. 2. Wait 30 minutes or unlock it from the self-service portal with MFA. 3. Update the password on every device that syncs mail",
+        "confidence": 0.14520354685016312,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 237,
+      "total_ms": 256,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 432,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "10",
+    "x-clocked-model-ms": "248.199648",
+    "x-clocked-cost-usd": "0.001992",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=341.0, discovery;dur=0.0, model;dur=248.2, settle;dur=4.1, gateway;dur=349.8"
+  }
+}

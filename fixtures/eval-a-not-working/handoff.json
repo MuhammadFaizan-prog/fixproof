@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-a-not-working",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nit's not working again\n\nEmployee: Product Designer, Design, New York; MacBook Pro 14-inch (macOS 15).\n\nWhy the automated desk stopped: the reply is not grounded in the sources (grounded 0%).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as uncategorised, low severity; searched the knowledge base and kept 4 passages; drafted a reply and verified it (0% grounded).\n\nVerified holding reply sent to the employee:\nI am sorry to hear you are having trouble, but I need more information to know what is not working",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "The employee reports that it's not working again. The automated desk stopped because the reply is not grounded in the sources (grounded 0%)",
+        "confidence": 0.992955625332667,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "End-user Computing",
+        "confidence": 0.54,
+        "probabilities": {
+          "Service Desk": 0.326731189966766,
+          "Network Operations": 0.013054620226617276,
+          "Identity & Access": 0.01587265860138592,
+          "Security": 0.012376070722730174,
+          "End-user Computing": 0.6319654604825007
+        }
+      },
+      "priority": {
+        "value": "P4",
+        "confidence": 0.528,
+        "expected": 1.524,
+        "probabilities": {
+          "P4": 0.645774366430522,
+          "P3": 0.20186394575952976,
+          "P2": 0.13446299347584786,
+          "P1": 0.017898694334100393
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 47,
+      "generate_ms": 113,
+      "total_ms": 129,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 208,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "125.083103",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=213.5, discovery;dur=0.0, model;dur=125.1, settle;dur=4.0, gateway;dur=222.4"
+  }
+}

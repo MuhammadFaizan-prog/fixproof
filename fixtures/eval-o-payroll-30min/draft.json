@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-o-payroll-30min",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nIs payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?\n\nKnowledge base sources:\n[1] Payroll portal outage: current status · Workaround + Updates (updated 2026-11-07)\n## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (macOS 15, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "The sources do not provide an exact time for when the payroll portal will be fixed. 1. Expense claims can be submitted by email to the finance shared mailbox. 2. Updates are posted on the IT status page every two hours",
+        "confidence": 0.9673066552583987,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 190,
+      "total_ms": 205,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 208,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "8",
+    "x-clocked-model-ms": "199.27427",
+    "x-clocked-cost-usd": "0.001594",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=3.9, admit_db;dur=0.8, upstream;dur=289.6, discovery;dur=0.0, model;dur=199.3, settle;dur=3.4, gateway;dur=296.9"
+  }
+}

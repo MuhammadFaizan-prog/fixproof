@@ -1,0 +1,115 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-a-not-working",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "it's not working again",
+    "answer": "I am sorry to hear you are having trouble, but I need more information to know what is not working",
+    "claims": [
+      "I am sorry to hear you are having trouble, but I need more information to know what is not working"
+    ],
+    "documents": [
+      {
+        "id": "onedrive-sync-paused#0",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device."
+      },
+      {
+        "id": "teams-audio-no-sound#0",
+        "text": "## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams."
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights."
+      },
+      {
+        "id": "mail-macos-not-syncing#0",
+        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": null,
+    "ungrounded": null,
+    "verdict": "no_claims",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "onedrive-sync-paused#0",
+        "share": 0,
+        "share_of_answer": 0,
+        "claims": []
+      },
+      {
+        "id": "teams-audio-no-sound#0",
+        "share": 0,
+        "share_of_answer": 0,
+        "claims": []
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "share": 0,
+        "share_of_answer": 0,
+        "claims": []
+      },
+      {
+        "id": "mail-macos-not-syncing#0",
+        "share": 0,
+        "share_of_answer": 0,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I am sorry to hear you are having trouble, but I need more information to know what is not working",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.004398424298830916,
+          "offer_or_question": 0.9879466987638592,
+          "pointer": 0.002860105784741727,
+          "meta": 0.004794771152568145
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0067,
+        "contradicted": 0.0018,
+        "not_stated": 0.0104,
+        "not_a_claim": 0.9811,
+        "verdict": "not_a_claim",
+        "sources": {
+          "onedrive-sync-paused#0": 0.1696,
+          "teams-audio-no-sound#0": 0.3146,
+          "vpn-macos-drops#1": 0.2637,
+          "mail-macos-not-syncing#0": 0.2522
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": null,
+    "answers_question": 0.9015793668114678,
+    "timing": {
+      "read_ms": 92,
+      "total_ms": 56
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "46.531808",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=141.0, discovery;dur=0.0, model;dur=46.5, settle;dur=4.5, gateway;dur=150.4"
+  }
+}

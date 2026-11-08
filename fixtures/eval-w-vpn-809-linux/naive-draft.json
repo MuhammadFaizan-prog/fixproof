@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-vpn-809-linux",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nVPN error 809 again, it drops every five minutes. Same thing my Windows colleague had last week.\n\nKnowledge base:\n[1] VPN drops every few minutes on Windows · Symptoms\n## Symptoms\nThe Northwind VPN disconnects every few minutes on a Windows 11 laptop, sometimes with error 809. It usually follows a Windows update that changed the network adapter driver.\n\n[2] VPN drops every few minutes on macOS · Symptoms\n## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.\n\n[3] VPN drops every few minutes on macOS · If it still drops\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I'm sorry to hear you're experiencing VPN error 809 again.\n\n1. Since this issue often follows a Windows update that changed the network adapter driver, please check if your driver was recently updated",
+        "confidence": 0.9236725736189391,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 173,
+      "total_ms": 190,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 288,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "8",
+    "x-clocked-model-ms": "183.348608",
+    "x-clocked-cost-usd": "0.001594",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.8, upstream;dur=350.9, discovery;dur=0.0, model;dur=183.3, settle;dur=4.3, gateway;dur=360.1"
+  }
+}

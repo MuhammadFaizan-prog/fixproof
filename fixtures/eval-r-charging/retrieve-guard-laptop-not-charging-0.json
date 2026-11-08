@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "injection",
+  "scenario": "eval-r-charging",
+  "step": "retrieve:guard:laptop-not-charging#0",
+  "status": 200,
+  "request": {
+    "text": "## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0021417760687570953,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9944991573547027,
+      "instruction override": 0.001314911002775868,
+      "role-play or persona jailbreak": 0.0007772493194009584,
+      "system prompt or secret extraction": 0.0008176339026594578,
+      "obfuscated or encoded payload": 0.0007696341224020334,
+      "tool misuse or data exfiltration": 0.0008934882118602882,
+      "social engineering": 0.0009279260861986599
+    },
+    "severity": "none",
+    "severity_expected": 1.014,
+    "severities": {
+      "none": 0.9941641488267008,
+      "low": 0.0021164261764593834,
+      "medium": 0.0010866151354664117,
+      "high": 0.0012000808233865702,
+      "critical": 0.0014327290379868459
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 29,
+      "total_ms": 29
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "25.55504",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.8, upstream;dur=113.8, discovery;dur=0.0, model;dur=25.6, settle;dur=4.4, gateway;dur=123.0"
+  }
+}

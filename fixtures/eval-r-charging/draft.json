@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-charging",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nMy laptop isn't charging when it's plugged into the USB-C charger, the battery is stuck at 40%.\n\nKnowledge base sources:\n[1] Laptop not charging on a dock or USB-C charger · Check the basics + Reset the dock + When to raise a ticket (updated 2026-08-20)\n## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.\n\n## Reset the dock\nUnplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop.\n\n## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "1. Plug the charger straight into the laptop instead of the dock. 2. Try a different USB-C port on the laptop. 3. Look at the charger wattage. 4. Unplug the dock's power for 30 seconds, plug it back in, then reconnect the laptop. If the laptop does not charge from its own charger either, it needs a hardware check",
+        "confidence": 0.7744993862086144,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 216,
+      "total_ms": 235,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 320,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "10",
+    "x-clocked-model-ms": "227.398787",
+    "x-clocked-cost-usd": "0.001992",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=319.4, discovery;dur=0.0, model;dur=227.4, settle;dur=4.4, gateway;dur=328.9"
+  }
+}

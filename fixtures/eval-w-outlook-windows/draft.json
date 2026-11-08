@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-w-outlook-windows",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nOutlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.\n\nKnowledge base sources:\n[1] Outlook not syncing on Windows · Fix (updated 2026-09-09)\n## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Windows 11, London) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear you are having trouble with Outlook syncing.\n1. Check File > Office Account shows your Northwind account.\n2. Sign out and back in if it shows an error.\n3. Turn off Work Offline on the Send/Receive tab.\n4. Close Outlook, then open it while holding Ctrl and choose Yes to start in safe mode.\n5. If it syncs in safe mode, disable add-ins one at a time.\n6. Use Account settings > Repair if nothing helps",
+        "confidence": 0.9116104271872374,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 317,
+      "total_ms": 335,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 240,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "13",
+    "x-clocked-model-ms": "324.465633",
+    "x-clocked-cost-usd": "0.002590",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=419.2, discovery;dur=0.0, model;dur=324.5, settle;dur=4.3, gateway;dur=428.3"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "injection",
+  "scenario": "eval-r-slow",
+  "step": "retrieve:guard:laptop-slow-performance#0",
+  "status": 200,
+  "request": {
+    "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0024030409797578534,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.9933083045232968,
+      "instruction override": 0.0017054176046850692,
+      "role-play or persona jailbreak": 0.0009109134720897904,
+      "system prompt or secret extraction": 0.0009763421494825965,
+      "obfuscated or encoded payload": 0.0009155407266650576,
+      "tool misuse or data exfiltration": 0.0010217628105527552,
+      "social engineering": 0.0011617187132279606
+    },
+    "severity": "none",
+    "severity_expected": 1.011,
+    "severities": {
+      "none": 0.9953963031627447,
+      "low": 0.0015928183380406941,
+      "medium": 0.0008805385759371232,
+      "high": 0.0009457366612613007,
+      "critical": 0.0011846032620161377
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 21,
+      "total_ms": 22
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "19.412607",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=106.5, discovery;dur=0.0, model;dur=19.4, settle;dur=4.7, gateway;dur=116.1"
+  }
+}

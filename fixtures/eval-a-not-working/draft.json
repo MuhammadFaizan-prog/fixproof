@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-a-not-working",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nit's not working again\n\nKnowledge base sources:\n[1] OneDrive sync paused or stuck · Fix (updated 2026-06-28)\n## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.\n\n[2] Teams calls with no sound · Fix (updated 2026-08-02)\n## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams.\n\n[3] VPN drops every few minutes on macOS · Fix: reset the VPN profile (updated 2026-10-02)\n## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n[4] Outlook for Mac not syncing · Fix (updated 2026-09-09)\n## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (macOS 15, New York) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear you are having trouble, but I need more information to know what is not working",
+        "confidence": 0.4744596018117321,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 134,
+      "total_ms": 152,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 512,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "146.512511",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.8, upstream;dur=236.4, discovery;dur=0.0, model;dur=146.5, settle;dur=4.1, gateway;dur=245.2"
+  }
+}

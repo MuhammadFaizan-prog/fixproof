@@ -1,0 +1,542 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-w-outlook-windows",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "Outlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.",
+    "documents": [
+      {
+        "id": "outlook-not-syncing#0",
+        "title": "Outlook not syncing on Windows · Symptoms",
+        "text": "## Symptoms\nNew mail stops arriving, the status bar says \"Disconnected\" or \"Trying to connect\", and Outlook on the web shows mail that the desktop app does not.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "mail-macos-not-syncing#0",
+        "title": "Outlook for Mac not syncing · Fix",
+        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "disk-full-macos#0",
+        "title": "Mac says the disk is almost full · Fix",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-19"
+        }
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "title": "Outlook not syncing on Windows · Fix",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
+        "metadata": {
+          "os": "windows",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "phishing-report#0",
+        "title": "Report a suspicious email · Steps",
+        "text": "## Steps\nUse the **Report phishing** button in Outlook. Do not forward the email or click links in it. If you already entered your password, reset it at once from the self-service portal and tell the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-02"
+        }
+      },
+      {
+        "id": "password-reset-self-service#0",
+        "title": "Reset your password · Steps",
+        "text": "## Steps\n1. Go to the self-service portal and choose **Forgot password**.\n2. Approve the MFA prompt, then choose a new password of at least 14 characters.\n3. On a Mac, update the password in **Keychain Access** when prompted.\nThe help desk never asks for your password.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-30"
+        }
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "title": "OneDrive sync paused or stuck · Fix",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-06-28"
+        }
+      },
+      {
+        "id": "zoom-screen-share-macos#0",
+        "title": "Screen sharing blocked on macOS · Fix",
+        "text": "## Fix\nOpen **System Settings > Privacy & Security > Screen & System Audio Recording** and turn on the app you use for calls. Quit and reopen the app. No admin rights are needed.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-12"
+        }
+      },
+      {
+        "id": "sharepoint-access-request#0",
+        "title": "Get access to a SharePoint site · Steps",
+        "text": "## Steps\nOpen the site link and click **Request access**. The site owner gets an email and usually approves within one working day. The help desk cannot add you to a site without the owner's approval.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-04-17"
+        }
+      },
+      {
+        "id": "guest-wifi-policy#0",
+        "title": "Guest Wi-Fi for visitors · Steps",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-01"
+        }
+      },
+      {
+        "id": "software-install-request#0",
+        "title": "Install software that is not in the portal · Steps",
+        "text": "## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-08"
+        }
+      },
+      {
+        "id": "guest-wifi-lahore#0",
+        "title": "Guest Wi-Fi in the Lahore office · Steps",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-05-12"
+        }
+      },
+      {
+        "id": "mfa-new-phone#1",
+        "title": "Move MFA to a new phone · Steps",
+        "text": "## Steps\n1. On your laptop, open the self-service portal and choose **Security > Authenticator app > Replace device**.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "printer-add-macos#0",
+        "title": "Add a floor printer on macOS · Steps",
+        "text": "## Steps\n1. Open **System Settings > Printers & Scanners** and click **Add Printer**.\n2. Choose the printer named after your floor, for example \"NW-LDN-3F\".\n3. Select **Northwind Secure Print** as the driver and click **Add**.\nPrint jobs are held until you tap your badge at the printer.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-06-14"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#2",
+        "title": "VPN drops every few minutes on macOS · Script: restart the VPN agent",
+        "text": "## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "title": "Laptop is slow or behaving strangely · First steps",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "keyboard-layout-uk#0",
+        "title": "Keyboard types the wrong symbols · Fix",
+        "text": "## Fix\nIf @ and \" are swapped, the layout is set to US instead of UK. On Windows open **Settings > Time & language > Language & region** and set the keyboard to \"United Kingdom\". On a Mac open **System Settings > Keyboard > Input Sources** and add \"British\".",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "uk",
+          "updated": "2026-02-11"
+        }
+      },
+      {
+        "id": "teams-audio-no-sound#0",
+        "title": "Teams calls with no sound · Fix",
+        "text": "## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-02"
+        }
+      },
+      {
+        "id": "dock-monitor-not-detected#0",
+        "title": "External monitor not detected on the dock · Fix",
+        "text": "## Fix\n1. Check the monitor is on the right input (DisplayPort or HDMI).\n2. Unplug the laptop from the dock and plug it back in.\n3. On Windows press **Win + P** and choose **Extend**. On a Mac open **System Settings > Displays** and click **Detect Displays** while holding Option.",
+        "metadata": {
+          "os": "windows, macos",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "browser-certificate-error#0",
+        "title": "Certificate error on internal sites · Symptoms",
+        "text": "## Symptoms\nThe browser says \"Your connection is not private\" on an internal Northwind site.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-09-25"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Financial Analyst",
+        "os": "Windows 11",
+        "device": "ThinkPad T14 Gen 4",
+        "office": "London",
+        "region": "UK"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 3,
+        "id": "outlook-not-syncing#1",
+        "action": "use",
+        "relevance_score": 0.9949,
+        "document_score": 0.9962,
+        "levels": {
+          "answers": 0.9949,
+          "elsewhere": 0.0013,
+          "different_case": 0.0015,
+          "unrelated": 0.0022
+        }
+      },
+      {
+        "index": 0,
+        "id": "outlook-not-syncing#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.1023,
+        "document_score": 0.1844,
+        "levels": {
+          "answers": 0.1023,
+          "elsewhere": 0.0822,
+          "different_case": 0.0267,
+          "unrelated": 0.7889
+        }
+      },
+      {
+        "index": 15,
+        "id": "laptop-slow-performance#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0081,
+        "document_score": 0.0286,
+        "levels": {
+          "answers": 0.0081,
+          "elsewhere": 0.0205,
+          "different_case": 0.0205,
+          "unrelated": 0.9509
+        }
+      },
+      {
+        "index": 6,
+        "id": "onedrive-sync-paused#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0046,
+        "document_score": 0.0138,
+        "levels": {
+          "answers": 0.0046,
+          "elsewhere": 0.0092,
+          "different_case": 0.0528,
+          "unrelated": 0.9334
+        }
+      },
+      {
+        "index": 5,
+        "id": "password-reset-self-service#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0026,
+        "document_score": 0.0069,
+        "levels": {
+          "answers": 0.0026,
+          "elsewhere": 0.0044,
+          "different_case": 0.0101,
+          "unrelated": 0.9829
+        }
+      },
+      {
+        "index": 13,
+        "id": "printer-add-macos#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0022,
+        "document_score": 0.006,
+        "levels": {
+          "answers": 0.0022,
+          "elsewhere": 0.0038,
+          "different_case": 0.8634,
+          "unrelated": 0.1306
+        }
+      },
+      {
+        "index": 18,
+        "id": "dock-monitor-not-detected#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0019,
+        "document_score": 0.0038,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0019,
+          "different_case": 0.0054,
+          "unrelated": 0.9909
+        }
+      },
+      {
+        "index": 1,
+        "id": "mail-macos-not-syncing#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0018,
+        "document_score": 0.0033,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0014,
+          "different_case": 0.9912,
+          "unrelated": 0.0055
+        }
+      },
+      {
+        "index": 2,
+        "id": "disk-full-macos#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0018,
+        "document_score": 0.0037,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.002,
+          "different_case": 0.9604,
+          "unrelated": 0.0359
+        }
+      },
+      {
+        "index": 7,
+        "id": "zoom-screen-share-macos#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0018,
+        "document_score": 0.0035,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0017,
+          "different_case": 0.9831,
+          "unrelated": 0.0134
+        }
+      },
+      {
+        "index": 19,
+        "id": "browser-certificate-error#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.004,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0023,
+          "different_case": 0.0057,
+          "unrelated": 0.9902
+        }
+      },
+      {
+        "index": 14,
+        "id": "vpn-macos-drops#2",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0017,
+        "document_score": 0.0033,
+        "levels": {
+          "answers": 0.0017,
+          "elsewhere": 0.0016,
+          "different_case": 0.9892,
+          "unrelated": 0.0075
+        }
+      },
+      {
+        "index": 16,
+        "id": "keyboard-layout-uk#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0017,
+        "document_score": 0.0033,
+        "levels": {
+          "answers": 0.0017,
+          "elsewhere": 0.0016,
+          "different_case": 0.0075,
+          "unrelated": 0.9892
+        }
+      },
+      {
+        "index": 17,
+        "id": "teams-audio-no-sound#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0017,
+        "document_score": 0.0035,
+        "levels": {
+          "answers": 0.0017,
+          "elsewhere": 0.0017,
+          "different_case": 0.0056,
+          "unrelated": 0.9909
+        }
+      },
+      {
+        "index": 10,
+        "id": "software-install-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0016,
+        "document_score": 0.0034,
+        "levels": {
+          "answers": 0.0016,
+          "elsewhere": 0.0017,
+          "different_case": 0.0035,
+          "unrelated": 0.9932
+        }
+      },
+      {
+        "index": 4,
+        "id": "phishing-report#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0015,
+        "document_score": 0.0031,
+        "levels": {
+          "answers": 0.0015,
+          "elsewhere": 0.0016,
+          "different_case": 0.0033,
+          "unrelated": 0.9936
+        }
+      },
+      {
+        "index": 11,
+        "id": "guest-wifi-lahore#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0014,
+        "document_score": 0.0037,
+        "levels": {
+          "answers": 0.0014,
+          "elsewhere": 0.0023,
+          "different_case": 0.5622,
+          "unrelated": 0.4341
+        }
+      },
+      {
+        "index": 8,
+        "id": "sharepoint-access-request#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0029,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0016,
+          "different_case": 0.0022,
+          "unrelated": 0.9949
+        }
+      },
+      {
+        "index": 12,
+        "id": "mfa-new-phone#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.0023,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.001,
+          "different_case": 0.0022,
+          "unrelated": 0.9955
+        }
+      },
+      {
+        "index": 9,
+        "id": "guest-wifi-policy#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0009,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0009,
+          "elsewhere": 0.0008,
+          "different_case": 0.0016,
+          "unrelated": 0.9967
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 4720
+    },
+    "timing": {
+      "total_ms": 92,
+      "rerank_ms": 91,
+      "questions_ms": 0,
+      "model_ms": 84,
+      "engine": {
+        "rows": 6140,
+        "branches": 20,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 6144,
+        "long": 0,
+        "total_ms": 84,
+        "build_ms": 0,
+        "doc_ms": 0,
+        "forward_ms": 82,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 176
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "89.218658",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=0.9, upstream;dur=176.4, discovery;dur=0.0, model;dur=89.2, settle;dur=4.8, gateway;dur=186.4"
+  }
+}

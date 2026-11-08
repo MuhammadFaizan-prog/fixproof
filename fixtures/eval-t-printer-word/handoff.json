@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-t-printer-word",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nNothing prints from Word or Excel, the queue shows six documents waiting and I can't cancel them.\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy the automated desk stopped: the knowledge-base fix script is outside the approved scope (script in \"Print queue stuck on a Windows laptop\" is malicious: security blinding or EDR evasion).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as printing, high severity; searched the knowledge base and kept 1 passage; drafted a reply and verified it (99% grounded); inspected the powershell script: malicious.\n\nVerified holding reply sent to the employee:\n1. Open Settings > Bluetooth & devices > Printers & scanners, select the printer and choose Open print queue.\n2. Cancel all documents, then try printing a test page",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "Nothing prints from Word or Excel, the queue shows six documents waiting and I can't cancel them. The knowledge-base fix script is outside the approved scope (script in \"Print queue stuck on a Windows laptop\" is malicious: security blinding or EDR evasion)",
+        "confidence": 0.9301692241444867,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "Security",
+        "confidence": 0.441,
+        "probabilities": {
+          "Service Desk": 0.03331329170649191,
+          "Network Operations": 0.016327270822958803,
+          "Identity & Access": 0.0165680201777227,
+          "Security": 0.5524349533732753,
+          "End-user Computing": 0.38135646391955125
+        }
+      },
+      "priority": {
+        "value": "P3",
+        "confidence": 0.403,
+        "expected": 2.246,
+        "probabilities": {
+          "P4": 0.1273262761769104,
+          "P3": 0.5519596528233893,
+          "P2": 0.267935765352133,
+          "P1": 0.05277830564756734
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 49,
+      "generate_ms": 154,
+      "total_ms": 171,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 256,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "165.394176",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.7, upstream;dur=332.1, discovery;dur=0.0, model;dur=165.4, settle;dur=4.4, gateway;dur=341.2"
+  }
+}

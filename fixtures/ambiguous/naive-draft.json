@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "ambiguous",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nmy computer is weird today\n\nKnowledge base:\n[1] Laptop is slow or behaving strangely · Tell us what you see\n## Tell us what you see\n\"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\".",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I'm sorry to hear your computer is behaving strangely. To help me investigate, please provide more details:\n\n1. Tell us what you see.\n2. \"Slow\" or \"weird\" can mean many things. A useful ticket says what you were doing, what happened, and when it started, for example \"Excel freezes for 10 seconds when I open shared files, since Monday\"",
+        "confidence": 0.9917280488599843,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 14,
+      "generate_ms": 252,
+      "total_ms": 269,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 144,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "11",
+    "x-clocked-model-ms": "260.951842",
+    "x-clocked-cost-usd": "0.002191",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.2, admit_db;dur=0.9, upstream;dur=354.2, discovery;dur=0.0, model;dur=261.0, settle;dur=4.3, gateway;dur=363.7"
+  }
+}

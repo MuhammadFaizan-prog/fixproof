@@ -1,0 +1,113 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-o-payroll-30min",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Is payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?",
+    "answer": "The payroll portal shows \"SSO authentication failed\" for employees in all regions. 1. Engineers in the identity team are investigating a configuration change made on 7 November 2026. 2. No restoration time has been published",
+    "claims": [
+      "The payroll portal shows \"SSO authentication failed\" for employees in all regions.",
+      "1. Engineers in the identity team are investigating a configuration change made on 7 November 2026.",
+      "2. No restoration time has been published"
+    ],
+    "documents": [
+      {
+        "id": "payroll-portal-status#1-2",
+        "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.004,
+    "ungrounded": 0.996,
+    "verdict": "ungrounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "payroll-portal-status#1-2",
+        "share": 0,
+        "share_of_answer": 0.004,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "The payroll portal shows \"SSO authentication failed\" for employees in all regions.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3694,
+        "supported": 0.0011,
+        "contradicted": 0.0016,
+        "not_stated": 0.9949,
+        "not_a_claim": 0.0024,
+        "verdict": "not_stated",
+        "sources": {
+          "payroll-portal-status#1-2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Engineers in the identity team are investigating a configuration change made on 7 November 2026.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4459,
+        "supported": 0.0015,
+        "contradicted": 0.0018,
+        "not_stated": 0.9937,
+        "not_a_claim": 0.003,
+        "verdict": "not_stated",
+        "sources": {
+          "payroll-portal-status#1-2": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "2. No restoration time has been published",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1847,
+        "supported": 0.0156,
+        "contradicted": 0.006,
+        "not_stated": 0.9681,
+        "not_a_claim": 0.0104,
+        "verdict": "not_stated",
+        "sources": {
+          "payroll-portal-status#1-2": 1
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      0,
+      1,
+      2
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.0011
+    },
+    "answers_question": 0.9466901047473376,
+    "timing": {
+      "read_ms": 149,
+      "total_ms": 103
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "96.524255",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=3.8, admit_db;dur=0.8, upstream;dur=186.6, discovery;dur=0.0, model;dur=96.5, settle;dur=3.8, gateway;dur=194.2"
+  }
+}

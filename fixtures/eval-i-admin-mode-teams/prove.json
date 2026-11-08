@@ -1,0 +1,138 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-i-admin-mode-teams",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "Also Teams calls have no sound on my laptop.",
+    "answer": "To fix Teams calls with no sound, please follow these steps:\n1. In Teams, open Settings > Devices and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again",
+    "claims": [
+      "To fix Teams calls with no sound, please follow these steps:",
+      "1. In Teams, open Settings > Devices and choose the right speaker and microphone.",
+      "2. Make a test call from the same page.",
+      "3. Unplug and replug the headset, then select it again"
+    ],
+    "documents": [
+      {
+        "id": "teams-audio-no-sound#0",
+        "text": "## Fix\n1. In Teams, open **Settings > Devices** and choose the right speaker and microphone.\n2. Make a test call from the same page.\n3. Unplug and replug the headset, then select it again.\n4. On a Mac, check **System Settings > Privacy & Security > Microphone** allows Teams."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.698,
+    "ungrounded": 0.302,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "teams-audio-no-sound#0",
+        "share": 1,
+        "share_of_answer": 0.698,
+        "claims": [
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "To fix Teams calls with no sound, please follow these steps:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.03324900969048603,
+          "offer_or_question": 0.8795480940095949,
+          "pointer": 0.060963961426213874,
+          "meta": 0.026238934873705218
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.3999,
+        "contradicted": 0.0153,
+        "not_stated": 0.0422,
+        "not_a_claim": 0.5426,
+        "verdict": "not_a_claim",
+        "sources": {
+          "teams-audio-no-sound#0": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. In Teams, open Settings > Devices and choose the right speaker and microphone.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4655,
+        "supported": 0.9941,
+        "contradicted": 0.002,
+        "not_stated": 0.0017,
+        "not_a_claim": 0.0022,
+        "verdict": "supported",
+        "sources": {
+          "teams-audio-no-sound#0": 1
+        },
+        "source": "teams-audio-no-sound#0"
+      },
+      {
+        "claim": "2. Make a test call from the same page.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2241,
+        "supported": 0.9878,
+        "contradicted": 0.0034,
+        "not_stated": 0.0039,
+        "not_a_claim": 0.0049,
+        "verdict": "supported",
+        "sources": {
+          "teams-audio-no-sound#0": 1
+        },
+        "source": "teams-audio-no-sound#0"
+      },
+      {
+        "claim": "3. Unplug and replug the headset, then select it again",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3103,
+        "supported": 0.0445,
+        "contradicted": 0.0189,
+        "not_stated": 0.9081,
+        "not_a_claim": 0.0285,
+        "verdict": "not_stated",
+        "sources": {
+          "teams-audio-no-sound#0": 1
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      3
+    ],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 3,
+      "supported": 0.0445
+    },
+    "answers_question": 0.9937494010798001,
+    "timing": {
+      "read_ms": 162,
+      "total_ms": 115
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "104.327392",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=203.0, discovery;dur=0.0, model;dur=104.3, settle;dur=4.4, gateway;dur=212.0"
+  }
+}

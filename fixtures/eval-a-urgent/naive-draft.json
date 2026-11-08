@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-a-urgent",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nhelp pls, urgent\n\nKnowledge base:\n[1] Move MFA to a new phone · Before you start\n## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.\n\n[2] Request sudo on an engineering workstation · Policy\n## Policy\nEngineers get time-limited sudo through the access portal with team lead approval. The help desk cannot grant sudo directly.\n\n[3] VPN client troubleshooting policy (2024) · Policy\n## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Bilal: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "I am sorry to hear you are having trouble, but I need more information to assist you. Please specify which issue you are experiencing:\n\n1. If you need to move MFA to a new phone, you need your laptop signed in, or a one-time code from the help desk.\n2. If you need sudo on an engineering workstation, Engineers get time-limited sudo through the access portal with team lead approval. The help desk cannot grant sudo directly.\n3. If you are having VPN issues, if the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal",
+        "confidence": 0.9927213115054063,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 401,
+      "total_ms": 421,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 208,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "17",
+    "x-clocked-model-ms": "407.302044",
+    "x-clocked-cost-usd": "0.003386",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=505.6, discovery;dur=0.0, model;dur=407.3, settle;dur=4.1, gateway;dur=514.5"
+  }
+}

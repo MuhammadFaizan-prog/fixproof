@@ -1,0 +1,119 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "compare",
+  "scenario": "eval-a-account",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "account-lockout#0,1",
+        "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.\n\n## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail."
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**."
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "clean",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "account-lockout#0,1",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      }
+    ],
+    "pairs": [
+      {
+        "a": "account-lockout#0,1",
+        "b": "outlook-not-syncing#1",
+        "relation": "unrelated",
+        "related": 0.0098,
+        "probabilities": {
+          "same": 0.0033,
+          "overlapping": 0.003,
+          "conflicting": 0.0035,
+          "unrelated": 0.9902
+        },
+        "duplicates": [],
+        "conflicts": []
+      },
+      {
+        "a": "account-lockout#0,1",
+        "b": "onedrive-sync-paused#0",
+        "relation": "unrelated",
+        "related": 0.0117,
+        "probabilities": {
+          "same": 0.0031,
+          "overlapping": 0.0032,
+          "conflicting": 0.0054,
+          "unrelated": 0.9883
+        },
+        "duplicates": [],
+        "conflicts": []
+      },
+      {
+        "a": "outlook-not-syncing#1",
+        "b": "onedrive-sync-paused#0",
+        "relation": "unrelated",
+        "related": 0.0065,
+        "probabilities": {
+          "same": 0.0017,
+          "overlapping": 0.002,
+          "conflicting": 0.0027,
+          "unrelated": 0.9935
+        },
+        "duplicates": [],
+        "conflicts": []
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [],
+    "related_pairs": [],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 25
+    },
+    "timing": {
+      "read_ms": 25,
+      "total_ms": 27
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "21.473791",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.5, admit_db;dur=2.1, upstream;dur=111.9, discovery;dur=0.0, model;dur=21.5, settle;dur=3.7, gateway;dur=121.2"
+  }
+}

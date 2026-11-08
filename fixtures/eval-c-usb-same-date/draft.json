@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-usb-same-date",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nCan I use my encrypted USB stick to hand files to a client at their office tomorrow?\n\nKnowledge base sources:\n[1] Encrypted USB drives for client handover · Policy (updated 2026-08-14)\n## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.\n\n[2] USB storage is blocked on company laptops · Policy (updated 2026-08-14)\n## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Windows 11, London) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Writing files to any USB storage device, encrypted or not, is blocked on company laptops. 1. Share files with clients through a secure share link from OneDrive with an expiry date. 2. Exceptions need a security exception approved by the Security team",
+        "confidence": 0.7063454604210497,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 145,
+      "total_ms": 164,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 272,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "157.365856",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=57.4, admit_db;dur=0.9, upstream;dur=276.1, discovery;dur=0.0, model;dur=157.4, settle;dur=4.8, gateway;dur=338.4"
+  }
+}

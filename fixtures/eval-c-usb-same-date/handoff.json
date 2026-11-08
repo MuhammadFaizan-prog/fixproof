@@ -1,0 +1,92 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-usb-same-date",
+  "step": "handoff",
+  "status": 200,
+  "request": {
+    "text": "Ticket (personal data masked):\nCan I use my encrypted USB stick to hand files to a client at their office tomorrow?\n\nEmployee: Financial Analyst, Finance, London; ThinkPad T14 Gen 4 (Windows 11).\n\nWhy the automated desk stopped: Decide did not clear it for self-service (escalate is 93% likely).\n\nWhat the automated desk already did: screened the ticket and masked personal data; classified it as uncategorised, low severity; searched the knowledge base and kept 2 passages; drafted a reply and verified it (100% grounded).\n\nVerified holding reply sent to the employee:\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops.\n1. Share files with clients through a secure share link from OneDrive with an expiry date.\n2. Exceptions need a security exception approved by the Security team",
+    "instructions": "You prepare escalations for a human IT technician. Use only the text. Do not suggest causes or fixes that are not stated.",
+    "fields": {
+      "summary": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 90,
+        "description": "Two sentences for the technician: the employee's problem and why the automated desk stopped."
+      },
+      "assignment_group": {
+        "type": "choice",
+        "options": [
+          "Service Desk",
+          "Network Operations",
+          "Identity & Access",
+          "Security",
+          "End-user Computing"
+        ],
+        "description": "Which team should own this ticket"
+      },
+      "priority": {
+        "type": "score",
+        "levels": [
+          "P4",
+          "P3",
+          "P2",
+          "P1"
+        ],
+        "description": "P1 = security risk or many people blocked; P2 = one person blocked against a deadline; P3 = degraded; P4 = routine request"
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "summary": {
+        "value": "The employee wants to know if they can use an encrypted USB stick to hand files to a client. The automated desk stopped because it did not clear it for self-service",
+        "confidence": 0.9905249594303627,
+        "source": "generated"
+      },
+      "assignment_group": {
+        "value": "Security",
+        "confidence": 0.708,
+        "probabilities": {
+          "Service Desk": 0.04544090656830744,
+          "Network Operations": 0.012977247203215372,
+          "Identity & Access": 0.0174256890888511,
+          "Security": 0.7664974280058742,
+          "End-user Computing": 0.15765872913375192
+        }
+      },
+      "priority": {
+        "value": "P4",
+        "confidence": 0.425,
+        "expected": 1.588,
+        "probabilities": {
+          "P4": 0.5684238363279095,
+          "P3": 0.29832975274354423,
+          "P2": 0.11030695000015453,
+          "P1": 0.022939460928391765
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 47,
+      "generate_ms": 128,
+      "total_ms": 144,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 256,
+      "shared_read_generate_forwards": 1,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "139.403423",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=228.7, discovery;dur=0.0, model;dur=139.4, settle;dur=4.3, gateway;dur=237.7"
+  }
+}

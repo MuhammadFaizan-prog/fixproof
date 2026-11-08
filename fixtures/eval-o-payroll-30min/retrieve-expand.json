@@ -1,0 +1,86 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-o-payroll-30min",
+  "step": "retrieve:expand",
+  "status": 200,
+  "request": {
+    "query": "Is payroll down? Someone said it'll be fixed in 30 minutes, can you confirm the exact time?",
+    "documents": [
+      {
+        "id": "payroll-portal-status#1-2",
+        "title": "Payroll portal outage: current status · Workaround + Updates",
+        "text": "## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-11-07"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Product Designer",
+        "os": "macOS 15",
+        "device": "MacBook Pro 14-inch",
+        "office": "New York",
+        "region": "US"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 0,
+        "id": "payroll-portal-status#1-2",
+        "action": "use",
+        "relevance_score": 0.6549,
+        "document_score": 0.8658,
+        "levels": {
+          "answers": 0.6549,
+          "elsewhere": 0.2109,
+          "different_case": 0.0281,
+          "unrelated": 0.1061
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 232
+    },
+    "timing": {
+      "total_ms": 36,
+      "rerank_ms": 35,
+      "questions_ms": 0,
+      "model_ms": 32,
+      "engine": {
+        "rows": 207,
+        "branches": 1,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 256,
+        "long": 0,
+        "total_ms": 32,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 31,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 272
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "33.619743",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=119.6, discovery;dur=0.0, model;dur=33.6, settle;dur=4.3, gateway;dur=128.8"
+  }
+}

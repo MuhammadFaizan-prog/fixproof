@@ -1,0 +1,122 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Should I reinstall the VPN client on my Mac? It keeps dropping after the update.",
+    "answer": "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. 1. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal",
+    "claims": [
+      "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it.",
+      "1. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      },
+      {
+        "id": "vpn-macos-drops#1-3",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.\n\n## Script: restart the VPN agent\nIf the menu bar icon does not respond, the help desk can run this approved script on your Mac. It only restarts the Northwind VPN agent for your user and lists the VPN profile.\n\n```zsh\n#!/bin/zsh\n# Northwind VPN agent restart (macOS). Scope: this Mac, current user only.\nlaunchctl kickstart -k gui/$(id -u)/com.northwind.vpnagent\nscutil --nc list | grep \"Northwind\"\n```\n\n## If it still drops\nIf the VPN still drops after the reset, the problem is usually the network you are on. Try a phone hotspot for five minutes. If the hotspot is stable, the issue is your local Wi-Fi; if not, raise a ticket so Network Operations can check your account."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9955,
+    "ungrounded": 0.0045,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.9983,
+        "share_of_answer": 0.9938,
+        "claims": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "vpn-macos-drops#1-3",
+        "share": 0.0017,
+        "share_of_answer": 0.0017,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.6064,
+        "supported": 0.9968,
+        "contradicted": 0.0011,
+        "not_stated": 0.001,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.9984,
+          "vpn-macos-drops#1-3": 0.0016
+        },
+        "source": "vpn-policy-2026#0",
+        "evidence": {
+          "document": "vpn-policy-2026#0",
+          "quote": "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it.",
+          "start": 64,
+          "end": 215,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "1. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3936,
+        "supported": 0.9934,
+        "contradicted": 0.0016,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0029,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.9982,
+          "vpn-macos-drops#1-3": 0.0018
+        },
+        "source": "vpn-policy-2026#0",
+        "evidence": {
+          "document": "vpn-policy-2026#0",
+          "quote": "Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.",
+          "start": 216,
+          "end": 312,
+          "confidence": 0.996
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9934
+    },
+    "answers_question": 0.9291242438021715,
+    "timing": {
+      "read_ms": 143,
+      "total_ms": 99
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "90.651807",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.6, admit_db;dur=0.7, upstream;dur=183.7, discovery;dur=0.0, model;dur=90.7, settle;dur=4.7, gateway;dur=193.0"
+  }
+}

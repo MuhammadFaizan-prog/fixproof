@@ -1,0 +1,147 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-c-guest-wifi-scope",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "A visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?",
+    "answer": "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:\n1. Have the visitor join the NW-Guest-LHE network.\n2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit",
+    "claims": [
+      "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:",
+      "1. Have the visitor join the NW-Guest-LHE network.",
+      "2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit"
+    ],
+    "documents": [
+      {
+        "id": "guest-wifi-policy#0",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors."
+      },
+      {
+        "id": "guest-wifi-lahore#0",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9963,
+    "ungrounded": 0.0037,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "guest-wifi-lahore#0",
+        "share": 0.9991,
+        "share_of_answer": 0.9954,
+        "claims": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "guest-wifi-policy#0",
+        "share": 0.0009,
+        "share_of_answer": 0.0009,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.6658103224794206,
+          "offer_or_question": 0.26314591366387446,
+          "pointer": 0.019213900001996468,
+          "meta": 0.05182986385470849
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0889,
+        "contradicted": 0.0185,
+        "not_stated": 0.0578,
+        "not_a_claim": 0.8347,
+        "verdict": "not_a_claim",
+        "sources": {
+          "guest-wifi-policy#0": 0.0819,
+          "guest-wifi-lahore#0": 0.9181
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Have the visitor join the NW-Guest-LHE network.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3425,
+        "supported": 0.9959,
+        "contradicted": 0.0018,
+        "not_stated": 0.0011,
+        "not_a_claim": 0.0012,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-policy#0": 0.001,
+          "guest-wifi-lahore#0": 0.999
+        },
+        "source": "guest-wifi-lahore#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document guest-wifi-lahore#0:",
+          "start": 255,
+          "end": 284,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.6575,
+        "supported": 0.9965,
+        "contradicted": 0.0015,
+        "not_stated": 0.001,
+        "not_a_claim": 0.001,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-policy#0": 0.0009,
+          "guest-wifi-lahore#0": 0.9991
+        },
+        "source": "guest-wifi-lahore#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document guest-wifi-lahore#0:",
+          "start": 255,
+          "end": 284,
+          "confidence": 0.797
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9959
+    },
+    "answers_question": 0.9956896404861266,
+    "timing": {
+      "read_ms": 169,
+      "total_ms": 122
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "111.120738",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=206.1, discovery;dur=0.0, model;dur=111.1, settle;dur=4.3, gateway;dur=215.2"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "vpn-conflict",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "My VPN has been dropping all week. Should I just uninstall and reinstall the VPN client?",
+    "answer": "Please try resetting your VPN profile before attempting a reinstallation.\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA",
+    "claims": [
+      "Please try resetting your VPN profile before attempting a reinstallation.",
+      "1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.",
+      "2. Choose **Settings > Reset profile**.",
+      "Your saved server list is rebuilt; you do not need to reinstall anything.",
+      "3. Reconnect and sign in with your work account and MFA"
+    ],
+    "documents": [
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      },
+      {
+        "id": "vpn-windows-drops#1",
+        "text": "## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.2682,
+    "ungrounded": 0.7318,
+    "verdict": "contradicted",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-windows-drops#1",
+        "share": 0.5289,
+        "share_of_answer": 0.1418,
+        "claims": [
+          2
+        ]
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.4711,
+        "share_of_answer": 0.1264,
+        "claims": [
+          0
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Please try resetting your VPN profile before attempting a reinstallation.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2325,
+        "supported": 0.5414,
+        "contradicted": 0.0623,
+        "not_stated": 0.0995,
+        "not_a_claim": 0.2968,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.9749,
+          "vpn-windows-drops#1": 0.0251
+        },
+        "source": "vpn-policy-2026#0"
+      },
+      {
+        "claim": "1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2357,
+        "supported": 0.0257,
+        "contradicted": 0.5907,
+        "not_stated": 0.3641,
+        "not_a_claim": 0.0196,
+        "verdict": "contradicted",
+        "sources": {
+          "vpn-policy-2026#0": 0.2653,
+          "vpn-windows-drops#1": 0.7347
+        },
+        "source": null
+      },
+      {
+        "claim": "2. Choose **Settings > Reset profile**.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1242,
+        "supported": 0.9793,
+        "contradicted": 0.0061,
+        "not_stated": 0.0103,
+        "not_a_claim": 0.0042,
+        "verdict": "supported",
+        "sources": {
+          "vpn-policy-2026#0": 0.0032,
+          "vpn-windows-drops#1": 0.9968
+        },
+        "source": "vpn-windows-drops#1",
+        "evidence": {
+          "document": "vpn-windows-drops#1",
+          "quote": "2.",
+          "start": 114,
+          "end": 116,
+          "confidence": 0.991
+        }
+      },
+      {
+        "claim": "Your saved server list is rebuilt; you do not need to reinstall anything.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2325,
+        "supported": 0.0021,
+        "contradicted": 0.0015,
+        "not_stated": 0.9944,
+        "not_a_claim": 0.0019,
+        "verdict": "not_stated",
+        "sources": {
+          "vpn-policy-2026#0": 0.4547,
+          "vpn-windows-drops#1": 0.5453
+        },
+        "source": null
+      },
+      {
+        "claim": "3. Reconnect and sign in with your work account and MFA",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1752,
+        "supported": 0.0807,
+        "contradicted": 0.1265,
+        "not_stated": 0.7721,
+        "not_a_claim": 0.0208,
+        "verdict": "not_stated",
+        "sources": {
+          "vpn-policy-2026#0": 0.1006,
+          "vpn-windows-drops#1": 0.8994
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      1,
+      3,
+      4
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 3,
+      "supported": 0.0021
+    },
+    "answers_question": 0.9743684349328349,
+    "timing": {
+      "read_ms": 236,
+      "total_ms": 161
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "153.175037",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=1.6, upstream;dur=323.6, discovery;dur=0.0, model;dur=153.2, settle;dur=5.5, gateway;dur=334.8"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-guest-wifi-scope",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nA visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?\n\nKnowledge base sources:\n[1] Guest Wi-Fi for visitors · Steps (updated 2026-10-01)\n## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.\n\n[2] Guest Wi-Fi in the Lahore office · Steps (updated 2026-05-12)\n## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Visitors in the Lahore office can access the guest Wi-Fi by following these steps:\n1. Join the NW-Guest-LHE network.\n2. The hosting employee requests a guest code from the IT channel in Teams",
+        "confidence": 0.9905679419815501,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 15,
+      "generate_ms": 203,
+      "total_ms": 222,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 272,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "9",
+    "x-clocked-model-ms": "214.59568",
+    "x-clocked-cost-usd": "0.001793",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.6, admit_db;dur=0.7, upstream;dur=306.3, discovery;dur=0.0, model;dur=214.6, settle;dur=4.4, gateway;dur=315.3"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-c-usb-same-date",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "Can I use my encrypted USB stick to hand files to a client at their office tomorrow?",
+    "answer": "Writing files to any USB storage device, encrypted or not, is blocked on company laptops. 1. Share files with clients through a secure share link from OneDrive with an expiry date. 2. Exceptions need a security exception approved by the Security team",
+    "claims": [
+      "Writing files to any USB storage device, encrypted or not, is blocked on company laptops.",
+      "1. Share files with clients through a secure share link from OneDrive with an expiry date.",
+      "2. Exceptions need a security exception approved by the Security team"
+    ],
+    "documents": [
+      {
+        "id": "usb-storage-encrypted#0",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder."
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9966,
+    "ungrounded": 0.0034,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "usb-storage-blocked#0",
+        "share": 0.9991,
+        "share_of_answer": 0.9957,
+        "claims": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "usb-storage-encrypted#0",
+        "share": 0.0009,
+        "share_of_answer": 0.0009,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Writing files to any USB storage device, encrypted or not, is blocked on company laptops.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3589,
+        "supported": 0.997,
+        "contradicted": 0.0013,
+        "not_stated": 0.0007,
+        "not_a_claim": 0.001,
+        "verdict": "supported",
+        "sources": {
+          "usb-storage-encrypted#0": 0.0008,
+          "usb-storage-blocked#0": 0.9992
+        },
+        "source": "usb-storage-blocked#0",
+        "evidence": {
+          "document": "usb-storage-blocked#0",
+          "quote": "Writing files to any USB storage device, encrypted or not, is blocked on company laptops.",
+          "start": 10,
+          "end": 99,
+          "confidence": 0.996
+        }
+      },
+      {
+        "claim": "1. Share files with clients through a secure share link from OneDrive with an expiry date.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3629,
+        "supported": 0.9961,
+        "contradicted": 0.0017,
+        "not_stated": 0.0009,
+        "not_a_claim": 0.0013,
+        "verdict": "supported",
+        "sources": {
+          "usb-storage-encrypted#0": 0.0009,
+          "usb-storage-blocked#0": 0.9991
+        },
+        "source": "usb-storage-blocked#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document usb-storage-blocked#0:",
+          "start": 301,
+          "end": 332,
+          "confidence": 0.704
+        }
+      },
+      {
+        "claim": "2. Exceptions need a security exception approved by the Security team",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2782,
+        "supported": 0.9967,
+        "contradicted": 0.0015,
+        "not_stated": 0.0008,
+        "not_a_claim": 0.0009,
+        "verdict": "supported",
+        "sources": {
+          "usb-storage-encrypted#0": 0.0009,
+          "usb-storage-blocked#0": 0.9991
+        },
+        "source": "usb-storage-blocked#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document usb-storage-blocked#0:",
+          "start": 301,
+          "end": 332,
+          "confidence": 0.945
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9961
+    },
+    "answers_question": 0.9861509654498982,
+    "timing": {
+      "read_ms": 161,
+      "total_ms": 112
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "102.734016",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=197.2, discovery;dur=0.0, model;dur=102.7, settle;dur=5.2, gateway;dur=207.2"
+  }
+}

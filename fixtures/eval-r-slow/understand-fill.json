@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-slow",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "My laptop has been really slow since Monday, the fans are loud and Excel takes ages to open.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "hardware",
+        "confidence": 0.478,
+        "probabilities": {
+          "network": 0.015874884286231683,
+          "identity": 0.012795593551193432,
+          "hardware": 0.5429340516078365,
+          "software": 0.04843130909677396,
+          "printing": 0.015282841011885564,
+          "security": 0.015727920302775332,
+          "accounts": 0.015966633607936178,
+          "none": 0.3329867665353674
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.407,
+        "expected": 1.532,
+        "probabilities": {
+          "low": 0.5554407846754768,
+          "medium": 0.376463377666262,
+          "high": 0.04869349602730114,
+          "critical": 0.01940234163096015
+        }
+      },
+      "affected_service": {
+        "value": "laptop",
+        "start": 3,
+        "end": 9,
+        "confidence": 0.9999999530431479,
+        "p_verify": 0.9999999530431479
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.955,
+        "probabilities": {
+          "yes": 0.022660226620878077,
+          "no": 0.9773397733791219
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 68,
+      "generate_ms": 0,
+      "total_ms": 72,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "69.849117",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.7, upstream;dur=156.9, discovery;dur=0.0, model;dur=69.8, settle;dur=4.2, gateway;dur=165.9"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "pipeline",
+  "scenario": "eval-w-outlook-windows",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "Outlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 30,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "Outlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.",
+          "timing": {
+            "read_ms": 29,
+            "total_ms": 30
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 28,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0012542917520769192,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9952871662277046,
+            "instruction override": 0.0009899936589743807,
+            "role-play or persona jailbreak": 0.0006640407536986642,
+            "system prompt or secret extraction": 0.0007815525830195835,
+            "obfuscated or encoded payload": 0.0006618117502056468,
+            "tool misuse or data exfiltration": 0.0006938087471222207,
+            "social engineering": 0.0009216262792748702
+          },
+          "severity": "none",
+          "severity_expected": 1.021,
+          "severities": {
+            "none": 0.9897984389359571,
+            "low": 0.004851513177610527,
+            "medium": 0.0016090001751412914,
+            "high": 0.0019901589561225536,
+            "critical": 0.0017508887551685353
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 28,
+            "total_ms": 28
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 59,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "52.680641",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.8, upstream;dur=143.3, discovery;dur=0.0, model;dur=52.7, settle;dur=4.7, gateway;dur=152.7"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-w-outlook-windows",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Outlook says Disconnected and isn't syncing. A colleague sent me the Mac steps but they don't match my screen.",
+    "answer": "It sounds like you are experiencing sync issues on your Windows device.\n\n1. Check that you are online and not in **Work Offline** mode (File menu).\n2. Go to **File > Account Settings**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email",
+    "claims": [
+      "It sounds like you are experiencing sync issues on your Windows device.",
+      "1. Check that you are online and not in **Work Offline** mode (File menu).",
+      "2. Go to **File > Account Settings**, select your account and choose **Repair**.",
+      "3. If mail is still missing, remove the account and add it again with your work email"
+    ],
+    "documents": [
+      {
+        "id": "outlook-not-syncing#1",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.0295,
+    "ungrounded": 0.9705,
+    "verdict": "ungrounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "outlook-not-syncing#1",
+        "share": 1,
+        "share_of_answer": 0.0295,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "It sounds like you are experiencing sync issues on your Windows device.",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.9909527398930629,
+          "offer_or_question": 0.004155987514736335,
+          "pointer": 0.0023886704842488553,
+          "meta": 0.002502602107951937
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0038,
+        "contradicted": 0.0054,
+        "not_stated": 0.0228,
+        "not_a_claim": 0.9679,
+        "verdict": "not_a_claim",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Check that you are online and not in **Work Offline** mode (File menu).",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3096,
+        "supported": 0.0883,
+        "contradicted": 0.0897,
+        "not_stated": 0.804,
+        "not_a_claim": 0.0179,
+        "verdict": "not_stated",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "2. Go to **File > Account Settings**, select your account and choose **Repair**.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3347,
+        "supported": 0.0046,
+        "contradicted": 0.008,
+        "not_stated": 0.9761,
+        "not_a_claim": 0.0113,
+        "verdict": "not_stated",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "3. If mail is still missing, remove the account and add it again with your work email",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3556,
+        "supported": 0.0017,
+        "contradicted": 0.002,
+        "not_stated": 0.9932,
+        "not_a_claim": 0.0031,
+        "verdict": "not_stated",
+        "sources": {
+          "outlook-not-syncing#1": 1
+        },
+        "source": null
+      }
+    ],
+    "unsupported_claims": [
+      1,
+      2,
+      3
+    ],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 3,
+      "supported": 0.0017
+    },
+    "answers_question": 0.976962122336571,
+    "timing": {
+      "read_ms": 158,
+      "total_ms": 112
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "102.155391",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.7, admit_db;dur=0.9, upstream;dur=196.2, discovery;dur=0.0, model;dur=102.2, settle;dur=4.4, gateway;dur=205.3"
+  }
+}

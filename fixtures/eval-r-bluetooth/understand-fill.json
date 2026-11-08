@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-bluetooth",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "My Bluetooth headset won't pair with my laptop anymore. It shows connected for a second and then drops.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "hardware",
+        "confidence": 0.756,
+        "probabilities": {
+          "network": 0.011066687199239391,
+          "identity": 0.009072260164461983,
+          "hardware": 0.7863946390876136,
+          "software": 0.013338823708572298,
+          "printing": 0.010784716018704362,
+          "security": 0.012974244326221565,
+          "accounts": 0.01968599875103641,
+          "none": 0.13668263074415035
+        }
+      },
+      "severity": {
+        "value": "low",
+        "confidence": 0.357,
+        "expected": 1.574,
+        "probabilities": {
+          "low": 0.5179229370786642,
+          "medium": 0.4125321932705532,
+          "high": 0.04693521469373539,
+          "critical": 0.022609654957047184
+        }
+      },
+      "affected_service": {
+        "value": "Bluetooth headset",
+        "start": 3,
+        "end": 20,
+        "confidence": 0.9999999235311259,
+        "p_verify": 0.9999999235311259
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.973,
+        "probabilities": {
+          "yes": 0.013491580365531997,
+          "no": 0.986508419634468
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 59,
+      "generate_ms": 0,
+      "total_ms": 63,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 160,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "60.674913",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=224.5, discovery;dur=0.0, model;dur=60.7, settle;dur=4.6, gateway;dur=233.9"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-o-generator-friday",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "The generator switched over and now my VPN is gone. IT said yesterday this would be fixed permanently by Friday, right?",
+    "answer": "I do not have information regarding when the generator issue will be permanently fixed. \n\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+    "claims": [
+      "I do not have information regarding when the generator issue will be permanently fixed.",
+      "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.",
+      "2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile"
+    ],
+    "documents": [
+      {
+        "id": "vpn-linux-drops#1,2",
+        "text": "## Fix\n1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.\n2. If the profile is missing, re-import it from the self-service portal under **Downloads > Linux VPN profile**.\n\n## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```"
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "text": "## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.6934,
+    "ungrounded": 0.3066,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "vpn-linux-drops#1,2",
+        "share": 0.9972,
+        "share_of_answer": 0.6914,
+        "claims": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "vpn-policy-2026#0",
+        "share": 0.0028,
+        "share_of_answer": 0.002,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I do not have information regarding when the generator issue will be permanently fixed.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3063,
+        "supported": 0.0073,
+        "contradicted": 0.0044,
+        "not_stated": 0.981,
+        "not_a_claim": 0.0073,
+        "verdict": "not_stated",
+        "sources": {
+          "vpn-linux-drops#1,2": 0.6153,
+          "vpn-policy-2026#0": 0.3847
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Run `nmcli connection down northwind-vpn` and then `nmcli connection up northwind-vpn`.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3169,
+        "supported": 0.9963,
+        "contradicted": 0.001,
+        "not_stated": 0.0011,
+        "not_a_claim": 0.0016,
+        "verdict": "supported",
+        "sources": {
+          "vpn-linux-drops#1,2": 0.9984,
+          "vpn-policy-2026#0": 0.0016
+        },
+        "source": "vpn-linux-drops#1,2",
+        "evidence": {
+          "document": null,
+          "quote": "1,2:",
+          "start": 25,
+          "end": 29,
+          "confidence": 0.973
+        }
+      },
+      {
+        "claim": "2. If the profile is missing, re-import it from the self-service portal under Downloads > Linux VPN profile",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3768,
+        "supported": 0.9965,
+        "contradicted": 0.0011,
+        "not_stated": 0.001,
+        "not_a_claim": 0.0015,
+        "verdict": "supported",
+        "sources": {
+          "vpn-linux-drops#1,2": 0.9984,
+          "vpn-policy-2026#0": 0.0016
+        },
+        "source": "vpn-linux-drops#1,2"
+      }
+    ],
+    "unsupported_claims": [
+      0
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 0,
+      "supported": 0.0073
+    },
+    "answers_question": 0.24316547300015834,
+    "timing": {
+      "read_ms": 154,
+      "total_ms": 107
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "100.32525",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.4, admit_db;dur=0.9, upstream;dur=191.9, discovery;dur=0.0, model;dur=100.3, settle;dur=3.8, gateway;dur=200.0"
+  }
+}

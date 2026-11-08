@@ -1,0 +1,130 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "pipeline",
+  "scenario": "eval-w-zoom-share-windows",
+  "step": "screen",
+  "status": 200,
+  "request": {
+    "text": "Screen sharing in Zoom is blocked on my laptop, it says a permission is needed.",
+    "steps": [
+      {
+        "pii": {
+          "entities": {
+            "person": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "ip_address": null,
+            "employee_id": "Northwind Labs employee IDs, such as E-20417"
+          },
+          "anonymize": "replace"
+        },
+        "name": "protect"
+      },
+      {
+        "injection": {
+          "source": "user",
+          "evidence": true
+        },
+        "stop": true,
+        "name": "guard"
+      }
+    ]
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "steps": [
+      {
+        "step": 0,
+        "endpoint": "pii",
+        "name": "protect",
+        "status": 200,
+        "ms": 30,
+        "result": {
+          "model": "clocked-1.0",
+          "entities": [],
+          "counts": {},
+          "threshold": 0.5,
+          "instructions_used": "default",
+          "mentions": {
+            "candidates": 0,
+            "variants": 0,
+            "reads": 0,
+            "verified": 0,
+            "occurrences": {
+              "read": 0,
+              "kept": 0
+            },
+            "rejected": {},
+            "spans": 0,
+            "ms": 0
+          },
+          "checks": {
+            "trimmed": 0,
+            "split": 0,
+            "rejected": {}
+          },
+          "anonymized_text": "Screen sharing in Zoom is blocked on my laptop, it says a permission is needed.",
+          "timing": {
+            "read_ms": 30,
+            "total_ms": 30
+          }
+        }
+      },
+      {
+        "step": 1,
+        "endpoint": "injection",
+        "name": "guard",
+        "status": 200,
+        "ms": 27,
+        "result": {
+          "model": "clocked-1.0",
+          "injection": 0.0016352813608579986,
+          "verdict": "benign",
+          "threshold": 0.5,
+          "source": "user",
+          "instructions_used": "default",
+          "category": "benign",
+          "categories": {
+            "benign": 0.9944947857955094,
+            "instruction override": 0.001462910027050405,
+            "role-play or persona jailbreak": 0.0007454126265279813,
+            "system prompt or secret extraction": 0.0007778694830781782,
+            "obfuscated or encoded payload": 0.0006956039512096303,
+            "tool misuse or data exfiltration": 0.0008882637361951083,
+            "social engineering": 0.0009351543804292687
+          },
+          "severity": "none",
+          "severity_expected": 1.016,
+          "severities": {
+            "none": 0.9932566103742024,
+            "low": 0.002298304794380751,
+            "medium": 0.0013046606966637675,
+            "high": 0.0011987676653868662,
+            "critical": 0.0019416564693661839
+          },
+          "evidence": [],
+          "timing": {
+            "read_ms": 27,
+            "total_ms": 27
+          }
+        }
+      }
+    ],
+    "stopped": null,
+    "timing": {
+      "total_ms": 59,
+      "model_ms": 0
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "53.543297",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=1.0, upstream;dur=142.9, discovery;dur=0.0, model;dur=53.5, settle;dur=4.8, gateway;dur=152.8"
+  }
+}

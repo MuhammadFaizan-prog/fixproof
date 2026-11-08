@@ -1,0 +1,160 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-a-account",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "Something is wrong with my account I think?",
+    "answer": "I'm sorry to hear you're having trouble with your account.\n\n1. Wait 30 minutes or unlock it from the self-service portal with MFA.\n2. Then update the password on every device that syncs mail",
+    "claims": [
+      "I'm sorry to hear you're having trouble with your account.",
+      "1. Wait 30 minutes or unlock it from the self-service portal with MFA.",
+      "2. Then update the password on every device that syncs mail"
+    ],
+    "documents": [
+      {
+        "id": "account-lockout#0,1",
+        "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.\n\n## Fix\nWait 30 minutes or unlock it from the self-service portal with MFA. Then update the password on every device that syncs mail."
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**."
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "text": "## Fix\n1. Click the OneDrive cloud icon and choose **Resume syncing**.\n2. If files show a red cross, check the file name has no unsupported characters and the path is under 400 characters.\n3. If sync is still stuck, choose **Settings > Account > Unlink this PC/Mac** and sign in again. Files already synced stay on the device."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9954,
+    "ungrounded": 0.0046,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "account-lockout#0,1",
+        "share": 0.9973,
+        "share_of_answer": 0.9927,
+        "claims": [
+          1,
+          2
+        ]
+      },
+      {
+        "id": "outlook-not-syncing#1",
+        "share": 0.0014,
+        "share_of_answer": 0.0014,
+        "claims": []
+      },
+      {
+        "id": "onedrive-sync-paused#0",
+        "share": 0.0013,
+        "share_of_answer": 0.0013,
+        "claims": []
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I'm sorry to hear you're having trouble with your account.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.4049080954222605,
+          "offer_or_question": 0.5002166450493896,
+          "pointer": 0.031829499420180235,
+          "meta": 0.06304576010816967
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0035,
+        "contradicted": 0.0012,
+        "not_stated": 0.003,
+        "not_a_claim": 0.9923,
+        "verdict": "not_a_claim",
+        "sources": {
+          "account-lockout#0,1": 0.4004,
+          "outlook-not-syncing#1": 0.3336,
+          "onedrive-sync-paused#0": 0.2659
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Wait 30 minutes or unlock it from the self-service portal with MFA.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5426,
+        "supported": 0.9957,
+        "contradicted": 0.001,
+        "not_stated": 0.0016,
+        "not_a_claim": 0.0017,
+        "verdict": "supported",
+        "sources": {
+          "account-lockout#0,1": 0.9976,
+          "outlook-not-syncing#1": 0.0012,
+          "onedrive-sync-paused#0": 0.0013
+        },
+        "source": "account-lockout#0,1",
+        "evidence": {
+          "document": "account-lockout#0,1",
+          "quote": "Wait 30 minutes or unlock it from the self-service portal with MFA.",
+          "start": 164,
+          "end": 231,
+          "confidence": 0.998
+        }
+      },
+      {
+        "claim": "2. Then update the password on every device that syncs mail",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4574,
+        "supported": 0.995,
+        "contradicted": 0.001,
+        "not_stated": 0.002,
+        "not_a_claim": 0.002,
+        "verdict": "supported",
+        "sources": {
+          "account-lockout#0,1": 0.997,
+          "outlook-not-syncing#1": 0.0016,
+          "onedrive-sync-paused#0": 0.0014
+        },
+        "source": "account-lockout#0,1",
+        "evidence": {
+          "document": "account-lockout#0,1",
+          "quote": "Then update the password on every device that syncs mail.",
+          "start": 232,
+          "end": 289,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.995
+    },
+    "answers_question": 0.9805179629511231,
+    "timing": {
+      "read_ms": 155,
+      "total_ms": 107
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.064865",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.8, admit_db;dur=0.9, upstream;dur=192.1, discovery;dur=0.0, model;dur=98.1, settle;dur=4.5, gateway;dur=201.3"
+  }
+}

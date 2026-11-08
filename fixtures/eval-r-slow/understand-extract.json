@@ -1,0 +1,119 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "extract",
+  "scenario": "eval-r-slow",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "My laptop has been really slow since Monday, the fans are loud and Excel takes ages to open.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": null,
+        "confidence": 0.995,
+        "p_blank": 0.995
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.999,
+        "p_blank": 0.999
+      },
+      "app_names": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "laptop"
+        ],
+        "rejected_items": [
+          {
+            "value": "laptop",
+            "start": 3,
+            "end": 9,
+            "p_start": 0.904,
+            "p_close": 1,
+            "p_point": 0.5,
+            "p_verify": 0.093,
+            "confidence": 0.093
+          }
+        ],
+        "finish": "closed"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 1,
+        "p_blank": 0,
+        "rejected_value": "Monday",
+        "rejected_p_verify": 0,
+        "reason": "verification_rejected"
+      },
+      "device": {
+        "value": "laptop",
+        "start": 3,
+        "end": 9,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 0.5,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 56,
+      "forwards": {
+        "fields": [
+          6,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 1,
+          "point": 16,
+          "resolve": 10,
+          "extend": 0,
+          "contest": 16,
+          "lists": 11,
+          "verify": 0
+        }
+      },
+      "total_ms": 56,
+      "server_ms": 59
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "56.540928",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.9, admit_db;dur=0.9, upstream;dur=143.8, discovery;dur=0.0, model;dur=56.5, settle;dur=4.7, gateway;dur=153.4"
+  }
+}

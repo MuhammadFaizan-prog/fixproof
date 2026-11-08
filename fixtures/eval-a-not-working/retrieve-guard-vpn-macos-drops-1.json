@@ -1,0 +1,54 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "injection",
+  "scenario": "eval-a-not-working",
+  "step": "retrieve:guard:vpn-macos-drops#1",
+  "status": 200,
+  "request": {
+    "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+    "source": "content",
+    "evidence": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "injection": 0.0029481896415595177,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+      "benign": 0.994726858184583,
+      "instruction override": 0.0012622672928572884,
+      "role-play or persona jailbreak": 0.0007700021553858528,
+      "system prompt or secret extraction": 0.0008403688494990948,
+      "obfuscated or encoded payload": 0.000745854678243854,
+      "tool misuse or data exfiltration": 0.0007696537055067717,
+      "social engineering": 0.0008849951339241863
+    },
+    "severity": "none",
+    "severity_expected": 1.018,
+    "severities": {
+      "none": 0.9918198224244407,
+      "low": 0.003338922101568828,
+      "medium": 0.0015939686174624768,
+      "high": 0.0013080894643526446,
+      "critical": 0.0019391973921753835
+    },
+    "evidence": [],
+    "timing": {
+      "read_ms": 27,
+      "total_ms": 28
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.64032",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=4.1, admit_db;dur=0.8, upstream;dur=113.0, discovery;dur=0.0, model;dur=24.6, settle;dur=3.8, gateway;dur=120.9"
+  }
+}

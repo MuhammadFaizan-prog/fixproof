@@ -1,0 +1,144 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-bluetooth",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My Bluetooth headset won't pair with my laptop anymore. It shows connected for a second and then drops.",
+    "answer": "I am sorry to hear you are having trouble with your Bluetooth headset. 1. Forget the headset in Bluetooth settings. 2. Put it into pairing mode, usually by holding the power button for 5 seconds. 3. Pair it again while keeping it within one metre of the laptop",
+    "claims": [
+      "I am sorry to hear you are having trouble with your Bluetooth headset.",
+      "1. Forget the headset in Bluetooth settings.",
+      "2. Put it into pairing mode, usually by holding the power button for 5 seconds.",
+      "3. Pair it again while keeping it within one metre of the laptop"
+    ],
+    "documents": [
+      {
+        "id": "bluetooth-headset-pairing#0",
+        "text": "## Fix\nForget the headset in Bluetooth settings, put it into pairing mode (usually hold the power button for 5 seconds), and pair again. Keep it within one metre of the laptop while pairing."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9923,
+    "ungrounded": 0.0077,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "bluetooth-headset-pairing#0",
+        "share": 1,
+        "share_of_answer": 0.9923,
+        "claims": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "I am sorry to hear you are having trouble with your Bluetooth headset.",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.19458249023266655,
+          "offer_or_question": 0.5014285356259762,
+          "pointer": 0.022438216716428285,
+          "meta": 0.2815507574249289
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0011,
+        "contradicted": 0.002,
+        "not_stated": 0.0221,
+        "not_a_claim": 0.9748,
+        "verdict": "not_a_claim",
+        "sources": {
+          "bluetooth-headset-pairing#0": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Forget the headset in Bluetooth settings.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2353,
+        "supported": 0.9949,
+        "contradicted": 0.0017,
+        "not_stated": 0.0014,
+        "not_a_claim": 0.0021,
+        "verdict": "supported",
+        "sources": {
+          "bluetooth-headset-pairing#0": 1
+        },
+        "source": "bluetooth-headset-pairing#0",
+        "evidence": {
+          "document": "bluetooth-headset-pairing#0",
+          "quote": "Forget the headset in Bluetooth settings, put it into pairing mode (usually hold the power button for 5 seconds), and pair again.",
+          "start": 7,
+          "end": 136,
+          "confidence": 0.999
+        }
+      },
+      {
+        "claim": "2. Put it into pairing mode, usually by holding the power button for 5 seconds.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.4225,
+        "supported": 0.989,
+        "contradicted": 0.0048,
+        "not_stated": 0.003,
+        "not_a_claim": 0.0031,
+        "verdict": "supported",
+        "sources": {
+          "bluetooth-headset-pairing#0": 1
+        },
+        "source": "bluetooth-headset-pairing#0"
+      },
+      {
+        "claim": "3. Pair it again while keeping it within one metre of the laptop",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3422,
+        "supported": 0.9946,
+        "contradicted": 0.0019,
+        "not_stated": 0.0016,
+        "not_a_claim": 0.002,
+        "verdict": "supported",
+        "sources": {
+          "bluetooth-headset-pairing#0": 1
+        },
+        "source": "bluetooth-headset-pairing#0"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.989
+    },
+    "answers_question": 0.9941238626498392,
+    "timing": {
+      "read_ms": 155,
+      "total_ms": 111
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "100.919873",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.1, admit_db;dur=2.1, upstream;dur=195.5, discovery;dur=0.0, model;dur=100.9, settle;dur=4.5, gateway;dur=206.1"
+  }
+}

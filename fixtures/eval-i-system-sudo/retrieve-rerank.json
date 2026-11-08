@@ -1,0 +1,324 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "rerank",
+  "scenario": "eval-i-system-sudo",
+  "step": "retrieve:rerank",
+  "status": 200,
+  "request": {
+    "query": "I need admin to install Figma plugins.",
+    "documents": [
+      {
+        "id": "software-install-request#0",
+        "title": "Install software that is not in the portal · Steps",
+        "text": "## Steps\nMost approved software is in the software portal and installs without admin rights. For anything else, raise a software request with the name, version and business reason. Security reviews new software within three working days.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-05-08"
+        }
+      },
+      {
+        "id": "admin-rights-policy#1",
+        "title": "Local administrator rights · What to do instead",
+        "text": "## What to do instead\nMost software can be installed from the software portal without admin rights. If you need something that is not in the portal, raise a software request.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-07-01"
+        }
+      },
+      {
+        "id": "zoom-screen-share-macos#0",
+        "title": "Screen sharing blocked on macOS · Fix",
+        "text": "## Fix\nOpen **System Settings > Privacy & Security > Screen & System Audio Recording** and turn on the app you use for calls. Quit and reopen the app. No admin rights are needed.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-07-12"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
+        }
+      },
+      {
+        "id": "admin-rights-policy#0",
+        "title": "Local administrator rights · Policy",
+        "text": "## Policy\nThe help desk does not grant local administrator or Domain Admin rights. Requests for elevated access go through the access portal with manager approval and a security review. Approved access is time-limited.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-07-01"
+        }
+      },
+      {
+        "id": "mfa-new-phone#1",
+        "title": "Move MFA to a new phone · Steps",
+        "text": "## Steps\n1. On your laptop, open the self-service portal and choose **Security > Authenticator app > Replace device**.\n2. Install the Northwind Authenticator on the new phone and scan the QR code shown in the portal.\n3. Approve the test prompt on the new phone. The old phone stops receiving prompts.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "title": "Laptop is slow or behaving strangely · First steps",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-30"
+        }
+      },
+      {
+        "id": "mfa-new-phone#0",
+        "title": "Move MFA to a new phone · Before you start",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
+        }
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "title": "USB storage is blocked on company laptops · Policy",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
+        "id": "laptop-not-charging#2",
+        "title": "Laptop not charging on a dock or USB-C charger · When to raise a ticket",
+        "text": "## When to raise a ticket\nIf the laptop does not charge from its own charger either, it needs a hardware check. Raise a ticket with your asset tag so the hardware team can swap the charger or book a repair.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-20"
+        }
+      },
+      {
+        "id": "usb-storage-encrypted#0",
+        "title": "Encrypted USB drives for client handover · Policy",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      }
+    ],
+    "context": {
+      "employee": {
+        "role": "Product Designer",
+        "os": "macOS 15",
+        "device": "MacBook Pro 14-inch",
+        "office": "New York",
+        "region": "US"
+      }
+    },
+    "instructions": "Judge each passage for this employee. A passage written for a different operating system or region than the employee's is a different case, even when the words match. Policy passages that govern the request count as answers."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "results": [
+      {
+        "index": 4,
+        "id": "admin-rights-policy#0",
+        "action": "use",
+        "relevance_score": 0.994,
+        "document_score": 0.9952,
+        "levels": {
+          "answers": 0.994,
+          "elsewhere": 0.0013,
+          "different_case": 0.002,
+          "unrelated": 0.0028
+        }
+      },
+      {
+        "index": 0,
+        "id": "software-install-request#0",
+        "action": "use",
+        "relevance_score": 0.9785,
+        "document_score": 0.9851,
+        "levels": {
+          "answers": 0.9785,
+          "elsewhere": 0.0066,
+          "different_case": 0.0079,
+          "unrelated": 0.007
+        }
+      },
+      {
+        "index": 1,
+        "id": "admin-rights-policy#1",
+        "action": "use",
+        "relevance_score": 0.963,
+        "document_score": 0.9723,
+        "levels": {
+          "answers": 0.963,
+          "elsewhere": 0.0093,
+          "different_case": 0.0107,
+          "unrelated": 0.0171
+        }
+      },
+      {
+        "index": 2,
+        "id": "zoom-screen-share-macos#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0025,
+        "document_score": 0.0042,
+        "levels": {
+          "answers": 0.0025,
+          "elsewhere": 0.0017,
+          "different_case": 0.0038,
+          "unrelated": 0.992
+        }
+      },
+      {
+        "index": 3,
+        "id": "vpn-macos-drops#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.0025,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0012,
+          "different_case": 0.003,
+          "unrelated": 0.9944
+        }
+      },
+      {
+        "index": 6,
+        "id": "laptop-slow-performance#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0013,
+        "document_score": 0.003,
+        "levels": {
+          "answers": 0.0013,
+          "elsewhere": 0.0018,
+          "different_case": 0.0023,
+          "unrelated": 0.9947
+        }
+      },
+      {
+        "index": 9,
+        "id": "laptop-not-charging#2",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0012,
+        "document_score": 0.002,
+        "levels": {
+          "answers": 0.0012,
+          "elsewhere": 0.0008,
+          "different_case": 0.0019,
+          "unrelated": 0.9961
+        }
+      },
+      {
+        "index": 5,
+        "id": "mfa-new-phone#1",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0006,
+          "different_case": 0.0021,
+          "unrelated": 0.9962
+        }
+      },
+      {
+        "index": 7,
+        "id": "mfa-new-phone#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.002,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0009,
+          "different_case": 0.0016,
+          "unrelated": 0.9965
+        }
+      },
+      {
+        "index": 10,
+        "id": "usb-storage-encrypted#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.0018,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0007,
+          "different_case": 0.0012,
+          "unrelated": 0.9971
+        }
+      },
+      {
+        "index": 8,
+        "id": "usb-storage-blocked#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0018,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0008,
+          "different_case": 0.0013,
+          "unrelated": 0.9969
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 2308
+    },
+    "timing": {
+      "total_ms": 147,
+      "rerank_ms": 70,
+      "questions_ms": 0,
+      "model_ms": 63,
+      "engine": {
+        "rows": 3265,
+        "branches": 11,
+        "forwards": 1,
+        "bins": 1,
+        "bucket_rows": 4096,
+        "long": 0,
+        "total_ms": 63,
+        "build_ms": 0,
+        "doc_ms": 1,
+        "forward_ms": 62,
+        "state_ms": 0,
+        "logits_ms": 0,
+        "state_chars": 0,
+        "row_buckets": "big",
+        "shared_opening_tokens": 160
+      }
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "67.962784",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.5, admit_db;dur=1.5, upstream;dur=231.3, discovery;dur=0.0, model;dur=68.0, settle;dur=4.5, gateway;dur=241.2"
+  }
+}

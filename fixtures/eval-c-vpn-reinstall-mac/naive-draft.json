@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-c-vpn-reinstall-mac",
+  "step": "naive:draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nShould I reinstall the VPN client on my Mac? It keeps dropping after the update.\n\nKnowledge base:\n[1] VPN client troubleshooting policy (2024) · Policy\n## Policy\nIf the VPN keeps dropping and a profile reset does not help, uninstall the VPN client and reinstall it from the software portal. Employees may reinstall the client themselves.\n\n[2] VPN client troubleshooting policy (2026) · Policy\n## Policy\nNever uninstall or reinstall the VPN client yourself. Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal.\n\n[3] VPN drops every few minutes on macOS · Symptoms\n## Symptoms\nThe Northwind VPN connects, then disconnects every few minutes. macOS may show error 809 or \"The VPN server did not respond\". It often starts after a macOS or VPN client update, because the update leaves a stale VPN profile behind.",
+    "instructions": "You are an IT help-desk bot. Answer the employee's ticket using the knowledge base.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to Priya: one opening sentence, then numbered steps. Include any script from the knowledge base that helps."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Since the September 2026 client, reinstalling removes the device certificate and locks the laptop out of the network until the help desk re-enrolls it. 1. Use **Reset profile** in the VPN client, or reset your VPN profile from the self-service portal",
+        "confidence": 0.4611633103401014,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 173,
+      "total_ms": 191,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 288,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "8",
+    "x-clocked-model-ms": "184.085856",
+    "x-clocked-cost-usd": "0.001594",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.0, admit_db;dur=2.2, upstream;dur=275.8, discovery;dur=0.0, model;dur=184.1, settle;dur=4.1, gateway;dur=285.9"
+  }
+}

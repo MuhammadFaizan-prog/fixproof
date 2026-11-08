@@ -1,0 +1,81 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "compare",
+  "scenario": "eval-r-disk-full",
+  "step": "reconcile:compare",
+  "status": 200,
+  "request": {
+    "documents": [
+      {
+        "id": "disk-full-macos#0",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened."
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal."
+      }
+    ],
+    "instructions": "These are IT knowledge-base passages that may be shown to the same employee. Report a conflict only when following one passage would mean breaking the other.",
+    "evidence": "flagged",
+    "kinds": true
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "verdict": "clean",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+      {
+        "id": "disk-full-macos#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "duplicates": [],
+        "overlaps": [],
+        "conflicts": []
+      }
+    ],
+    "pairs": [
+      {
+        "a": "disk-full-macos#0",
+        "b": "laptop-slow-performance#0",
+        "relation": "unrelated",
+        "related": 0.0154,
+        "probabilities": {
+          "same": 0.0036,
+          "overlapping": 0.0056,
+          "conflicting": 0.0062,
+          "unrelated": 0.9846
+        },
+        "duplicates": [],
+        "conflicts": []
+      }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [],
+    "related_pairs": [],
+    "stages": {
+      "pairs_reread": 0,
+      "pairs_ms": 19
+    },
+    "timing": {
+      "read_ms": 19,
+      "total_ms": 20
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "15.339872",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.8, admit_db;dur=1.7, upstream;dur=105.3, discovery;dur=0.0, model;dur=15.3, settle;dur=4.5, gateway;dur=115.6"
+  }
+}

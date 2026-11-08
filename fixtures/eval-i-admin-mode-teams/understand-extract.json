@@ -1,0 +1,157 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "extract",
+  "scenario": "eval-i-admin-mode-teams",
+  "step": "understand:extract",
+  "status": 200,
+  "request": {
+    "text": "Also Teams calls have no sound on my laptop.",
+    "fields": {
+      "error_code": {
+        "description": "Error codes or exact error messages the employee reports, such as 809 or 'SSO authentication failed'",
+        "list": true,
+        "max_items": 4
+      },
+      "asset_tag": {
+        "description": "A Northwind Labs asset tag such as NW-MBP-0193 or NW-LT-2207",
+        "format": "code"
+      },
+      "app_names": {
+        "description": "Applications, services or devices the employee names as affected",
+        "list": true,
+        "max_items": 5
+      },
+      "deadline": {
+        "description": "A time or deadline the employee mentions, such as 3pm or today"
+      },
+      "device": {
+        "description": "The kind of computer or operating system the employee mentions, such as MacBook, Windows laptop or Ubuntu"
+      }
+    },
+    "instructions": "Return only values written in the ticket. Leave a field empty when the ticket does not state it. Placeholders like <PERSON> are masked personal data, not values."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "error_code": {
+        "value": [],
+        "items": [],
+        "confidence": 1,
+        "rejected": [
+          "no sound"
+        ],
+        "rejected_items": [
+          {
+            "value": "no sound",
+            "start": 22,
+            "end": 30,
+            "p_start": 0.966,
+            "p_close": 0.932,
+            "p_point": 1,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "closed"
+      },
+      "asset_tag": {
+        "value": null,
+        "confidence": 0.947,
+        "p_blank": 0.947
+      },
+      "app_names": {
+        "value": [
+          "Teams calls"
+        ],
+        "items": [
+          {
+            "value": "Teams calls",
+            "start": 5,
+            "end": 16,
+            "p_start": 1,
+            "p_close": 1,
+            "p_point": 1,
+            "p_verify": 0.999,
+            "p_more": 0.998,
+            "confidence": 0.999
+          }
+        ],
+        "confidence": 0.999,
+        "rejected": [
+          "laptop",
+          "my laptop"
+        ],
+        "rejected_items": [
+          {
+            "value": "laptop",
+            "start": 37,
+            "end": 43,
+            "p_start": 0.986,
+            "p_close": 1,
+            "p_point": 0.597,
+            "p_verify": 0,
+            "confidence": 0
+          },
+          {
+            "value": "my laptop",
+            "start": 34,
+            "end": 43,
+            "p_start": 0.014,
+            "p_close": 1,
+            "p_point": 0.553,
+            "p_verify": 0,
+            "confidence": 0
+          }
+        ],
+        "finish": "budget"
+      },
+      "deadline": {
+        "value": null,
+        "confidence": 0,
+        "p_blank": 0
+      },
+      "device": {
+        "value": "laptop",
+        "start": 37,
+        "end": 43,
+        "p_start": 1,
+        "p_close": 1,
+        "p_point": 1,
+        "p_verify": 1,
+        "confidence": 1
+      }
+    },
+    "timing": {
+      "read_ms": 118,
+      "forwards": {
+        "fields": [
+          16,
+          1
+        ]
+      },
+      "stages": {
+        "fields": {
+          "doc": 1,
+          "point": 16,
+          "resolve": 9,
+          "extend": 0,
+          "contest": 22,
+          "lists": 68,
+          "verify": 0
+        }
+      },
+      "total_ms": 118,
+      "server_ms": 120
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "118.305473",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.1, admit_db;dur=1.0, upstream;dur=282.1, discovery;dur=0.0, model;dur=118.3, settle;dur=4.2, gateway;dur=291.3"
+  }
+}

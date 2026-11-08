@@ -1,0 +1,234 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "eval-r-disk-full",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "My Mac keeps warning that the startup disk is almost full and apps freeze when I save files.",
+    "answer": "To resolve the disk space warning and app freezing, please follow these steps:\n1. Open System Settings > General > Storage and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened.\n4. Restart the laptop.\n5. Check free disk space.\n6. Install pending updates from the software portal",
+    "claims": [
+      "To resolve the disk space warning and app freezing, please follow these steps:",
+      "1. Open System Settings > General > Storage and review the recommendations.",
+      "2. Empty the Trash and the Downloads folder.",
+      "3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened.",
+      "4. Restart the laptop.",
+      "5. Check free disk space.",
+      "6. Install pending updates from the software portal"
+    ],
+    "documents": [
+      {
+        "id": "disk-full-macos#0",
+        "text": "## Fix\n1. Open **System Settings > General > Storage** and review the recommendations.\n2. Empty the Trash and the Downloads folder.\n3. Turn on **Optimize Mac Storage** for OneDrive files so they stay in the cloud until opened."
+      },
+      {
+        "id": "laptop-slow-performance#0",
+        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9939,
+    "ungrounded": 0.0061,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "laptop-slow-performance#0",
+        "share": 0.6115,
+        "share_of_answer": 0.6078,
+        "claims": [
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "id": "disk-full-macos#0",
+        "share": 0.3885,
+        "share_of_answer": 0.3861,
+        "claims": [
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "To resolve the disk space warning and app freezing, please follow these steps:",
+        "kind": "offer_or_question",
+        "kinds": {
+          "acknowledgement": 0.1426970368455135,
+          "offer_or_question": 0.7903126851693861,
+          "pointer": 0.0414531541194768,
+          "meta": 0.02553712386562357
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0509,
+        "contradicted": 0.0155,
+        "not_stated": 0.1469,
+        "not_a_claim": 0.7866,
+        "verdict": "not_a_claim",
+        "sources": {
+          "disk-full-macos#0": 0.6633,
+          "laptop-slow-performance#0": 0.3367
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Open System Settings > General > Storage and review the recommendations.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2443,
+        "supported": 0.9969,
+        "contradicted": 0.001,
+        "not_stated": 0.0009,
+        "not_a_claim": 0.0011,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.9986,
+          "laptop-slow-performance#0": 0.0014
+        },
+        "source": "disk-full-macos#0"
+      },
+      {
+        "claim": "2. Empty the Trash and the Downloads folder.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1433,
+        "supported": 0.9936,
+        "contradicted": 0.0019,
+        "not_stated": 0.0021,
+        "not_a_claim": 0.0023,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.9975,
+          "laptop-slow-performance#0": 0.0025
+        },
+        "source": "disk-full-macos#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document disk-full-macos#0:",
+          "start": 0,
+          "end": 27,
+          "confidence": 0.905
+        }
+      },
+      {
+        "claim": "3. Turn on Optimize Mac Storage for OneDrive files so they stay in the cloud until opened.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2932,
+        "supported": 0.9925,
+        "contradicted": 0.0027,
+        "not_stated": 0.002,
+        "not_a_claim": 0.0028,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.0014,
+          "laptop-slow-performance#0": 0.9986
+        },
+        "source": "laptop-slow-performance#0"
+      },
+      {
+        "claim": "4. Restart the laptop.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.0717,
+        "supported": 0.99,
+        "contradicted": 0.0039,
+        "not_stated": 0.0027,
+        "not_a_claim": 0.0034,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.0021,
+          "laptop-slow-performance#0": 0.9979
+        },
+        "source": "laptop-slow-performance#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document laptop-slow-performance#0:",
+          "start": 256,
+          "end": 291,
+          "confidence": 0.997
+        }
+      },
+      {
+        "claim": "5. Check free disk space.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.0814,
+        "supported": 0.9914,
+        "contradicted": 0.004,
+        "not_stated": 0.0025,
+        "not_a_claim": 0.0021,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.0017,
+          "laptop-slow-performance#0": 0.9983
+        },
+        "source": "laptop-slow-performance#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document laptop-slow-performance#0:",
+          "start": 256,
+          "end": 291,
+          "confidence": 0.999
+        }
+      },
+      {
+        "claim": "6. Install pending updates from the software portal",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1661,
+        "supported": 0.9954,
+        "contradicted": 0.0019,
+        "not_stated": 0.0013,
+        "not_a_claim": 0.0014,
+        "verdict": "supported",
+        "sources": {
+          "disk-full-macos#0": 0.0011,
+          "laptop-slow-performance#0": 0.9989
+        },
+        "source": "laptop-slow-performance#0",
+        "evidence": {
+          "document": null,
+          "quote": "Document laptop-slow-performance#0:",
+          "start": 256,
+          "end": 291,
+          "confidence": 1
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 4,
+      "supported": 0.99
+    },
+    "answers_question": 0.9946759010944113,
+    "timing": {
+      "read_ms": 274,
+      "total_ms": 187
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "8",
+    "x-clocked-model-ms": "176.486276",
+    "x-clocked-cost-usd": "0.001594",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=6.5, admit_db;dur=2.4, upstream;dur=349.6, discovery;dur=0.0, model;dur=176.5, settle;dur=4.6, gateway;dur=360.7"
+  }
+}

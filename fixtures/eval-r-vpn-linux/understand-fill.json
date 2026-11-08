@@ -1,0 +1,111 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "eval-r-vpn-linux",
+  "step": "understand:fill",
+  "status": 200,
+  "request": {
+    "text": "The VPN on my Ubuntu workstation keeps disconnecting every few minutes and I have to reconnect northwind-vpn by hand.",
+    "fields": {
+      "category": {
+        "type": "choice",
+        "description": "The help-desk category of the main request",
+        "options": [
+          "network",
+          "identity",
+          "hardware",
+          "software",
+          "printing",
+          "security",
+          "accounts"
+        ],
+        "allow_none": true
+      },
+      "severity": {
+        "type": "score",
+        "description": "Impact on the employee's work",
+        "levels": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ]
+      },
+      "affected_service": {
+        "type": "extract",
+        "description": "The service, application or device reported as not working",
+        "infer": false
+      },
+      "needs_admin": {
+        "type": "yes_no",
+        "description": "Would doing what the employee asks require admin rights, a security exception or a group membership change?"
+      }
+    },
+    "instructions": "Severity rubric: low = routine question or request; medium = one person degraded with a workaround; high = one person blocked or a same-day deadline at risk; critical = a team or company-wide outage. Use only this ticket."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "category": {
+        "value": "network",
+        "confidence": 0.901,
+        "probabilities": {
+          "network": 0.9137049838388336,
+          "identity": 0.007582965810688666,
+          "hardware": 0.005310990111596518,
+          "software": 0.014070705820648568,
+          "printing": 0.005505099690162113,
+          "security": 0.0077085624087375034,
+          "accounts": 0.007418400341741911,
+          "none": 0.038698291977591136
+        }
+      },
+      "severity": {
+        "value": "medium",
+        "confidence": 0.883,
+        "expected": 2.073,
+        "probabilities": {
+          "low": 0.020672839721760823,
+          "medium": 0.9126082753311827,
+          "high": 0.040090928691191144,
+          "critical": 0.02662795625586532
+        }
+      },
+      "affected_service": {
+        "value": "northwind-vpn",
+        "start": 95,
+        "end": 108,
+        "confidence": 0.9999999468899308,
+        "p_verify": 0.9999999468899308
+      },
+      "needs_admin": {
+        "value": false,
+        "confidence": 0.44,
+        "probabilities": {
+          "yes": 0.2801880241209116,
+          "no": 0.7198119758790884
+        }
+      }
+    },
+    "timing": {
+      "read_ms": 56,
+      "generate_ms": 0,
+      "total_ms": 59,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 176,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "57.249598",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.0, admit_db;dur=0.9, upstream;dur=144.0, discovery;dur=0.0, model;dur=57.2, settle;dur=4.4, gateway;dur=153.4"
+  }
+}
