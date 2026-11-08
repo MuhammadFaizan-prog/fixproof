@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppHeader } from "@/components/shell/AppHeader";
 import { pushHistory, readHistory, type HistoryEntry } from "@/lib/client/history";
 import { useTriage } from "@/lib/client/useTriage";
 import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
+import { TOUR } from "@/data/tour";
+import { TourBar } from "./TourBar";
 import { IntakePanel } from "./IntakePanel";
 import { RunView } from "./RunView";
 import { EvidenceRail } from "./EvidenceRail";
@@ -28,6 +30,37 @@ export function Console({ personas, scenarios }: ConsoleProps) {
   const { state, run } = useTriage();
   // Below 1024 px the three columns become panes switched from the top bar (tablet shows the rail under the run).
   const [pane, setPane] = useState<Pane>("tickets");
+  const [tour, setTour] = useState<number | null>(null);
+
+  const replay = useCallback(
+    (s: Scenario) => {
+      setScenarioId(s.id);
+      setPersonaId(s.personaId);
+      run({ text: s.text, personaId: s.personaId, scenarioId: s.id, mode: "replay" });
+    },
+    [run],
+  );
+  const goTour = useCallback(
+    (i: number) => {
+      const s = scenarios.find((x) => x.id === TOUR[i].scenarioId);
+      if (!s) return;
+      setTour(i);
+      replay(s);
+    },
+    [scenarios, replay],
+  );
+  const exitTour = useCallback(() => setTour(null), []);
+
+  // Deep links: /?tour=1 starts the judge tour; /?preset=<id> replays one preset.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("tour")) goTour(0);
+    else {
+      const s = q.get("preset") ? scenarios.find((x) => x.id === q.get("preset")) : undefined;
+      if (s) replay(s);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setHistory(readHistory());
@@ -72,6 +105,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
   const runPersona = state.start ? (personas.find((p) => p.id === state.start!.persona) ?? persona) : persona;
   const runScenario = state.start ? (state.start.scenarioId ? (scenarios.find((s) => s.id === state.start!.scenarioId) ?? null) : null) : scenario;
   const mainRef = useRef<HTMLDivElement>(null);
+  const recordedAt = state.start?.mode === "replay" ? (state.order.map((id) => state.rows[id].meta?.recordedAt).find(Boolean) ?? null) : null;
   // Below xl the columns stack; once a run starts the outcome comes first, so bring it into view.
   useEffect(() => {
     if (state.status !== "running") return;
@@ -86,7 +120,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
 
   return (
     <div className="flex min-h-dvh flex-col xl:h-dvh">
-      <AppHeader mode={state.start?.mode ?? (scenario ? "replay" : "live")} sessionCredits={sessionCredits} pane={pane} onPane={choosePane} runOutcome={state.result?.outcome.outcome ?? (state.status === "running" ? "running" : null)} />
+      <AppHeader mode={state.start?.mode ?? (scenario ? "replay" : "live")} recordedAt={recordedAt} onTour={tour === null ? () => goTour(0) : undefined} sessionCredits={sessionCredits} pane={pane} onPane={choosePane} runOutcome={state.result?.outcome.outcome ?? (state.status === "running" ? "running" : null)} />
       <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 gap-4 px-3 pb-6 sm:px-5 lg:grid-cols-[320px_minmax(0,1fr)] xl:min-h-0 xl:grid-cols-[340px_minmax(0,1fr)_344px] xl:gap-5 xl:pb-5">
         <aside id="pane-tickets" aria-label="Tickets" className={cn("fp-scroll min-w-0 lg:row-span-2 xl:row-span-1 xl:overflow-y-auto xl:pb-1", pane !== "tickets" && "max-lg:hidden")}>
           <IntakePanel
@@ -100,6 +134,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             running={state.status === "running"}
             onPersona={setPersonaId}
             onScenario={(s) => {
+              setTour(null);
               setScenarioId(s.id);
               setPersonaId(s.personaId);
             }}
@@ -111,12 +146,12 @@ export function Console({ personas, scenarios }: ConsoleProps) {
           />
         </aside>
         <main id="pane-run" ref={mainRef} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", pane === "tickets" && "max-lg:hidden", pane === "evidence" && "max-md:hidden")}>
-          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => run({ text: runScenario.text, personaId: runScenario.personaId, scenarioId: runScenario.id, mode: "replay" }) : undefined} onFallback={() => {
-              const s = scenarios[0];
-              setScenarioId(s.id);
-              setPersonaId(s.personaId);
-              run({ text: s.text, personaId: s.personaId, scenarioId: s.id, mode: "replay" });
-            }} />
+          {tour !== null ? (
+            <div className="mb-4 xl:mb-5">
+              <TourBar stops={TOUR} index={tour} onBack={() => goTour(Math.max(0, tour - 1))} onNext={() => goTour(Math.min(TOUR.length - 1, tour + 1))} onExit={exitTour} />
+            </div>
+          ) : null}
+          <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => run({ text: runScenario.text, personaId: runScenario.personaId, scenarioId: runScenario.id, mode: "replay" }) : undefined} onFallback={() => replay(scenarios[0])} />
         </main>
         <aside id="pane-evidence" aria-label="Evidence and scope" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", "lg:col-start-2 xl:col-start-auto", pane === "tickets" && "max-lg:hidden", pane === "run" && "max-md:hidden")}>
           <EvidenceRail state={state} persona={runPersona} />

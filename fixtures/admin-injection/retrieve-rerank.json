@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "admin-injection",
   "step": "retrieve:rerank",
@@ -97,6 +97,16 @@
           "os": "windows",
           "region": "any",
           "updated": "2026-11-03"
+        }
+      },
+      {
+        "id": "usb-storage-blocked#0",
+        "title": "USB storage is blocked on company laptops · Policy",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
         }
       },
       {
@@ -198,16 +208,6 @@
           "region": "any",
           "updated": "2026-09-01"
         }
-      },
-      {
-        "id": "payroll-portal-status#0",
-        "title": "Payroll portal outage: current status · Status",
-        "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.",
-        "metadata": {
-          "os": "any",
-          "region": "any",
-          "updated": "2026-11-07"
-        }
       }
     ],
     "context": {
@@ -306,7 +306,7 @@
         }
       },
       {
-        "index": 12,
+        "index": 13,
         "id": "vpn-linux-drops#0",
         "action": "skip",
         "reason": "different_case",
@@ -320,7 +320,7 @@
         }
       },
       {
-        "index": 14,
+        "index": 15,
         "id": "vpn-windows-drops#0",
         "action": "skip",
         "reason": "unrelated",
@@ -362,7 +362,7 @@
         }
       },
       {
-        "index": 10,
+        "index": 11,
         "id": "printer-queue-recovery#1",
         "action": "skip",
         "reason": "unrelated",
@@ -376,7 +376,7 @@
         }
       },
       {
-        "index": 13,
+        "index": 14,
         "id": "wifi-corporate-certificate#0",
         "action": "skip",
         "reason": "unrelated",
@@ -390,7 +390,7 @@
         }
       },
       {
-        "index": 16,
+        "index": 17,
         "id": "mfa-new-phone#1",
         "action": "skip",
         "reason": "unrelated",
@@ -401,20 +401,6 @@
           "elsewhere": 0.0005,
           "different_case": 0.0011,
           "unrelated": 0.9973
-        }
-      },
-      {
-        "index": 19,
-        "id": "payroll-portal-status#0",
-        "action": "skip",
-        "reason": "unrelated",
-        "relevance_score": 0.0012,
-        "document_score": 0.0018,
-        "levels": {
-          "answers": 0.0012,
-          "elsewhere": 0.0006,
-          "different_case": 0.0013,
-          "unrelated": 0.997
         }
       },
       {
@@ -432,7 +418,7 @@
         }
       },
       {
-        "index": 15,
+        "index": 16,
         "id": "vpn-windows-drops#2",
         "action": "skip",
         "reason": "unrelated",
@@ -446,7 +432,7 @@
         }
       },
       {
-        "index": 17,
+        "index": 18,
         "id": "browser-certificate-error#1",
         "action": "skip",
         "reason": "unrelated",
@@ -460,7 +446,7 @@
         }
       },
       {
-        "index": 18,
+        "index": 19,
         "id": "vpn-policy-2026#0",
         "action": "skip",
         "reason": "unrelated",
@@ -475,6 +461,20 @@
       },
       {
         "index": 9,
+        "id": "usb-storage-blocked#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0017,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0007,
+          "different_case": 0.0014,
+          "unrelated": 0.9969
+        }
+      },
+      {
+        "index": 10,
         "id": "printer-queue-recovery#0",
         "action": "skip",
         "reason": "unrelated",
@@ -488,7 +488,7 @@
         }
       },
       {
-        "index": 11,
+        "index": 12,
         "id": "mfa-new-phone#0",
         "action": "skip",
         "reason": "unrelated",
@@ -503,24 +503,24 @@
       }
     ],
     "usage": {
-      "input_tokens": 4419
+      "input_tokens": 4421
     },
     "timing": {
-      "total_ms": 96,
-      "rerank_ms": 95,
+      "total_ms": 95,
+      "rerank_ms": 94,
       "questions_ms": 0,
-      "model_ms": 85,
+      "model_ms": 84,
       "engine": {
-        "rows": 5839,
+        "rows": 5841,
         "branches": 20,
         "forwards": 1,
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 85,
+        "total_ms": 84,
         "build_ms": 0,
-        "doc_ms": 2,
-        "forward_ms": 81,
+        "doc_ms": 1,
+        "forward_ms": 82,
         "state_ms": 0,
         "logits_ms": 0,
         "state_chars": 0,
@@ -531,10 +531,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "90.778595",
+    "x-clocked-model-ms": "90.368156",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=6.5, admit_db;dur=0.8, upstream;dur=106.0, discovery;dur=0.0, model;dur=90.8, settle;dur=5.9, gateway;dur=118.4"
+    "server-timing": "admit;dur=40.3, admit_db;dur=9.1, upstream;dur=424.5, discovery;dur=0.0, model;dur=90.4, settle;dur=5.9, gateway;dur=470.7"
   }
 }

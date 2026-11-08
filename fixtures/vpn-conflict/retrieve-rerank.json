@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "vpn-conflict",
   "step": "retrieve:rerank",
@@ -150,6 +150,16 @@
         }
       },
       {
+        "id": "usb-storage-encrypted#0",
+        "title": "Encrypted USB drives for client handover · Policy",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
         "id": "browser-certificate-error#1",
         "title": "Certificate error on internal sites · Fix",
         "text": "## Fix\n1. Check the laptop date and time are set automatically.\n2. Connect to the VPN; internal sites only have trusted certificates on the corporate network.\n3. Do not click through the warning on sites that ask for your password.",
@@ -197,16 +207,6 @@
           "os": "any",
           "region": "any",
           "updated": "2026-08-30"
-        }
-      },
-      {
-        "id": "printer-queue-recovery#1",
-        "title": "Print queue stuck on a Windows laptop · Fix",
-        "text": "## Fix\n1. Open **Settings > Bluetooth & devices > Printers & scanners**, select the printer and choose **Open print queue**.\n2. Cancel all documents, then try printing a test page.",
-        "metadata": {
-          "os": "windows",
-          "region": "any",
-          "updated": "2026-11-03"
         }
       }
     ],
@@ -305,7 +305,7 @@
         }
       },
       {
-        "index": 18,
+        "index": 19,
         "id": "laptop-slow-performance#0",
         "action": "skip",
         "reason": "unrelated",
@@ -319,7 +319,7 @@
         }
       },
       {
-        "index": 16,
+        "index": 17,
         "id": "software-install-request#0",
         "action": "skip",
         "reason": "unrelated",
@@ -333,7 +333,7 @@
         }
       },
       {
-        "index": 14,
+        "index": 15,
         "id": "browser-certificate-error#1",
         "action": "skip",
         "reason": "unrelated",
@@ -445,7 +445,7 @@
         }
       },
       {
-        "index": 15,
+        "index": 16,
         "id": "pk-office-network#0",
         "action": "skip",
         "reason": "different_case",
@@ -473,21 +473,21 @@
         }
       },
       {
-        "index": 19,
-        "id": "printer-queue-recovery#1",
+        "index": 14,
+        "id": "usb-storage-encrypted#0",
         "action": "skip",
         "reason": "unrelated",
-        "relevance_score": 0.0013,
-        "document_score": 0.002,
+        "relevance_score": 0.0012,
+        "document_score": 0.0018,
         "levels": {
-          "answers": 0.0013,
-          "elsewhere": 0.0007,
-          "different_case": 0.002,
-          "unrelated": 0.9959
+          "answers": 0.0012,
+          "elsewhere": 0.0006,
+          "different_case": 0.001,
+          "unrelated": 0.9972
         }
       },
       {
-        "index": 17,
+        "index": 18,
         "id": "mfa-new-phone#1",
         "action": "skip",
         "reason": "unrelated",
@@ -502,24 +502,24 @@
       }
     ],
     "usage": {
-      "input_tokens": 4506
+      "input_tokens": 4523
     },
     "timing": {
-      "total_ms": 81,
-      "rerank_ms": 79,
+      "total_ms": 94,
+      "rerank_ms": 93,
       "questions_ms": 0,
-      "model_ms": 74,
+      "model_ms": 84,
       "engine": {
-        "rows": 5926,
+        "rows": 5943,
         "branches": 20,
         "forwards": 1,
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 74,
+        "total_ms": 84,
         "build_ms": 0,
-        "doc_ms": 0,
-        "forward_ms": 73,
+        "doc_ms": 1,
+        "forward_ms": 82,
         "state_ms": 0,
         "logits_ms": 0,
         "state_chars": 0,
@@ -530,10 +530,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "75.666367",
+    "x-clocked-model-ms": "90.422813",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=6.9, admit_db;dur=1.7, upstream;dur=91.3, discovery;dur=0.0, model;dur=75.7, settle;dur=6.3, gateway;dur=104.5"
+    "server-timing": "admit;dur=6.1, admit_db;dur=1.6, upstream;dur=179.6, discovery;dur=0.0, model;dur=90.4, settle;dur=4.9, gateway;dur=190.7"
   }
 }

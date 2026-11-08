@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "vpn-macos",
   "step": "retrieve:rerank",
@@ -200,13 +200,13 @@
         }
       },
       {
-        "id": "laptop-slow-performance#0",
-        "title": "Laptop is slow or behaving strangely · First steps",
-        "text": "## First steps\n1. Restart the laptop. Many issues clear after a full restart, not just closing the lid.\n2. Check free disk space. Less than 10 GB free slows every device down.\n3. Install pending updates from the software portal.",
+        "id": "usb-storage-encrypted#0",
+        "title": "Encrypted USB drives for client handover · Policy",
+        "text": "## Policy\nCompany-issued encrypted USB drives (the grey Kingston IronKey) may be used to hand files to a client when a secure share link is not possible. Unlock the drive with its PIN, copy only the files the client needs, and log the handover in the client folder.",
         "metadata": {
           "os": "any",
           "region": "any",
-          "updated": "2026-08-30"
+          "updated": "2026-08-14"
         }
       }
     ],
@@ -313,20 +313,6 @@
           "elsewhere": 0.1052,
           "different_case": 0.0195,
           "unrelated": 0.123
-        }
-      },
-      {
-        "index": 19,
-        "id": "laptop-slow-performance#0",
-        "action": "skip",
-        "reason": "unrelated",
-        "relevance_score": 0.0437,
-        "document_score": 0.1589,
-        "levels": {
-          "answers": 0.0437,
-          "elsewhere": 0.1152,
-          "different_case": 0.0291,
-          "unrelated": 0.8119
         }
       },
       {
@@ -496,27 +482,41 @@
           "different_case": 0.0017,
           "unrelated": 0.9964
         }
+      },
+      {
+        "index": 19,
+        "id": "usb-storage-encrypted#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0016,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0007,
+          "different_case": 0.0013,
+          "unrelated": 0.9971
+        }
       }
     ],
     "usage": {
-      "input_tokens": 5317
+      "input_tokens": 5320
     },
     "timing": {
-      "total_ms": 82,
-      "rerank_ms": 80,
+      "total_ms": 170,
+      "rerank_ms": 93,
       "questions_ms": 0,
-      "model_ms": 76,
+      "model_ms": 84,
       "engine": {
-        "rows": 5777,
+        "rows": 5780,
         "branches": 20,
         "forwards": 1,
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 76,
+        "total_ms": 84,
         "build_ms": 0,
-        "doc_ms": 0,
-        "forward_ms": 75,
+        "doc_ms": 1,
+        "forward_ms": 82,
         "state_ms": 0,
         "logits_ms": 0,
         "state_chars": 0,
@@ -527,10 +527,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "76.968063",
+    "x-clocked-model-ms": "90.11232",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=7.1, admit_db;dur=1.5, upstream;dur=93.3, discovery;dur=0.0, model;dur=77.0, settle;dur=6.6, gateway;dur=107.1"
+    "server-timing": "admit;dur=21.5, admit_db;dur=1.5, upstream;dur=255.4, discovery;dur=0.0, model;dur=90.1, settle;dur=4.5, gateway;dur=281.4"
   }
 }

@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "mfa-poisoned",
   "step": "retrieve:rerank",
@@ -80,6 +80,16 @@
         }
       },
       {
+        "id": "guest-wifi-lahore#0",
+        "title": "Guest Wi-Fi in the Lahore office · Steps",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.",
+        "metadata": {
+          "os": "any",
+          "region": "pk",
+          "updated": "2026-05-12"
+        }
+      },
+      {
         "id": "laptop-slow-performance#2",
         "title": "Laptop is slow or behaving strangely · Possible security issue",
         "text": "## Possible security issue\nUnexpected pop-ups, new browser toolbars or files you did not create can be signs of malware. Disconnect from the network and contact the help desk by phone.",
@@ -130,16 +140,6 @@
         }
       },
       {
-        "id": "mail-macos-not-syncing#0",
-        "title": "Outlook for Mac not syncing · Fix",
-        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
-        "metadata": {
-          "os": "macos",
-          "region": "any",
-          "updated": "2026-09-09"
-        }
-      },
-      {
         "id": "account-lockout#0",
         "title": "Account locked after failed sign-ins · Why it happens",
         "text": "## Why it happens\nTen failed sign-ins in 15 minutes lock the account for 30 minutes. A phone or tablet with an old password saved is the most common cause.",
@@ -170,6 +170,26 @@
         }
       },
       {
+        "id": "mail-macos-not-syncing#0",
+        "title": "Outlook for Mac not syncing · Fix",
+        "text": "## Fix\n1. Check you are online and not in **Work Offline** mode (Outlook menu).\n2. Go to **Outlook > Settings > Accounts**, select your account and choose **Repair**.\n3. If mail is still missing, remove the account and add it again with your work email.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-09-09"
+        }
+      },
+      {
+        "id": "guest-wifi-policy#0",
+        "title": "Guest Wi-Fi for visitors · Steps",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-01"
+        }
+      },
+      {
         "id": "vpn-linux-drops#2",
         "title": "VPN drops on Linux workstations · Script",
         "text": "## Script\n```bash\n#!/bin/bash\n# Northwind VPN reconnect (Linux). Scope: this workstation, NetworkManager profile only.\nnmcli connection down northwind-vpn || true\nnmcli connection up northwind-vpn\nnmcli -t -f NAME,STATE connection show --active | grep northwind\n```",
@@ -187,26 +207,6 @@
           "os": "any",
           "region": "any",
           "updated": "2024-03-11"
-        }
-      },
-      {
-        "id": "outlook-not-syncing#1",
-        "title": "Outlook not syncing on Windows · Fix",
-        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
-        "metadata": {
-          "os": "windows",
-          "region": "any",
-          "updated": "2026-09-09"
-        }
-      },
-      {
-        "id": "vpn-windows-drops#1",
-        "title": "VPN drops every few minutes on Windows · Fix: reset the VPN profile",
-        "text": "## Fix: reset the VPN profile\n1. Right-click the Northwind VPN icon in the system tray and choose **Disconnect**.\n2. Open **Settings > Reset profile** in the VPN client.\n3. Reconnect and approve the MFA prompt.",
-        "metadata": {
-          "os": "windows",
-          "region": "any",
-          "updated": "2026-10-02"
         }
       }
     ],
@@ -291,7 +291,7 @@
         }
       },
       {
-        "index": 11,
+        "index": 12,
         "id": "account-lockout#1",
         "action": "skip",
         "reason": "unrelated",
@@ -305,7 +305,7 @@
         }
       },
       {
-        "index": 17,
+        "index": 19,
         "id": "vpn-policy-2024#1",
         "action": "skip",
         "reason": "unrelated",
@@ -319,7 +319,7 @@
         }
       },
       {
-        "index": 8,
+        "index": 9,
         "id": "vpn-macos-drops#1",
         "action": "skip",
         "reason": "unrelated",
@@ -347,7 +347,7 @@
         }
       },
       {
-        "index": 10,
+        "index": 11,
         "id": "payroll-portal-status#0",
         "action": "skip",
         "reason": "unrelated",
@@ -375,21 +375,7 @@
         }
       },
       {
-        "index": 18,
-        "id": "outlook-not-syncing#1",
-        "action": "skip",
-        "reason": "unrelated",
-        "relevance_score": 0.0022,
-        "document_score": 0.0051,
-        "levels": {
-          "answers": 0.0022,
-          "elsewhere": 0.0029,
-          "different_case": 0.0339,
-          "unrelated": 0.961
-        }
-      },
-      {
-        "index": 12,
+        "index": 16,
         "id": "mail-macos-not-syncing#0",
         "action": "skip",
         "reason": "unrelated",
@@ -403,7 +389,21 @@
         }
       },
       {
-        "index": 16,
+        "index": 7,
+        "id": "guest-wifi-lahore#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0018,
+        "document_score": 0.0036,
+        "levels": {
+          "answers": 0.0018,
+          "elsewhere": 0.0018,
+          "different_case": 0.0067,
+          "unrelated": 0.9896
+        }
+      },
+      {
+        "index": 18,
         "id": "vpn-linux-drops#2",
         "action": "skip",
         "reason": "unrelated",
@@ -445,20 +445,6 @@
         }
       },
       {
-        "index": 19,
-        "id": "vpn-windows-drops#1",
-        "action": "skip",
-        "reason": "different_case",
-        "relevance_score": 0.0014,
-        "document_score": 0.0035,
-        "levels": {
-          "answers": 0.0014,
-          "elsewhere": 0.0021,
-          "different_case": 0.8963,
-          "unrelated": 0.1002
-        }
-      },
-      {
         "index": 6,
         "id": "zoom-screen-share-macos#0",
         "action": "skip",
@@ -473,7 +459,7 @@
         }
       },
       {
-        "index": 7,
+        "index": 8,
         "id": "laptop-slow-performance#2",
         "action": "skip",
         "reason": "unrelated",
@@ -487,7 +473,7 @@
         }
       },
       {
-        "index": 9,
+        "index": 10,
         "id": "software-install-request#0",
         "action": "skip",
         "reason": "unrelated",
@@ -499,27 +485,41 @@
           "different_case": 0.0031,
           "unrelated": 0.9936
         }
+      },
+      {
+        "index": 17,
+        "id": "guest-wifi-policy#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.001,
+        "document_score": 0.0015,
+        "levels": {
+          "answers": 0.001,
+          "elsewhere": 0.0005,
+          "different_case": 0.0013,
+          "unrelated": 0.9972
+        }
       }
     ],
     "usage": {
-      "input_tokens": 4505
+      "input_tokens": 4451
     },
     "timing": {
-      "total_ms": 80,
-      "rerank_ms": 79,
+      "total_ms": 169,
+      "rerank_ms": 92,
       "questions_ms": 0,
-      "model_ms": 74,
+      "model_ms": 83,
       "engine": {
-        "rows": 5925,
+        "rows": 5871,
         "branches": 20,
         "forwards": 1,
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 74,
+        "total_ms": 83,
         "build_ms": 0,
-        "doc_ms": 0,
-        "forward_ms": 73,
+        "doc_ms": 1,
+        "forward_ms": 82,
         "state_ms": 0,
         "logits_ms": 0,
         "state_chars": 0,
@@ -530,10 +530,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "75.477951",
+    "x-clocked-model-ms": "89.253922",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=4.6, admit_db;dur=0.7, upstream;dur=89.7, discovery;dur=0.0, model;dur=75.5, settle;dur=4.7, gateway;dur=99.0"
+    "server-timing": "admit;dur=4.5, admit_db;dur=0.9, upstream;dur=255.2, discovery;dur=0.0, model;dur=89.3, settle;dur=4.5, gateway;dur=264.2"
   }
 }

@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "tampered-printer",
   "step": "retrieve:rerank",
@@ -70,6 +70,16 @@
         }
       },
       {
+        "id": "usb-storage-blocked#0",
+        "title": "USB storage is blocked on company laptops · Policy",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
         "id": "laptop-not-charging#0",
         "title": "Laptop not charging on a dock or USB-C charger · Check the basics",
         "text": "## Check the basics\n1. Plug the charger straight into the laptop instead of the dock. If it charges, the dock is the problem.\n2. Try a different USB-C port on the laptop. On ThinkPads, use the port nearest the hinge.\n3. Look at the charger wattage. Northwind docks deliver 90 W; a 45 W phone charger cannot charge a laptop under load.",
@@ -130,23 +140,13 @@
         }
       },
       {
-        "id": "vpn-macos-drops#1",
-        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
-        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
-        "metadata": {
-          "os": "macos",
-          "region": "any",
-          "updated": "2026-10-02"
-        }
-      },
-      {
-        "id": "admin-rights-policy#1",
-        "title": "Local administrator rights · What to do instead",
-        "text": "## What to do instead\nMost software can be installed from the software portal without admin rights. If you need something that is not in the portal, raise a software request.",
+        "id": "guest-wifi-policy#0",
+        "title": "Guest Wi-Fi for visitors · Steps",
+        "text": "## Steps\nVisitors join the NW-Guest network and sign in with a one-day code that reception prints from the visitor system. Codes expire at midnight. Employees never share their own corporate Wi-Fi certificate with visitors.",
         "metadata": {
           "os": "any",
           "region": "any",
-          "updated": "2026-07-01"
+          "updated": "2026-10-01"
         }
       },
       {
@@ -157,6 +157,16 @@
           "os": "linux",
           "region": "any",
           "updated": "2026-09-18"
+        }
+      },
+      {
+        "id": "vpn-macos-drops#1",
+        "title": "VPN drops every few minutes on macOS · Fix: reset the VPN profile",
+        "text": "## Fix: reset the VPN profile\n1. Click the Northwind VPN icon in the menu bar and choose **Disconnect**.\n2. Choose **Settings > Reset profile**. Your saved server list is rebuilt; you do not need to reinstall anything.\n3. Reconnect and sign in with your work account and MFA.\nMost people are stable again within a minute. The reset does not need admin rights.",
+        "metadata": {
+          "os": "macos",
+          "region": "any",
+          "updated": "2026-10-02"
         }
       },
       {
@@ -177,16 +187,6 @@
           "os": "windows",
           "region": "any",
           "updated": "2026-10-02"
-        }
-      },
-      {
-        "id": "outlook-not-syncing#1",
-        "title": "Outlook not syncing on Windows · Fix",
-        "text": "## Fix\n1. Check **File > Office Account** shows your Northwind account. Sign out and back in if it shows an error.\n2. Turn off **Work Offline** on the Send/Receive tab.\n3. Close Outlook, then open it while holding **Ctrl** and choose **Yes** to start in safe mode. If it syncs in safe mode, disable add-ins one at a time.\n4. If nothing helps, use **Account settings > Repair**.",
-        "metadata": {
-          "os": "windows",
-          "region": "any",
-          "updated": "2026-09-09"
         }
       },
       {
@@ -265,7 +265,7 @@
         }
       },
       {
-        "index": 7,
+        "index": 8,
         "id": "laptop-slow-performance#0",
         "action": "skip",
         "reason": "unrelated",
@@ -279,7 +279,7 @@
         }
       },
       {
-        "index": 10,
+        "index": 11,
         "id": "laptop-slow-performance#1",
         "action": "skip",
         "reason": "unrelated",
@@ -307,7 +307,7 @@
         }
       },
       {
-        "index": 9,
+        "index": 10,
         "id": "onedrive-sync-paused#0",
         "action": "skip",
         "reason": "unrelated",
@@ -321,7 +321,7 @@
         }
       },
       {
-        "index": 12,
+        "index": 15,
         "id": "vpn-macos-drops#1",
         "action": "skip",
         "reason": "different_case",
@@ -335,7 +335,7 @@
         }
       },
       {
-        "index": 11,
+        "index": 12,
         "id": "laptop-slow-performance#2",
         "action": "skip",
         "reason": "unrelated",
@@ -346,20 +346,6 @@
           "elsewhere": 0.0025,
           "different_case": 0.0041,
           "unrelated": 0.9918
-        }
-      },
-      {
-        "index": 13,
-        "id": "admin-rights-policy#1",
-        "action": "skip",
-        "reason": "unrelated",
-        "relevance_score": 0.0015,
-        "document_score": 0.0036,
-        "levels": {
-          "answers": 0.0015,
-          "elsewhere": 0.0021,
-          "different_case": 0.0031,
-          "unrelated": 0.9934
         }
       },
       {
@@ -378,20 +364,6 @@
       },
       {
         "index": 17,
-        "id": "outlook-not-syncing#1",
-        "action": "skip",
-        "reason": "unrelated",
-        "relevance_score": 0.0014,
-        "document_score": 0.0025,
-        "levels": {
-          "answers": 0.0014,
-          "elsewhere": 0.001,
-          "different_case": 0.0029,
-          "unrelated": 0.9946
-        }
-      },
-      {
-        "index": 16,
         "id": "vpn-windows-drops#0",
         "action": "skip",
         "reason": "unrelated",
@@ -419,7 +391,7 @@
         }
       },
       {
-        "index": 8,
+        "index": 9,
         "id": "laptop-not-charging#1",
         "action": "skip",
         "reason": "unrelated",
@@ -433,7 +405,7 @@
         }
       },
       {
-        "index": 15,
+        "index": 16,
         "id": "wifi-corporate-certificate#0",
         "action": "skip",
         "reason": "unrelated",
@@ -475,6 +447,20 @@
         }
       },
       {
+        "index": 6,
+        "id": "usb-storage-blocked#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0011,
+        "document_score": 0.002,
+        "levels": {
+          "answers": 0.0011,
+          "elsewhere": 0.0008,
+          "different_case": 0.0016,
+          "unrelated": 0.9964
+        }
+      },
+      {
         "index": 4,
         "id": "mfa-new-phone#0",
         "action": "skip",
@@ -489,7 +475,7 @@
         }
       },
       {
-        "index": 6,
+        "index": 7,
         "id": "laptop-not-charging#0",
         "action": "skip",
         "reason": "unrelated",
@@ -501,27 +487,41 @@
           "different_case": 0.0014,
           "unrelated": 0.9972
         }
+      },
+      {
+        "index": 13,
+        "id": "guest-wifi-policy#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0007,
+        "document_score": 0.0013,
+        "levels": {
+          "answers": 0.0007,
+          "elsewhere": 0.0006,
+          "different_case": 0.0011,
+          "unrelated": 0.9976
+        }
       }
     ],
     "usage": {
-      "input_tokens": 4869
+      "input_tokens": 4828
     },
     "timing": {
-      "total_ms": 82,
-      "rerank_ms": 81,
+      "total_ms": 171,
+      "rerank_ms": 94,
       "questions_ms": 0,
-      "model_ms": 75,
+      "model_ms": 85,
       "engine": {
-        "rows": 5969,
+        "rows": 5928,
         "branches": 20,
         "forwards": 1,
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 75,
+        "total_ms": 85,
         "build_ms": 0,
-        "doc_ms": 0,
-        "forward_ms": 74,
+        "doc_ms": 1,
+        "forward_ms": 83,
         "state_ms": 0,
         "logits_ms": 0,
         "state_chars": 0,
@@ -532,10 +532,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "76.892349",
+    "x-clocked-model-ms": "90.262749",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=5.7, admit_db;dur=0.8, upstream;dur=92.2, discovery;dur=0.0, model;dur=76.9, settle;dur=5.5, gateway;dur=103.4"
+    "server-timing": "admit;dur=22.0, admit_db;dur=1.6, upstream;dur=258.2, discovery;dur=0.0, model;dur=90.3, settle;dur=5.0, gateway;dur=285.2"
   }
 }

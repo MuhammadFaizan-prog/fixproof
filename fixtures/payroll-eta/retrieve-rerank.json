@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "payroll-eta",
   "step": "retrieve:rerank",
@@ -120,16 +120,6 @@
         }
       },
       {
-        "id": "mfa-new-phone#0",
-        "title": "Move MFA to a new phone · Before you start",
-        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
-        "metadata": {
-          "os": "any",
-          "region": "any",
-          "updated": "2026-10-21"
-        }
-      },
-      {
         "id": "pk-office-network#0",
         "title": "Lahore office network and power backup · Notes",
         "text": "## Notes\nDuring scheduled power load-shedding, the Lahore office runs on generator power and the main switch restarts once. Wi-Fi returns within two minutes. If the VPN drops at the same time, reconnect after the Wi-Fi is back rather than resetting the profile.",
@@ -157,6 +147,16 @@
           "os": "any",
           "region": "any",
           "updated": "2024-03-11"
+        }
+      },
+      {
+        "id": "mfa-new-phone#0",
+        "title": "Move MFA to a new phone · Before you start",
+        "text": "## Before you start\nYou need your laptop signed in, or a one-time code from the help desk.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-10-21"
         }
       },
       {
@@ -349,6 +349,20 @@
       },
       {
         "index": 11,
+        "id": "pk-office-network#0",
+        "action": "skip",
+        "reason": "different_case",
+        "relevance_score": 0.0019,
+        "document_score": 0.0039,
+        "levels": {
+          "answers": 0.0019,
+          "elsewhere": 0.0019,
+          "different_case": 0.9724,
+          "unrelated": 0.0237
+        }
+      },
+      {
+        "index": 14,
         "id": "mfa-new-phone#0",
         "action": "skip",
         "reason": "unrelated",
@@ -363,20 +377,6 @@
       },
       {
         "index": 12,
-        "id": "pk-office-network#0",
-        "action": "skip",
-        "reason": "different_case",
-        "relevance_score": 0.0019,
-        "document_score": 0.0039,
-        "levels": {
-          "answers": 0.0019,
-          "elsewhere": 0.0019,
-          "different_case": 0.9724,
-          "unrelated": 0.0237
-        }
-      },
-      {
-        "index": 13,
         "id": "linux-sudo-access#0",
         "action": "skip",
         "reason": "unrelated",
@@ -474,7 +474,7 @@
         }
       },
       {
-        "index": 14,
+        "index": 13,
         "id": "vpn-policy-2024#0",
         "action": "skip",
         "reason": "unrelated",
@@ -506,10 +506,10 @@
       "input_tokens": 4653
     },
     "timing": {
-      "total_ms": 82,
-      "rerank_ms": 80,
+      "total_ms": 168,
+      "rerank_ms": 91,
       "questions_ms": 0,
-      "model_ms": 76,
+      "model_ms": 84,
       "engine": {
         "rows": 5753,
         "branches": 20,
@@ -517,10 +517,10 @@
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 76,
+        "total_ms": 84,
         "build_ms": 0,
-        "doc_ms": 0,
-        "forward_ms": 75,
+        "doc_ms": 1,
+        "forward_ms": 82,
         "state_ms": 0,
         "logits_ms": 0,
         "state_chars": 0,
@@ -531,10 +531,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "77.483772",
+    "x-clocked-model-ms": "88.494209",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=9.7, admit_db;dur=3.5, upstream;dur=92.9, discovery;dur=0.0, model;dur=77.5, settle;dur=7.3, gateway;dur=109.9"
+    "server-timing": "admit;dur=5.3, admit_db;dur=1.4, upstream;dur=253.9, discovery;dur=0.0, model;dur=88.5, settle;dur=5.8, gateway;dur=265.0"
   }
 }

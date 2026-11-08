@@ -1,6 +1,7 @@
 "use client";
 
-import { Coins, ShieldCheck } from "lucide-react";
+import { Coins, Compass, ShieldCheck } from "lucide-react";
+import { recordedLabel } from "@/components/console/format";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -8,7 +9,11 @@ export type Pane = "tickets" | "run" | "evidence";
 
 interface AppHeaderProps {
   mode: "replay" | "live";
+  /** Recording date of the run on screen, when it is a replay. */
+  recordedAt?: string | null;
   sessionCredits: number;
+  /** Starts the judge tour; absent while the tour is running. */
+  onTour?: () => void;
   /** Below 1024 px: which pane is showing, and how to switch. */
   pane: Pane;
   onPane: (p: Pane) => void;
@@ -35,7 +40,7 @@ const SECTIONS = [
  * pill centre (real in-page anchors, not fake destinations), mode + credits
  * right. No blur.
  */
-export function AppHeader({ mode, sessionCredits, pane, onPane, runOutcome }: AppHeaderProps) {
+export function AppHeader({ mode, recordedAt, sessionCredits, onTour, pane, onPane, runOutcome }: AppHeaderProps) {
   const [active, setActive] = useState<string>("trace");
   return (
     <header className="sticky top-0 z-30 shrink-0 bg-background xl:static">
@@ -65,9 +70,17 @@ export function AppHeader({ mode, sessionCredits, pane, onPane, runOutcome }: Ap
         </nav>
 
         <div className="flex h-12 items-center gap-1.5 rounded-full border border-hairline bg-card p-1.5 sm:h-14">
-          <span className={cn("inline-flex h-9 items-center gap-2 rounded-full px-3.5 text-[14px] font-medium sm:h-11", mode === "live" ? "bg-ok-soft text-ok" : "bg-primary-soft text-primary")}>
+          {onTour ? (
+            <button type="button" onClick={onTour} className="inline-flex h-9 items-center gap-2 rounded-full bg-primary px-3.5 text-[14px] font-medium text-primary-foreground hover:bg-primary/90 sm:h-11 sm:px-4">
+              <Compass aria-hidden className="size-4" />
+              <span className="sm:hidden">Tour</span>
+              <span className="hidden sm:inline">Take the 90-second tour</span>
+            </button>
+          ) : null}
+          <span title={mode === "live" ? "Live calls to Clocked" : recordedAt ? `Replay of a live run ${recordedLabel(recordedAt).replace("Recorded live ", "recorded ")}` : "Replays recorded live runs"} className={cn("inline-flex h-9 items-center gap-2 rounded-full px-3.5 text-[14px] font-medium sm:h-11", mode === "live" ? "bg-ok-soft text-ok" : "bg-primary-soft text-primary")}>
             <span aria-hidden className={cn("size-2 rounded-full", mode === "live" ? "bg-ok-fill" : "bg-primary")} />
             {mode === "live" ? "Live" : "Replay"}
+            {mode === "replay" && recordedAt ? <span className="hidden font-normal 2xl:inline">· {recordedLabel(recordedAt).replace("Recorded live", "recorded")}</span> : null}
           </span>
           <span className="hidden h-11 items-center gap-2 px-3 text-[14px] text-muted-foreground sm:inline-flex">
             <Coins aria-hidden className="size-4" />

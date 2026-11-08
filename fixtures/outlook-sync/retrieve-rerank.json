@@ -1,7 +1,7 @@
 {
   "synthetic": false,
   "source": "live",
-  "recorded_at": "2026-11-07",
+  "recorded_at": "2026-11-08",
   "endpoint": "rerank",
   "scenario": "outlook-sync",
   "step": "retrieve:rerank",
@@ -160,6 +160,16 @@
         }
       },
       {
+        "id": "usb-storage-blocked#0",
+        "title": "USB storage is blocked on company laptops · Policy",
+        "text": "## Policy\nWriting files to any USB storage device, encrypted or not, is blocked on company laptops. Share files with clients through a secure share link from OneDrive with an expiry date. Exceptions need a security exception approved by the Security team.",
+        "metadata": {
+          "os": "any",
+          "region": "any",
+          "updated": "2026-08-14"
+        }
+      },
+      {
         "id": "vpn-windows-drops#2",
         "title": "VPN drops every few minutes on Windows · Script: restart the VPN service",
         "text": "## Script: restart the VPN service\nThe help desk may run this approved script on a managed Windows laptop. It restarts the Northwind VPN service only.\n\n```powershell\n# Northwind VPN service restart (Windows). Scope: this workstation only.\nRestart-Service -Name NorthwindVpnAgent\nGet-Service -Name NorthwindVpnAgent | Select-Object Status\n```",
@@ -197,16 +207,6 @@
           "os": "windows",
           "region": "any",
           "updated": "2026-11-03"
-        }
-      },
-      {
-        "id": "mfa-new-phone#2",
-        "title": "Move MFA to a new phone · Lost your old phone",
-        "text": "## Lost your old phone\nIf you no longer have the old phone and are signed out everywhere, the help desk can issue a one-time code after verifying you on a video call.",
-        "metadata": {
-          "os": "any",
-          "region": "any",
-          "updated": "2026-10-21"
         }
       }
     ],
@@ -307,7 +307,7 @@
         }
       },
       {
-        "index": 15,
+        "index": 16,
         "id": "vpn-windows-drops#2",
         "action": "skip",
         "reason": "unrelated",
@@ -335,7 +335,7 @@
         }
       },
       {
-        "index": 18,
+        "index": 19,
         "id": "printer-queue-recovery#1",
         "action": "skip",
         "reason": "unrelated",
@@ -405,7 +405,7 @@
         }
       },
       {
-        "index": 16,
+        "index": 17,
         "id": "disk-full-macos#0",
         "action": "skip",
         "reason": "different_case",
@@ -419,7 +419,7 @@
         }
       },
       {
-        "index": 17,
+        "index": 18,
         "id": "printer-queue-recovery#0",
         "action": "skip",
         "reason": "unrelated",
@@ -461,20 +461,6 @@
         }
       },
       {
-        "index": 19,
-        "id": "mfa-new-phone#2",
-        "action": "skip",
-        "reason": "unrelated",
-        "relevance_score": 0.0011,
-        "document_score": 0.002,
-        "levels": {
-          "answers": 0.0011,
-          "elsewhere": 0.0009,
-          "different_case": 0.0019,
-          "unrelated": 0.9961
-        }
-      },
-      {
         "index": 4,
         "id": "mfa-new-phone#1",
         "action": "skip",
@@ -501,26 +487,40 @@
           "different_case": 0.0021,
           "unrelated": 0.9961
         }
+      },
+      {
+        "index": 15,
+        "id": "usb-storage-blocked#0",
+        "action": "skip",
+        "reason": "unrelated",
+        "relevance_score": 0.0009,
+        "document_score": 0.0015,
+        "levels": {
+          "answers": 0.0009,
+          "elsewhere": 0.0006,
+          "different_case": 0.0014,
+          "unrelated": 0.9971
+        }
       }
     ],
     "usage": {
-      "input_tokens": 4603
+      "input_tokens": 4611
     },
     "timing": {
-      "total_ms": 98,
-      "rerank_ms": 95,
+      "total_ms": 169,
+      "rerank_ms": 92,
       "questions_ms": 0,
-      "model_ms": 85,
+      "model_ms": 84,
       "engine": {
-        "rows": 6023,
+        "rows": 6031,
         "branches": 20,
         "forwards": 1,
         "bins": 1,
         "bucket_rows": 6144,
         "long": 0,
-        "total_ms": 85,
+        "total_ms": 84,
         "build_ms": 0,
-        "doc_ms": 2,
+        "doc_ms": 1,
         "forward_ms": 82,
         "state_ms": 0,
         "logits_ms": 0,
@@ -532,10 +532,10 @@
   },
   "headers": {
     "x-clocked-credits": "4",
-    "x-clocked-model-ms": "92.491776",
+    "x-clocked-model-ms": "89.636322",
     "x-clocked-cost-usd": "0.000797",
     "x-clocked-cost-basis": "reference",
     "x-clocked-transport": "door:east",
-    "server-timing": "admit;dur=5.0, admit_db;dur=0.8, upstream;dur=107.8, discovery;dur=0.0, model;dur=92.5, settle;dur=5.0, gateway;dur=117.8"
+    "server-timing": "admit;dur=5.2, admit_db;dur=1.6, upstream;dur=254.7, discovery;dur=0.0, model;dur=89.6, settle;dur=4.8, gateway;dur=264.7"
   }
 }
