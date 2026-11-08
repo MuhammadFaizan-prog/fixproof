@@ -1,0 +1,5 @@
+eval/cases.jsonl sha256 f10c18ea35d86937c7027f67aa85223e977d130ef397c87a4dfda3596ac713b6
+locked 2026-11-08 14:40 PKT (UTC+05:00), before the first live eval run
+32 cases: 8 presets + 24 held-out. Labels were written before any FixProof run on the held-out tickets.
+Bands at lock: auto-resolve >= 0.80 and self-service-safe >= 0.50; escalate >= 0.70; reply grounded >= 0.70 (lib/agent/policy.ts).
+Editing eval/cases.jsonl breaks this hash and scripts/eval.ts refuses to run.
