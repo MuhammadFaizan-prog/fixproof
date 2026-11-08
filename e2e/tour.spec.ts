@@ -14,6 +14,13 @@ test("judge tour plays 4 presets with captions and exits on Esc", async ({ page 
     await expect(page.getByText(`stop ${i + 1} of ${TOUR.length}`)).toBeVisible();
     await expect(page.locator("[data-outcome-card]")).toHaveAttribute("data-outcome-card", stop.simulate ? "ESCALATED" : s.recorded, { timeout: 30_000 });
     if (stop.simulate) await expect(page.locator(`[data-drill="${stop.simulate}"]`)).toBeVisible();
+    // Naive vs FixProof inline at every non-drill stop, with at least one recorded naive problem.
+    if (!stop.simulate) {
+      const cmp = page.locator(`[data-tour-compare="${stop.scenarioId}"]`);
+      await expect(cmp).toBeVisible();
+      await expect(cmp.locator("li").first()).toBeVisible();
+      await expect(cmp).toContainText(stop.difference!);
+    } else await expect(page.locator("[data-tour-compare]")).toHaveCount(0);
     if (i < TOUR.length - 1) await page.getByRole("button", { name: "Next stop" }).click();
   }
   await page.getByRole("button", { name: "Back", exact: true }).click();

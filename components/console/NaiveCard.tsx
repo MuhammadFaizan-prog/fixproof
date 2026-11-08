@@ -32,6 +32,12 @@ const VERDICT: Record<string, { label: string; bad: boolean }> = {
   contradicted: { label: "Contradicted", bad: true },
 };
 
+/** The naive bot's problems for a preset, or [] when it has no recording. */
+export function naiveProblemsFor(scenarioId: string): string[] {
+  const n = PRESETS[scenarioId];
+  return n ? naiveProblems(n) : [];
+}
+
 /** Plain-language list of what the naive bot got wrong on this ticket, from recorded Clocked verdicts only. */
 export function naiveProblems(n: NaivePreset): string[] {
   const out: string[] = [];

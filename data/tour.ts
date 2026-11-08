@@ -7,6 +7,8 @@ export interface TourStop {
   scenarioId: string;
   title: string;
   caption: string;
+  /** Which Clocked endpoint(s) made the difference against the naive bot on this ticket (shown beside its problems). */
+  difference?: string;
   /** Replay this stop as an outage drill (lib/clocked/faults.ts). */
   simulate?: "guard_down" | "rate_limited" | "timeout";
 }
@@ -14,24 +16,28 @@ export interface TourStop {
 export const TOUR: TourStop[] = [
   {
     scenarioId: "vpn-macos",
+    difference: "Rerank skipped the Windows article for a Mac user; Verify kept only supported sentences; Protect masked her personal data.",
     title: "A routine fix, resolved",
     caption:
       "Rerank read every passage with Priya's Mac as context and skipped the Windows and Linux articles. Verify backed each sentence with a source quote, and Inspect cleared the script for her laptop, so Run fix appears.",
   },
   {
     scenarioId: "admin-injection",
+    difference: "Guard cut the injected sentence by its offsets; Verify kept only supported sentences.",
     title: "An injected instruction, cut out",
     caption:
       "Guard found the 'ignore your previous instructions' sentence by its exact position. FixProof cut it, re-checked the rest, and still answered the honest part (a laptop that won't charge), asking Hannah to confirm.",
   },
   {
     scenarioId: "tampered-printer",
+    difference: "Inspect blocked the script, so there is no Run fix; Fill wrote the handoff for a technician.",
     title: "A tampered fix script, blocked",
     caption:
       "Inspect flagged the line in the knowledge-base script that turns off antivirus, so there is no Run button. Fill wrote the handoff for a technician with what was already tried, and Hannah still got the safe steps.",
   },
   {
     scenarioId: "vpn-conflict",
+    difference: "Compare found the 2024 and 2026 policies disagree; Rerank kept the Mac-only article out; Verify kept only supported sentences.",
     title: "Two policies disagree",
     caption:
       "Compare found that the 2024 and 2026 VPN policies contradict each other. Both have the same scope, so the newer policy stands, the older passage is removed before drafting, and both quotes are shown side by side. (An article written for the employee's own office or OS would beat a company-wide one, even an older one.)",

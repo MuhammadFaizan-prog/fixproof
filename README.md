@@ -5,7 +5,7 @@
 Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2026.
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
-[![Unit tests](https://img.shields.io/badge/unit%20tests-637%20passing-2FBF6B?style=flat-square)](tests)
+[![Unit tests](https://img.shields.io/badge/unit%20tests-647%20passing-2FBF6B?style=flat-square)](tests)
 [![E2E](https://img.shields.io/badge/e2e-41%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
@@ -268,7 +268,7 @@ Presets never spend credits and are never rate-limited. With a Redis REST store 
 ## Credits
 
 - **Clocked** by Rezolve.ai: every model judgment in FixProof is a Clocked call.
-- **Design inspiration:** [OrchestrateIQ: AI Agent Management Product](https://dribbble.com/shots/27743423-OrchestrateIQ-AI-Agent-Management-Product) by Nizam on Dribbble. Layout and palette were studied from it; no image, logo, icon or copy was taken, and the shot is linked rather than included.
+- **Design:** UI direction inspired by Nizam's [OrchestrateIQ shot on Dribbble](https://dribbble.com/shots/27743423-OrchestrateIQ-AI-Agent-Management-Product). Link only: no image, logo, icon or copy from the shot is used in this repo or the app.
 - **Open source:** [Next.js](https://nextjs.org), [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), [Tailwind CSS](https://tailwindcss.com), [Geist](https://vercel.com/font), [lucide](https://lucide.dev), [MiniSearch](https://lucaong.github.io/minisearch/), [Zod](https://zod.dev), [Vitest](https://vitest.dev), [Playwright](https://playwright.dev).
 - **Methods applied:** a reverse-engineering analysis of public challenge entries and Clocked's own commentary ([docs/REVERSE-ENGINEERING.md](docs/REVERSE-ENGINEERING.md)), and the critic-loop method of [gauntlet-loop](https://github.com/robonuggets/gauntlet-loop) (CC BY 4.0; technique by [Matt Shumer](https://github.com/mshumer/Claude-of-Duty)) applied to the integration ([docs/GAUNTLET.md](docs/GAUNTLET.md)). Both are methods only; no code from either was vendored.
 - **AI use:** built with AI coding assistants, as the challenge rules allow. All data (employees, tickets, knowledge base) is synthetic.

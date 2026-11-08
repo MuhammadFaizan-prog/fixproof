@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight, Compass, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import type { TourStop } from "@/data/tour";
+import { naiveProblemsFor } from "./NaiveCard";
 
 /**
  * The judge tour's caption bar, above the run view: which stop, what Clocked
@@ -13,6 +14,9 @@ export function TourBar({ stops, index, onBack, onNext, onExit }: { stops: TourS
   const ref = useRef<HTMLElement>(null);
   const stop = stops[index];
   const last = index === stops.length - 1;
+  // Naive vs FixProof at this stop: recorded naive-bot problems beside what Clocked changed. Drill stops have no comparison.
+  const naive = stop.simulate ? [] : naiveProblemsFor(stop.scenarioId);
+  const compare = !stop.simulate && stop.difference && naive.length > 0;
   useEffect(() => {
     ref.current?.focus();
   }, [index]);
@@ -43,6 +47,22 @@ export function TourBar({ stops, index, onBack, onNext, onExit }: { stops: TourS
         {stop.title}
       </h2>
       <p className="mt-1 max-w-[70ch] text-[15px] leading-[22px]">{stop.caption}</p>
+      {compare ? (
+        <div data-tour-compare={stop.scenarioId} className="mt-3 grid gap-2 sm:grid-cols-2">
+          <div className="rounded-[18px] border border-risk-soft bg-risk-wash px-4 py-3">
+            <h3 className="text-[12px] font-medium uppercase leading-4 tracking-[0.06em] text-risk">Naive bot on this ticket (simulated, recorded)</h3>
+            <ul className="mt-1.5 flex list-disc flex-col gap-1 pl-4 text-[14px] leading-5 text-risk">
+              {naive.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-[18px] border border-hairline bg-card px-4 py-3">
+            <h3 className="text-[12px] font-medium uppercase leading-4 tracking-[0.06em] text-ok">FixProof on the same ticket</h3>
+            <p className="mt-1.5 text-[14px] leading-5">{stop.difference}</p>
+          </div>
+        </div>
+      ) : null}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button type="button" onClick={onBack} disabled={index === 0} className="inline-flex h-11 items-center gap-2 rounded-full border border-hairline bg-card px-4 text-[15px] font-medium disabled:opacity-50">
           <ArrowLeft aria-hidden className="size-4" /> Back
