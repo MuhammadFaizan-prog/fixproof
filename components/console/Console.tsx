@@ -10,6 +10,7 @@ import { IntakePanel } from "./IntakePanel";
 import { RunView } from "./RunView";
 import { EvidenceRail } from "./EvidenceRail";
 import { cn } from "@/lib/utils";
+import type { Pane } from "@/components/shell/AppHeader";
 
 interface ConsoleProps {
   personas: Persona[];
@@ -25,6 +26,8 @@ export function Console({ personas, scenarios }: ConsoleProps) {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [sessionCredits, setSessionCredits] = useState(0);
   const { state, run } = useTriage();
+  // Below 1024 px the three columns become panes switched from the top bar (tablet shows the rail under the run).
+  const [pane, setPane] = useState<Pane>("tickets");
 
   useEffect(() => {
     setHistory(readHistory());
@@ -68,19 +71,24 @@ export function Console({ personas, scenarios }: ConsoleProps) {
 
   const runPersona = state.start ? (personas.find((p) => p.id === state.start!.persona) ?? persona) : persona;
   const runScenario = state.start ? (state.start.scenarioId ? (scenarios.find((s) => s.id === state.start!.scenarioId) ?? null) : null) : scenario;
-  const active = state.status !== "idle";
   const mainRef = useRef<HTMLDivElement>(null);
   // Below xl the columns stack; once a run starts the outcome comes first, so bring it into view.
   useEffect(() => {
-    if (state.status === "running" && !window.matchMedia("(min-width: 1280px)").matches) window.scrollTo({ top: 0, behavior: "auto" });
-    if (state.status === "running") mainRef.current?.scrollTo({ top: 0 });
+    if (state.status !== "running") return;
+    setPane("run");
+    if (!window.matchMedia("(min-width: 1280px)").matches) window.scrollTo({ top: 0, behavior: "auto" });
+    mainRef.current?.scrollTo({ top: 0 });
   }, [state.status, state.startedAt]);
+  const choosePane = (p: Pane) => {
+    setPane(p);
+    window.scrollTo({ top: 0, behavior: "auto" });
+  };
 
   return (
     <div className="flex min-h-dvh flex-col xl:h-dvh">
-      <AppHeader mode={state.start?.mode ?? (scenario ? "replay" : "live")} sessionCredits={sessionCredits} />
+      <AppHeader mode={state.start?.mode ?? (scenario ? "replay" : "live")} sessionCredits={sessionCredits} pane={pane} onPane={choosePane} runOutcome={state.result?.outcome.outcome ?? (state.status === "running" ? "running" : null)} />
       <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 gap-4 px-3 pb-6 sm:px-5 lg:grid-cols-[320px_minmax(0,1fr)] xl:min-h-0 xl:grid-cols-[340px_minmax(0,1fr)_344px] xl:gap-5 xl:pb-5">
-        <aside aria-label="Tickets" className={cn("fp-scroll min-w-0 lg:row-span-2 xl:row-span-1 xl:overflow-y-auto xl:pb-1", active ? "order-3 lg:order-none" : "order-1 lg:order-none")}>
+        <aside id="pane-tickets" aria-label="Tickets" className={cn("fp-scroll min-w-0 lg:row-span-2 xl:row-span-1 xl:overflow-y-auto xl:pb-1", pane !== "tickets" && "max-lg:hidden")}>
           <IntakePanel
             personas={personas}
             scenarios={scenarios}
@@ -102,7 +110,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
             onRun={start}
           />
         </aside>
-        <main ref={mainRef} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", active ? "order-1 lg:order-none" : "order-2 lg:order-none")}>
+        <main id="pane-run" ref={mainRef} className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", pane === "tickets" && "max-lg:hidden", pane === "evidence" && "max-md:hidden")}>
           <RunView state={state} persona={runPersona} scenario={runScenario} history={history} scenarios={scenarios} onReplay={runScenario ? () => run({ text: runScenario.text, personaId: runScenario.personaId, scenarioId: runScenario.id, mode: "replay" }) : undefined} onFallback={() => {
               const s = scenarios[0];
               setScenarioId(s.id);
@@ -110,7 +118,7 @@ export function Console({ personas, scenarios }: ConsoleProps) {
               run({ text: s.text, personaId: s.personaId, scenarioId: s.id, mode: "replay" });
             }} />
         </main>
-        <aside aria-label="Evidence and scope" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", active ? "order-2 lg:order-none" : "order-3 lg:order-none", "lg:col-start-2 xl:col-start-auto")}>
+        <aside id="pane-evidence" aria-label="Evidence and scope" className={cn("fp-scroll min-w-0 xl:overflow-y-auto xl:pb-1", "lg:col-start-2 xl:col-start-auto", pane === "tickets" && "max-lg:hidden", pane === "run" && "max-md:hidden")}>
           <EvidenceRail state={state} persona={runPersona} />
         </aside>
       </div>

@@ -46,7 +46,7 @@ export function RunHeader({ state, persona, scenario, onReplay, onInspect }: { s
   return (
     <Panel className="px-5 pb-5 pt-5 sm:px-7 sm:pb-6 sm:pt-6">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <nav aria-label="Breadcrumb" className="flex min-w-0 items-center gap-1.5 text-[14px] text-muted-foreground">
+        <nav aria-label="Breadcrumb" className="hidden min-w-0 items-center gap-1.5 text-[14px] text-muted-foreground sm:flex">
           <span>Service desk</span>
           <ChevronRight aria-hidden className="size-3.5" />
           <span className="truncate font-mono text-[13px]">{ticketId}</span>
@@ -69,7 +69,7 @@ export function RunHeader({ state, persona, scenario, onReplay, onInspect }: { s
         ) : null}
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <h1 className="text-[30px] font-medium leading-[38px] tracking-[-0.02em] sm:text-[36px] sm:leading-[44px]">{title}</h1>
+        <h1 className="text-[26px] font-medium leading-[34px] tracking-[-0.02em] sm:text-[36px] sm:leading-[44px]">{title}</h1>
         {style ? (
           <StatusPill dot={style.dot} className={cn(style.pill, "fp-row-in")}>
             {style.label}
@@ -81,21 +81,28 @@ export function RunHeader({ state, persona, scenario, onReplay, onInspect }: { s
         ) : null}
       </div>
       <p className="mt-1 text-[15px] leading-[22px] text-muted-foreground">
-        {persona.name} · {persona.role} · {persona.osLabel} · {source}
+        {persona.name}<span className="hidden sm:inline"> · {persona.role}</span> · {persona.osLabel} · {source}
       </p>
 
-      <Eyebrow className="mt-5">Ticket path</Eyebrow>
-      <div className="mt-2.5 flex flex-col items-stretch gap-2 md:flex-row md:items-center md:gap-0">
+      {/* Phones: one compact metrics row so the outcome receipt stays near the top. */}
+      <dl className="mt-3 grid grid-cols-4 gap-1 rounded-[18px] border border-hairline bg-card px-2 py-2 md:hidden" aria-label="Run metrics">
+        <Metric value={idle ? "–" : String(credits)} label="credits" />
+        <Metric value={idle || !modelMs ? "–" : seconds(modelMs)} label="model" />
+        <Metric value={idle ? "–" : String(calls.length)} label="calls" />
+        <Metric value={passed == null ? "–" : `${passed} of ${r!.outcome.checks.length}`} label="checks" />
+      </dl>
+      <Eyebrow className="mt-5 hidden md:block">Ticket path</Eyebrow>
+      <div className="mt-2.5 hidden items-center md:flex">
         <Node icon={Laptop} tone="bg-ok-soft text-ok" title={persona.name.split(" ")[0]} sub={persona.osLabel} />
-        <div className="relative flex shrink-0 items-center justify-center py-1 md:px-5 md:py-0">
-          <span aria-hidden className="absolute inset-x-2 top-1/2 hidden h-[2px] -translate-y-1/2 bg-violet-line md:block" />
-          <span aria-hidden className="absolute left-1 top-1/2 hidden size-2.5 -translate-y-1/2 rounded-full bg-violet-line md:block" />
-          <span aria-hidden className="absolute right-0 top-1/2 hidden size-0 -translate-y-1/2 border-y-[6px] border-l-[9px] border-y-transparent border-l-violet-line md:block" />
+        <div className="relative flex shrink-0 items-center justify-center px-3 lg:px-5">
+          <span aria-hidden className="absolute inset-x-2 top-1/2 h-[2px] -translate-y-1/2 bg-violet-line" />
+          <span aria-hidden className="absolute left-1 top-1/2 size-2.5 -translate-y-1/2 rounded-full bg-violet-line" />
+          <span aria-hidden className="absolute right-0 top-1/2 size-0 -translate-y-1/2 border-y-[6px] border-l-[9px] border-y-transparent border-l-violet-line" />
           <dl className="relative z-[1] flex items-center gap-3.5 rounded-full border border-hairline bg-card px-4 py-1.5 shadow-[0_2px_10px_rgba(15,23,25,0.05)]">
             <Metric value={idle ? "–" : String(credits)} label="credits" />
             <Metric value={idle || !modelMs ? "–" : seconds(modelMs)} label="model" />
             <Metric value={idle ? "–" : String(calls.length)} label="calls" />
-            <Metric value={passed == null ? "–" : `${passed} of ${r!.outcome.checks.length}`} label="checks" />
+            <Metric value={passed == null ? "–" : `${passed} of ${r!.outcome.checks.length}`} label="checks passed" />
           </dl>
         </div>
         <Node icon={End} tone={style ? style.pill : "border border-dashed border-neutral bg-card text-muted-foreground"} title={endTitle} sub={endSub} final={outcome} />
@@ -120,7 +127,7 @@ function Node({ icon: Icon, tone, title, sub, final }: { icon: React.ComponentTy
 
 function Metric({ value, label }: { value: string; label: string }) {
   return (
-    <div className="flex flex-col-reverse items-center">
+    <div className="flex min-w-0 flex-col-reverse items-center text-center">
       <dt className="text-[12px] leading-4 text-muted-foreground">{label}</dt>
       <dd className="tabular whitespace-nowrap text-[15px] font-medium leading-5">{value}</dd>
     </div>

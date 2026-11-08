@@ -194,3 +194,7 @@
   .fp-row-in, .fp-bar, .fp-skeleton { animation: none !important; }
   *, *::before, *::after { transition-duration: 0ms !important; scroll-behavior: auto !important; }
 }
+/* Touch: below 1024 px every control is at least 44 px tall (WCAG 2.5.8 asks 24; 44 is the touch guideline Faizi chose). */
+@media (max-width: 1023.98px) {
+  button:not(:disabled), [role="tab"], a[href], summary { min-height: 44px; }
+}

@@ -48,9 +48,8 @@ test.describe("presets replay end to end (no key)", () => {
     await page.getByRole("button", { name: /Replay run/ }).click();
     const card = page.locator("[data-outcome-card]");
     await expect(card).toBeVisible({ timeout: 30_000 });
-    const outcomeTop = await card.evaluate((n) => n.getBoundingClientRect().top + window.scrollY);
-    const queueTop = await page.locator("#queue").evaluate((n) => n.getBoundingClientRect().top + window.scrollY);
-    expect(outcomeTop).toBeLessThan(queueTop);
+    // The run pane replaces the queue on phones (responsive.spec.ts covers the rest).
+    await expect(page.locator("#queue")).toBeHidden();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
     await page.close();
   });
