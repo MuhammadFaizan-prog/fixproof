@@ -12,7 +12,8 @@
     "probe": "tsx scripts/probe.ts",
     "scenario": "tsx scripts/run-scenario.ts",
     "e2e": "playwright test",
-    "eval": "tsx scripts/eval.ts"
+    "eval": "tsx scripts/eval.ts",
+    "ablate": "tsx scripts/ablate.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

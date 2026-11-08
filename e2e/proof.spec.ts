@@ -21,4 +21,6 @@ test("/proof renders the locked scorecard", async ({ page }) => {
   const n = scorecard.naive;
   await expect(page.getByRole("heading", { level: 1 })).toContainText(`${n.shippedBad} bad answers out of ${n.cases}`);
   await expect(page.getByText(`${scorecard.headline.unsafeAutoResolve.n} / ${scorecard.headline.unsafeAutoResolve.d}`).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Turn off one endpoint and this is what breaks" })).toBeVisible();
+  await expect(page.getByText("Inspect off")).toBeVisible();
 });

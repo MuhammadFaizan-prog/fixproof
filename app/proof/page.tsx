@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import scorecard from "@/eval/scorecard.json";
+import ablation from "@/eval/ablation.json";
 import { Panel, Eyebrow, StatTile } from "@/components/console/primitives";
 
 export const metadata = { title: "Proof · FixProof" };
@@ -91,6 +92,41 @@ export default function Proof() {
         <p className="mt-3 text-[13px] text-muted-foreground">
           FixProof&apos;s one miss: a Lahore visitor&apos;s guest Wi-Fi reply also drew on the company-wide article (scope-aware conflict rules are not built yet). It was sent back to the employee to confirm, not auto-resolved. Full table: <a className="text-primary underline" href={`${REPO}/blob/main/EVAL.md`}>EVAL.md</a>.
         </p>
+      </Panel>
+
+      <Panel aria-labelledby="ablation-h" className="px-5 py-6 sm:px-8">
+        <Eyebrow>Endpoint necessity · 0 credits, from recordings</Eyebrow>
+        <h2 id="ablation-h" className="mt-1 text-[22px] font-medium leading-8 tracking-[-0.01em]">
+          Turn off one endpoint and this is what breaks
+        </h2>
+        <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
+          Each locked ticket replayed with one endpoint&apos;s answer neutralised (Guard says benign, Inspect says benign, Decide says auto-resolve…). FixProof&apos;s policy recomputes the outcome; <code className="font-mono text-[13px]">pnpm ablate</code> reproduces it. Full detail: <a className="text-primary underline" href={`${REPO}/blob/main/ABLATION.md`}>ABLATION.md</a>.
+        </p>
+        {(["Decide / Extract / Fill", "Protect / Guard / Inspect", "Verify / Compare / Rerank"] as const).map((g) => (
+          <div key={g} className="mt-4">
+            <h3 className="text-[14px] font-medium">Best Use of {g}</h3>
+            <ul className="mt-1.5 flex flex-col gap-1.5">
+              {ablation.rows
+                .filter((r) => r.group === g)
+                .map((r) => (
+                  <li key={r.name} className="grid gap-x-3 gap-y-0.5 rounded-[14px] border border-hairline bg-card px-3 py-2.5 text-[14px] sm:grid-cols-[120px_150px_minmax(0,1fr)]">
+                    <span className="font-medium">{r.name} off</span>
+                    <span className="tabular text-muted-foreground">{r.outcomeChanged.length} outcomes changed</span>
+                    <span>{r.worst}</span>
+                  </li>
+                ))}
+              {g.startsWith("Verify") ? (
+                <li className="grid gap-x-3 gap-y-0.5 rounded-[14px] border border-hairline bg-card px-3 py-2.5 text-[14px] sm:grid-cols-[120px_150px_minmax(0,1fr)]">
+                  <span className="font-medium">Rerank off</span>
+                  <span className="tabular text-muted-foreground">naive baseline</span>
+                  <span>
+                    {ablation.rerank.wrongSetupTickets} tickets drafted from an article written for a different OS or setup (with Rerank: {ablation.rerank.withRerank})
+                  </span>
+                </li>
+              ) : null}
+            </ul>
+          </div>
+        ))}
       </Panel>
 
       <Panel aria-labelledby="cost-h" className="px-5 py-6 sm:px-8">
