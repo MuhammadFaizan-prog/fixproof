@@ -5,7 +5,7 @@
 Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2026.
 
 [![Live demo](https://img.shields.io/badge/live%20demo-fixproof--ai.vercel.app-0C21D4?style=flat-square)](https://fixproof-ai.vercel.app)
-[![Unit tests](https://img.shields.io/badge/unit%20tests-617%20passing-2FBF6B?style=flat-square)](tests)
+[![Unit tests](https://img.shields.io/badge/unit%20tests-627%20passing-2FBF6B?style=flat-square)](tests)
 [![E2E](https://img.shields.io/badge/e2e-25%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
@@ -33,7 +33,9 @@ An employee writes a ticket in plain words. FixProof masks their personal data, 
 | Sentences Verify could not support | 34 of 160 | 0 shown (removed before sending) |
 | Invented times repeated in the reply (hallucination bait) | n/a | **0 / 3** |
 
-Outcome in the labelled expected set: 32 / 32. Cost: median **37 credits per ticket (≈ $0.009** at $0.24 per 1,000 credits, [pricing](https://clocked.rezolve.ai/pricing)), p95 55; model time median 804 ms. The naive bot is a baseline in [`lib/agent/naive.ts`](lib/agent/naive.ts), not FixProof: top 3 keyword passages, no checks, one draft, judged by the same Verify call against the passages FixProof kept. FixProof's one miss (a Lahore visitor's guest Wi-Fi reply also used the company-wide article) is explained in EVAL.md. Reproduce every number with no key: `pnpm eval`.
+Outcome in the labelled expected set: 32 / 32. Cost: median **37 credits per ticket (≈ $0.009** at $0.24 per 1,000 credits, [pricing](https://clocked.rezolve.ai/pricing)), p95 55; model time median 804 ms. The naive bot is a baseline in [`lib/agent/naive.ts`](lib/agent/naive.ts), not FixProof: top 3 keyword passages, no checks, one draft, judged by the same Verify call against the passages FixProof kept. Run 1's one miss (a Lahore visitor's guest Wi-Fi reply also used the company-wide article) is explained in EVAL.md. Reproduce every number with no key: `pnpm eval`.
+
+**Run 2, post-tuning** (same locked cases and labels; run 1 above is kept unchanged): one change, **precedence over recency** in the conflict rule. Same scope → the newer article wins; an article written for the employee's office, region or OS beats a company-wide one even if older; same scope and same date → a person decides. Result: wrong-setup article in the draft 1 / 10 → **0 / 10**, tickets where an unsafe or wrong answer would ship 1 / 32 → **0 / 32**, unsafe auto-resolves still 0 / 12, outcomes still 32 / 32 in the expected set. Only 3 Clocked steps had a different request from run 1 and were re-recorded live (15 credits). This run is post-tuning, not held-out evidence: the rule was written after run 1 showed the miss ([EVAL.md, Run 2](EVAL.md#run-2-post-tuning)).
 
 ---
 
@@ -114,7 +116,7 @@ flowchart TD
 | Understand | **Decide** | Its probabilities against drawn thresholds set the band: auto needs auto-resolve ≥ 80% and self-service-safe ≥ 50%; escalate ≥ 70% hands off; anything between asks the employee. |
 | Find | **Rerank** | Reads all 20 recalled passages with the employee's role, OS, device and region; passages written for a different setup are skipped with that reason shown. |
 | Find | **Guard** (source content) | A knowledge-base section carrying instructions aimed at the assistant is cut before drafting; the rest of the article stays usable. |
-| Agree | **Compare** | Conflicting passages become a side-by-side card; the newer article stands and the older passage is removed, or the ticket goes to a person when nothing breaks the tie. |
+| Agree | **Compare** | Conflicting passages become a side-by-side card and FixProof applies precedence over recency: the article written for this employee's office or OS beats a company-wide one; within the same scope the newer article stands; the losing passage is removed before drafting, and the ticket goes to a person when nothing breaks the tie. |
 | Draft | **Fill** (generate) | The reply, written only from kept passages, with scripts omitted. |
 | Prove | **Verify** | One claim per sentence: unsupported or contradicted sentences are removed, kept ones carry their source; weak grounding blocks auto-resolve. |
 | Inspect | **Inspect** | The script is read against the employee's approved scope; only a benign verdict with low suspicion offers the simulated Run fix. |

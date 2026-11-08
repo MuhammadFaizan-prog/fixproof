@@ -294,3 +294,60 @@ export function renderEvalMd(s: Scorecard, records: CaseRecord[], notes = ""): s
   lines.push("");
   return `${lines.join("\n")}\n`;
 }
+
+/**
+ * Run 2 section of EVAL.md, appended after run 1 (which is rendered unchanged).
+ * Same locked cases and labels; reports what changed against run 1, case by case.
+ */
+export function renderRun2Md(s2: Scorecard & { changedSteps: string[] }, r2: CaseRecord[], s1: Scorecard, r1: CaseRecord[], notes = ""): string {
+  const lines: string[] = [];
+  const row = (label: string, a: { n: number; d: number }, b: { n: number; d: number }) => lines.push(`| ${label} | ${fr(a)} | ${fr(b)} |`);
+  lines.push("---", "");
+  lines.push("# Run 2, post-tuning", "");
+  lines.push(`Run: \`${s2.runId}\` · same ${s2.cases} locked cases and labels as run 1 (lock \`sha256:${s2.lockDigest}\`, unchanged) · reproduce with \`pnpm eval\` (0 credits).`, "");
+  lines.push("**Post-tuning, not held-out.** The one change since run 1 was written after run 1 showed the `c-guest-wifi-scope` miss, so run 2's result on that case shows the fix works; it is not fresh evidence. Run 1 above is kept exactly as locked.", "");
+  lines.push("**What changed: precedence over recency** ([`lib/agent/steps/reconcile.ts`](lib/agent/steps/reconcile.ts)). When Compare finds two articles that disagree: same scope → the newer one wins; different scope → the article written for this employee's office, region or OS beats a company-wide one, even if the company-wide one is newer; same scope and same date → unresolved, so the ticket is not auto-resolved. When Compare calls two articles *overlapping* and one is written for the employee's office while the other is company-wide, the office article governs and the company-wide one is removed before drafting.", "");
+  lines.push("## Headline, run 1 vs run 2", "");
+  lines.push("| Metric | Run 1 (pre-tuning) | Run 2 (post-tuning) |", "|---|---|---|");
+  const h1 = s1.headline;
+  const h2 = s2.headline;
+  row("Outcome in the expected set", h1.outcomeAccuracy, h2.outcomeAccuracy);
+  row("Unsafe auto-resolve", h1.unsafeAutoResolve, h2.unsafeAutoResolve);
+  row("Injected instruction cut or held", h1.injectionRecall, h2.injectionRecall);
+  row("Poisoned KB section kept out of the draft", h1.poisonedRecall, h2.poisonedRecall);
+  row("Malicious script never offered", h1.scriptRecall, h2.scriptRecall);
+  row("Wrong-setup article reached the draft", h1.wrongOsLeak, h2.wrongOsLeak);
+  row("Hallucination bait repeated in the reply", h1.baitShipped, h2.baitShipped);
+  row("Routine ticket escalated (false escalation)", h1.falseEscalation, h2.falseEscalation);
+  row("Escalation routed to the expected team", h1.teamRouting, h2.teamRouting);
+  lines.push(`| Tickets where an unsafe or wrong answer would ship | ${s1.fixproof.shippedBad} / ${s1.cases} | ${s2.fixproof.shippedBad} / ${s2.cases} |`);
+  lines.push(`| Naive desk, same tickets (baseline) | ${s1.naive.shippedBad} / ${s1.naive.cases} | ${s2.naive.shippedBad} / ${s2.naive.cases} |`);
+  lines.push(`| Credits per ticket, median (p95) | ${s1.cost.creditsMedian} (${s1.cost.creditsP95}) | ${s2.cost.creditsMedian} (${s2.cost.creditsP95}) |`);
+  lines.push("");
+  lines.push(`Outcomes in run 2: ${s2.fixproof.autoResolved} resolved, ${s2.fixproof.confirmed} confirm with the employee, ${s2.fixproof.escalated} handed to a person.`, "");
+  lines.push("## Cases that changed", "");
+  const changed = r2.filter((b) => {
+    const a = r1.find((x) => x.id === b.id);
+    return !a || a.outcome !== b.outcome || a.fixproofBad.join() !== b.fixproofBad.join() || a.sourcesDrafted.join() !== b.sourcesDrafted.join();
+  });
+  if (!changed.length) lines.push("None.", "");
+  else {
+    lines.push("| Case | Run 1 | Run 2 | Drafted from (run 1 → run 2) |", "|---|---|---|---|");
+    for (const b of changed) {
+      const a = r1.find((x) => x.id === b.id)!;
+      const out = (r: CaseRecord) => `${OUT[r.outcome]}${r.fixproofBad.length ? ` · ✗ ${r.fixproofBad.join("; ")}` : " · ✓"}`;
+      lines.push(`| \`${b.id}\` | ${out(a)} | ${out(b)} | ${a.sourcesDrafted.join(", ") || "none"} → ${b.sourcesDrafted.join(", ") || "none"} |`);
+    }
+    lines.push("");
+  }
+  lines.push(`Every other case drafted from the same sources with the same outcome. Clocked steps whose request changed from run 1 (recorded live for run 2 under \`fixtures/r2-<scenario>/\`; every other step replays its run-1 recording because its request is byte-identical): ${s2.changedSteps.length ? s2.changedSteps.map((x) => `\`${x}\``).join(", ") : "none"}.`, "");
+  const misses = r2.filter((r) => !r.ok || r.fixproofBad.length);
+  lines.push("## Misses in run 2", "");
+  if (!misses.length) lines.push("None.", "");
+  else {
+    for (const r of misses) lines.push(`- \`${r.id}\`: got ${OUT[r.outcome]}, expected ${r.expected.map((o) => OUT[o]).join(" / ")}${r.fixproofBad.length ? `; ${r.fixproofBad.join("; ")}` : ""}.`);
+    lines.push("");
+  }
+  if (notes.trim()) lines.push(notes.trim(), "");
+  return `${lines.join("\n")}\n`;
+}

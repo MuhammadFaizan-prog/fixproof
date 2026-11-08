@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { compareRequest, reconcile } from "@/lib/agent/steps/reconcile";
+import { compareRequest, precedence, reconcile, scopeRank } from "@/lib/agent/steps/reconcile";
+import { PERSONAS } from "@/data/personas";
 import type { Passage } from "@/lib/agent/steps/retrieve";
 import { fakeContext, finalEvents, shaped } from "./helpers/fake-client";
 
@@ -61,5 +62,62 @@ describe("reconcile step", () => {
     expect(r.used.map((x) => x.id)).toEqual([strong.id]);
     expect(r.removed).toEqual([{ passageId: weak.id, title: weak.title, why: "duplicate" }]);
     expect(finalEvents(events).get("reconcile:compare")!.effect).toMatch(/duplicate/);
+  });
+
+  describe("scope-aware precedence (run 2)", () => {
+    const bilal = PERSONAS.find((x) => x.region === "pk")!;
+    const scoped = (id: string, updated: string, os: Passage["os"], region: Passage["region"]): Passage => ({ ...p(id, updated), os, region });
+    const lahore = scoped("guest-wifi-lahore#0", "2026-05-12", ["any"], ["pk"]);
+    const global = scoped("guest-wifi-policy#0", "2026-10-01", ["any"], ["any"]);
+
+    it("ranks scope by how specifically it is written for the employee", () => {
+      expect(scopeRank(lahore, bilal)).toBe(1);
+      expect(scopeRank(global, bilal)).toBe(0);
+      expect(scopeRank(scoped("x#0", "2026-01-01", ["any"], ["uk"]), bilal)).toBe(-1);
+      expect(scopeRank(scoped("y#0", "2026-01-01", [bilal.os], ["pk"]), bilal)).toBe(2);
+    });
+
+    it("same scope: newer wins; same scope and date: no winner", () => {
+      expect(precedence(v24, v26, bilal, "scope")).toMatchObject({ winner: v26, rule: "newer" });
+      const a = p("a#0", "2026-01-01");
+      const b = p("b#0", "2026-01-01");
+      expect(precedence(a, b, bilal, "scope")).toEqual({ winner: null, rule: null });
+    });
+
+    it("different scope: the office article beats a newer company-wide one; the locked rule still picks the newer", () => {
+      expect(precedence(global, lahore, bilal, "scope")).toMatchObject({ winner: lahore, rule: "scope" });
+      expect(precedence(global, lahore, bilal, "newer")).toMatchObject({ winner: global, rule: "newer" });
+    });
+
+    it("a conflicting pair across scopes keeps the scoped article and removes the company-wide one", async () => {
+      const { ctx } = fakeContext([compare([pair(global.id, lahore.id, "conflicting", [finding(global.id, lahore.id)])])], bilal.id);
+      const r = await reconcile(ctx, [global, lahore]);
+      expect(r.used.map((x) => x.id)).toEqual([lahore.id]);
+      expect(r.conflicts[0]).toMatchObject({ winner: lahore.id, rule: "scope", basis: "conflict" });
+      expect(r.removed).toEqual([{ passageId: global.id, title: global.title, why: "out_of_scope" }]);
+      expect(r.unresolved).toBe(0);
+    });
+
+    it("an overlapping pair: the office article governs over the company-wide one", async () => {
+      const { ctx, events } = fakeContext([compare([pair(global.id, lahore.id, "overlapping")])], bilal.id);
+      const r = await reconcile(ctx, [global, lahore]);
+      expect(r.used.map((x) => x.id)).toEqual([lahore.id]);
+      expect(r.conflicts[0]).toMatchObject({ kind: "office_scope", winner: lahore.id, rule: "scope", basis: "overlap" });
+      expect(finalEvents(events).get("reconcile:compare")!.effect).toMatch(/office \(Lahore\)/);
+    });
+
+    it("an overlapping pair with no office article stays untouched (OS how-to beside a company policy)", async () => {
+      const macHowTo = scoped("vpn-macos-drops#0", "2026-10-02", ["macos"], ["any"]);
+      const { ctx } = fakeContext([compare([pair(v26.id, macHowTo.id, "overlapping")])], "priya-us-design");
+      const r = await reconcile(ctx, [macHowTo, v26]);
+      expect(r.used).toHaveLength(2);
+      expect(r.conflicts).toEqual([]);
+    });
+
+    it("the locked rule ignores overlap", async () => {
+      const { ctx } = fakeContext([compare([pair(global.id, lahore.id, "overlapping")])], bilal.id);
+      const r = await reconcile({ ...ctx, conflictRule: "newer" }, [global, lahore]);
+      expect(r.used).toHaveLength(2);
+    });
   });
 });

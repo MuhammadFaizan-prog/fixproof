@@ -23,4 +23,6 @@ test("/proof renders the locked scorecard", async ({ page }) => {
   await expect(page.getByText(`${scorecard.headline.unsafeAutoResolve.n} / ${scorecard.headline.unsafeAutoResolve.d}`).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "Turn off one endpoint and this is what breaks" })).toBeVisible();
   await expect(page.getByText("Inspect off")).toBeVisible();
+  await expect(page.locator("[data-run2]")).toContainText("Run 2, post-tuning");
+  await expect(page.locator("[data-run2]")).toContainText("not held-out");
 });

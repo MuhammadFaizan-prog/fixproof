@@ -44,7 +44,7 @@ export function ConflictCard({ result }: { result: PublicResult }) {
   return (
     <>
       {conflicts.map((c, i) => (
-        <Card key={i} eyebrow={`Compare · ${plainText(c.kind)} · ${Math.round(c.confidence * 100)}% confident`} title={c.winner ? "Two articles disagree. The newer one stands." : "Two articles disagree, and nothing breaks the tie."} tone={c.winner ? "warn" : "risk"}>
+        <Card key={i} eyebrow={c.basis === "overlap" ? `Compare · same topic · ${Math.round(c.confidence * 100)}% overlapping` : `Compare · ${plainText(c.kind)} · ${Math.round(c.confidence * 100)}% confident`} title={!c.winner ? "Two articles disagree, and nothing breaks the tie." : c.rule === "scope" ? (c.basis === "overlap" ? "Two articles cover this. The one for this office stands." : "Two articles disagree. The one for this employee's setup stands.") : "Two articles disagree. The newer one stands."} tone={c.winner ? "warn" : "risk"}>
           <div className="flex flex-col gap-2.5">
             {[c.a, c.b].map((side) => {
               const won = c.winner === side.passageId;
@@ -57,7 +57,7 @@ export function ConflictCard({ result }: { result: PublicResult }) {
                   </figcaption>
                   <blockquote className={cn("mt-2 text-[14px] leading-[21px]", lost && "text-muted-foreground line-through decoration-risk/50")}>“{cleanQuote(side.quote)}”</blockquote>
                   <p className={cn("mt-2 text-[12px] font-semibold", won ? "text-ok" : lost ? "text-muted-foreground" : "text-risk")}>
-                    {won ? "Kept: newer article" : lost ? "Removed before drafting" : "Unresolved"}
+                    {won ? (c.rule === "scope" ? "Kept: written for this employee's office or setup" : "Kept: newer article") : lost ? (c.rule === "scope" ? "Removed before drafting: company-wide" : "Removed before drafting") : "Unresolved"}
                   </p>
                 </figure>
               );

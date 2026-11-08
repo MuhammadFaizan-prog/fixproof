@@ -1,0 +1,127 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "r2-eval-c-guest-wifi-scope",
+  "step": "prove",
+  "status": 200,
+  "request": {
+    "question": "A visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?",
+    "answer": "Visitors can join the NW-Guest-LHE network.\n1. Join NW-Guest-LHE.\n2. The hosting employee requests a guest code from the IT channel in Teams",
+    "claims": [
+      "Visitors can join the NW-Guest-LHE network.",
+      "1. Join NW-Guest-LHE.",
+      "2. The hosting employee requests a guest code from the IT channel in Teams"
+    ],
+    "documents": [
+      {
+        "id": "guest-wifi-lahore#0",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9536,
+    "ungrounded": 0.0464,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "guest-wifi-lahore#0",
+        "share": 1,
+        "share_of_answer": 0.9536,
+        "claims": [
+          0,
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "Visitors can join the NW-Guest-LHE network.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3116,
+        "supported": 0.9951,
+        "contradicted": 0.0019,
+        "not_stated": 0.0014,
+        "not_a_claim": 0.0015,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-lahore#0": 1
+        },
+        "source": "guest-wifi-lahore#0",
+        "evidence": {
+          "document": "guest-wifi-lahore#0",
+          "quote": "Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit.",
+          "start": 50,
+          "end": 197,
+          "confidence": 0.705
+        }
+      },
+      {
+        "claim": "1. Join NW-Guest-LHE.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1522,
+        "supported": 0.7231,
+        "contradicted": 0.0184,
+        "not_stated": 0.0936,
+        "not_a_claim": 0.1649,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-lahore#0": 1
+        },
+        "source": "guest-wifi-lahore#0",
+        "evidence": {
+          "document": "guest-wifi-lahore#0",
+          "quote": "Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit.",
+          "start": 50,
+          "end": 197,
+          "confidence": 0.99
+        }
+      },
+      {
+        "claim": "2. The hosting employee requests a guest code from the IT channel in Teams",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5362,
+        "supported": 0.9949,
+        "contradicted": 0.002,
+        "not_stated": 0.0015,
+        "not_a_claim": 0.0015,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-lahore#0": 1
+        },
+        "source": "guest-wifi-lahore#0"
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.7231
+    },
+    "answers_question": 0.9952374309504636,
+    "timing": {
+      "read_ms": 144,
+      "total_ms": 102
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "92.518432",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.7, admit_db;dur=1.6, upstream;dur=264.1, discovery;dur=0.0, model;dur=92.5, settle;dur=5.2, gateway;dur=275.0"
+  }
+}

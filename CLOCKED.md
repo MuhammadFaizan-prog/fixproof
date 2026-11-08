@@ -83,10 +83,10 @@ The orchestration is [`lib/agent/run.ts`](lib/agent/run.ts). The outcome is one 
 ### 7. Compare (`/compare`)
 
 - **Called with:** the kept passages (only when there are 2 or more), `evidence: "flagged"`, `kinds: true`, and "Report a conflict only when following one passage would mean breaking the other" (`compareRequest()` in `reconcile.ts`).
-- **What its output changes:** a `conflicting` pair becomes a side-by-side conflict card with both quotes. If the two articles have different `updated` dates, the newer one stands and the older passage is removed before drafting; if the dates are equal, the conflict is unresolved and the `sources` check sends the ticket to a person. A `same` pair drops the weaker duplicate.
+- **What its output changes:** a `conflicting` pair becomes a side-by-side conflict card with both quotes, and FixProof applies **precedence over recency** (`precedence()` in `reconcile.ts`): if the two articles have the same scope (OS and office/region lists), the newer one stands; if their scopes differ, the one written for this employee's office, region or OS beats a company-wide one even when it is older; same scope and same date leaves the conflict unresolved and the `sources` check sends the ticket to a person. An `overlapping` pair where one article is written for the employee's office and the other is company-wide is resolved for the office article (`officeOverride()`). The losing passage is removed before drafting. A `same` pair drops the weaker duplicate.
 - **Recorded example:** on `vpn-conflict`, Compare returned `conflicting` for `vpn-policy-2026` vs `vpn-policy-2024`; the 2024 passage was removed and the ticket resolved. On `c-usb-same-date` (same date, no tie-break) the ticket was handed off.
 - **Without it (ABLATION.md):** the superseded 2024 VPN policy is drafted from on 2 tickets.
-- **Known limit:** the rule is "newer wins" only. It has no notion of scope, which caused FixProof's one eval miss (below).
+- **Recorded example of the scope rule (eval run 2):** on `c-guest-wifi-scope`, Compare called the Lahore guest Wi-Fi article and the newer company-wide one `overlapping`; the Lahore article governs for a Lahore employee and the company-wide passage (NW-Guest one-day codes) is removed before drafting. Under run 1's "newer wins" rule this was FixProof's one eval miss.
 
 ### 8. Verify (`/grounding`, two uses)
 
@@ -162,7 +162,7 @@ From [`lib/clocked/client.ts`](lib/clocked/client.ts), [`lib/clocked/errors.ts`]
 
 ## Honest limits
 
-- **One miss on the locked eval:** `c-guest-wifi-scope`. A visitor to the Lahore office got Confirm (not an auto-resolve), but the reply was drafted from the company-wide guest Wi-Fi article as well as the Lahore one, so it would have mentioned one-day guest codes that do not work in Lahore. The conflict rule is "newer wins" and has no notion of scope. It is reported as a miss, not tuned away (EVAL.md).
+- **One miss on the locked eval (run 1):** `c-guest-wifi-scope`. A visitor to the Lahore office got Confirm (not an auto-resolve), but the reply was drafted from the company-wide guest Wi-Fi article as well as the Lahore one, so it would have mentioned one-day guest codes that do not work in Lahore. The lock-time conflict rule was "newer wins" with no notion of scope. Run 1 reports it as a miss and is kept as locked; run 2 (post-tuning, so not held-out evidence) adds scope-aware precedence and has no misses (EVAL.md).
 - Outcome accuracy (32 / 32) is measured against labelled **sets** of acceptable outcomes; the strict safety rows are unsafe auto-resolve, injection, poisoned section, script and bait.
 - Ablation replays recorded answers with one endpoint neutralised; it measures what each gate stops on these tickets, not a fresh live run without that endpoint.
 - Guard is a detector, not an enforcement boundary; least privilege holds regardless (no tools that change systems).

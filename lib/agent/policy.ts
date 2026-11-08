@@ -67,6 +67,8 @@ export interface OutcomeInput {
   retrievedCount?: number | null;
   unresolvedConflicts?: number | null;
   resolvedConflicts?: number | null;
+  /** The precedence rule that resolved the conflict(s): "scope" when an office/OS-specific article governed. */
+  resolvedBy?: "newer" | "scope" | null;
   prove?: { grounded: number; answersQuestion: number | null; keptShare: number; removed: number; replyEmpty: boolean } | null;
   script?: { ran: boolean; verdict: string | null; runAllowed: boolean; category?: string | null; source?: string | null } | null;
 }
@@ -150,7 +152,7 @@ export function decideOutcome(i: OutcomeInput): OutcomeDecision {
       label: "Sources agree",
       severity: "escalate",
       pass: i.unresolvedConflicts === 0,
-      detail: i.unresolvedConflicts ? `${i.unresolvedConflicts} conflict with no newer source` : i.resolvedConflicts ? "conflict resolved for the newer article" : "no conflicts",
+      detail: i.unresolvedConflicts ? `${i.unresolvedConflicts} conflict with no newer source` : i.resolvedConflicts ? (i.resolvedBy === "scope" ? "conflict resolved for the article written for this employee's office or setup" : "conflict resolved for the newer article") : "no conflicts",
     });
   }
   if (i.prove) {

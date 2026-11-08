@@ -82,6 +82,7 @@ export async function runTicket(ctx: RunContext, input: RunInput): Promise<RunRe
     retrievedCount: r.retrieve ? r.retrieve.used.length : null,
     unresolvedConflicts: r.reconcile?.ran ? r.reconcile.unresolved : null,
     resolvedConflicts: r.reconcile?.ran ? r.reconcile.conflicts.length - r.reconcile.unresolved : null,
+    resolvedBy: r.reconcile?.conflicts.some((x) => x.rule === "scope") ? "scope" : null,
     prove: r.prove ? { grounded: r.prove.grounded, answersQuestion: r.prove.answersQuestion, keptShare: r.prove.keptShare, removed: r.prove.removed.length, replyEmpty: !r.prove.reply.trim() } : null,
     script: r.fixGate ? { ran: r.fixGate.ran, verdict: r.fixGate.verdict, runAllowed: r.fixGate.runAllowed, category: r.fixGate.category, source: r.fixGate.articleTitle } : null,
   });

@@ -1,0 +1,49 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "fill",
+  "scenario": "r2-eval-c-guest-wifi-scope",
+  "step": "draft",
+  "status": 200,
+  "request": {
+    "text": "Employee ticket:\nA visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?\n\nKnowledge base sources:\n[1] Guest Wi-Fi in the Lahore office · Steps (updated 2026-05-12)\n## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore.",
+    "instructions": "You write replies for Northwind Labs' IT help desk. Use only the knowledge base sources. If the sources do not answer part of the ticket, say that plainly. Never invent times, dates, causes, approvals or links.",
+    "fields": {
+      "reply": {
+        "type": "generate",
+        "format": "text",
+        "max_tokens": 220,
+        "description": "A reply to the employee (Ubuntu 24.04, Lahore) in plain English: one short opening sentence, then the steps to follow as short numbered sentences, taken only from the sources. No greeting line, no sign-off, no script code."
+      }
+    }
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "fields": {
+      "reply": {
+        "value": "Visitors can join the NW-Guest-LHE network.\n1. Join NW-Guest-LHE.\n2. The hosting employee requests a guest code from the IT channel in Teams",
+        "confidence": 0.9915615721952975,
+        "source": "generated"
+      }
+    },
+    "timing": {
+      "read_ms": 13,
+      "generate_ms": 150,
+      "total_ms": 170,
+      "source_states": 1,
+      "source_prefills": 1,
+      "shared_source_tokens": 208,
+      "shared_read_generate_forwards": 0,
+      "engine": "unified"
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "163.542529",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=41.8, admit_db;dur=8.3, upstream;dur=341.2, discovery;dur=0.0, model;dur=163.5, settle;dur=5.4, gateway;dur=388.3"
+  }
+}

@@ -61,6 +61,8 @@ export interface RunContext {
   client: ClockedClient;
   persona: Persona;
   emit: Emit;
+  /** Which article governs when two disagree. Default "scope" (precedence over recency); "newer" is the rule at the run-1 eval lock. */
+  conflictRule?: "newer" | "scope";
 }
 
 export function toStepMeta(meta: ClockedMeta): StepMeta {

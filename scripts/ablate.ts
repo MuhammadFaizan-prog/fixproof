@@ -154,7 +154,7 @@ async function runCase(c: EvalCase, a: Ablation | null): Promise<CaseRecord & { 
   };
   const client = createClockedClient({ transport, concurrency: 1, sleep: async () => {} });
   const events: StepEvent[] = [];
-  const r = await runTicket({ client, persona: getPersona(c.personaId)!, emit: (e) => e.status !== "running" && events.push(e) }, { text: c.text!, index: getKbIndex() });
+  const r = await runTicket({ client, persona: getPersona(c.personaId)!, emit: (e) => e.status !== "running" && events.push(e), conflictRule: "newer" }, { text: c.text!, index: getKbIndex() });
   const rec = scoreRun(c, r, events, null);
   const extracted = r.understand ? Object.values(r.understand.extracted ?? {}).filter((v) => v !== null && !(Array.isArray(v) && !v.length)).length : 0;
   return Object.assign(rec, { missingStep, extracted, piiMasked: r.screen?.pii.length ?? 0, hasReply: Boolean(r.prove?.reply), routed: r.handoff?.assignmentGroup ?? null }) as CaseRecord & { missingStep: string | null };

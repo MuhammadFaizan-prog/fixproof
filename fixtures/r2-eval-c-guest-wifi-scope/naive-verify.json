@@ -1,0 +1,127 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "r2-eval-c-guest-wifi-scope",
+  "step": "naive:verify",
+  "status": 200,
+  "request": {
+    "question": "A visitor is coming to the Lahore office tomorrow. How do they get on the guest Wi-Fi?",
+    "answer": "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:\n1. Have the visitor join the NW-Guest-LHE network.\n2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit",
+    "claims": [
+      "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:",
+      "1. Have the visitor join the NW-Guest-LHE network.",
+      "2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit"
+    ],
+    "documents": [
+      {
+        "id": "guest-wifi-lahore#0",
+        "text": "## Steps\nThe Lahore office has no reception desk. Visitors join NW-Guest-LHE and the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit. The NW-Guest one-day codes do not work in Lahore."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are the IT knowledge-base passages that apply to this employee. A step, time, date, cause or promise is supported only if a passage states it."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.9936,
+    "ungrounded": 0.0064,
+    "verdict": "grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "guest-wifi-lahore#0",
+        "share": 1,
+        "share_of_answer": 0.9936,
+        "claims": [
+          1,
+          2
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "To get the visitor on the guest Wi-Fi in the Lahore office, please follow these steps:",
+        "kind": "acknowledgement",
+        "kinds": {
+          "acknowledgement": 0.8870705799598507,
+          "offer_or_question": 0.050730003849416054,
+          "pointer": 0.024981826611518456,
+          "meta": 0.03721758957921476
+        },
+        "counted": false,
+        "weight": 0,
+        "supported": 0.0372,
+        "contradicted": 0.016,
+        "not_stated": 0.0777,
+        "not_a_claim": 0.8691,
+        "verdict": "not_a_claim",
+        "sources": {
+          "guest-wifi-lahore#0": 1
+        },
+        "source": null
+      },
+      {
+        "claim": "1. Have the visitor join the NW-Guest-LHE network.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.3425,
+        "supported": 0.9926,
+        "contradicted": 0.0025,
+        "not_stated": 0.0019,
+        "not_a_claim": 0.0031,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-lahore#0": 1
+        },
+        "source": "guest-wifi-lahore#0"
+      },
+      {
+        "claim": "2. Request a guest code from the IT channel in Teams; the code lasts for the length of the visit",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.6575,
+        "supported": 0.9941,
+        "contradicted": 0.0022,
+        "not_stated": 0.0016,
+        "not_a_claim": 0.0021,
+        "verdict": "supported",
+        "sources": {
+          "guest-wifi-lahore#0": 1
+        },
+        "source": "guest-wifi-lahore#0",
+        "evidence": {
+          "document": "guest-wifi-lahore#0",
+          "quote": "the hosting employee requests a guest code from the IT channel in Teams; the code lasts for the length of the visit.",
+          "start": 81,
+          "end": 197,
+          "confidence": 0.783
+        }
+      }
+    ],
+    "unsupported_claims": [],
+    "not_claims": [
+      0
+    ],
+    "weakest_claim": {
+      "index": 1,
+      "supported": 0.9926
+    },
+    "answers_question": 0.9956896404861266,
+    "timing": {
+      "read_ms": 145,
+      "total_ms": 109
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "99.866657",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=5.6, admit_db;dur=1.5, upstream;dur=270.3, discovery;dur=0.0, model;dur=99.9, settle;dur=4.9, gateway;dur=280.8"
+  }
+}

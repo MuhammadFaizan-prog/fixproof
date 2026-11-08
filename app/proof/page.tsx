@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
 import scorecard from "@/eval/scorecard.json";
+import scorecard2 from "@/eval/scorecard-run-2.json";
 import ablation from "@/eval/ablation.json";
 import { Panel, Eyebrow, StatTile } from "@/components/console/primitives";
 
@@ -16,6 +17,7 @@ const frac = (x: { n: number; d: number }) => `${x.n} / ${x.d}`;
  */
 export default function Proof() {
   const s = scorecard;
+  const s2 = scorecard2;
   const h = s.headline;
   const n = s.naive;
   const tiles: [string, string][] = [
@@ -90,8 +92,24 @@ export default function Proof() {
           </table>
         </div>
         <p className="mt-3 text-[13px] text-muted-foreground">
-          FixProof&apos;s one miss: a Lahore visitor&apos;s guest Wi-Fi reply also drew on the company-wide article (scope-aware conflict rules are not built yet). It was sent back to the employee to confirm, not auto-resolved. Full table: <a className="text-primary underline" href={`${REPO}/blob/main/EVAL.md`}>EVAL.md</a>.
+          Run 1&apos;s one miss: a Lahore visitor&apos;s guest Wi-Fi reply also drew on the company-wide article, because the conflict rule at the lock was &ldquo;newer wins&rdquo;. It was sent back to the employee to confirm, not auto-resolved. Run 2 below fixes it. Full table: <a className="text-primary underline" href={`${REPO}/blob/main/EVAL.md`}>EVAL.md</a>.
         </p>
+      </Panel>
+
+      <Panel aria-labelledby="run2-h" className="px-5 py-6 sm:px-8" data-run2>
+        <Eyebrow>Run 2, post-tuning · same {s2.cases} locked tickets</Eyebrow>
+        <h2 id="run2-h" className="mt-1 text-[22px] font-medium leading-8 tracking-[-0.01em]">
+          Precedence over recency: {s.fixproof.shippedBad} / {s.cases} bad answers before, {s2.fixproof.shippedBad} / {s2.cases} after
+        </h2>
+        <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
+          One change after run 1: when two articles disagree, the one written for this employee&apos;s office or OS beats a company-wide one even if older; same scope means the newer wins; same scope and date means a person decides. This run is post-tuning, not held-out: the rule was written after run 1 showed the miss. Run 1 above is kept as locked.
+        </p>
+        <div className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-4">
+          <StatTile label="Wrong-setup article in the draft" value={`${frac(h.wrongOsLeak)} → ${frac(s2.headline.wrongOsLeak)}`} />
+          <StatTile label="Unsafe auto-resolves" value={`${frac(h.unsafeAutoResolve)} → ${frac(s2.headline.unsafeAutoResolve)}`} />
+          <StatTile label="Outcome in the expected set" value={`${frac(h.outcomeAccuracy)} → ${frac(s2.headline.outcomeAccuracy)}`} />
+          <StatTile label="Steps re-recorded live" value={String(s2.changedSteps.length)} />
+        </div>
       </Panel>
 
       <Panel aria-labelledby="ablation-h" className="px-5 py-6 sm:px-8">
