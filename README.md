@@ -9,10 +9,18 @@ Built on [Clocked](https://clocked.rezolve.ai) for the Clocked Build Challenge 2
 [![E2E](https://img.shields.io/badge/e2e-45%20passing%20(Playwright)-2FBF6B?style=flat-square)](e2e)
 [![Clocked endpoints](https://img.shields.io/badge/Clocked-9%20endpoints%20%2B%20Pipeline-4B3A9E?style=flat-square)](#how-each-clocked-call-changes-the-outcome)
 [![No key needed](https://img.shields.io/badge/judges-no%20key%20needed-435051?style=flat-square)](#try-it-in-60-seconds)
+[![Locked eval](https://img.shields.io/badge/locked%20eval-32%20tickets%2C%20hashed%20before%20run%201-4B3A9E?style=flat-square)](EVAL.md)
+[![Audit ledger](https://img.shields.io/badge/audit%20ledger-hash--chained%20JSON-435051?style=flat-square)](#audit-ledger)
+[![Accessibility](https://img.shields.io/badge/a11y-axe%20WCAG%202.2%20AA%20in%20e2e-435051?style=flat-square)](#accessibility)
 
 <p align="center">
-  <a href="https://fixproof-ai.vercel.app"><img src="docs/screens/hero-tampered-printer-1440.jpg" alt="FixProof on the tampered printer ticket: Inspect blocked the knowledge-base script, the employee still got the two verified steps, and Security got a handoff record with the failed check and what was already tried." width="100%"></a>
+  <a href="https://fixproof-ai.vercel.app/tour"><img src="docs/screens/tour-1440.jpg" alt="The judge tour, stop 1 of 5, VPN on macOS: what the simulated naive bot got wrong on this ticket (an unsupported sentence, the Windows article for a Mac user, two personal-data items unmasked) beside what FixProof did on the same ticket, above the resolved run." width="100%"></a>
 </p>
+
+| The desk (`/`) | Judge tour (`/tour`) | Locked eval (`/proof`) |
+|---|---|---|
+| ![The desk at 1440 px: nine recorded tickets, the Proof Trail and the evidence rail](docs/screens/home-1440.jpg) | ![Judge tour at 1440 px: naive bot vs FixProof at the first stop](docs/screens/tour-1440.jpg) | ![/proof at 1440 px: run 1 before tuning, naive desk 20 of 32 bad answers vs FixProof 1](docs/screens/proof-1440.jpg) |
+| ![The desk at 390 px](docs/screens/home-390.jpg) | ![Judge tour at 390 px](docs/screens/tour-390.jpg) | ![/proof at 390 px](docs/screens/proof-390.jpg) |
 
 An employee writes a ticket in plain words. FixProof masks their personal data, cuts out injected instructions, finds the help articles written for *their* device and OS, checks that the articles agree, drafts a reply and verifies it sentence by sentence, and inspects any fix script before it can be offered. When a check is unsure, it asks the employee or hands the ticket to the right team with a complete, masked handoff. Every step is a Clocked call whose output changes what happens next, and every call is one click away with its credits, timing and evidence.
 
@@ -35,7 +43,7 @@ An employee writes a ticket in plain words. FixProof masks their personal data, 
 
 Outcome in the labelled expected set: 32 / 32. Cost: median **37 credits per ticket (≈ $0.009** at $0.24 per 1,000 credits, [pricing](https://clocked.rezolve.ai/pricing)), p95 55; model time median 804 ms. The naive bot is a baseline in [`lib/agent/naive.ts`](lib/agent/naive.ts), not FixProof: top 3 keyword passages, no checks, one draft, judged by the same Verify call against the passages FixProof kept. Run 1's one miss (a Lahore visitor's guest Wi-Fi reply also used the company-wide article) is explained in EVAL.md. Reproduce every number with no key: `pnpm eval`.
 
-**Run 2, post-tuning** (same locked cases and labels; run 1 above is kept unchanged): one change, **precedence over recency** in the conflict rule. Same scope → the newer article wins; an article written for the employee's office, region or OS beats a company-wide one even if older; same scope and same date → a person decides. Result: wrong-setup article in the draft 1 / 10 → **0 / 10**, tickets where an unsafe or wrong answer would ship 1 / 32 → **0 / 32**, unsafe auto-resolves still 0 / 12, outcomes still 32 / 32 in the expected set. Only 3 Clocked steps had a different request from run 1 and were re-recorded live (15 credits). This run is post-tuning, not held-out evidence: the rule was written after run 1 showed the miss ([EVAL.md, Run 2](EVAL.md#run-2-post-tuning)).
+**Run 2, post-tuning** (same locked cases and labels; run 1 above is kept unchanged): one change, **precedence over recency** in the conflict rule. Same scope → the newer article wins; an article written for the employee's office, region or OS beats a company-wide one even if older; same scope and same date → a person decides. Result: wrong-setup article in the draft 1 / 10 → **0 / 10**, tickets where an unsafe or wrong answer would ship 1 / 32 → **0 / 32**, unsafe auto-resolves still 0 / 12, outcomes still 32 / 32 in the expected set. 3 Clocked steps had a different request from run 1 and were re-recorded live (15 credits); every other step replayed its run-1 recording. This run is post-tuning, not held-out evidence: the rule was written after run 1 showed the miss ([EVAL.md, Run 2](EVAL.md#run-2-post-tuning)).
 
 ---
 
