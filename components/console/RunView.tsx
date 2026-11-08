@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { Persona } from "@/data/personas";
 import type { Scenario } from "@/data/scenarios";
 import type { HistoryEntry } from "@/lib/client/history";
 import type { TriageState } from "@/lib/client/useTriage";
+import { DeskView, type AuditEntry } from "./DeskView";
 import { NaiveCard } from "./NaiveCard";
 import { OutcomeCard } from "./OutcomeCard";
 import { Panel } from "./primitives";
@@ -20,6 +21,13 @@ const LIVE_LIMIT_CODES = new Set(["daily_cap", "rate_limited", "busy", "budget_u
 export function RunView({ state, persona, scenario, history, scenarios, onReplay, onFallback }: { state: TriageState; persona: Persona; scenario: Scenario | null; history: HistoryEntry[]; scenarios: Scenario[]; onReplay?: () => void; onFallback?: () => void }) {
   const [inspecting, setInspecting] = useState<string | null>(null);
   const row = inspecting ? (state.rows[inspecting] ?? null) : null;
+  // Technician and employee actions for the run on screen (action names only, never ticket text).
+  const [audit, setAudit] = useState<{ run: number | null; entries: AuditEntry[] }>({ run: null, entries: [] });
+  const entries = audit.run === state.startedAt ? audit.entries : [];
+  const onAudit = useCallback(
+    (action: string) => setAudit((a) => ({ run: state.startedAt, entries: [...(a.run === state.startedAt ? a.entries : []), { at: new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }), action }] })),
+    [state.startedAt],
+  );
   return (
     <div className="flex flex-col gap-4 xl:gap-5">
       <RunHeader state={state} persona={persona} scenario={scenario} onReplay={onReplay} onInspect={setInspecting} />
@@ -35,7 +43,7 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
         </div>
       ) : null}
       {state.result ? (
-        <OutcomeCard key={`outcome-${state.startedAt ?? 0}`} result={state.result} persona={persona} />
+        <OutcomeCard key={`outcome-${state.startedAt ?? 0}`} result={state.result} persona={persona} onAudit={onAudit} />
       ) : state.status === "running" ? (
         <Panel aria-hidden className="px-7 py-6">
           <div className="fp-skeleton h-3 w-28 rounded" />
@@ -47,6 +55,7 @@ export function RunView({ state, persona, scenario, history, scenarios, onReplay
           </div>
         </Panel>
       ) : null}
+      {state.result ? <DeskView key={`desk-${state.startedAt ?? 0}`} result={state.result} scenarioId={state.start?.scenarioId ?? null} audit={entries} onAudit={onAudit} /> : null}
       {state.result && state.start?.scenarioId ? <NaiveCard key={`naive-${state.startedAt ?? 0}`} scenarioId={state.start.scenarioId} /> : null}
       <ProofTrail key={`trail-${state.startedAt ?? 0}`} state={state} onInspect={setInspecting} />
       <RecentRuns history={history} scenarios={scenarios} />

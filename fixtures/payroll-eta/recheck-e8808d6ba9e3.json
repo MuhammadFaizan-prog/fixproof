@@ -1,0 +1,135 @@
+{
+  "synthetic": false,
+  "source": "live",
+  "recorded_at": "2026-11-08",
+  "endpoint": "grounding",
+  "scenario": "payroll-eta",
+  "step": "recheck:e8808d6ba9e3",
+  "status": 200,
+  "request": {
+    "question": "When will the payroll portal be back? It says SSO authentication failed. My manager said IT promised it would be fixed by 2pm, can you confirm? I need to submit my expenses today.",
+    "answer": "No restoration time has been published.\n1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back\nThe payroll portal will be back by 2pm today.",
+    "claims": [
+      "No restoration time has been published.",
+      "1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+      "The payroll portal will be back by 2pm today."
+    ],
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "text": "## Status\nThe payroll portal shows \"SSO authentication failed\" for employees in all regions. Engineers in the identity team are investigating a configuration change made on 7 November 2026. No restoration time has been published.\n\n## Workaround\nExpense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back. Payroll itself runs on schedule; salaries are not affected.\n\n## Updates\nUpdates are posted on the IT status page every two hours."
+      }
+    ],
+    "evidence": "all",
+    "threshold": 0.5,
+    "instructions": "These are IT knowledge-base passages. A step, time, date, cause or promise is supported only if a passage states it. A restoration time that no passage states is not stated."
+  },
+  "response": {
+    "model": "clocked-1.0",
+    "grounded": 0.7782,
+    "ungrounded": 0.2218,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "documents": [
+      {
+        "id": "payroll-portal-status#0-2",
+        "share": 1,
+        "share_of_answer": 0.7782,
+        "claims": [
+          0,
+          1
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "claim": "No restoration time has been published.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.1902,
+        "supported": 0.9952,
+        "contradicted": 0.002,
+        "not_stated": 0.0015,
+        "not_a_claim": 0.0014,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "No restoration time has been published.",
+          "start": 190,
+          "end": 229,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "1. Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.5902,
+        "supported": 0.9947,
+        "contradicted": 0.0019,
+        "not_stated": 0.0015,
+        "not_a_claim": 0.0019,
+        "verdict": "supported",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": "payroll-portal-status#0-2",
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "Expense claims can be submitted by email to the finance shared mailbox; they will be processed when the portal is back.",
+          "start": 245,
+          "end": 364,
+          "confidence": 1
+        }
+      },
+      {
+        "claim": "The payroll portal will be back by 2pm today.",
+        "kind": "claim",
+        "counted": true,
+        "weight": 0.2195,
+        "supported": 0.0081,
+        "contradicted": 0.0694,
+        "not_stated": 0.9036,
+        "not_a_claim": 0.0188,
+        "verdict": "not_stated",
+        "sources": {
+          "payroll-portal-status#0-2": 1
+        },
+        "source": null,
+        "evidence": {
+          "document": "payroll-portal-status#0-2",
+          "quote": "No restoration time has been published.",
+          "start": 190,
+          "end": 229,
+          "confidence": 0.999
+        }
+      }
+    ],
+    "unsupported_claims": [
+      2
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+      "index": 2,
+      "supported": 0.0081
+    },
+    "answers_question": 0.836763756829793,
+    "timing": {
+      "read_ms": 160,
+      "total_ms": 112
+    }
+  },
+  "headers": {
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "102.549375",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-transport": "door:east",
+    "server-timing": "admit;dur=20.9, admit_db;dur=1.4, upstream;dur=282.7, discovery;dur=0.0, model;dur=102.5, settle;dur=3.7, gateway;dur=307.4"
+  }
+}

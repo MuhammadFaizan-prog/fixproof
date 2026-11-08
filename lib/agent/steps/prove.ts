@@ -1,4 +1,4 @@
-import type { ClaimVerdict, GroundingRequest } from "@/lib/clocked/types";
+import type { ClaimVerdict, GroundingClaim, GroundingRequest } from "@/lib/clocked/types";
 import { splitSentences } from "@/lib/text/sentences";
 import { GROUNDED_AUTO } from "../policy";
 import { pct, plural, tracedCall } from "../trace";
@@ -45,6 +45,29 @@ export function proveRequest(question: string, d: DraftResult, claims: string[])
   };
 }
 
+/** Verify's answer, one entry per sentence we sent (matched by text when the order differs). */
+export function mapClaims(sentences: string[], resClaims: GroundingClaim[]): ProvenClaim[] {
+  return sentences.map((text, i) => {
+    const c = resClaims[i] && resClaims[i].claim.trim() === text.trim() ? resClaims[i] : resClaims.find((x) => x.claim.trim() === text.trim());
+    if (!c) return { text, verdict: "not_stated", supported: 0, kept: false, source: null };
+    const kept = c.verdict === "supported" || c.verdict === "not_a_claim";
+    const ev = c.evidence;
+    return {
+      text,
+      verdict: c.verdict,
+      supported: c.supported,
+      kept,
+      // Evidence with no document (seen live: a quote of the "Document <id>:" header) has offsets
+      // that map to no passage, so only the claim's named source is kept.
+      source: ev?.document
+        ? { passageId: ev.document, quote: ev.quote, start: ev.start, end: ev.end }
+        : c.source
+          ? { passageId: c.source, quote: null, start: null, end: null }
+          : null,
+    };
+  });
+}
+
 export async function prove(ctx: RunContext, question: string, d: DraftResult): Promise<ProveResult> {
   const sentences = splitSentences(d.text);
   const { value } = await tracedCall(
@@ -52,25 +75,7 @@ export async function prove(ctx: RunContext, question: string, d: DraftResult): 
     { id: "prove", stage: "prove", endpoint: "grounding", title: "Verify, claim by claim", runningEffect: `Checking ${plural(sentences.length, "sentence")} against the sources` },
     () => ctx.client.grounding(proveRequest(question, d, sentences), { step: "prove" }),
     (res) => {
-      const claims: ProvenClaim[] = sentences.map((text, i) => {
-        const c = res.data.claims[i] && res.data.claims[i].claim.trim() === text.trim() ? res.data.claims[i] : res.data.claims.find((x) => x.claim.trim() === text.trim());
-        if (!c) return { text, verdict: "not_stated", supported: 0, kept: false, source: null };
-        const kept = c.verdict === "supported" || c.verdict === "not_a_claim";
-        const ev = c.evidence;
-        return {
-          text,
-          verdict: c.verdict,
-          supported: c.supported,
-          kept,
-          // Evidence with no document (seen live: a quote of the "Document <id>:" header) has offsets
-          // that map to no passage, so only the claim's named source is kept.
-          source: ev?.document
-            ? { passageId: ev.document, quote: ev.quote, start: ev.start, end: ev.end }
-            : c.source
-              ? { passageId: c.source, quote: null, start: null, end: null }
-              : null,
-        };
-      });
+      const claims = mapClaims(sentences, res.data.claims);
       const removed = claims.filter((c) => !c.kept);
       const factual = claims.filter((c) => c.verdict !== "not_a_claim");
       const keptShare = factual.length ? factual.filter((c) => c.kept).length / factual.length : 0;

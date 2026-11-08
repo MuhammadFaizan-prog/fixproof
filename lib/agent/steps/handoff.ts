@@ -20,6 +20,8 @@ export interface HandoffRecord {
   summary: string;
   assignmentGroup: string;
   assignmentConfidence: number | null;
+  /** Fill's second choice of team, shown when the first is a low-confidence pick. */
+  assignmentRunnerUp?: { team: string; confidence: number } | null;
   priority: string;
   failedCheck: { id: string; label: string; detail: string } | null;
   attempted: string[];
@@ -66,6 +68,11 @@ function base(i: HandoffInput, persona: RunContext["persona"]): Omit<HandoffReco
   };
 }
 
+function runnerUp(probs: Record<string, number> | undefined, chosen: string): { team: string; confidence: number } | null {
+  const rest = Object.entries(probs ?? {}).filter(([t]) => t !== chosen).sort((a, b) => b[1] - a[1]);
+  return rest.length ? { team: rest[0][0], confidence: rest[0][1] } : null;
+}
+
 /** The record built without Clocked, used when Clocked is the thing that failed. */
 export function localHandoff(i: HandoffInput, persona: RunContext["persona"], failureKind?: string): HandoffRecord {
   const meaning = failureKind ? failureMeaning(failureKind) : null;
@@ -95,6 +102,7 @@ export async function handoff(ctx: RunContext, i: HandoffInput): Promise<Handoff
         summary,
         assignmentGroup: group,
         assignmentConfidence: f.assignment_group?.probabilities?.[group] ?? f.assignment_group?.confidence ?? null,
+        assignmentRunnerUp: runnerUp(f.assignment_group?.probabilities, group),
         priority,
       };
       return {

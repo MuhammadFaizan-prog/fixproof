@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import type { Persona } from "@/data/personas";
 import { pct } from "./format";
 import { OUTCOME_STYLE } from "./outcome-style";
-import { failedAs } from "./EvidenceCards";
+import { plainWhy, routingLine, verdictWord } from "./plain";
 import { Callout, Chip, Eyebrow, Panel } from "./primitives";
 
 /**
@@ -17,7 +17,7 @@ import { Callout, Chip, Eyebrow, Panel } from "./primitives";
  * separate white boxes (sentence · source · status), one tinted callout, then
  * the actions and the cost line.
  */
-export function OutcomeCard({ result, persona }: { result: PublicResult; persona: Persona }) {
+export function OutcomeCard({ result, persona, onAudit }: { result: PublicResult; persona: Persona; onAudit?: (action: string) => void }) {
   const o = result.outcome;
   const style = OUTCOME_STYLE[o.outcome];
   const first = persona.name.split(" ")[0];
@@ -28,18 +28,26 @@ export function OutcomeCard({ result, persona }: { result: PublicResult; persona
   const kept = claims.filter((c) => c.kept).length;
   const tone = o.outcome === "AUTO_RESOLVED" ? "ok" : o.outcome === "CONFIRM_WITH_USER" ? "warn" : "risk";
 
+  const steps = claims.filter((c) => c.kept && c.verdict !== "not_a_claim").length;
+  const why = o.deciding ? plainWhy(o.deciding, result) : null;
+  const team = result.handoff?.assignmentGroup ?? "the Service Desk";
+  const routing = result.handoff ? routingLine(result.handoff.assignmentGroup, result.handoff.assignmentConfidence, result.handoff.assignmentRunnerUp) : null;
+  const stepsWord = `${steps} verified step${steps === 1 ? "" : "s"}`;
+  // One sentence: the outcome, who acts next, and the deciding check.
   const headline = {
-    AUTO_RESOLVED: `${first}'s fix is ready`,
-    CONFIRM_WITH_USER: `One question back to ${first}`,
-    ESCALATED: `${result.handoff?.assignmentGroup ?? "Service Desk"} has it, with proof`,
+    AUTO_RESOLVED: `Resolved: ${first} gets ${stepsWord}${result.outcome.runFix ? " and a checked fix script" : ""}. No technician needed.`,
+    CONFIRM_WITH_USER: `Back to ${first} to confirm: ${why ?? "one check was not certain"}.`,
+    ESCALATED: `Handed to ${team}${routing?.low ? " (low confidence)" : ""}: ${why ?? "a check failed"}.${result.reply && steps ? ` ${first} got ${stepsWord} meanwhile.` : ""}`,
   }[o.outcome];
 
   const note =
     o.outcome === "AUTO_RESOLVED"
       ? `Every sentence is backed by a knowledge-base passage for ${persona.osLabel}.${result.outcome.runFix ? " The fix script stayed inside this laptop's approved scope." : ""}`
       : o.outcome === "CONFIRM_WITH_USER"
-        ? `${o.deciding ? `${failedAs(o.deciding)}. ` : ""}FixProof sends the verified steps and asks ${first} to confirm before closing.`
-        : `${o.deciding ? `${failedAs(o.deciding)}. ` : ""}${result.reply ? `${first} still gets the verified steps while waiting.` : "Nothing was sent to the employee."}`;
+        ? `FixProof sends the verified steps and asks ${first} to confirm before closing.`
+        : routing?.low
+          ? `${routing.text} ${result.reply ? `${first} still gets the verified steps while waiting.` : "Nothing was sent to the employee."}`
+          : `${result.reply ? `${first} still gets the verified steps while waiting.` : "Nothing was sent to the employee."}`;
 
   const copy = async () => {
     try {
@@ -56,7 +64,7 @@ export function OutcomeCard({ result, persona }: { result: PublicResult; persona
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <Eyebrow className={style.text}>Outcome · {style.label}</Eyebrow>
-          <h2 id="outcome-h" className="mt-1 text-[24px] font-medium leading-8 tracking-[-0.015em] sm:text-[28px] sm:leading-9">
+          <h2 id="outcome-h" className="mt-1 max-w-[52ch] text-[21px] font-medium leading-7 tracking-[-0.015em] sm:text-[24px] sm:leading-8">
             {headline}
           </h2>
         </div>
@@ -75,7 +83,7 @@ export function OutcomeCard({ result, persona }: { result: PublicResult; persona
           <ul className="mt-2 flex flex-col gap-2" aria-label="Reply, sentence by sentence">
             {claims.map((c, i) => {
               const src = c.source ? passages.get(c.source.passageId) : undefined;
-              const sourceText = c.kept ? (c.verdict === "not_a_claim" ? "framing" : c.source ? c.source.passageId : "no source named") : c.verdict.replace(/_/g, " ");
+              const sourceText = c.kept ? (c.verdict === "not_a_claim" ? "framing" : c.source ? c.source.passageId : "no source named") : verdictWord(c.verdict);
               return (
                 <li
                   key={i}
@@ -94,7 +102,7 @@ export function OutcomeCard({ result, persona }: { result: PublicResult; persona
                   </span>
                   <span className="col-start-2 row-span-2 row-start-1 justify-self-end sm:col-start-3 sm:row-span-1">
                     <span className={cn("inline-flex h-6 items-center rounded-full px-2.5 text-[13px] font-medium", c.kept ? "bg-ok-soft text-ok" : "bg-risk-soft text-risk")}>
-                      {c.kept ? (c.verdict === "not_a_claim" ? "Framing" : "Supported") : "Removed"}
+                      {c.kept ? (c.verdict === "not_a_claim" ? "Framing" : "Backed") : "Removed"}
                     </span>
                   </span>
                 </li>
@@ -110,25 +118,36 @@ export function OutcomeCard({ result, persona }: { result: PublicResult; persona
         {note}
       </Callout>
 
-      {ran ? <ActionNote ran={ran} result={result} first={first} /> : null}
+      {ran ? <ActionNote ran={ran} result={result} first={first} attempted={claims.filter((c) => c.kept && c.verdict !== "not_a_claim").map((c) => c.text)} /> : null}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        {o.outcome === "AUTO_RESOLVED" ? (
-          result.outcome.runFix ? (
-            <Button className="h-11 rounded-full px-5 text-[15px]" onClick={() => setRan("fix")} disabled={ran === "fix"}>
-              <Play aria-hidden /> Run fix
-            </Button>
-          ) : (
-            <Button className="h-11 rounded-full px-5 text-[15px]" onClick={() => setRan("yes")} disabled={ran === "yes"}>
-              Send reply and close
-            </Button>
-          )
-        ) : o.outcome === "CONFIRM_WITH_USER" ? (
+        {o.outcome === "AUTO_RESOLVED" && result.outcome.runFix ? (
+          <Button className="h-11 rounded-full px-5 text-[15px]" onClick={() => setRan("fix")} disabled={ran !== null}>
+            <Play aria-hidden /> Run fix (simulated)
+          </Button>
+        ) : null}
+        {o.outcome !== "ESCALATED" ? (
           <>
-            <Button className="h-11 rounded-full px-5 text-[15px]" onClick={() => setRan("yes")} disabled={ran !== null}>
-              It worked
+            <Button
+              className="h-11 rounded-full px-5 text-[15px]"
+              variant={o.outcome === "AUTO_RESOLVED" && result.outcome.runFix ? "outline" : "default"}
+              onClick={() => {
+                setRan("yes");
+                onAudit?.(`${first} said: this fixed it`);
+              }}
+              disabled={ran === "yes" || ran === "no"}
+            >
+              This fixed it
             </Button>
-            <Button variant="outline" className="h-11 rounded-full border-hairline bg-card px-5 text-[15px]" onClick={() => setRan("no")} disabled={ran !== null}>
+            <Button
+              variant="outline"
+              className="h-11 rounded-full border-hairline bg-card px-5 text-[15px]"
+              onClick={() => {
+                setRan("no");
+                onAudit?.(`${first} said: still broken (escalated with the verified steps as already tried)`);
+              }}
+              disabled={ran === "yes" || ran === "no"}
+            >
               Still broken
             </Button>
           </>
@@ -146,7 +165,7 @@ export function OutcomeCard({ result, persona }: { result: PublicResult; persona
   );
 }
 
-function ActionNote({ ran, result, first }: { ran: "fix" | "yes" | "no"; result: PublicResult; first: string }) {
+function ActionNote({ ran, result, first, attempted }: { ran: "fix" | "yes" | "no"; result: PublicResult; first: string; attempted: string[] }) {
   if (ran === "fix" && result.fixGate?.script) {
     const lines = result.fixGate.script.code.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#"));
     return (
@@ -161,9 +180,22 @@ function ActionNote({ ran, result, first }: { ran: "fix" | "yes" | "no"; result:
       </div>
     );
   }
+  if (ran === "no") {
+    return (
+      <div role="status" className="mt-4 rounded-[18px] border border-risk-soft bg-risk-wash px-4 py-3 text-[14px]" data-still-broken>
+        <p className="font-medium text-risk">Escalated: handed to {result.handoff?.assignmentGroup ?? "the Service Desk"} with the Proof Trail attached.</p>
+        <p className="mt-1 text-[13px] text-muted-foreground">Already tried (the verified steps {first} was given):</p>
+        <ol className="mt-1 list-decimal pl-5 text-[13px] leading-5" data-attempted>
+          {attempted.map((t, i) => (
+            <li key={i}>{t.replace(/^\s*\d+[.)]\s*/, "")}</li>
+          ))}
+        </ol>
+      </div>
+    );
+  }
   return (
     <p role="status" className="mt-4 rounded-xl bg-surface-sunken px-3.5 py-2.5 text-[13px] text-secondary-foreground">
-      {ran === "yes" ? `Ticket closed. ${first} received the verified reply.` : `Reopened for a technician with the full Proof Trail attached.`}
+      Ticket closed. {first} confirmed the verified reply fixed it.
     </p>
   );
 }
