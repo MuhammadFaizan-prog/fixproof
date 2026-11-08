@@ -3,6 +3,7 @@ import { ArrowLeft, ShieldCheck } from "lucide-react";
 import scorecard from "@/eval/scorecard.json";
 import scorecard2 from "@/eval/scorecard-run-2.json";
 import ablation from "@/eval/ablation.json";
+import endpoints from "@/eval/endpoints.json";
 import { Panel, Eyebrow, StatTile } from "@/components/console/primitives";
 
 export const metadata = { title: "Proof · FixProof" };
@@ -110,6 +111,62 @@ export default function Proof() {
           <StatTile label="Outcome in the expected set" value={`${frac(h.outcomeAccuracy)} → ${frac(s2.headline.outcomeAccuracy)}`} />
           <StatTile label="Steps re-recorded live" value={String(s2.changedSteps.length)} />
         </div>
+      </Panel>
+
+      <Panel aria-labelledby="endpoints-h" className="px-5 py-6 sm:px-8" data-endpoints>
+        <Eyebrow>Every endpoint · fires and stays quiet · from recordings</Eyebrow>
+        <h2 id="endpoints-h" className="mt-1 text-[22px] font-medium leading-8 tracking-[-0.01em]">
+          Each Clocked call changed the outcome somewhere, and stayed out of the way elsewhere
+        </h2>
+        <p className="mt-1 max-w-[75ch] text-[14px] leading-5 text-muted-foreground">
+          For each endpoint, the first locked ticket where its output changed what FixProof did, and the first where it correctly changed nothing or was not called. Credits are the recorded <code className="font-mono text-[13px]">X-Clocked-Credits</code> across all {endpoints.cases} tickets (run 2 replay). Protect and the ticket Guard share one Pipeline call, counted on the Protect row.
+        </p>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[760px] border-separate border-spacing-y-1.5 text-left text-[13.5px] leading-5">
+            <thead>
+              <tr className="text-[12px] uppercase tracking-[0.06em] text-muted-foreground">
+                <th scope="col" className="px-3 font-medium">Endpoint</th>
+                <th scope="col" className="px-3 font-medium">Fires</th>
+                <th scope="col" className="px-3 font-medium">Stays quiet</th>
+                <th scope="col" className="px-3 text-right font-medium">Calls · credits</th>
+              </tr>
+            </thead>
+            <tbody>
+              {endpoints.rows.map((r) => (
+                <tr key={r.name} className="bg-card align-top">
+                  <th scope="row" className="rounded-l-[14px] border-y border-l border-hairline px-3 py-2.5 font-medium">{r.name}</th>
+                  <td className="border-y border-hairline px-3 py-2.5">
+                    {r.fires ? (
+                      <>
+                        <span className="font-mono text-[12px] text-primary">{r.fires.caseId}</span> {r.fires.what}
+                      </>
+                    ) : (
+                      "not seen in this set"
+                    )}
+                  </td>
+                  <td className="border-y border-hairline px-3 py-2.5 text-muted-foreground">
+                    {r.quiet ? (
+                      <>
+                        <span className="font-mono text-[12px] text-foreground">{r.quiet.caseId}</span> {r.quiet.what}
+                      </>
+                    ) : null}
+                    {r.notCalled && r.notCalled.count ? <span className="block">Not called on {r.notCalled.count} tickets: {r.notCalled.why}.</span> : null}
+                  </td>
+                  <td className="tabular rounded-r-[14px] border-y border-r border-hairline px-3 py-2.5 text-right whitespace-nowrap">
+                    {"inPipeline" in r && r.inPipeline ? `in Pipeline + ${r.calls} re-checks · ${r.credits} cr` : `${r.calls} calls · ${r.credits} cr`}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-4">
+          <StatTile label="Per ticket, median" value={`${endpoints.perTicket.creditsMedian} cr ≈ $${endpoints.perTicket.usdMedian.toFixed(4)}`} />
+          {endpoints.byOutcome.map((o) => (
+            <StatTile key={o.outcome} label={`${o.label} (${o.tickets} tickets), median`} value={`${o.creditsMedian} cr ≈ $${o.usdMedian.toFixed(4)}`} />
+          ))}
+        </div>
+        <p className="mt-2 text-[13px] text-muted-foreground">At ${endpoints.usdPer1000} per 1,000 credits (<a className="text-primary underline" href="https://clocked.rezolve.ai/pricing">Clocked pricing</a>). Source: <a className="text-primary underline" href={`${REPO}/blob/main/eval/endpoints.json`}>eval/endpoints.json</a>, written by <code className="font-mono text-[13px]">pnpm eval</code>.</p>
       </Panel>
 
       <Panel aria-labelledby="ablation-h" className="px-5 py-6 sm:px-8">

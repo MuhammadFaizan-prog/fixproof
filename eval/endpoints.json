@@ -1,0 +1,225 @@
+{
+  "runId": "run-2-post-tuning",
+  "cases": 32,
+  "note": "Computed by pnpm eval from the run-2 replay: recorded Clocked answers and recorded X-Clocked-Credits. Fires = the endpoint's output changed what FixProof did on that ticket; quiet = it ran and correctly changed nothing, or was not called. First matching case in eval/cases.jsonl order.",
+  "usdPer1000": 0.24,
+  "rows": [
+    {
+      "name": "Protect (Pipeline, with Guard)",
+      "group": "Protect / Guard / Inspect",
+      "fires": {
+        "caseId": "vpn-macos",
+        "what": "masked 2 personal-data items before any other step read the ticket"
+      },
+      "quiet": {
+        "caseId": "tampered-printer",
+        "what": "found no personal data; the ticket went on unchanged"
+      },
+      "notCalled": null,
+      "calls": 32,
+      "tickets": 32,
+      "credits": 114,
+      "creditsPerCallMedian": 3
+    },
+    {
+      "name": "Guard (ticket)",
+      "group": "Protect / Guard / Inspect",
+      "fires": {
+        "caseId": "admin-injection",
+        "what": "cut the injected sentence by its offsets; the rest was re-checked and answered"
+      },
+      "quiet": {
+        "caseId": "vpn-macos",
+        "what": "read the ticket as benign; nothing cut, no re-check call"
+      },
+      "notCalled": null,
+      "inPipeline": true,
+      "calls": 4,
+      "tickets": 4,
+      "credits": 4,
+      "creditsPerCallMedian": 1
+    },
+    {
+      "name": "Guard (knowledge-base sections)",
+      "group": "Protect / Guard / Inspect",
+      "fires": {
+        "caseId": "mfa-poisoned",
+        "what": "dropped 1 poisoned section before drafting"
+      },
+      "quiet": {
+        "caseId": "vpn-macos",
+        "what": "cleared all 7 kept sections"
+      },
+      "notCalled": {
+        "count": 2,
+        "why": "no passage was kept to check"
+      },
+      "calls": 89,
+      "tickets": 30,
+      "credits": 132,
+      "creditsPerCallMedian": 1
+    },
+    {
+      "name": "Inspect",
+      "group": "Protect / Guard / Inspect",
+      "fires": {
+        "caseId": "tampered-printer",
+        "what": "blocked the knowledge-base script (security blinding or EDR evasion); no Run fix"
+      },
+      "quiet": {
+        "caseId": "vpn-macos",
+        "what": "cleared the script for this device; Run fix offered (simulated)"
+      },
+      "notCalled": {
+        "count": 23,
+        "why": "no kept article carries a script"
+      },
+      "calls": 9,
+      "tickets": 9,
+      "credits": 22,
+      "creditsPerCallMedian": 2
+    },
+    {
+      "name": "Decide",
+      "group": "Decide / Extract / Fill",
+      "fires": {
+        "caseId": "payroll-eta",
+        "what": "escalate band: handed to a person whatever the reply says"
+      },
+      "quiet": {
+        "caseId": "vpn-macos",
+        "what": "auto band: did not stop a ticket every other check cleared"
+      },
+      "notCalled": null,
+      "calls": 32,
+      "tickets": 32,
+      "credits": 57,
+      "creditsPerCallMedian": 2
+    },
+    {
+      "name": "Extract",
+      "group": "Decide / Extract / Fill",
+      "fires": {
+        "caseId": "vpn-macos",
+        "what": "found 6 exact values (error code 809), added to the knowledge-base query and the handoff"
+      },
+      "quiet": {
+        "caseId": "r-keyboard-uk",
+        "what": "found nothing to extract and invented nothing; the fields stay empty"
+      },
+      "notCalled": null,
+      "calls": 32,
+      "tickets": 32,
+      "credits": 142,
+      "creditsPerCallMedian": 4
+    },
+    {
+      "name": "Fill (record, draft, handoff)",
+      "group": "Decide / Extract / Fill",
+      "fires": {
+        "caseId": "tampered-printer",
+        "what": "wrote the handoff: team Security, priority P2"
+      },
+      "quiet": {
+        "caseId": "vpn-macos",
+        "what": "resolved, so the handoff Fill was never called"
+      },
+      "notCalled": {
+        "count": 22,
+        "why": "the handoff Fill runs only on escalation"
+      },
+      "calls": 72,
+      "tickets": 32,
+      "credits": 406,
+      "creditsPerCallMedian": 6
+    },
+    {
+      "name": "Rerank",
+      "group": "Verify / Compare / Rerank",
+      "fires": {
+        "caseId": "vpn-macos",
+        "what": "skipped 7 passages written for a different setup (e.g. \"VPN drops every few minutes on Windows\")"
+      },
+      "quiet": {
+        "caseId": "ambiguous",
+        "what": "no passage was written for another setup; nothing skipped for that reason"
+      },
+      "notCalled": null,
+      "calls": 37,
+      "tickets": 32,
+      "credits": 129,
+      "creditsPerCallMedian": 4
+    },
+    {
+      "name": "Compare",
+      "group": "Verify / Compare / Rerank",
+      "fires": {
+        "caseId": "vpn-macos",
+        "what": "found \"VPN client troubleshooting policy (2026)\" and \"VPN client troubleshooting policy (2024)\" disagree; the newer stood and the older passage was removed before drafting; scope rule on `c-guest-wifi-scope`: the office article beat a newer company-wide one"
+      },
+      "quiet": {
+        "caseId": "r-disk-full",
+        "what": "read 2 passages: no conflict, nothing removed"
+      },
+      "notCalled": {
+        "count": 19,
+        "why": "fewer than 2 passages were kept"
+      },
+      "calls": 13,
+      "tickets": 13,
+      "credits": 69,
+      "creditsPerCallMedian": 7
+    },
+    {
+      "name": "Verify",
+      "group": "Verify / Compare / Rerank",
+      "fires": {
+        "caseId": "i-admin-mode-teams",
+        "what": "removed 1 unsupported sentence before the reply was shown"
+      },
+      "quiet": {
+        "caseId": "vpn-macos",
+        "what": "every sentence supported; nothing removed"
+      },
+      "notCalled": {
+        "count": 2,
+        "why": "no reply was drafted: the ticket was held or no passage applied"
+      },
+      "calls": 30,
+      "tickets": 30,
+      "credits": 152,
+      "creditsPerCallMedian": 5
+    }
+  ],
+  "byOutcome": [
+    {
+      "outcome": "AUTO_RESOLVED",
+      "label": "Resolved",
+      "tickets": 10,
+      "creditsMedian": 40,
+      "creditsMax": 58,
+      "usdMedian": 0.0096
+    },
+    {
+      "outcome": "CONFIRM_WITH_USER",
+      "label": "Confirm",
+      "tickets": 12,
+      "creditsMedian": 37,
+      "creditsMax": 47,
+      "usdMedian": 0.0089
+    },
+    {
+      "outcome": "ESCALATED",
+      "label": "Handed off",
+      "tickets": 10,
+      "creditsMedian": 40,
+      "creditsMax": 46,
+      "usdMedian": 0.0096
+    }
+  ],
+  "perTicket": {
+    "creditsMedian": 37,
+    "usdMedian": 0.0089,
+    "creditsTotal": 1227
+  }
+}

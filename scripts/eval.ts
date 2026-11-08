@@ -36,6 +36,7 @@ import { getKbIndex } from "../lib/kb/index";
 import { getPersona } from "../data/personas";
 import { SCENARIOS } from "../data/scenarios";
 import { scoreRun, buildScorecard, renderEvalMd, renderRun2Md, type CaseRecord, type EvalCase } from "../lib/eval/score";
+import { endpointReport, renderEndpointsMd, spliceEndpoints, type CaseRun } from "../lib/eval/endpoints";
 
 const ROOT = process.cwd();
 const CASES = path.join(ROOT, "eval/cases.jsonl");
@@ -185,6 +186,7 @@ async function main() {
 
   // ---------- Run 2 (scope-aware precedence) ----------
   const records2: CaseRecord[] = [];
+  const runs2: CaseRun[] = [];
   const drift: string[] = [];
   const changedSteps: string[] = [];
   for (const c of cases) {
@@ -221,6 +223,7 @@ async function main() {
     }
     const rec = scoreRun(c, r, events, naive);
     records2.push(rec);
+    runs2.push({ c, r, events });
     if (which === "2") console.log(`${rec.ok && !rec.fixproofBad.length ? "✓" : "✗"} ${c.id.padEnd(22)} ${rec.outcome.padEnd(18)} ${rec.credits}cr${rec.fixproofBad.length ? ` BAD: ${rec.fixproofBad.join("; ")}` : ""}`);
   }
   if (live) console.log(`\nLive credits this run: ${liveSpent()}`);
@@ -232,6 +235,14 @@ async function main() {
   const notes2 = await readFile(path.join(ROOT, "eval/NOTES-run-2.md"), "utf8").catch(() => "");
   const md = md1 + renderRun2Md(scorecard2, records2, scorecard, records, notes2);
 
+  const endpoints = endpointReport(runs2, RUN2_ID);
+  const endpointsJson = `${JSON.stringify(endpoints, null, 2)}\n`;
+  const endpointsMd = renderEndpointsMd(endpoints);
+  const README = path.join(ROOT, "README.md");
+  const CLOCKED = path.join(ROOT, "CLOCKED.md");
+  const readmeWant = spliceEndpoints(await readFile(README, "utf8"), endpointsMd);
+  const clockedWant = spliceEndpoints(await readFile(CLOCKED, "utf8"), endpointsMd);
+  const ENDPOINTS_FILE = path.join(ROOT, "eval/endpoints.json");
   const runJson = `${JSON.stringify({ runId: RUN_ID, lockDigest: digest, cases: records }, null, 2)}\n`;
   const run2Json = `${JSON.stringify({ runId: RUN2_ID, lockDigest: digest, changedSteps: scorecard2.changedSteps, cases: records2 }, null, 2)}\n`;
   const cardJson = `${JSON.stringify(scorecard, null, 2)}\n`;
@@ -250,7 +261,10 @@ async function main() {
     await writeFile(CARD2_FILE, card2Json);
     await writeFile(path.join(ROOT, "EVAL.md"), md);
     await writeFile(NAIVE_FILE, naiveJson);
-    console.log("wrote eval/results, eval/scorecard.json, eval/scorecard-run-2.json, EVAL.md");
+    await writeFile(ENDPOINTS_FILE, endpointsJson);
+    await writeFile(README, readmeWant);
+    await writeFile(CLOCKED, clockedWant);
+    console.log("wrote eval/results, eval/scorecard.json, eval/scorecard-run-2.json, eval/endpoints.json, EVAL.md, endpoint tables in README.md and CLOCKED.md");
   } else {
     const read = (f: string) => readFile(f, "utf8").catch(() => "");
     const checks: [string, string, string][] = [
@@ -260,10 +274,13 @@ async function main() {
       ["data/naive-presets.json", NAIVE_FILE, naiveJson],
       [`eval/results/${RUN_ID}.json`, runFile, runJson],
       [`eval/results/${RUN2_ID}.json`, RUN2_FILE, run2Json],
+      ["eval/endpoints.json", ENDPOINTS_FILE, endpointsJson],
+      ["README.md (endpoint table)", README, readmeWant],
+      ["CLOCKED.md (endpoint table)", CLOCKED, clockedWant],
     ];
     const bad: string[] = [];
     for (const [name, f, want] of checks) if ((await read(f)) !== want) bad.push(name);
-    console.log(!bad.length ? "\nReplay reproduces EVAL.md, both scorecards and both results files byte for byte." : `\nMISMATCH: replay differs from the committed ${bad.join(", ")}`);
+    console.log(!bad.length ? "\nReplay reproduces EVAL.md, both scorecards, both results files, eval/endpoints.json and the README / CLOCKED.md endpoint tables byte for byte." : `\nMISMATCH: replay differs from the committed ${bad.join(", ")}`);
     if (bad.length) process.exitCode = 1;
   }
 }

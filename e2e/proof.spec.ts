@@ -25,4 +25,6 @@ test("/proof renders the locked scorecard", async ({ page }) => {
   await expect(page.getByText("Inspect off")).toBeVisible();
   await expect(page.locator("[data-run2]")).toContainText("Run 2, post-tuning");
   await expect(page.locator("[data-run2]")).toContainText("not held-out");
+  await expect(page.locator("[data-endpoints] tbody tr")).toHaveCount(10);
+  await expect(page.locator("[data-endpoints]")).toContainText("tampered-printer");
 });
