@@ -1,5 +1,6 @@
 import type { ScriptRequest } from "@/lib/clocked/types";
 import type { KbScript } from "@/lib/kb/types";
+import { scriptHarm } from "@/lib/text/harm";
 import { pct, tracedCall } from "../trace";
 import type { EvidenceMark, RunContext } from "../types";
 import type { Passage } from "./retrieve";
@@ -65,7 +66,7 @@ export async function fixGate(ctx: RunContext, passages: Passage[]): Promise<Fix
           probabilityLabel: "malicious",
           effect: runAllowed
             ? `The ${script.lang} script stays inside ${ctx.persona.name.split(" ")[0]}'s approved scope (${pct(d.malicious)} malicious), so Run fix is offered.`
-            : `Blocked: ${d.category}${evidence[0] ? ` at \`${evidence[0].line.trim()}\`` : ""} (${d.severity ?? "unrated"}). No Run fix button; a technician reviews the script.`,
+            : `The article's fix script was blocked: ${scriptHarm(d.category)}${evidence[0] ? ` (flagged line \`${evidence[0].line.trim()}\`, ${d.severity ?? "unrated"} severity)` : ""}. No Run fix button; a technician reviews it.`,
           evidence: marks,
           detail: { request: { script: script.code, instructions: scriptRequest(script, ctx.persona).instructions }, response: { verdict: d.verdict, malicious: d.malicious, suspicious: d.suspicious, category: d.category, categories: d.categories, severity: d.severity, evidence } },
         },

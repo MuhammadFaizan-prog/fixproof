@@ -101,16 +101,16 @@ export function rerankRequest(query: string, passages: Passage[], persona: RunCo
 }
 
 const REASON_TEXT: Record<string, string> = {
-  different_case: "written for a different case",
+  different_case: "written for a different OS or setup",
   unrelated: "unrelated",
   already_given: "already given",
-  below_top_n: "not returned",
+  below_top_n: "ranked too low to read",
   poisoned: "carries instructions aimed at the assistant",
 };
 
 function describeSkips(skipped: SkippedPassage[]): string {
   const dc = skipped.filter((s) => s.reason === "different_case");
-  if (dc.length) return ` Skipped "${dc[0].title}" as different_case${dc.length > 1 ? ` (+${dc.length - 1} more)` : ""}.`;
+  if (dc.length) return ` Skipped "${dc[0].title}" as written for a different OS or setup${dc.length > 1 ? ` (+${dc.length - 1} more)` : ""}.`;
   return skipped.length ? ` Skipped ${plural(skipped.length, "passage")} as unrelated.` : "";
 }
 
@@ -119,7 +119,7 @@ export async function retrieve(ctx: RunContext, index: KbIndex, text: string, u:
   const boostCategory = u.record.category && u.record.categoryConfidence >= 0.6 ? u.record.category : null;
   const hits = index.search(query, { limit: RECALL_LIMIT, boostCategory });
   const articles = new Set(hits.map((h) => h.chunk.articleId));
-  localStep(ctx, { id: "retrieve:recall", stage: "retrieve", title: "BM25 recall" }, {
+  localStep(ctx, { id: "retrieve:recall", stage: "retrieve", title: "Keyword recall (BM25)" }, {
     count: hits.length,
     countLabel: "recalled",
     effect: hits.length
@@ -200,7 +200,7 @@ export async function retrieve(ctx: RunContext, index: KbIndex, text: string, u:
     const id = `retrieve:guard:${chunkId}`;
     const { value: verdict } = await tracedCall(
       ctx,
-      { id, stage: "retrieve", endpoint: "injection", title: `Guard, ${chunk.section}`, runningEffect: "Checking the passage for instructions aimed at the assistant" },
+      { id, stage: "retrieve", endpoint: "injection", title: `Guard, Injection check on the KB section “${chunk.section}”`, runningEffect: "Checking the passage for instructions aimed at the assistant" },
       () => ctx.client.injection({ text: chunk.text, source: "content", evidence: true }, { step: id }),
       (res) => {
         const flagged = res.data.verdict !== "benign";

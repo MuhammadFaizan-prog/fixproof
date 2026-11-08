@@ -31,7 +31,8 @@ export function RunHeader({ state, persona, scenario, onReplay, onInspect }: { s
   const ticketId = scenario?.id ?? "new-ticket";
 
   const End = outcome === "AUTO_RESOLVED" ? CircleCheck : outcome === "CONFIRM_WITH_USER" ? CircleHelp : outcome === "ESCALATED" ? TriangleAlert : Hourglass;
-  const endTitle = outcome ? style!.label : state.status === "running" ? "Checking…" : state.status === "error" ? "Stopped" : "Waiting";
+  // Short words for the path diagram; the outcome card and queue carry the full label.
+  const endTitle = outcome ? { AUTO_RESOLVED: "Resolved", CONFIRM_WITH_USER: "Confirming", ESCALATED: "Handed off" }[outcome] : state.status === "running" ? "Checking…" : state.status === "error" ? "Stopped" : "Waiting";
   const endSub =
     outcome === "AUTO_RESOLVED"
       ? "no technician"
@@ -114,11 +115,11 @@ export function RunHeader({ state, persona, scenario, onReplay, onInspect }: { s
 function Node({ icon: Icon, tone, title, sub, final }: { icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>; tone: string; title: string; sub: string; final?: string | null }) {
   return (
     <div className="flex min-w-0 flex-1 items-center gap-3 rounded-[20px] border border-hairline bg-card px-3.5 py-3 shadow-[0_2px_10px_rgba(15,23,25,0.05)]" data-path-outcome={final ?? undefined}>
-      <span className={cn("grid size-11 shrink-0 place-items-center rounded-full", tone)}>
+      <span className={cn("grid size-11 shrink-0 place-items-center rounded-full max-xl:hidden", tone)}>
         <Icon aria-hidden className="size-5" />
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-[17px] font-medium leading-6">{title}</span>
+        <span className="line-clamp-2 block text-[16px] font-medium leading-5">{title}</span>
         <span className="block truncate text-[13px] leading-[18px] text-muted-foreground">{sub}</span>
       </span>
     </div>

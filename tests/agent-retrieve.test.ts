@@ -75,7 +75,7 @@ describe("retrieve step", () => {
     expect(r.skipped.some((s) => s.reason === "different_case" && s.id.startsWith("vpn-windows"))).toBe(true);
     const rows = finalEvents(events);
     expect(rows.get("retrieve:recall")).toMatchObject({ endpoint: "local", count: 20 });
-    expect(rows.get("retrieve:rerank")!.effect).toMatch(/as different_case/);
+    expect(rows.get("retrieve:rerank")!.effect).toMatch(/as written for a different OS or setup/);
     expect(rows.get("retrieve:rerank")!.meta?.credits).toBe(3);
   });
 

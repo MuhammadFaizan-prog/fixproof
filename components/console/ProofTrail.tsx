@@ -11,6 +11,7 @@ import { OUTCOME_STYLE } from "./outcome-style";
 import { Chip, Eyebrow, Panel } from "./primitives";
 import { BandBar, ProbabilityBar } from "./ProbabilityBar";
 import { isCall, stageViews, type Row, type StageView } from "./StageRows";
+import { plainText } from "./plain";
 
 const ICON: Record<StageId, LucideIcon> = {
   screen: ShieldCheck,
@@ -108,7 +109,7 @@ function StageRow({ stage, final, open, onToggle, onInspect, idle }: { stage: St
     decideProbs && stage.id === "understand" ? (
       <BandBar probabilities={decideProbs} autoMin={BANDS.autoMin} escalateMin={BANDS.escalateMin} />
     ) : lead?.probability !== undefined && lead.status === "ok" ? (
-      <ProbabilityBar compact value={lead.probability} label={lead.probabilityLabel} handled={lead.verdict === "resolved"} />
+      <ProbabilityBar compact value={lead.probability} label={plainText(lead.probabilityLabel)} handled={lead.verdict === "resolved"} />
     ) : (
       <div aria-hidden className={cn("h-1.5 rounded-full", running ? "fp-skeleton" : "bg-track")} />
     );
@@ -142,7 +143,7 @@ function StageRow({ stage, final, open, onToggle, onInspect, idle }: { stage: St
             ) : null}
           </span>
           <span className={cn("block text-[13px] leading-[19px] text-muted-foreground", !open && "line-clamp-1", stage.status === "error" && "text-risk")}>
-            {running && !lead?.effect ? <span aria-hidden className="fp-skeleton mt-1 block h-3 w-2/3 rounded" /> : effect}
+            {running && !lead?.effect ? <span aria-hidden className="fp-skeleton mt-1 block h-3 w-2/3 rounded" /> : plainText(effect)}
           </span>
         </span>
         <span className="hidden min-w-0 sm:block">{decideProbs && stage.id === "understand" ? <MiniBand probabilities={decideProbs} /> : bar}</span>
@@ -221,7 +222,7 @@ function CallLine({ row, onInspect }: { row: Row; onInspect: (id: string) => voi
         <span className="w-[64px] shrink-0 font-medium text-foreground">{endpointLabel(row.endpoint)}</span>
         <span className="min-w-0 flex-1 truncate text-muted-foreground">{row.title.replace(/^(Guard|Fill|Rerank|Decide|Extract|Verify|Inspect|Compare), /, "")}</span>
         <span className={cn("shrink-0 rounded-full px-2 py-px text-xs font-medium", bad ? "bg-risk-soft text-risk" : row.status === "running" ? "text-muted-foreground" : "bg-secondary text-foreground")}>
-          {row.status === "running" ? "…" : (row.verdict ?? row.status)}
+          {row.status === "running" ? "…" : plainText(row.verdict ?? row.status)}
         </span>
         <span className="tabular hidden w-[92px] shrink-0 text-right text-xs text-muted-foreground sm:block">
           {row.meta?.credits != null ? `${row.meta.credits} cr · ${row.meta.modelMs != null ? seconds(row.meta.modelMs) : "–"}` : "local"}

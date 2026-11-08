@@ -62,11 +62,9 @@ export function IntakePanel(p: IntakePanelProps) {
                     active ? "border-primary/30 bg-primary-soft" : "border-hairline bg-card hover:border-neutral/60",
                   )}
                 >
-                  <span className="min-w-0">
-                    <span className={cn("block truncate text-[15px] font-medium leading-[22px]", active && "text-primary")}>{s.title}</span>
-                    <span className="block truncate text-[13px] leading-[18px] text-muted-foreground">{s.text}</span>
-                  </span>
-                  <span className={cn("inline-flex h-6 items-center gap-1.5 rounded-full px-2 text-[12px] font-medium", style.pill)}>
+                  <span className={cn("col-span-2 block truncate text-[15px] font-medium leading-[22px]", active && "text-primary")}>{s.title}</span>
+                  <span className="block min-w-0 truncate text-[13px] leading-[18px] text-muted-foreground">{s.text}</span>
+                  <span className={cn("inline-flex h-6 items-center gap-1.5 whitespace-nowrap rounded-full px-2 text-[12px] font-medium", style.pill)}>
                     <span aria-hidden className={cn("size-1.5 rounded-full", style.dot)} />
                     {style.label}
                   </span>

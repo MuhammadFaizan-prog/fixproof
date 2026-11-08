@@ -38,7 +38,7 @@ describe("fix gate", () => {
     expect(r).toMatchObject({ ran: true, verdict: "malicious", runAllowed: false, passageId: printerScript.id });
     expect(r.evidence[0].line).toBe("Set-MpPreference -DisableRealtimeMonitoring $true");
     const row = finalEvents(events).get("fixGate")!;
-    expect(row.effect).toMatch(/^Blocked: security blinding or EDR evasion at `Set-MpPreference/);
+    expect(row.effect).toMatch(/^The article.s fix script was blocked: it turns off antivirus \(flagged line `Set-MpPreference/);
     expect(row.evidence![0]).toMatchObject({ target: "script", kind: "script" });
   });
 

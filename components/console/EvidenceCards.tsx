@@ -4,13 +4,17 @@ import { codePoints } from "@/lib/text/offsets";
 import { cn } from "@/lib/utils";
 import { OUTCOME_STYLE } from "./outcome-style";
 import { FAILED_AS, type CheckId } from "@/lib/agent/policy";
+import { plainText, plainWhy, routingLine } from "./plain";
 
 /** Drop markdown heading lines ("## Steps") that Compare's quote can carry over from the article. */
 export function cleanQuote(q: string): string {
   return q
     .split("\n")
     .filter((l) => !/^\s*#{1,6}\s/.test(l))
+    .map((l) => l.replace(/^\s*(?:[-*+]|\d+[.)])\s+/, ""))
     .join(" ")
+    .replace(/\*\*|__|`/g, "")
+    .replace(/(^|\s)\*(\S[^*]*\S|\S)\*(?=\s|[.,;:!?]|$)/g, "$1$2")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -40,7 +44,7 @@ export function ConflictCard({ result }: { result: PublicResult }) {
   return (
     <>
       {conflicts.map((c, i) => (
-        <Card key={i} eyebrow={`Compare · ${c.kind.replace(/_/g, " ")} · ${Math.round(c.confidence * 100)}%`} title={c.winner ? "Two articles disagree. The newer one stands." : "Two articles disagree, and nothing breaks the tie."} tone={c.winner ? "warn" : "risk"}>
+        <Card key={i} eyebrow={`Compare · ${plainText(c.kind)} · ${Math.round(c.confidence * 100)}% confident`} title={c.winner ? "Two articles disagree. The newer one stands." : "Two articles disagree, and nothing breaks the tie."} tone={c.winner ? "warn" : "risk"}>
           <div className="flex flex-col gap-2.5">
             {[c.a, c.b].map((side) => {
               const won = c.winner === side.passageId;
@@ -112,17 +116,18 @@ export function ScriptGateCard({ result }: { result: PublicResult }) {
 export function HandoffCard({ result }: { result: PublicResult }) {
   const h = result.handoff;
   if (!h) return null;
+  const routing = routingLine(h.assignmentGroup, h.assignmentConfidence, h.assignmentRunnerUp);
   const rows: [string, React.ReactNode][] = [
-    ["Team", h.assignmentGroup + (h.assignmentConfidence != null ? ` (${Math.round(h.assignmentConfidence * 100)}%)` : "")],
+    ["Team", routing.low ? <span className="font-medium text-warn" data-low-confidence>{routing.text}</span> : routing.text],
     ["Priority", h.priority],
-    ["Stopped at", h.failedCheck ? failedAs(h.failedCheck) : "–"],
+    ["Stopped because", h.failedCheck ? plainWhy(h.failedCheck, result) : "–"],
     ["Employee", `${h.employee.name} · ${h.employee.device} · ${h.employee.assetTag} · ${h.employee.office}`],
     ["Written by", h.source === "fill" ? "Clocked Fill (summary, team, priority) + FixProof (facts it already knew)" : "FixProof locally (Clocked was unavailable)"],
   ];
   return (
     <Card eyebrow="Handoff record" title={`${h.assignmentGroup} · ${h.priority}`} tone="risk">
       <p className="mb-3 rounded-[18px] border border-hairline bg-card px-3.5 py-2.5 text-[14px] leading-[21px]">{h.summary}</p>
-      <dl className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-3 gap-y-2 text-[13px] leading-5">
+      <dl className="grid grid-cols-[104px_minmax(0,1fr)] gap-x-3 gap-y-2 text-[13px] leading-5">
         {rows.map(([k, v]) => (
           <div key={k} className="contents">
             <dt className="text-muted-foreground">{k}</dt>

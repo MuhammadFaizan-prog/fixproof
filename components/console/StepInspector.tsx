@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { endpointLabel, recordedLabel, seconds } from "./format";
 import type { Row } from "./StageRows";
+import { plainText } from "./plain";
 
 /**
  * Step inspector, rebuilt from DESIGN.md R3 (Sentry agent tracing span
@@ -28,7 +29,7 @@ function Body({ row }: { row: Row }) {
   const kv: [string, React.ReactNode][] = [
     ["Endpoint", row.endpoint === "local" ? "Local (no call)" : `${endpointLabel(row.endpoint)} · /clocked/${row.endpoint === "pipeline" ? "pipeline" : row.endpoint}`],
     ["Step", <code key="s" className="font-mono text-[13px]">{row.id}</code>],
-    ["Verdict", row.verdict ?? row.status],
+    ["Verdict", plainText(row.verdict ?? row.status)],
     ...(m
       ? ([
           ["Credits", `${m.credits ?? "–"}`],
@@ -54,7 +55,7 @@ function Body({ row }: { row: Row }) {
           <span className="text-sm text-muted-foreground">credits</span>
           {row.probability !== undefined ? (
             <span className="rounded-full bg-primary-soft px-2.5 py-0.5 text-[13px] font-medium text-primary">
-              {(row.probabilityLabel ?? "p").replace(/_/g, " ")} {Math.round(row.probability * 100)}%
+              {plainText(row.probabilityLabel ?? "p")} {Math.round(row.probability * 100)}%
             </span>
           ) : null}
         </div>
@@ -77,7 +78,7 @@ function Body({ row }: { row: Row }) {
           ))}
         </TabsList>
         <TabsContent value="effect" className="pt-4">
-          <p className="text-[15px] leading-[22px]">{row.effect}</p>
+          <p className="text-[15px] leading-[22px]">{plainText(row.effect)}</p>
           {row.error ? <p className="mt-3 rounded-2xl bg-risk-soft px-3 py-2 text-[13px] text-risk">{row.error.message}</p> : null}
           {categories.length ? (
             <div className="mt-5">
