@@ -37,7 +37,8 @@ UI redesign, direction D (OrchestrateIQ): done on `redesign-d`, fast-forwarded i
 | R3 | feat(ui): direction D layout: ticket queue, run header with ticket path, outcome receipt, collapsible proof-trail timeline, evidence rail tabs, recent runs | done | pass (279 unit, 12 e2e) | yes |
 | R4 | feat(ui): run header actions; docs: DESIGN.md for direction D, tracker | done | pass (279 unit, 12 e2e) | yes |
 | R5 | fix(ui): inspector label column fits 390 px | done | pass (279 unit, 12 e2e) | yes |
-| next | see ImplementationPlan.md | not started | | |
+| P9a | docs: showcase README (hero, screenshot strip, try-it path, Mermaid pipeline, endpoint table, setup, env names, credits); withdraw the false 'nobody else' claim in REVERSE-ENGINEERING | done | pass (279 unit, 12 e2e) | yes |
+| next | v2 P0 list (docs-ref/REQUIREMENTS-v2.md) in cut order | in progress | | |
 
 ## Stories
 | ID | Title | Priority | Status | Pass/fail | Evidence |
@@ -84,6 +85,7 @@ None.
 See PRD.md and /workspace PLAN (solo entry, Clocked-only AI, synthetic data, no DB).
 
 ## Verification history
+- 2026-11-08 13:55 PKT: README commit: typecheck, lint, unit 279, build (key-shaped env set), leak grep static CLOCKED 0 / key value 0, e2e 12 passed. Checks now run on a local-disk mirror (/tmp/fp via tools/check.sh) because /workspace is slow. Note: in this sandbox CLOCKED_API_KEY is a placeholder that the network gateway swaps for the real key on the wire, so the real key never exists on disk here.
 - 2026-11-08 01:36 PKT: `pnpm build` pass (commit 1, 2).
 - 2026-11-08 01:44 PKT: first live Clocked call (decide, 10 input tokens) → HTTP 200, `X-Clocked-Credits: 1`, `X-Clocked-Cost-Basis: reference` (trial basis, so concurrency may be 1 rather than 4; limiter must be configurable).
 

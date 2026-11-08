@@ -26,9 +26,9 @@ Clocked's "SUBMISSION ALERT" posts end with the one design idea the team liked. 
 "Uncertainty is explicit. Probabilities make thresholds and human-review policies part of the application. Evidence remains inspectable. Offsets and passages let a reviewer trace a result back to the supplied source." ([clocked.rezolve.ai/build-challenge](https://clocked.rezolve.ai/build-challenge)). The UI therefore shows probabilities as bars with the band thresholds drawn on them, and every highlight is an API offset.
 
 ## 4. Gaps in the field we can occupy
-- Most entries are a **gate** in front of something else (Gatehouse, AgentShield, Inbox Shield, Invoice Airlock). FixProof closes the loop: ticket in, verified answer or a complete handoff out.
+- Many entries are a **gate** in front of something else (Gatehouse, AgentShield, Inbox Shield, Invoice Airlock). FixProof aims to close the loop: ticket in, verified answer or a complete handoff out. It is not alone in this: later reading (2026-11-08) found other help-desk entries, such as Proofdesk and IssueWarden, that also draft a reply and verify it.
 - A public entry we read in full ([RevisionDesk ENTRY.md](https://github.com/bgrubbs1/revisiondesk/blob/main/docs/ENTRY.md)) states "No credentialed Clocked call ... has occurred". FixProof's presets are **live recordings** (`synthetic: false`, usage headers kept) and the UI says so.
-- Nobody we found uses Rerank's `different_case` or Compare's dated conflicts in the judges' own domain (IT service desk).
+- Correction (2026-11-08): an earlier draft said no entry used Rerank's `different_case` or Compare's dated conflicts in the IT service-desk domain. That is false: Proofdesk (HR + IT help desk) uses both. The claim is withdrawn and is not repeated anywhere in this repo.
 
 ## Limits
 Results are not announced until Nov 18, so "what wins" is inferred from the rubric and Clocked's own commentary, not from past winners. LinkedIn excerpts were read through search results; the posts are public.
